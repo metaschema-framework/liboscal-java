@@ -134,6 +134,7 @@
 		<dependency.log4j2.version>2.22.0</dependency.log4j2.version>
 		<dependency.saxon.version>12.4</dependency.saxon.version>
 		<dependency.spotbugs-annotations.version>4.7.3</dependency.spotbugs-annotations.version>
+		<dependency.xmlbeans.version>5.2.0</dependency.xmlbeans.version>
 		<dependency.xmlresolver.version>5.2.3</dependency.xmlresolver.version>
 
 		<plugin.cyclonedx.version>2.7.11</plugin.cyclonedx.version>
@@ -202,6 +203,11 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
+            <dependency>
+                <groupId>org.apache.xmlbeans</groupId>
+                <artifactId>xmlbeans</artifactId>
+                <version>${dependency.xmlbeans.version}</version>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
 
