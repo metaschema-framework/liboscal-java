@@ -28,6 +28,7 @@ package gov.nist.secauto.oscal.lib.metapath.function.library;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
 import gov.nist.secauto.metaschema.core.metapath.ISequence;
+import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
 import gov.nist.secauto.metaschema.core.metapath.MetapathException;
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
 import gov.nist.secauto.metaschema.core.metapath.function.IArgument;
@@ -36,7 +37,7 @@ import gov.nist.secauto.metaschema.core.metapath.item.IItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.oscal.lib.OscalBindingContext;
+import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.model.Catalog;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionException;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolver;
@@ -51,7 +52,7 @@ public final class ResolveProfile {
   @NonNull
   static final IFunction SIGNATURE_NO_ARG = IFunction.builder()
       .name("resolve-profile")
-      .namespace(OscalBindingContext.NS_OSCAL)
+      .namespace(OscalModelConstants.NS_OSCAL)
       .returnType(INodeItem.class)
       .focusDependent()
       .contextDependent()
@@ -63,7 +64,36 @@ public final class ResolveProfile {
   @NonNull
   static final IFunction SIGNATURE_ONE_ARG = IFunction.builder()
       .name("resolve-profile")
-      .namespace(OscalBindingContext.NS_OSCAL)
+      .namespace(OscalModelConstants.NS_OSCAL)
+      .argument(IArgument.builder()
+          .name("profile")
+          .type(INodeItem.class)
+          .zeroOrOne()
+          .build())
+      .focusDependent()
+      .contextDependent()
+      .deterministic()
+      .returnType(INodeItem.class)
+      .returnOne()
+      .functionHandler(ResolveProfile::executeOneArg)
+      .build();
+
+  @NonNull
+  static final IFunction SIGNATURE_NO_ARG_METAPATH = IFunction.builder()
+      .name("resolve-profile")
+      .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)
+      .returnType(INodeItem.class)
+      .focusDependent()
+      .contextDependent()
+      .deterministic()
+      .returnOne()
+      .functionHandler(ResolveProfile::executeNoArg)
+      .build();
+
+  @NonNull
+  static final IFunction SIGNATURE_ONE_ARG_METAPATH = IFunction.builder()
+      .name("resolve-profile")
+      .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)
       .argument(IArgument.builder()
           .name("profile")
           .type(INodeItem.class)
@@ -109,7 +139,7 @@ public final class ResolveProfile {
     ISequence<? extends IDocumentNodeItem> arg = FunctionUtils.asType(
         ObjectUtils.notNull(arguments.get(0)));
 
-    IItem item = FunctionUtils.getFirstItem(arg, true);
+    IItem item = arg.getFirstItem(true);
     if (item == null) {
       return ISequence.empty();
     }

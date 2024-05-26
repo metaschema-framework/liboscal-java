@@ -46,6 +46,7 @@ import gov.nist.secauto.metaschema.databind.io.DeserializationFeature;
 import gov.nist.secauto.metaschema.databind.io.IBoundLoader;
 import gov.nist.secauto.metaschema.databind.model.IBoundDefinitionModelAssembly;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
+import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.OscalUtils;
 import gov.nist.secauto.oscal.lib.model.BackMatter;
 import gov.nist.secauto.oscal.lib.model.BackMatter.Resource;
@@ -93,6 +94,8 @@ import java.util.Stack;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.xml.namespace.QName;
+
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -100,23 +103,32 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class ProfileResolver {
   private static final Logger LOGGER = LogManager.getLogger(ProfileResolver.class);
   @NonNull
+  private static final QName IMPORT_QNAME = new QName(OscalModelConstants.NS_OSCAL, "import");
+
+  @NonNull
   private static final MetapathExpression METAPATH_SET_PARAMETER
-      = MetapathExpression.compile("modify/set-parameter");
+      = MetapathExpression.compile("modify/set-parameter",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression METAPATH_ALTER
-      = MetapathExpression.compile("modify/alter");
+      = MetapathExpression.compile("modify/alter",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression METAPATH_ALTER_REMOVE
-      = MetapathExpression.compile("remove");
+      = MetapathExpression.compile("remove",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression METAPATH_ALTER_ADD
-      = MetapathExpression.compile("add");
+      = MetapathExpression.compile("add",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression CATALOG_OR_PROFILE
-      = MetapathExpression.compile("/(catalog|profile)");
+      = MetapathExpression.compile("/(catalog|profile)",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression CATALOG
-      = MetapathExpression.compile("/catalog");
+      = MetapathExpression.compile("/catalog",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
   public enum StructuringDirective {
     FLAT,
@@ -156,7 +168,9 @@ public class ProfileResolver {
   public DynamicContext getDynamicContext() {
     synchronized (this) {
       if (dynamicContext == null) {
-        dynamicContext = StaticContext.builder().build().dynamicContext();
+        dynamicContext = new DynamicContext(StaticContext.builder()
+            .defaultModelNamespace(OscalModelConstants.NS_URI_OSCAL)
+            .build());
         dynamicContext.setDocumentLoader(getBoundLoader());
       }
       assert dynamicContext != null;
@@ -176,7 +190,7 @@ public class ProfileResolver {
       @NonNull IDocumentNodeItem document,
       @NonNull MetapathExpression rootPath) {
     ISequence<?> result = rootPath.evaluate(document);
-    IItem item = FunctionUtils.getFirstItem(result, false);
+    IItem item = result.getFirstItem(false);
 
     return item == null ? null : FunctionUtils.asType(item);
   }
@@ -319,7 +333,7 @@ public class ProfileResolver {
 
     // first verify there is at least one import
     @SuppressWarnings("unchecked") List<IAssemblyNodeItem> profileImports
-        = (List<IAssemblyNodeItem>) profileItem.getModelItemsByName("import");
+        = (List<IAssemblyNodeItem>) profileItem.getModelItemsByName(IMPORT_QNAME);
     if (profileImports.isEmpty()) {
       throw new ProfileResolutionException(String.format("Profile '%s' has no imports", profileItem.getBaseUri()));
     }
@@ -466,7 +480,7 @@ public class ProfileResolver {
     List<URI> cycle = checkCycle(uri, importHistory);
     if (!cycle.isEmpty()) {
       throw new ImportCycleException(String.format("Importing resource '%s' would result in the import cycle: %s", uri,
-          cycle.stream().map(cycleUri -> cycleUri.toString()).collect(Collectors.joining(" -> ", " -> ", ""))));
+          cycle.stream().map(URI::toString).collect(Collectors.joining(" -> ", " -> ", ""))));
     }
   }
 

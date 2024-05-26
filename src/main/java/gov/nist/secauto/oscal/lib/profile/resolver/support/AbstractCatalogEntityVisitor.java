@@ -32,6 +32,8 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.OscalBindingContext;
+import gov.nist.secauto.oscal.lib.OscalModelConstants;
 
 import java.util.Collections;
 import java.util.EnumSet;
@@ -54,10 +56,12 @@ public abstract class AbstractCatalogEntityVisitor<T, R>
     extends AbstractCatalogVisitor<T, R> {
   @NonNull
   public static final MetapathExpression CHILD_PART_METAPATH
-      = MetapathExpression.compile("part|part//part");
+      = MetapathExpression.compile("part|part//part",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression BACK_MATTER_RESOURCES_METAPATH
-      = MetapathExpression.compile("back-matter/resource");
+      = MetapathExpression.compile("back-matter/resource",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final Set<IEntityItem.ItemType> GROUP_CONTAINER_TYPES
       = ObjectUtils.notNull(EnumSet.of(
@@ -127,15 +131,13 @@ public abstract class AbstractCatalogEntityVisitor<T, R>
 
       // handle parameters
       if (isVisitedItemType(IEntityItem.ItemType.PARAMETER)) {
-        retval = catalogOrGroupOrControl.getModelItemsByName("param").stream()
-            .map(paramItem -> {
-              return visitParameter(
-                  ObjectUtils.requireNonNull((IAssemblyNodeItem) paramItem),
-                  catalogOrGroupOrControl,
-                  state);
-            })
+        retval = catalogOrGroupOrControl.getModelItemsByName(OscalModelConstants.QNAME_PARAM).stream()
+            .map(paramItem -> visitParameter(
+                ObjectUtils.requireNonNull((IAssemblyNodeItem) paramItem),
+                catalogOrGroupOrControl,
+                state))
             .reduce(retval, (first, second) -> aggregateResults(first, second, state));
-      } // TODO Auto-generated method stub
+      }
     }
     return retval;
   }
@@ -143,7 +145,7 @@ public abstract class AbstractCatalogEntityVisitor<T, R>
   protected void visitParts(@NonNull IAssemblyNodeItem groupOrControlItem, T state) {
     // handle parts
     if (isVisitedItemType(IEntityItem.ItemType.PART)) {
-      CHILD_PART_METAPATH.evaluate(groupOrControlItem).asStream()
+      CHILD_PART_METAPATH.evaluate(groupOrControlItem).stream()
           .map(item -> (IAssemblyNodeItem) item)
           .forEachOrdered(partItem -> {
             visitPart(ObjectUtils.requireNonNull(partItem), groupOrControlItem, state);
@@ -230,11 +232,11 @@ public abstract class AbstractCatalogEntityVisitor<T, R>
    *          the calling context information
    */
   protected void visitMetadata(@NonNull IRootAssemblyNodeItem rootItem, T state) {
-    rootItem.getModelItemsByName("metadata").stream()
+    rootItem.getModelItemsByName(OscalModelConstants.QNAME_METADATA).stream()
         .map(metadataItem -> (IAssemblyNodeItem) metadataItem)
         .forEach(metadataItem -> {
           if (isVisitedItemType(IEntityItem.ItemType.ROLE)) {
-            metadataItem.getModelItemsByName("role").stream()
+            metadataItem.getModelItemsByName(OscalModelConstants.QNAME_ROLE).stream()
                 .map(roleItem -> (IAssemblyNodeItem) roleItem)
                 .forEachOrdered(roleItem -> {
                   visitRole(ObjectUtils.requireNonNull(roleItem), metadataItem, state);
@@ -242,7 +244,7 @@ public abstract class AbstractCatalogEntityVisitor<T, R>
           }
 
           if (isVisitedItemType(IEntityItem.ItemType.LOCATION)) {
-            metadataItem.getModelItemsByName("location").stream()
+            metadataItem.getModelItemsByName(OscalModelConstants.QNAME_LOCATION).stream()
                 .map(locationItem -> (IAssemblyNodeItem) locationItem)
                 .forEachOrdered(locationItem -> {
                   visitLocation(ObjectUtils.requireNonNull(locationItem), metadataItem, state);
@@ -250,7 +252,7 @@ public abstract class AbstractCatalogEntityVisitor<T, R>
           }
 
           if (isVisitedItemType(IEntityItem.ItemType.PARTY)) {
-            metadataItem.getModelItemsByName("party").stream()
+            metadataItem.getModelItemsByName(OscalModelConstants.QNAME_PARTY).stream()
                 .map(partyItem -> (IAssemblyNodeItem) partyItem)
                 .forEachOrdered(partyItem -> {
                   visitParty(ObjectUtils.requireNonNull(partyItem), metadataItem, state);
@@ -333,7 +335,7 @@ public abstract class AbstractCatalogEntityVisitor<T, R>
    */
   protected void visitBackMatter(@NonNull IRootAssemblyNodeItem rootItem, T state) {
     if (isVisitedItemType(IEntityItem.ItemType.RESOURCE)) {
-      BACK_MATTER_RESOURCES_METAPATH.evaluate(rootItem).asStream()
+      BACK_MATTER_RESOURCES_METAPATH.evaluate(rootItem).stream()
           .map(item -> (IAssemblyNodeItem) item)
           .forEachOrdered(resourceItem -> {
             visitResource(ObjectUtils.requireNonNull(resourceItem), rootItem, state);

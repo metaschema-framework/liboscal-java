@@ -33,6 +33,7 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.OscalBindingContext;
 import gov.nist.secauto.oscal.lib.model.BackMatter.Resource;
 import gov.nist.secauto.oscal.lib.model.CatalogGroup;
 import gov.nist.secauto.oscal.lib.model.Control;
@@ -62,7 +63,8 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 public class BasicIndexer implements IIndexer {
   private static final Logger LOGGER = LogManager.getLogger(ProfileResolver.class);
   private static final MetapathExpression CONTAINER_METAPATH
-      = MetapathExpression.compile("(ancestor::control|ancestor::group)[1])");
+      = MetapathExpression.compile("(ancestor::control|ancestor::group)[1])",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
   @NonNull
   private final Map<IEntityItem.ItemType, Map<String, IEntityItem>> entityTypeToIdentifierToEntityMap;

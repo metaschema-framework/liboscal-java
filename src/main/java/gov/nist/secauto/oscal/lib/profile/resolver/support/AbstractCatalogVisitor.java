@@ -29,6 +29,7 @@ package gov.nist.secauto.oscal.lib.profile.resolver.support;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.OscalModelConstants;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -72,7 +73,7 @@ public abstract class AbstractCatalogVisitor<T, R> implements ICatalogVisitor<T,
       @NonNull IAssemblyNodeItem catalogOrGroup,
       R initialResult,
       T state) {
-    R result = catalogOrGroup.getModelItemsByName("group").stream()
+    R result = catalogOrGroup.getModelItemsByName(OscalModelConstants.QNAME_GROUP).stream()
         .map(groupItem -> {
           return visitGroupItem(
               ObjectUtils.requireNonNull((IAssemblyNodeItem) groupItem),
@@ -132,7 +133,7 @@ public abstract class AbstractCatalogVisitor<T, R> implements ICatalogVisitor<T,
       @NonNull IAssemblyNodeItem catalogOrGroupOrControl,
       R initialResult,
       T state) {
-    return catalogOrGroupOrControl.getModelItemsByName("control").stream()
+    return catalogOrGroupOrControl.getModelItemsByName(OscalModelConstants.QNAME_CONTROL).stream()
         .map(control -> {
           return visitControlItem(ObjectUtils.requireNonNull((IAssemblyNodeItem) control), state);
         })

@@ -26,6 +26,7 @@
 
 package gov.nist.secauto.oscal.lib;
 
+import gov.nist.secauto.metaschema.core.metapath.StaticContext;
 import gov.nist.secauto.metaschema.core.model.IModuleLoader;
 import gov.nist.secauto.metaschema.databind.DefaultBindingContext;
 import gov.nist.secauto.oscal.lib.model.AssessmentPlan;
@@ -44,15 +45,19 @@ import java.nio.file.Path;
 import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class OscalBindingContext
     extends DefaultBindingContext {
   @NonNull
-  public static final String NS_OSCAL = "http://csrc.nist.gov/ns/oscal/1.0";
+  public static final StaticContext OSCAL_STATIC_METAPATH_CONTEXT = StaticContext.builder()
+      .defaultModelNamespace(OscalModelConstants.NS_URI_OSCAL)
+      .build();
   @NonNull
   private static final OscalBindingContext SINGLETON = new OscalBindingContext();
 
   @NonNull
+  @SuppressFBWarnings(value = "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", justification = "class initialization")
   public static OscalBindingContext instance() {
     return SINGLETON;
   }
@@ -63,6 +68,8 @@ public class OscalBindingContext
    * @param modulePostProcessors
    *          a list of module post processors to call after loading a module
    */
+  @SuppressFBWarnings(value = "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR",
+      justification = "public constructor allows customized use in specialized usecases")
   public OscalBindingContext(@NonNull List<IModuleLoader.IModulePostProcessor> modulePostProcessors) {
     super(modulePostProcessors);
     registerBindingMatcher(Catalog.class);

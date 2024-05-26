@@ -34,6 +34,7 @@ import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.metaschema.databind.model.IBoundDefinitionModelAssembly;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
+import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.model.Catalog;
 import gov.nist.secauto.oscal.lib.model.IncludeAll;
 import gov.nist.secauto.oscal.lib.model.Profile;
@@ -77,9 +78,6 @@ class ImportTest {
   void test() throws ProfileResolutionException {
     URI cwd = Paths.get("").toUri();
 
-    // setup the imported catalog
-    IDocumentNodeItem importedCatalogDocumentItem = newImportedCatalog();
-
     ProfileImport profileImport = new ProfileImport();
     profileImport.setIncludeAll(new IncludeAll());
     profileImport.setExcludeControls(Collections.singletonList(
@@ -98,14 +96,16 @@ class ImportTest {
             (IBoundDefinitionModelAssembly) OscalBindingContext.instance().getBoundDefinitionForClass(Profile.class)),
         cwd,
         profile);
+    // setup the imported catalog
+    IDocumentNodeItem importedCatalogDocumentItem = newImportedCatalog();
 
     // setup the resolved catalog
     Catalog resolvedCatalog = new Catalog();
     for (IRootAssemblyNodeItem profileRootItem : CollectionUtil
-        .toIterable(profileDocumentItem.getModelItemsByName("profile").stream()
+        .toIterable(profileDocumentItem.getModelItemsByName(OscalModelConstants.QNAME_PROFILE).stream()
             .map(rootItem -> (IRootAssemblyNodeItem) rootItem))) {
       for (IAssemblyNodeItem importItem : CollectionUtil.toIterable(
-          profileRootItem.getModelItemsByName("import").stream()
+          profileRootItem.getModelItemsByName(OscalModelConstants.QNAME_IMPORT).stream()
               .map(item -> (IAssemblyNodeItem) item))) {
 
         Import catalogImport = new Import(profileRootItem, importItem);

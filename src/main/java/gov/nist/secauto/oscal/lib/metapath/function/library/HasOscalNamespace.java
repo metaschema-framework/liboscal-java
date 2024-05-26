@@ -28,6 +28,7 @@ package gov.nist.secauto.oscal.lib.metapath.function.library;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
 import gov.nist.secauto.metaschema.core.metapath.ISequence;
+import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
 import gov.nist.secauto.metaschema.core.metapath.MetapathException;
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
 import gov.nist.secauto.metaschema.core.metapath.function.IArgument;
@@ -43,19 +44,23 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IFlagNodeItem;
 import gov.nist.secauto.metaschema.core.model.IAssemblyDefinition;
 import gov.nist.secauto.metaschema.core.model.IFlagInstance;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.oscal.lib.OscalBindingContext;
+import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;
 
 import java.net.URI;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class HasOscalNamespace {
   @NonNull
+  private static final QName NS_FLAG_QNAME = new QName("ns");
+  @NonNull
   static final IFunction SIGNATURE_ONE_ARG = IFunction.builder()
       .name("has-oscal-namespace")
-      .namespace(OscalBindingContext.NS_OSCAL)
+      .namespace(OscalModelConstants.NS_OSCAL)
       .argument(IArgument.builder()
           .name("namespace")
           .type(IStringItem.class)
@@ -73,7 +78,48 @@ public final class HasOscalNamespace {
   @NonNull
   static final IFunction SIGNATURE_TWO_ARGS = IFunction.builder()
       .name("has-oscal-namespace")
-      .namespace(OscalBindingContext.NS_OSCAL)
+      .namespace(OscalModelConstants.NS_OSCAL)
+      .argument(IArgument.builder()
+          .name("propOrPart")
+          .type(IAssemblyNodeItem.class)
+          .one()
+          .build())
+      .argument(IArgument.builder()
+          .name("namespace")
+          .type(IStringItem.class)
+          .oneOrMore()
+          .build())
+      .allowUnboundedArity(true)
+      .focusIndependent()
+      .contextIndependent()
+      .deterministic()
+      .returnType(IBooleanItem.class)
+      .returnOne()
+      .functionHandler(HasOscalNamespace::executeTwoArg)
+      .build();
+
+  @NonNull
+  static final IFunction SIGNATURE_ONE_ARG_METAPATH = IFunction.builder()
+      .name("has-oscal-namespace")
+      .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)
+      .argument(IArgument.builder()
+          .name("namespace")
+          .type(IStringItem.class)
+          .oneOrMore()
+          .build())
+      .allowUnboundedArity(true)
+      .returnType(IBooleanItem.class)
+      .focusDependent()
+      .contextIndependent()
+      .deterministic()
+      .returnOne()
+      .functionHandler(HasOscalNamespace::executeOneArg)
+      .build();
+
+  @NonNull
+  static final IFunction SIGNATURE_TWO_ARGS_METAPATH = IFunction.builder()
+      .name("has-oscal-namespace")
+      .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)
       .argument(IArgument.builder()
           .name("propOrPart")
           .type(IAssemblyNodeItem.class)
@@ -139,7 +185,7 @@ public final class HasOscalNamespace {
         ObjectUtils.notNull(arguments.get(0)));
 
     // always not null, since the first item is required
-    IAssemblyNodeItem node = FunctionUtils.requireFirstItem(nodeSequence, true);
+    IAssemblyNodeItem node = FunctionUtils.asType(ObjectUtils.requireNonNull(nodeSequence.getFirstItem(true)));
     return ISequence.of(hasNamespace(node, namespaceArgs));
   }
 
@@ -156,11 +202,11 @@ public final class HasOscalNamespace {
 
     URI nodeNamespace = null;
     // get the "ns" flag value
-    IFlagNodeItem ns = propOrPart.getFlagByName("ns");
+    IFlagNodeItem ns = propOrPart.getFlagByName(NS_FLAG_QNAME);
     if (ns == null) {
       // check if the node actually has a "ns" flag
       IAssemblyDefinition definition = propOrPart.getDefinition();
-      IFlagInstance flag = definition.getFlagInstanceByName("ns");
+      IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_QNAME);
       if (flag == null) {
         throw new MetapathException(
             String.format(
@@ -180,7 +226,7 @@ public final class HasOscalNamespace {
     }
 
     String nodeNamespaceString = AbstractProperty.normalizeNamespace(nodeNamespace).toString();
-    return IBooleanItem.valueOf(namespaces.asStream()
+    return IBooleanItem.valueOf(namespaces.stream()
         .map(node -> nodeNamespaceString.equals(node.asString()))
         .anyMatch(bool -> bool));
   }

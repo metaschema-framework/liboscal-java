@@ -41,6 +41,8 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IFieldNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.OscalBindingContext;
+import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.model.CatalogGroup;
 import gov.nist.secauto.oscal.lib.model.Control;
 import gov.nist.secauto.oscal.lib.model.ControlPart;
@@ -71,7 +73,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class ReferenceCountingVisitor
+public final class ReferenceCountingVisitor
     extends AbstractCatalogEntityVisitor<ReferenceCountingVisitor.Context, Void>
     implements IReferenceVisitor<ReferenceCountingVisitor.Context> {
   private static final Logger LOGGER = LogManager.getLogger(ReferenceCountingVisitor.class);
@@ -81,19 +83,25 @@ public class ReferenceCountingVisitor
   @NonNull
   private static final MetapathExpression PARAM_MARKUP_METAPATH
       = MetapathExpression
-          .compile("label|usage|constraint/(description|tests/remarks)|guideline/prose|select/choice|remarks");
+          .compile(
+              "label|usage|constraint/(description|tests/remarks)|guideline/prose|select/choice|remarks",
+              OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression ROLE_MARKUP_METAPATH
-      = MetapathExpression.compile("title|description|remarks");
+      = MetapathExpression.compile("title|description|remarks",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression LOCATION_MARKUP_METAPATH
-      = MetapathExpression.compile("title|remarks");
+      = MetapathExpression.compile("title|remarks",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression PARTY_MARKUP_METAPATH
-      = MetapathExpression.compile("title|remarks");
+      = MetapathExpression.compile("title|remarks",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final MetapathExpression RESOURCE_MARKUP_METAPATH
-      = MetapathExpression.compile("title|description|remarks");
+      = MetapathExpression.compile("title|description|remarks",
+          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
   @NonNull
   private static final IReferencePolicy<Property> PROPERTY_POLICY_IGNORE = IReferencePolicy.ignore();
@@ -131,11 +139,12 @@ public class ReferenceCountingVisitor
     LINK_POLICIES.put("corresp", LinkReferencePolicy.create(IEntityItem.ItemType.PART));
   }
 
+  @SuppressFBWarnings(value = "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", justification = "class initialization")
   public static ReferenceCountingVisitor instance() {
     return SINGLETON;
   }
 
-  public ReferenceCountingVisitor() {
+  private ReferenceCountingVisitor() {
     // visit everything except parts, roles, locations, parties, parameters, and
     // resources, which are
     // handled differently by this visitor
@@ -272,7 +281,7 @@ public class ReferenceCountingVisitor
       IAssemblyNodeItem groupOrControlItem,
       Context context) {
     // visits all descendant parts
-    CHILD_PART_METAPATH.evaluate(groupOrControlItem).asStream()
+    CHILD_PART_METAPATH.evaluate(groupOrControlItem).stream()
         .map(item -> (IAssemblyNodeItem) item)
         .forEachOrdered(partItem -> {
           visitPart(ObjectUtils.notNull(partItem), groupOrControlItem, context);
@@ -315,11 +324,11 @@ public class ReferenceCountingVisitor
     if (IIndexer.SelectionStatus.SELECTED.equals(context.getIndexer().getSelectionStatus(item))) {
 
       // process children
-      item.getModelItemsByName("title")
+      item.getModelItemsByName(OscalModelConstants.QNAME_TITLE)
           .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
-      item.getModelItemsByName("prop")
+      item.getModelItemsByName(OscalModelConstants.QNAME_PROP)
           .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-      item.getModelItemsByName("link")
+      item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
           .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
 
       // always visit parts
@@ -333,11 +342,11 @@ public class ReferenceCountingVisitor
       @NonNull IAssemblyNodeItem item,
       @NonNull Context context) {
     // process non-control, non-param children
-    item.getModelItemsByName("title")
+    item.getModelItemsByName(OscalModelConstants.QNAME_TITLE)
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
-    item.getModelItemsByName("prop")
+    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    item.getModelItemsByName("link")
+    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
 
     // always visit parts
@@ -348,76 +357,76 @@ public class ReferenceCountingVisitor
 
   private static void resolveRole(@NonNull IEntityItem entity, @NonNull Context context) {
     IModelNodeItem<?, ?> item = entity.getInstance();
-    item.getModelItemsByName("prop")
+    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    item.getModelItemsByName("link")
+    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    ROLE_MARKUP_METAPATH.evaluate(item).asList()
+    ROLE_MARKUP_METAPATH.evaluate(item).getValue()
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 
   private static void resolveParty(@NonNull IEntityItem entity, @NonNull Context context) {
     IModelNodeItem<?, ?> item = entity.getInstance();
-    item.getModelItemsByName("prop")
+    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    item.getModelItemsByName("link")
+    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    PARTY_MARKUP_METAPATH.evaluate(item).asList()
+    PARTY_MARKUP_METAPATH.evaluate(item).getValue()
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 
   public static void resolveLocation(@NonNull IEntityItem entity, @NonNull Context context) {
     IModelNodeItem<?, ?> item = entity.getInstance();
-    item.getModelItemsByName("prop")
+    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    item.getModelItemsByName("link")
+    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    LOCATION_MARKUP_METAPATH.evaluate(item).asList()
+    LOCATION_MARKUP_METAPATH.evaluate(item).getValue()
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 
   public static void resolveResource(@NonNull IEntityItem entity, @NonNull Context context) {
     IModelNodeItem<?, ?> item = entity.getInstance();
 
-    item.getModelItemsByName("prop")
+    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
 
-    item.getModelItemsByName("citation").forEach(child -> {
+    item.getModelItemsByName(OscalModelConstants.QNAME_CITATION).forEach(child -> {
       if (child != null) {
-        child.getModelItemsByName("text")
+        child.getModelItemsByName(OscalModelConstants.QNAME_TEXT)
             .forEach(citationChild -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) citationChild), context));
-        child.getModelItemsByName("prop")
+        child.getModelItemsByName(OscalModelConstants.QNAME_PROP)
             .forEach(citationChild -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) citationChild), context));
-        child.getModelItemsByName("link")
+        child.getModelItemsByName(OscalModelConstants.QNAME_LINK)
             .forEach(citationChild -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) citationChild), context));
       }
     });
 
-    RESOURCE_MARKUP_METAPATH.evaluate(item).asList()
+    RESOURCE_MARKUP_METAPATH.evaluate(item).getValue()
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 
   public static void resolveParameter(@NonNull IEntityItem entity, @NonNull Context context) {
     IModelNodeItem<?, ?> item = entity.getInstance();
 
-    item.getModelItemsByName("prop")
+    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    item.getModelItemsByName("link")
+    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    PARAM_MARKUP_METAPATH.evaluate(item).asList()
+    PARAM_MARKUP_METAPATH.evaluate(item).getValue()
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 
   private static void resolvePart(
       @NonNull IAssemblyNodeItem item,
       @NonNull Context context) {
-    item.getModelItemsByName("title")
+    item.getModelItemsByName(OscalModelConstants.QNAME_TITLE)
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
-    item.getModelItemsByName("prop")
+    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    item.getModelItemsByName("link")
+    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    item.getModelItemsByName("prose")
+    item.getModelItemsByName(OscalModelConstants.QNAME_PROSE)
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
     // item.getModelItemsByName("part").forEach(child ->
     // visitor.visitPart(ObjectUtils.notNull(child),

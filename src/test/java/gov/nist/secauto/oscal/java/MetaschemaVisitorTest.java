@@ -59,10 +59,10 @@ class MetaschemaVisitorTest {
     IBoundLoader loader = bindingContext.newBoundLoader();
 
     URI baseUri = ObjectUtils.notNull(new File("").getAbsoluteFile().toURI());
-    StaticContext staticContext = StaticContext.builder()
+    StaticContext staticContext = OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT.buildFrom()
         .baseUri(baseUri)
         .build();
-    DynamicContext dynamicContext = staticContext.dynamicContext();
+    DynamicContext dynamicContext = new DynamicContext(staticContext);
     dynamicContext.setDocumentLoader(loader);
 
     // File file = new
@@ -76,7 +76,7 @@ class MetaschemaVisitorTest {
     // Profile profile = nodeItem.toBoundObject();
 
     IDocumentNodeItem resolvedProfile = ResolveProfile.resolveProfile(nodeItem, dynamicContext);
-    OscalBindingContext.instance().validate(resolvedProfile);
+    OscalBindingContext.instance().validate(resolvedProfile, loader);
 
     // OscalBindingContext.instance().newSerializer(Format.XML,
     // Catalog.class).serialize(resolvedProfile.toBoundObject(), new FileWriter(new
@@ -128,7 +128,7 @@ class MetaschemaVisitorTest {
     ISequence<?> result = path.evaluate(nodeContext, dynamicContext);
     // System.out.println("Result: ");
     AtomicInteger count = new AtomicInteger();
-    result.asStream().forEachOrdered(x -> {
+    result.stream().forEachOrdered(x -> {
       count.incrementAndGet();
     });
     // System.out.println(String.format(" %d items", count.get()));

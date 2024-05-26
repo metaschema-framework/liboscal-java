@@ -31,6 +31,7 @@ import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.OscalBindingContext;
 import gov.nist.secauto.oscal.lib.model.CatalogGroup;
 import gov.nist.secauto.oscal.lib.model.Control;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer;
@@ -44,7 +45,9 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class ControlSelectionState implements IControlSelectionState {
-  private static final MetapathExpression GROUP_CHILDREN = MetapathExpression.compile("group|descendant::control");
+  private static final MetapathExpression GROUP_CHILDREN = MetapathExpression.compile(
+      "group|descendant::control",
+      OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
   @NonNull
   private final IIndexer index;
@@ -103,7 +106,7 @@ public class ControlSelectionState implements IControlSelectionState {
 
       } else if (itemValue instanceof CatalogGroup) {
         // get control selection status
-        boolean selected = GROUP_CHILDREN.evaluate(item).asStream()
+        boolean selected = GROUP_CHILDREN.evaluate(item).stream()
             .map(child -> {
               return getSelectionState((IModelNodeItem<?, ?>) ObjectUtils.requireNonNull(child)).isSelected();
             })

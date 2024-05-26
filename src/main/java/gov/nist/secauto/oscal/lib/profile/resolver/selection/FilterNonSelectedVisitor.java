@@ -30,6 +30,7 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.model.BackMatter;
 import gov.nist.secauto.oscal.lib.model.BackMatter.Resource;
 import gov.nist.secauto.oscal.lib.model.Catalog;
@@ -59,13 +60,18 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class FilterNonSelectedVisitor
     extends AbstractCatalogEntityVisitor<FilterNonSelectedVisitor.Context, DefaultResult> {
   private static final Logger LOGGER = LogManager.getLogger(FilterNonSelectedVisitor.class);
+  @NonNull
   private static final FilterNonSelectedVisitor SINGLETON = new FilterNonSelectedVisitor();
 
+  @NonNull
+  @SuppressFBWarnings(value = "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", justification = "class initialization")
   public static FilterNonSelectedVisitor instance() {
     return SINGLETON;
   }
 
   @SuppressWarnings("null")
+
+  @SuppressFBWarnings(value = "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR", justification = "allows for extension")
   protected FilterNonSelectedVisitor() {
     // all other entity types are handled in a special way by this visitor
     super(EnumSet.of(IEntityItem.ItemType.GROUP, IEntityItem.ItemType.CONTROL, IEntityItem.ItemType.PARAMETER));
@@ -79,14 +85,14 @@ public class FilterNonSelectedVisitor
     result.applyTo(catalog);
 
     catalogItem.modelItems().forEachOrdered(root -> {
-      root.getModelItemsByName("metadata").stream()
+      root.getModelItemsByName(OscalModelConstants.QNAME_METADATA).stream()
           .map(child -> (IAssemblyNodeItem) child)
           .forEachOrdered(child -> {
             assert child != null;
             visitMetadata(child, context);
           });
 
-      root.getModelItemsByName("back-matter").stream()
+      root.getModelItemsByName(OscalModelConstants.QNAME_BACK_MATTER).stream()
           .map(child -> (IAssemblyNodeItem) child)
           .forEachOrdered(child -> {
             assert child != null;
@@ -232,7 +238,7 @@ public class FilterNonSelectedVisitor
 
   protected static void removePartsFromIndex(@NonNull IAssemblyNodeItem groupOrControlItem,
       @NonNull IIndexer index) {
-    CHILD_PART_METAPATH.evaluate(groupOrControlItem).asStream()
+    CHILD_PART_METAPATH.evaluate(groupOrControlItem).stream()
         .map(item -> (IAssemblyNodeItem) item)
         .forEachOrdered(partItem -> {
           ControlPart part = ObjectUtils.requireNonNull((ControlPart) partItem.getValue());

@@ -43,6 +43,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Walks a {@link Catalog} indexing all nodes that can be referenced.
@@ -66,14 +67,19 @@ import edu.umd.cs.findbugs.annotations.NonNull;
  * these nodes require reference counting to determine if they are to be kept or
  * not.
  */
-public class ControlSelectionVisitor
+public final class ControlSelectionVisitor
     extends AbstractIndexingVisitor<IControlSelectionState, Boolean> {
   private static final Logger LOGGER = LogManager.getLogger(ControlSelectionVisitor.class);
 
   private static final ControlSelectionVisitor SINGLETON = new ControlSelectionVisitor();
 
+  @SuppressFBWarnings(value = "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", justification = "class initialization")
   public static ControlSelectionVisitor instance() {
     return SINGLETON;
+  }
+
+  private ControlSelectionVisitor() {
+    // disable construction
   }
 
   @Override
@@ -145,7 +151,7 @@ public class ControlSelectionVisitor
       SelectionStatus selectionStatus = selected ? SelectionStatus.SELECTED : SelectionStatus.UNSELECTED;
 
       IIndexer index = getIndexer(state);
-      CHILD_PART_METAPATH.evaluate(groupOrControlItem).asStream()
+      CHILD_PART_METAPATH.evaluate(groupOrControlItem).stream()
           .map(item -> (IAssemblyNodeItem) item)
           .forEachOrdered(partItem -> {
             index.setSelectionStatus(ObjectUtils.requireNonNull(partItem), selectionStatus);

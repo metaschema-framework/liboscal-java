@@ -52,15 +52,19 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class FlatteningStructuringVisitor
     extends AbstractCatalogEntityVisitor<IIndexer, Void> {
   private static final FlatteningStructuringVisitor SINGLETON = new FlatteningStructuringVisitor();
 
+  @SuppressFBWarnings(value = "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", justification = "class initialization")
   public static FlatteningStructuringVisitor instance() {
     return SINGLETON;
   }
 
+  @SuppressFBWarnings(value = "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR",
+      justification = "public constructor allows for extension usecases")
   public FlatteningStructuringVisitor() {
     super(ObjectUtils.notNull(EnumSet.of(ItemType.GROUP, ItemType.CONTROL)));
   }
@@ -206,7 +210,7 @@ public class FlatteningStructuringVisitor
       @NonNull IAssemblyNodeItem groupOrControlItem,
       @NonNull IIndexer index,
       @NonNull SelectionStatus selectionStatus) {
-    CHILD_PART_METAPATH.evaluate(groupOrControlItem).asStream()
+    CHILD_PART_METAPATH.evaluate(groupOrControlItem).stream()
         .map(item -> (IAssemblyNodeItem) item)
         .forEachOrdered(partItem -> {
           index.setSelectionStatus(ObjectUtils.requireNonNull(partItem), selectionStatus);
@@ -226,6 +230,7 @@ public class FlatteningStructuringVisitor
       extends FilterNonSelectedVisitor {
     private static final FlatteningFilterNonSelectedVisitor SINGLETON = new FlatteningFilterNonSelectedVisitor();
 
+    @SuppressFBWarnings(value = "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", justification = "class initialization")
     public static FlatteningFilterNonSelectedVisitor instance() {
       return SINGLETON;
     }

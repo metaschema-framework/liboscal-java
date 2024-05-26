@@ -51,7 +51,9 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 class ReadWriteTest {
   private static final Logger LOGGER = LogManager.getLogger(ReadWriteTest.class);
 
-  private static final int ITERATIONS = 10;
+  private static final int WARMUP_ITERATIONS = 4;
+  private static final int ITERATIONS = WARMUP_ITERATIONS + 5;
+  // private static final int ITERATIONS = 1;
 
   @NonNull
   private static <CLASS> CLASS measureDeserializer(
@@ -78,13 +80,13 @@ class ReadWriteTest {
         LOGGER.info(String.format("%s read in %d milliseconds from %s", format, timeElapsed, file));
       }
 
-      // allow for JVM warmup
-      if (iterations == 1 || i > 1) {
+      // skip initial executions, if possible, to allow for JVM warmup
+      if (i >= WARMUP_ITERATIONS) {
         totalTime += timeElapsed;
         ++totalIterations;
       }
     }
-    if (iterations > 1 && LOGGER.isInfoEnabled()) {
+    if (totalIterations > 1 && LOGGER.isInfoEnabled()) {
       long average = totalTime / totalIterations;
       LOGGER.info(String.format("%s read in %d milliseconds (on average) from %s", format, average, file));
     }
@@ -100,6 +102,7 @@ class ReadWriteTest {
       @NonNull Path file,
       @NonNull ISerializer<CLASS> serializer,
       int iterations) throws IOException {
+
     long totalTime = 0;
     int totalIterations = 0;
     for (int i = 0; i < iterations; i++) {
@@ -111,14 +114,14 @@ class ReadWriteTest {
         LOGGER.info(String.format("%s written in %d milliseconds to %s", format, timeElapsed, file));
       }
 
-      // allow for JVM warmup
-      if (iterations == 1 || i > 1) {
+      // skip initial executions, if possible, to allow for JVM warmup
+      if (i >= WARMUP_ITERATIONS) {
         totalTime += timeElapsed;
         ++totalIterations;
       }
     }
 
-    if (iterations > 1 && LOGGER.isInfoEnabled()) {
+    if (totalIterations > 1 && LOGGER.isInfoEnabled()) {
       long average = totalTime / totalIterations;
       LOGGER.info(String.format("%s written in %d milliseconds (on average) to %s", format, average, file));
     }

@@ -86,7 +86,7 @@ class ProfileResolutionTests {
 
   @BeforeAll
   static void setup() throws SaxonApiException {
-    DynamicContext context = StaticContext.instance().dynamicContext();
+    DynamicContext context = new DynamicContext(OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
     context.setDocumentLoader(new DefaultBoundLoader(OscalBindingContext.instance()));
     profileResolver = new ProfileResolver();
     profileResolver.setDynamicContext(context);
