@@ -35,6 +35,7 @@ import gov.nist.secauto.metaschema.databind.io.DeserializationFeature;
 import gov.nist.secauto.metaschema.databind.io.Format;
 import gov.nist.secauto.metaschema.databind.io.IDeserializer;
 import gov.nist.secauto.metaschema.databind.io.ISerializer;
+import gov.nist.secauto.metaschema.databind.model.IBoundObject;
 import gov.nist.secauto.oscal.lib.model.Catalog;
 
 import org.apache.logging.log4j.LogManager;
@@ -56,7 +57,7 @@ class ReadWriteTest {
   // private static final int ITERATIONS = 1;
 
   @NonNull
-  private static <CLASS> CLASS measureDeserializer(
+  private static <CLASS extends IBoundObject> CLASS measureDeserializer(
       @NonNull String format,
       @NonNull Path file,
       @NonNull IDeserializer<CLASS> deserializer,
@@ -96,7 +97,7 @@ class ReadWriteTest {
     return retval;
   }
 
-  private static <CLASS> void measureSerializer(
+  private static <CLASS extends IBoundObject> void measureSerializer(
       @NonNull CLASS root,
       @NonNull String format,
       @NonNull Path file,
@@ -127,7 +128,7 @@ class ReadWriteTest {
     }
   }
 
-  private static <CLASS> void chainReadWrite(
+  private static <CLASS extends IBoundObject> void chainReadWrite(
       @NonNull Path xmlSource,
       @NonNull Class<CLASS> clazz,
       @NonNull Path tempDir,

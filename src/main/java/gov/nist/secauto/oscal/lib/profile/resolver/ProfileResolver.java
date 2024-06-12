@@ -45,6 +45,7 @@ import gov.nist.secauto.metaschema.databind.io.BindingException;
 import gov.nist.secauto.metaschema.databind.io.DeserializationFeature;
 import gov.nist.secauto.metaschema.databind.io.IBoundLoader;
 import gov.nist.secauto.metaschema.databind.model.IBoundDefinitionModelAssembly;
+import gov.nist.secauto.metaschema.databind.model.IBoundObject;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
 import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.OscalUtils;
@@ -56,6 +57,9 @@ import gov.nist.secauto.oscal.lib.model.Catalog;
 import gov.nist.secauto.oscal.lib.model.Control;
 import gov.nist.secauto.oscal.lib.model.Merge;
 import gov.nist.secauto.oscal.lib.model.Metadata;
+import gov.nist.secauto.oscal.lib.model.Metadata.Location;
+import gov.nist.secauto.oscal.lib.model.Metadata.Party;
+import gov.nist.secauto.oscal.lib.model.Metadata.Role;
 import gov.nist.secauto.oscal.lib.model.Modify;
 import gov.nist.secauto.oscal.lib.model.Modify.ProfileSetParameter;
 import gov.nist.secauto.oscal.lib.model.Parameter;
@@ -395,9 +399,8 @@ public class ProfileResolver {
       // changes to the data.
       try {
         IRootAssemblyNodeItem importedCatalogRoot = ObjectUtils.requireNonNull(getRoot(importedCatalog, CATALOG));
-        Catalog catalogCopy
-            = (Catalog) OscalBindingContext.instance().deepCopy(
-                ObjectUtils.requireNonNull(importedCatalogRoot.getValue()), null);
+        Catalog catalogCopy = (Catalog) OscalBindingContext.instance().deepCopy(
+            (IBoundObject) ObjectUtils.requireNonNull(importedCatalogRoot).getValue(), null);
 
         importedCatalog = INodeItemFactory.instance().newDocumentNodeItem(
             importedCatalogRoot.getDefinition(),
@@ -637,6 +640,7 @@ public class ProfileResolver {
     param.setSelect(setParameter.getSelect());
   }
 
+  @SuppressWarnings("PMD.ExceptionAsFlowControl")
   protected void handleAlter(IAssemblyNodeItem item, IIndexer indexer) {
     Modify.Alter alter = ObjectUtils.requireNonNull((Modify.Alter) item.getValue());
     String controlId = ObjectUtils.requireNonNull(alter.getControlId());
@@ -721,19 +725,19 @@ public class ProfileResolver {
         IIndexer.filterDistinct(
             ObjectUtils.notNull(CollectionUtil.listOrEmpty(resolvedMetadata.getRoles()).stream()),
             profileIndex.getEntitiesByItemType(IEntityItem.ItemType.ROLE),
-            item -> item.getId())
+            Role::getId)
             .collect(Collectors.toCollection(LinkedList::new)));
     resolvedMetadata.setParties(
         IIndexer.filterDistinct(
             ObjectUtils.notNull(CollectionUtil.listOrEmpty(resolvedMetadata.getParties()).stream()),
             profileIndex.getEntitiesByItemType(IEntityItem.ItemType.PARTY),
-            item -> item.getUuid())
+            Party::getUuid)
             .collect(Collectors.toCollection(LinkedList::new)));
     resolvedMetadata.setLocations(
         IIndexer.filterDistinct(
             ObjectUtils.notNull(CollectionUtil.listOrEmpty(resolvedMetadata.getLocations()).stream()),
             profileIndex.getEntitiesByItemType(IEntityItem.ItemType.LOCATION),
-            item -> item.getUuid())
+            Location::getUuid)
             .collect(Collectors.toCollection(LinkedList::new)));
 
     // copy resources
@@ -744,7 +748,7 @@ public class ProfileResolver {
     List<Resource> resources = IIndexer.filterDistinct(
         ObjectUtils.notNull(resolvedResources.stream()),
         profileIndex.getEntitiesByItemType(IEntityItem.ItemType.RESOURCE),
-        item -> item.getUuid())
+        Resource::getUuid)
         .collect(Collectors.toCollection(LinkedList::new));
 
     if (!resources.isEmpty()) {

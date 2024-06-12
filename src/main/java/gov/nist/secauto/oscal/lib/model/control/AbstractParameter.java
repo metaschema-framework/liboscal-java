@@ -57,7 +57,7 @@ public abstract class AbstractParameter implements IParameter {
     Stream<String> aggregatesIds = CollectionUtil.listOrEmpty(getProps()).stream()
         .filter(Objects::nonNull)
         .filter(prop -> prop.isNamespaceEqual(IProperty.OSCAL_NAMESPACE) && "aggregates".equals(prop.getName()))
-        .map(prop -> prop.getValue());
+        .map(Property::getValue);
 
     // handle select/choice/insert
     ParameterSelection selection = getSelect();

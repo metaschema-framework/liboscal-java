@@ -65,7 +65,7 @@ public abstract class AbstractPart implements IPart {
     return Stream.concat(
         Stream.of(this),
         CollectionUtil.listOrEmpty(getParts()).stream()
-            .flatMap(part -> part.getPartsRecursively()));
+            .flatMap(AbstractPart::getPartsRecursively));
   }
 
   @NonNull

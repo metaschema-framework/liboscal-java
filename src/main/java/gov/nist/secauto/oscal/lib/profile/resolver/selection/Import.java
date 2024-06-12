@@ -41,6 +41,9 @@ import gov.nist.secauto.oscal.lib.model.Catalog;
 import gov.nist.secauto.oscal.lib.model.CatalogGroup;
 import gov.nist.secauto.oscal.lib.model.Control;
 import gov.nist.secauto.oscal.lib.model.Metadata;
+import gov.nist.secauto.oscal.lib.model.Metadata.Location;
+import gov.nist.secauto.oscal.lib.model.Metadata.Party;
+import gov.nist.secauto.oscal.lib.model.Metadata.Role;
 import gov.nist.secauto.oscal.lib.model.Parameter;
 import gov.nist.secauto.oscal.lib.model.ProfileImport;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
@@ -185,19 +188,19 @@ public class Import {
         IIndexer.filterDistinct(
             ObjectUtils.notNull(CollectionUtil.listOrEmpty(resolved.getRoles()).stream()),
             indexer.getEntitiesByItemType(IEntityItem.ItemType.ROLE),
-            item -> item.getId())
+            Role::getId)
             .collect(Collectors.toCollection(LinkedList::new)));
     resolved.setParties(
         IIndexer.filterDistinct(
             ObjectUtils.notNull(CollectionUtil.listOrEmpty(resolved.getParties()).stream()),
             indexer.getEntitiesByItemType(IEntityItem.ItemType.PARTY),
-            item -> item.getUuid())
+            Party::getUuid)
             .collect(Collectors.toCollection(LinkedList::new)));
     resolved.setLocations(
         IIndexer.filterDistinct(
             ObjectUtils.notNull(CollectionUtil.listOrEmpty(resolved.getLocations()).stream()),
             indexer.getEntitiesByItemType(IEntityItem.ItemType.LOCATION),
-            item -> item.getUuid())
+            Location::getUuid)
             .collect(Collectors.toCollection(LinkedList::new)));
   }
 
@@ -217,7 +220,7 @@ public class Import {
       List<Resource> resources = IIndexer.filterDistinct(
           ObjectUtils.notNull(resolvedResources.stream()),
           indexer.getEntitiesByItemType(IEntityItem.ItemType.RESOURCE),
-          item -> item.getUuid())
+          Resource::getUuid)
           .collect(Collectors.toCollection(LinkedList::new));
 
       if (!resources.isEmpty()) {

@@ -193,8 +193,7 @@ public final class HasOscalNamespace {
   @NonNull
   public static IBooleanItem hasNamespace(
       @NonNull IAssemblyNodeItem propOrPart,
-      @NonNull ISequence<? extends IStringItem> namespaces)
-      throws MetapathException {
+      @NonNull ISequence<? extends IStringItem> namespaces) {
     Object propOrPartObject = propOrPart.getValue();
     if (propOrPartObject == null) {
       throw new InvalidTypeFunctionException(InvalidTypeFunctionException.NODE_HAS_NO_TYPED_VALUE, propOrPart);

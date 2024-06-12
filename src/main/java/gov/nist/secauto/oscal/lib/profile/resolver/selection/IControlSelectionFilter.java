@@ -46,25 +46,15 @@ public interface IControlSelectionFilter extends Function<IControl, Pair<Boolean
   Pair<Boolean, Boolean> MATCH = ObjectUtils.notNull(Pair.of(true, true));
 
   @NonNull
-  IControlSelectionFilter ALL_MATCH = new IControlSelectionFilter() {
-    @Override
-    public Pair<Boolean, Boolean> apply(IControl control) {
-      return MATCH;
-    }
-  };
+  IControlSelectionFilter ALL_MATCH = control -> IControlSelectionFilter.MATCH;
 
   @NonNull
-  IControlSelectionFilter NONE_MATCH = new IControlSelectionFilter() {
-    @Override
-    public Pair<Boolean, Boolean> apply(IControl control) {
-      return NON_MATCH;
-    }
-  };
+  IControlSelectionFilter NONE_MATCH = control -> IControlSelectionFilter.NON_MATCH;
 
   @NonNull
   static IControlSelectionFilter matchIds(@NonNull String... identifiers) {
     return new IControlSelectionFilter() {
-      private Set<String> keys = Arrays.stream(identifiers).collect(Collectors.toUnmodifiableSet());
+      private final Set<String> keys = Arrays.stream(identifiers).collect(Collectors.toUnmodifiableSet());
 
       @Override
       public @NonNull Pair<Boolean, Boolean> apply(IControl control) {

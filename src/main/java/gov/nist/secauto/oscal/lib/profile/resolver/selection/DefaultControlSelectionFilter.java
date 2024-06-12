@@ -64,7 +64,7 @@ public class DefaultControlSelectionFilter implements IControlSelectionFilter {
         // ignore null entries
         .filter(Objects::nonNull)
         // create a selection object for the selection
-        .map(selection -> new Selection(selection))
+        .map(Selection::new)
         .collect(Collectors.toUnmodifiableList());
   }
 
@@ -94,7 +94,7 @@ public class DefaultControlSelectionFilter implements IControlSelectionFilter {
     return selections.parallelStream()
         .map(selection -> selection.match(id))
         // filter out non-matches
-        .filter(pair -> pair.getLeft())
+        .filter(Pair::getLeft)
         // aggregate matches
         .reduce((first, second) -> {
           Pair<Boolean, Boolean> result;

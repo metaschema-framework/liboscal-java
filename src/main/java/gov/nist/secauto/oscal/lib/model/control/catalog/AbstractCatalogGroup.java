@@ -35,6 +35,7 @@ import gov.nist.secauto.oscal.lib.model.ControlPart;
 import gov.nist.secauto.oscal.lib.model.Link;
 import gov.nist.secauto.oscal.lib.model.Parameter;
 import gov.nist.secauto.oscal.lib.model.Property;
+import gov.nist.secauto.oscal.lib.model.control.AbstractParameter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -63,7 +64,7 @@ public abstract class AbstractCatalogGroup
     // get parameters referenced by the control's parameters
     Stream<String> parameterIds = CollectionUtil.listOrEmpty(getParams()).stream()
         .flatMap(ObjectUtils::filterNull)
-        .flatMap(param -> param.getParameterReferences());
+        .flatMap(AbstractParameter::getParameterReferences);
 
     return ObjectUtils.notNull(
         Stream.concat(insertIds, parameterIds).distinct());
