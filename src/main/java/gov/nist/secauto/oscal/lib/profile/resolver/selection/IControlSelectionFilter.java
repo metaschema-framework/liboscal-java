@@ -46,10 +46,10 @@ public interface IControlSelectionFilter extends Function<IControl, Pair<Boolean
   Pair<Boolean, Boolean> MATCH = ObjectUtils.notNull(Pair.of(true, true));
 
   @NonNull
-  IControlSelectionFilter ALL_MATCH = control -> IControlSelectionFilter.MATCH;
+  IControlSelectionFilter ALL_MATCH = control -> MATCH;
 
   @NonNull
-  IControlSelectionFilter NONE_MATCH = control -> IControlSelectionFilter.NON_MATCH;
+  IControlSelectionFilter NONE_MATCH = control -> NON_MATCH;
 
   @NonNull
   static IControlSelectionFilter matchIds(@NonNull String... identifiers) {

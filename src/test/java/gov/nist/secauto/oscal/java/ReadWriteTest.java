@@ -28,6 +28,7 @@ package gov.nist.secauto.oscal.java;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.metaschema.databind.DefaultBindingContext;
 import gov.nist.secauto.metaschema.databind.IBindingContext;
@@ -35,7 +36,6 @@ import gov.nist.secauto.metaschema.databind.io.DeserializationFeature;
 import gov.nist.secauto.metaschema.databind.io.Format;
 import gov.nist.secauto.metaschema.databind.io.IDeserializer;
 import gov.nist.secauto.metaschema.databind.io.ISerializer;
-import gov.nist.secauto.metaschema.databind.model.IBoundObject;
 import gov.nist.secauto.oscal.lib.model.Catalog;
 
 import org.apache.logging.log4j.LogManager;

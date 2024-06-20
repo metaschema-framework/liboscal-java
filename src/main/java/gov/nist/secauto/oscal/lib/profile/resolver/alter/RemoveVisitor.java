@@ -73,7 +73,7 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
     static {
       {
         Map<Class<?>, TargetType> map = new ConcurrentHashMap<>();
-        for (TargetType type : TargetType.values()) {
+        for (TargetType type : values()) {
           map.put(type.getClazz(), type);
         }
         CLASS_TO_TYPE = CollectionUtil.unmodifiableMap(map);
@@ -81,7 +81,7 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
 
       {
         Map<String, TargetType> map = new ConcurrentHashMap<>();
-        for (TargetType type : TargetType.values()) {
+        for (TargetType type : values()) {
           map.put(type.fieldName(), type);
         }
         NAME_TO_TYPE = CollectionUtil.unmodifiableMap(map);
@@ -184,11 +184,7 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
         }
       }
     } else if (handleChildren && handler != null) {
-      // if the child item type is applicable and there is a handler, iterate over
-      // children
-      Iterator<T> iter = supplier.get().iterator();
-      while (iter.hasNext()) {
-        T item = iter.next();
+      for (T item : supplier.get()) {
         if (item != null) {
           retval = retval || handler.apply(item);
         }
@@ -265,14 +261,11 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
         null,
         context);
 
-    // visit parts
-    retval = retval || handle(
+    return retval || handle(
         TargetType.PART,
         () -> CollectionUtil.listOrEmpty(control.getParts()),
         child -> visitPart(child, context),
         context);
-
-    return retval;
   }
 
   @Override
@@ -286,13 +279,11 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
         null,
         context);
 
-    // visit links
-    retval = retval || handle(
+    return retval || handle(
         TargetType.LINK,
         () -> CollectionUtil.listOrEmpty(parameter.getLinks()),
         null,
         context);
-    return retval;
   }
 
   /**
@@ -321,13 +312,11 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
         null,
         context);
 
-    // visit parts
-    retval = retval || handle(
+    return retval || handle(
         TargetType.PART,
         () -> CollectionUtil.listOrEmpty(part.getParts()),
         child -> visitPart(child, context),
         context);
-    return retval;
   }
 
   static final class Context {
@@ -482,7 +471,7 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
           ControlPart part = (ControlPart) obj;
           actualName = part.getName();
           actualClass = part.getClazz();
-          actualId = part.getId() == null ? null : part.getId().toString();
+          actualId = part.getId() == null ? null : part.getId();
           actualNamespace = part.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();
           break;
         }

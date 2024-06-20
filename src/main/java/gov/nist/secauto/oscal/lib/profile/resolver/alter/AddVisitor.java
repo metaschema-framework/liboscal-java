@@ -75,7 +75,7 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
     static {
       {
         Map<Class<?>, TargetType> map = new ConcurrentHashMap<>();
-        for (TargetType type : TargetType.values()) {
+        for (TargetType type : values()) {
           map.put(type.getClazz(), type);
         }
         CLASS_TO_TYPE = CollectionUtil.unmodifiableMap(map);
@@ -83,7 +83,7 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
 
       {
         Map<String, TargetType> map = new ConcurrentHashMap<>();
-        for (TargetType type : TargetType.values()) {
+        for (TargetType type : values()) {
           map.put(type.fieldName(), type);
         }
         NAME_TO_TYPE = CollectionUtil.unmodifiableMap(map);
@@ -157,7 +157,7 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
 
     static {
       Map<String, Position> map = new ConcurrentHashMap<>();
-      for (Position position : Position.values()) {
+      for (Position position : values()) {
         map.put(position.name().toLowerCase(Locale.ROOT), position);
       }
       NAME_TO_POSITION = CollectionUtil.unmodifiableMap(map);
@@ -731,7 +731,7 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
         }
         case PART: {
           ControlPart part = (ControlPart) obj;
-          actualId = part.getId() == null ? null : part.getId().toString();
+          actualId = part.getId() == null ? null : part.getId();
           break;
         }
         default:

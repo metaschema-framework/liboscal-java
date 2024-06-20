@@ -63,16 +63,9 @@ public interface IIndexer {
       "prop[@name='keep' and has-oscal-namespace('" + IProperty.OSCAL_NAMESPACE + "')]/@value = 'always'",
       OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
-  Predicate<IEntityItem> KEEP_ENTITY_PREDICATE = new Predicate<>() {
-
-    @Override
-    public boolean test(IEntityItem entity) {
-      return entity.getReferenceCount() > 0
-          || (Boolean) ObjectUtils
-              .notNull(IIndexer.HAS_PROP_KEEP_METAPATH.evaluateAs(entity.getInstance(), ResultType.BOOLEAN));
-    }
-
-  };
+  Predicate<IEntityItem> KEEP_ENTITY_PREDICATE = entity -> entity.getReferenceCount() > 0
+      || (Boolean) ObjectUtils
+          .notNull(HAS_PROP_KEEP_METAPATH.evaluateAs(entity.getInstance(), ResultType.BOOLEAN));
 
   static boolean isReferencedEntity(@NonNull IEntityItem entity) {
     return KEEP_ENTITY_PREDICATE.test(entity);

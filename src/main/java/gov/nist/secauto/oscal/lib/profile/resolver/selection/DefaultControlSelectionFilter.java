@@ -103,7 +103,7 @@ public class DefaultControlSelectionFilter implements IControlSelectionFilter {
             boolean withChild = first.getLeft() && first.getRight() || second.getLeft() && second.getRight();
             result = Pair.of(true, withChild);
           } else {
-            result = IControlSelectionFilter.NON_MATCH;
+            result = NON_MATCH;
           }
           return result;
         })
