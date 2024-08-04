@@ -135,7 +135,7 @@
 		<dependency.saxon.version>12.4</dependency.saxon.version>
 		<dependency.spotbugs-annotations.version>4.8.3</dependency.spotbugs-annotations.version>
 		<dependency.xmlbeans.version>5.2.0</dependency.xmlbeans.version>
-		<dependency.xmlresolver.version>5.2.3</dependency.xmlresolver.version>
+		<dependency.xmlresolver.version>6.0.4</dependency.xmlresolver.version>
 
 		<plugin.cyclonedx.version>2.7.11</plugin.cyclonedx.version>
         <plugin.maven-toolchains.version>3.1.0</plugin.maven-toolchains.version>
