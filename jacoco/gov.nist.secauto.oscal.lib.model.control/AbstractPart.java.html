@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractPart.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model.control</a> &gt; <span class="el_source">AbstractPart.java</span></div><h1>AbstractPart.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.model.control;
+
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLine;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultiline;
+import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
+import gov.nist.secauto.metaschema.core.util.CollectionUtil;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.model.ControlPart;
+import gov.nist.secauto.oscal.lib.model.Link;
+import gov.nist.secauto.oscal.lib.model.Property;
+
+import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+<span class="fc" id="L26">public abstract class AbstractPart implements IPart {</span>
+
+  @Override
+  @NonNull
+  public Stream&lt;InsertAnchorNode&gt; getInserts(@NonNull Predicate&lt;InsertAnchorNode&gt; filter) {
+<span class="nc" id="L31">    MarkupMultiline prose = getProse();</span>
+
+    @NonNull Stream&lt;InsertAnchorNode&gt; retval;
+<span class="nc bnc" id="L34" title="All 2 branches missed.">    if (prose == null) {</span>
+<span class="nc" id="L35">      retval = ObjectUtils.notNull(Stream.empty());</span>
+    } else {
+<span class="nc" id="L37">      List&lt;InsertAnchorNode&gt; result = prose.getInserts(filter);</span>
+<span class="nc" id="L38">      retval = ObjectUtils.notNull(result.stream());</span>
+    }
+<span class="nc" id="L40">    return retval;</span>
+  }
+
+  public Stream&lt;IPart&gt; getPartsRecursively() {
+<span class="nc" id="L44">    return Stream.concat(</span>
+<span class="nc" id="L45">        Stream.of(this),</span>
+<span class="nc" id="L46">        CollectionUtil.listOrEmpty(getParts()).stream()</span>
+<span class="nc" id="L47">            .flatMap(AbstractPart::getPartsRecursively));</span>
+  }
+
+  @NonNull
+  public static Builder builder(@NonNull String name) {
+<span class="fc" id="L52">    return new Builder(name);</span>
+  }
+
+  public static class Builder {
+    private String id;
+    @NonNull
+    private final String name;
+    private URI namespace;
+    private String clazz;
+    private MarkupMultiline prose;
+    private MarkupLine title;
+<span class="fc" id="L63">    private final List&lt;Property&gt; props = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L64">    private final List&lt;Link&gt; links = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L65">    private final List&lt;ControlPart&gt; parts = new LinkedList&lt;&gt;();</span>
+
+<span class="fc" id="L67">    public Builder(@NonNull String name) {</span>
+<span class="fc" id="L68">      this.name = Objects.requireNonNull(name);</span>
+<span class="fc" id="L69">    }</span>
+
+    @SuppressWarnings(&quot;PMD.ShortMethodName&quot;)
+    @NonNull
+    public Builder id(@NonNull String value) {
+<span class="nc" id="L74">      this.id = Objects.requireNonNull(value);</span>
+<span class="nc" id="L75">      return this;</span>
+    }
+
+    @NonNull
+    public Builder namespace(@NonNull URI value) {
+<span class="nc" id="L80">      this.namespace = Objects.requireNonNull(value);</span>
+<span class="nc" id="L81">      return this;</span>
+    }
+
+    @NonNull
+    public Builder clazz(@NonNull String value) {
+<span class="nc" id="L86">      this.clazz = Objects.requireNonNull(value);</span>
+<span class="nc" id="L87">      return this;</span>
+    }
+
+    @NonNull
+    public Builder title(@NonNull String markdown) {
+<span class="nc" id="L92">      return title(MarkupLine.fromMarkdown(Objects.requireNonNull(markdown)));</span>
+    }
+
+    @NonNull
+    public Builder title(@NonNull MarkupLine value) {
+<span class="nc" id="L97">      this.title = Objects.requireNonNull(value);</span>
+<span class="nc" id="L98">      return this;</span>
+    }
+
+    @NonNull
+    public Builder prose(@NonNull String markdown) {
+<span class="fc" id="L103">      return prose(MarkupMultiline.fromMarkdown(Objects.requireNonNull(markdown)));</span>
+    }
+
+    @NonNull
+    public Builder prose(@NonNull MarkupMultiline value) {
+<span class="fc" id="L108">      this.prose = Objects.requireNonNull(value);</span>
+<span class="fc" id="L109">      return this;</span>
+    }
+
+    @NonNull
+    public Builder prop(@NonNull Property value) {
+<span class="nc" id="L114">      this.props.add(Objects.requireNonNull(value));</span>
+<span class="nc" id="L115">      return this;</span>
+    }
+
+    @NonNull
+    public Builder link(@NonNull Link value) {
+<span class="nc" id="L120">      this.links.add(Objects.requireNonNull(value));</span>
+<span class="nc" id="L121">      return this;</span>
+    }
+
+    @NonNull
+    public Builder part(@NonNull ControlPart value) {
+<span class="fc" id="L126">      this.parts.add(Objects.requireNonNull(value));</span>
+<span class="fc" id="L127">      return this;</span>
+    }
+
+    @NonNull
+    public ControlPart build() {
+<span class="fc" id="L132">      ControlPart retval = new ControlPart();</span>
+
+<span class="fc" id="L134">      retval.setName(name);</span>
+
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">      if (id != null) {</span>
+<span class="nc" id="L137">        retval.setId(id);</span>
+      }
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">      if (namespace != null) {</span>
+<span class="nc" id="L140">        retval.setNs(namespace);</span>
+      }
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">      if (clazz != null) {</span>
+<span class="nc" id="L143">        retval.setClazz(clazz);</span>
+      }
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">      if (prose != null) {</span>
+<span class="fc" id="L146">        retval.setProse(prose);</span>
+      }
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">      if (title != null) {</span>
+<span class="nc" id="L149">        retval.setTitle(title);</span>
+      }
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">      if (!props.isEmpty()) {</span>
+<span class="nc" id="L152">        retval.setProps(props);</span>
+      }
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">      if (!links.isEmpty()) {</span>
+<span class="nc" id="L155">        retval.setLinks(links);</span>
+      }
+<span class="fc bfc" id="L157" title="All 2 branches covered.">      if (!parts.isEmpty()) {</span>
+<span class="fc" id="L158">        retval.setParts(parts);</span>
+      }
+<span class="fc" id="L160">      return retval;</span>
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

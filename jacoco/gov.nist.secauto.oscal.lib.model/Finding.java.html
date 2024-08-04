@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Finding.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">Finding.java</span></div><h1>Finding.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.adapter.UuidAdapter;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLine;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLineAdapter;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultiline;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultilineAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.core.model.JsonGroupAsBehavior;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundField;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFlag;
+import gov.nist.secauto.metaschema.databind.model.annotations.GroupAs;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaAssembly;
+import java.lang.Override;
+import java.lang.String;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * Describes an individual finding.
+ */
+@MetaschemaAssembly(
+    formalName = &quot;Finding&quot;,
+    description = &quot;Describes an individual finding.&quot;,
+    name = &quot;finding&quot;,
+    moduleClass = OscalAssessmentCommonModule.class
+)
+public class Finding implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  /**
+   * &quot;A &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented\&quot;&gt;machine-oriented&lt;/a&gt;, &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#globally-unique\&quot;&gt;globally unique&lt;/a&gt; identifier with &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#cross-instance\&quot;&gt;cross-instance&lt;/a&gt; scope that can be used to reference this finding in &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#ar-identifiers\&quot;&gt;this or other OSCAL instances&lt;/a&gt;. The locally defined &lt;em&gt;UUID&lt;/em&gt; of the &lt;code&gt;finding&lt;/code&gt; can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#consistency\&quot;&gt;per-subject&lt;/a&gt;, which means it should be consistently used to identify the same subject across revisions of the document.&quot;
+   */
+  @BoundFlag(
+      formalName = &quot;Finding Universally Unique Identifier&quot;,
+      description = &quot;A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented), [globally unique](https://pages.nist.gov/OSCAL/concepts/identifier-use/#globally-unique) identifier with [cross-instance](https://pages.nist.gov/OSCAL/concepts/identifier-use/#cross-instance) scope that can be used to reference this finding in [this or other OSCAL instances](https://pages.nist.gov/OSCAL/concepts/identifier-use/#ar-identifiers). The locally defined *UUID* of the `finding` can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned [per-subject](https://pages.nist.gov/OSCAL/concepts/identifier-use/#consistency), which means it should be consistently used to identify the same subject across revisions of the document.&quot;,
+      name = &quot;uuid&quot;,
+      required = true,
+      typeAdapter = UuidAdapter.class
+  )
+  private UUID _uuid;
+
+  @BoundField(
+      formalName = &quot;Finding Title&quot;,
+      description = &quot;The title for this finding.&quot;,
+      useName = &quot;title&quot;,
+      minOccurs = 1,
+      typeAdapter = MarkupLineAdapter.class
+  )
+  private MarkupLine _title;
+
+  @BoundField(
+      formalName = &quot;Finding Description&quot;,
+      description = &quot;A human-readable description of this finding.&quot;,
+      useName = &quot;description&quot;,
+      minOccurs = 1,
+      typeAdapter = MarkupMultilineAdapter.class
+  )
+  private MarkupMultiline _description;
+
+  @BoundAssembly(
+      formalName = &quot;Property&quot;,
+      description = &quot;An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.&quot;,
+      useName = &quot;prop&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;props&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Property&gt; _props;
+
+  @BoundAssembly(
+      formalName = &quot;Link&quot;,
+      description = &quot;A reference to a local or remote resource, that has a specific relation to the containing object.&quot;,
+      useName = &quot;link&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;links&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Link&gt; _links;
+
+  @BoundAssembly(
+      formalName = &quot;Origin&quot;,
+      description = &quot;Identifies the source of the finding, such as a tool, interviewed person, or activity.&quot;,
+      useName = &quot;origin&quot;,
+      remarks = &quot;Used to identify the individual and/or tool generated this finding.&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;origins&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Origin&gt; _origins;
+
+  @BoundAssembly(
+      formalName = &quot;Objective Status&quot;,
+      description = &quot;Captures an assessor's conclusions regarding the degree to which an objective is satisfied.&quot;,
+      useName = &quot;target&quot;,
+      minOccurs = 1
+  )
+  private FindingTarget _target;
+
+  @BoundField(
+      formalName = &quot;Implementation Statement UUID&quot;,
+      description = &quot;A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented) identifier reference to the implementation statement in the SSP to which this finding is related.&quot;,
+      useName = &quot;implementation-statement-uuid&quot;,
+      typeAdapter = UuidAdapter.class
+  )
+  private UUID _implementationStatementUuid;
+
+  @BoundAssembly(
+      formalName = &quot;Related Observation&quot;,
+      description = &quot;Relates the finding to a set of referenced observations that were used to determine the finding.&quot;,
+      useName = &quot;related-observation&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;related-observations&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;RelatedObservation&gt; _relatedObservations;
+
+  @BoundAssembly(
+      formalName = &quot;Associated Risk&quot;,
+      description = &quot;Relates the finding to a set of referenced risks that were used to determine the finding.&quot;,
+      useName = &quot;associated-risk&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;related-risks&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;AssociatedRisk&gt; _relatedRisks;
+
+  @BoundField(
+      formalName = &quot;Remarks&quot;,
+      description = &quot;Additional commentary about the containing object.&quot;,
+      useName = &quot;remarks&quot;,
+      typeAdapter = MarkupMultilineAdapter.class
+  )
+  private MarkupMultiline _remarks;
+
+  public Finding() {
+<span class="nc" id="L138">    this(null);</span>
+<span class="nc" id="L139">  }</span>
+
+<span class="nc" id="L141">  public Finding(IMetaschemaData data) {</span>
+<span class="nc" id="L142">    this.__metaschemaData = data;</span>
+<span class="nc" id="L143">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L147">    return __metaschemaData;</span>
+  }
+
+  public UUID getUuid() {
+<span class="nc" id="L151">    return _uuid;</span>
+  }
+
+  public void setUuid(UUID value) {
+<span class="nc" id="L155">    _uuid = value;</span>
+<span class="nc" id="L156">  }</span>
+
+  public MarkupLine getTitle() {
+<span class="nc" id="L159">    return _title;</span>
+  }
+
+  public void setTitle(MarkupLine value) {
+<span class="nc" id="L163">    _title = value;</span>
+<span class="nc" id="L164">  }</span>
+
+  public MarkupMultiline getDescription() {
+<span class="nc" id="L167">    return _description;</span>
+  }
+
+  public void setDescription(MarkupMultiline value) {
+<span class="nc" id="L171">    _description = value;</span>
+<span class="nc" id="L172">  }</span>
+
+  public List&lt;Property&gt; getProps() {
+<span class="nc" id="L175">    return _props;</span>
+  }
+
+  public void setProps(List&lt;Property&gt; value) {
+<span class="nc" id="L179">    _props = value;</span>
+<span class="nc" id="L180">  }</span>
+
+  /**
+   * Add a new {@link Property} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addProp(Property item) {
+<span class="nc" id="L188">    Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">    if (_props == null) {</span>
+<span class="nc" id="L190">      _props = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L192">    return _props.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Property} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeProp(Property item) {
+<span class="nc" id="L201">    Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L202" title="All 4 branches missed.">    return _props != null &amp;&amp; _props.remove(value);</span>
+  }
+
+  public List&lt;Link&gt; getLinks() {
+<span class="nc" id="L206">    return _links;</span>
+  }
+
+  public void setLinks(List&lt;Link&gt; value) {
+<span class="nc" id="L210">    _links = value;</span>
+<span class="nc" id="L211">  }</span>
+
+  /**
+   * Add a new {@link Link} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addLink(Link item) {
+<span class="nc" id="L219">    Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">    if (_links == null) {</span>
+<span class="nc" id="L221">      _links = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L223">    return _links.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Link} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeLink(Link item) {
+<span class="nc" id="L232">    Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L233" title="All 4 branches missed.">    return _links != null &amp;&amp; _links.remove(value);</span>
+  }
+
+  public List&lt;Origin&gt; getOrigins() {
+<span class="nc" id="L237">    return _origins;</span>
+  }
+
+  public void setOrigins(List&lt;Origin&gt; value) {
+<span class="nc" id="L241">    _origins = value;</span>
+<span class="nc" id="L242">  }</span>
+
+  /**
+   * Add a new {@link Origin} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addOrigin(Origin item) {
+<span class="nc" id="L250">    Origin value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">    if (_origins == null) {</span>
+<span class="nc" id="L252">      _origins = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L254">    return _origins.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Origin} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeOrigin(Origin item) {
+<span class="nc" id="L263">    Origin value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L264" title="All 4 branches missed.">    return _origins != null &amp;&amp; _origins.remove(value);</span>
+  }
+
+  public FindingTarget getTarget() {
+<span class="nc" id="L268">    return _target;</span>
+  }
+
+  public void setTarget(FindingTarget value) {
+<span class="nc" id="L272">    _target = value;</span>
+<span class="nc" id="L273">  }</span>
+
+  public UUID getImplementationStatementUuid() {
+<span class="nc" id="L276">    return _implementationStatementUuid;</span>
+  }
+
+  public void setImplementationStatementUuid(UUID value) {
+<span class="nc" id="L280">    _implementationStatementUuid = value;</span>
+<span class="nc" id="L281">  }</span>
+
+  public List&lt;RelatedObservation&gt; getRelatedObservations() {
+<span class="nc" id="L284">    return _relatedObservations;</span>
+  }
+
+  public void setRelatedObservations(List&lt;RelatedObservation&gt; value) {
+<span class="nc" id="L288">    _relatedObservations = value;</span>
+<span class="nc" id="L289">  }</span>
+
+  /**
+   * Add a new {@link RelatedObservation} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addRelatedObservation(RelatedObservation item) {
+<span class="nc" id="L297">    RelatedObservation value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L298" title="All 2 branches missed.">    if (_relatedObservations == null) {</span>
+<span class="nc" id="L299">      _relatedObservations = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L301">    return _relatedObservations.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link RelatedObservation} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeRelatedObservation(RelatedObservation item) {
+<span class="nc" id="L310">    RelatedObservation value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L311" title="All 4 branches missed.">    return _relatedObservations != null &amp;&amp; _relatedObservations.remove(value);</span>
+  }
+
+  public List&lt;AssociatedRisk&gt; getRelatedRisks() {
+<span class="nc" id="L315">    return _relatedRisks;</span>
+  }
+
+  public void setRelatedRisks(List&lt;AssociatedRisk&gt; value) {
+<span class="nc" id="L319">    _relatedRisks = value;</span>
+<span class="nc" id="L320">  }</span>
+
+  /**
+   * Add a new {@link AssociatedRisk} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addAssociatedRisk(AssociatedRisk item) {
+<span class="nc" id="L328">    AssociatedRisk value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L329" title="All 2 branches missed.">    if (_relatedRisks == null) {</span>
+<span class="nc" id="L330">      _relatedRisks = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L332">    return _relatedRisks.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link AssociatedRisk} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeAssociatedRisk(AssociatedRisk item) {
+<span class="nc" id="L341">    AssociatedRisk value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L342" title="All 4 branches missed.">    return _relatedRisks != null &amp;&amp; _relatedRisks.remove(value);</span>
+  }
+
+  public MarkupMultiline getRemarks() {
+<span class="nc" id="L346">    return _remarks;</span>
+  }
+
+  public void setRemarks(MarkupMultiline value) {
+<span class="nc" id="L350">    _remarks = value;</span>
+<span class="nc" id="L351">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L355">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+
+  /**
+   * Relates the finding to a set of referenced observations that were used to determine the finding.
+   */
+  @MetaschemaAssembly(
+      formalName = &quot;Related Observation&quot;,
+      description = &quot;Relates the finding to a set of referenced observations that were used to determine the finding.&quot;,
+      name = &quot;related-observation&quot;,
+      moduleClass = OscalAssessmentCommonModule.class
+  )
+  public static class RelatedObservation implements IBoundObject {
+    private final IMetaschemaData __metaschemaData;
+
+    /**
+     * &quot;A &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented\&quot;&gt;machine-oriented&lt;/a&gt; identifier reference to an observation defined in the list of observations.&quot;
+     */
+    @BoundFlag(
+        formalName = &quot;Observation Universally Unique Identifier Reference&quot;,
+        description = &quot;A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented) identifier reference to an observation defined in the list of observations.&quot;,
+        name = &quot;observation-uuid&quot;,
+        required = true,
+        typeAdapter = UuidAdapter.class
+    )
+    private UUID _observationUuid;
+
+    public RelatedObservation() {
+<span class="nc" id="L383">      this(null);</span>
+<span class="nc" id="L384">    }</span>
+
+<span class="nc" id="L386">    public RelatedObservation(IMetaschemaData data) {</span>
+<span class="nc" id="L387">      this.__metaschemaData = data;</span>
+<span class="nc" id="L388">    }</span>
+
+    @Override
+    public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L392">      return __metaschemaData;</span>
+    }
+
+    public UUID getObservationUuid() {
+<span class="nc" id="L396">      return _observationUuid;</span>
+    }
+
+    public void setObservationUuid(UUID value) {
+<span class="nc" id="L400">      _observationUuid = value;</span>
+<span class="nc" id="L401">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L405">      return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+    }
+  }
+
+  /**
+   * Relates the finding to a set of referenced risks that were used to determine the finding.
+   */
+  @MetaschemaAssembly(
+      formalName = &quot;Associated Risk&quot;,
+      description = &quot;Relates the finding to a set of referenced risks that were used to determine the finding.&quot;,
+      name = &quot;associated-risk&quot;,
+      moduleClass = OscalAssessmentCommonModule.class
+  )
+  public static class AssociatedRisk implements IBoundObject {
+    private final IMetaschemaData __metaschemaData;
+
+    /**
+     * &quot;A &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented\&quot;&gt;machine-oriented&lt;/a&gt; identifier reference to a risk defined in the list of risks.&quot;
+     */
+    @BoundFlag(
+        formalName = &quot;Risk Universally Unique Identifier Reference&quot;,
+        description = &quot;A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented) identifier reference to a risk defined in the list of risks.&quot;,
+        name = &quot;risk-uuid&quot;,
+        required = true,
+        typeAdapter = UuidAdapter.class
+    )
+    private UUID _riskUuid;
+
+    public AssociatedRisk() {
+<span class="nc" id="L434">      this(null);</span>
+<span class="nc" id="L435">    }</span>
+
+<span class="nc" id="L437">    public AssociatedRisk(IMetaschemaData data) {</span>
+<span class="nc" id="L438">      this.__metaschemaData = data;</span>
+<span class="nc" id="L439">    }</span>
+
+    @Override
+    public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L443">      return __metaschemaData;</span>
+    }
+
+    public UUID getRiskUuid() {
+<span class="nc" id="L447">      return _riskUuid;</span>
+    }
+
+    public void setRiskUuid(UUID value) {
+<span class="nc" id="L451">      _riskUuid = value;</span>
+<span class="nc" id="L452">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L456">      return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

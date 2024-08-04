@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DocumentId.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">DocumentId.java</span></div><h1>DocumentId.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.adapter.UriAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.core.model.constraint.IConstraint;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValue;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValues;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFieldValue;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFlag;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaField;
+import gov.nist.secauto.metaschema.databind.model.annotations.ValueConstraints;
+import java.lang.Override;
+import java.lang.String;
+import java.net.URI;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * A document identifier qualified by an identifier &lt;code&gt;scheme&lt;/code&gt;.
+ */
+@MetaschemaField(
+    formalName = &quot;Document Identifier&quot;,
+    description = &quot;A document identifier qualified by an identifier `scheme`.&quot;,
+    name = &quot;document-id&quot;,
+    moduleClass = OscalMetadataModule.class
+)
+public class DocumentId implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  /**
+   * &quot;Qualifies the kind of document identifier using a URI. If the scheme is not provided the value of the element will be interpreted as a string of characters.&quot;
+   */
+  @BoundFlag(
+      formalName = &quot;Document Identification Scheme&quot;,
+      description = &quot;Qualifies the kind of document identifier using a URI. If the scheme is not provided the value of the element will be interpreted as a string of characters.&quot;,
+      name = &quot;scheme&quot;,
+      typeAdapter = UriAdapter.class,
+      remarks = &quot;This value must be an [absolute URI](https://pages.nist.gov/OSCAL/concepts/uri-use/#absolute-uri) that serves as a [naming system identifier](https://pages.nist.gov/OSCAL/concepts/uri-use/#use-as-a-naming-system-identifier).&quot;,
+      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, allowOthers = true, values = @AllowedValue(value = &quot;http://www.doi.org/&quot;, description = &quot;A [Digital Object Identifier](https://www.doi.org/hb.html) (DOI); use is preferred, since this allows for retrieval of a full bibliographic record.&quot;)))
+  )
+  private URI _scheme;
+
+  @BoundFieldValue(
+      valueKeyName = &quot;identifier&quot;
+  )
+  private String _identifier;
+
+  public DocumentId() {
+<span class="nc" id="L50">    this(null);</span>
+<span class="nc" id="L51">  }</span>
+
+<span class="fc" id="L53">  public DocumentId(IMetaschemaData data) {</span>
+<span class="fc" id="L54">    this.__metaschemaData = data;</span>
+<span class="fc" id="L55">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L59">    return __metaschemaData;</span>
+  }
+
+  public URI getScheme() {
+<span class="nc" id="L63">    return _scheme;</span>
+  }
+
+  public void setScheme(URI value) {
+<span class="nc" id="L67">    _scheme = value;</span>
+<span class="nc" id="L68">  }</span>
+
+  public String getIdentifier() {
+<span class="nc" id="L71">    return _identifier;</span>
+  }
+
+  public void setIdentifier(String value) {
+<span class="nc" id="L75">    _identifier = value;</span>
+<span class="nc" id="L76">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L80">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HasOscalNamespace.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.metapath.function.library</a> &gt; <span class="el_source">HasOscalNamespace.java</span></div><h1>HasOscalNamespace.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.metapath.function.library;
+
+import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
+import gov.nist.secauto.metaschema.core.metapath.ISequence;
+import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
+import gov.nist.secauto.metaschema.core.metapath.MetapathException;
+import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
+import gov.nist.secauto.metaschema.core.metapath.function.IArgument;
+import gov.nist.secauto.metaschema.core.metapath.function.IFunction;
+import gov.nist.secauto.metaschema.core.metapath.function.InvalidTypeFunctionException;
+import gov.nist.secauto.metaschema.core.metapath.function.library.FnData;
+import gov.nist.secauto.metaschema.core.metapath.item.IItem;
+import gov.nist.secauto.metaschema.core.metapath.item.atomic.IAnyUriItem;
+import gov.nist.secauto.metaschema.core.metapath.item.atomic.IBooleanItem;
+import gov.nist.secauto.metaschema.core.metapath.item.atomic.IStringItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IFlagNodeItem;
+import gov.nist.secauto.metaschema.core.model.IAssemblyDefinition;
+import gov.nist.secauto.metaschema.core.model.IFlagInstance;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.OscalModelConstants;
+import gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;
+
+import java.net.URI;
+import java.util.List;
+
+import javax.xml.namespace.QName;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+public final class HasOscalNamespace {
+  @NonNull
+<span class="fc" id="L38">  private static final QName NS_FLAG_QNAME = new QName(&quot;ns&quot;);</span>
+  @NonNull
+<span class="fc" id="L40">  static final IFunction SIGNATURE_ONE_ARG = IFunction.builder()</span>
+<span class="fc" id="L41">      .name(&quot;has-oscal-namespace&quot;)</span>
+<span class="fc" id="L42">      .namespace(OscalModelConstants.NS_OSCAL)</span>
+<span class="fc" id="L43">      .argument(IArgument.builder()</span>
+<span class="fc" id="L44">          .name(&quot;namespace&quot;)</span>
+<span class="fc" id="L45">          .type(IStringItem.class)</span>
+<span class="fc" id="L46">          .oneOrMore()</span>
+<span class="fc" id="L47">          .build())</span>
+<span class="fc" id="L48">      .allowUnboundedArity(true)</span>
+<span class="fc" id="L49">      .returnType(IBooleanItem.class)</span>
+<span class="fc" id="L50">      .focusDependent()</span>
+<span class="fc" id="L51">      .contextIndependent()</span>
+<span class="fc" id="L52">      .deterministic()</span>
+<span class="fc" id="L53">      .returnOne()</span>
+<span class="fc" id="L54">      .functionHandler(HasOscalNamespace::executeOneArg)</span>
+<span class="fc" id="L55">      .build();</span>
+
+  @NonNull
+<span class="fc" id="L58">  static final IFunction SIGNATURE_TWO_ARGS = IFunction.builder()</span>
+<span class="fc" id="L59">      .name(&quot;has-oscal-namespace&quot;)</span>
+<span class="fc" id="L60">      .namespace(OscalModelConstants.NS_OSCAL)</span>
+<span class="fc" id="L61">      .argument(IArgument.builder()</span>
+<span class="fc" id="L62">          .name(&quot;propOrPart&quot;)</span>
+<span class="fc" id="L63">          .type(IAssemblyNodeItem.class)</span>
+<span class="fc" id="L64">          .one()</span>
+<span class="fc" id="L65">          .build())</span>
+<span class="fc" id="L66">      .argument(IArgument.builder()</span>
+<span class="fc" id="L67">          .name(&quot;namespace&quot;)</span>
+<span class="fc" id="L68">          .type(IStringItem.class)</span>
+<span class="fc" id="L69">          .oneOrMore()</span>
+<span class="fc" id="L70">          .build())</span>
+<span class="fc" id="L71">      .allowUnboundedArity(true)</span>
+<span class="fc" id="L72">      .focusIndependent()</span>
+<span class="fc" id="L73">      .contextIndependent()</span>
+<span class="fc" id="L74">      .deterministic()</span>
+<span class="fc" id="L75">      .returnType(IBooleanItem.class)</span>
+<span class="fc" id="L76">      .returnOne()</span>
+<span class="fc" id="L77">      .functionHandler(HasOscalNamespace::executeTwoArg)</span>
+<span class="fc" id="L78">      .build();</span>
+
+  @NonNull
+<span class="fc" id="L81">  static final IFunction SIGNATURE_ONE_ARG_METAPATH = IFunction.builder()</span>
+<span class="fc" id="L82">      .name(&quot;has-oscal-namespace&quot;)</span>
+<span class="fc" id="L83">      .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)</span>
+<span class="fc" id="L84">      .argument(IArgument.builder()</span>
+<span class="fc" id="L85">          .name(&quot;namespace&quot;)</span>
+<span class="fc" id="L86">          .type(IStringItem.class)</span>
+<span class="fc" id="L87">          .oneOrMore()</span>
+<span class="fc" id="L88">          .build())</span>
+<span class="fc" id="L89">      .allowUnboundedArity(true)</span>
+<span class="fc" id="L90">      .returnType(IBooleanItem.class)</span>
+<span class="fc" id="L91">      .focusDependent()</span>
+<span class="fc" id="L92">      .contextIndependent()</span>
+<span class="fc" id="L93">      .deterministic()</span>
+<span class="fc" id="L94">      .returnOne()</span>
+<span class="fc" id="L95">      .functionHandler(HasOscalNamespace::executeOneArg)</span>
+<span class="fc" id="L96">      .build();</span>
+
+  @NonNull
+<span class="fc" id="L99">  static final IFunction SIGNATURE_TWO_ARGS_METAPATH = IFunction.builder()</span>
+<span class="fc" id="L100">      .name(&quot;has-oscal-namespace&quot;)</span>
+<span class="fc" id="L101">      .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)</span>
+<span class="fc" id="L102">      .argument(IArgument.builder()</span>
+<span class="fc" id="L103">          .name(&quot;propOrPart&quot;)</span>
+<span class="fc" id="L104">          .type(IAssemblyNodeItem.class)</span>
+<span class="fc" id="L105">          .one()</span>
+<span class="fc" id="L106">          .build())</span>
+<span class="fc" id="L107">      .argument(IArgument.builder()</span>
+<span class="fc" id="L108">          .name(&quot;namespace&quot;)</span>
+<span class="fc" id="L109">          .type(IStringItem.class)</span>
+<span class="fc" id="L110">          .oneOrMore()</span>
+<span class="fc" id="L111">          .build())</span>
+<span class="fc" id="L112">      .allowUnboundedArity(true)</span>
+<span class="fc" id="L113">      .focusIndependent()</span>
+<span class="fc" id="L114">      .contextIndependent()</span>
+<span class="fc" id="L115">      .deterministic()</span>
+<span class="fc" id="L116">      .returnType(IBooleanItem.class)</span>
+<span class="fc" id="L117">      .returnOne()</span>
+<span class="fc" id="L118">      .functionHandler(HasOscalNamespace::executeTwoArg)</span>
+<span class="fc" id="L119">      .build();</span>
+
+  private HasOscalNamespace() {
+    // disable construction
+  }
+
+  @SuppressWarnings({ &quot;unused&quot;,
+      &quot;PMD.OnlyOneReturn&quot; // readability
+  })
+  @NonNull
+  public static ISequence&lt;?&gt; executeOneArg(
+      @NonNull IFunction function,
+      @NonNull List&lt;ISequence&lt;?&gt;&gt; arguments,
+      @NonNull DynamicContext dynamicContext,
+      IItem focus) {
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">    assert arguments.size() == 1;</span>
+<span class="fc" id="L135">    ISequence&lt;? extends IStringItem&gt; namespaceArgs = FunctionUtils.asType(</span>
+<span class="fc" id="L136">        ObjectUtils.notNull(arguments.get(0)));</span>
+
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">    if (namespaceArgs.isEmpty()) {</span>
+<span class="nc" id="L139">      return ISequence.empty();</span>
+    }
+
+<span class="fc" id="L142">    IAssemblyNodeItem node = FunctionUtils.requireType(IAssemblyNodeItem.class, focus);</span>
+<span class="fc" id="L143">    return ISequence.of(hasNamespace(FunctionUtils.asType(node), namespaceArgs));</span>
+  }
+
+  @SuppressWarnings({ &quot;unused&quot;,
+      &quot;PMD.OnlyOneReturn&quot; // readability
+  })
+  @NonNull
+  public static ISequence&lt;?&gt; executeTwoArg(
+      @NonNull IFunction function,
+      @NonNull List&lt;ISequence&lt;?&gt;&gt; arguments,
+      @NonNull DynamicContext dynamicContext,
+      IItem focus) {
+<span class="nc bnc" id="L155" title="All 2 branches missed.">    assert arguments.size() == 2;</span>
+
+<span class="nc" id="L157">    ISequence&lt;? extends IStringItem&gt; namespaceArgs = FunctionUtils.asType(</span>
+<span class="nc" id="L158">        ObjectUtils.notNull(arguments.get(1)));</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">    if (namespaceArgs.isEmpty()) {</span>
+<span class="nc" id="L160">      return ISequence.empty();</span>
+    }
+
+<span class="nc" id="L163">    ISequence&lt;? extends IAssemblyNodeItem&gt; nodeSequence = FunctionUtils.asType(</span>
+<span class="nc" id="L164">        ObjectUtils.notNull(arguments.get(0)));</span>
+
+    // always not null, since the first item is required
+<span class="nc" id="L167">    IAssemblyNodeItem node = FunctionUtils.asType(ObjectUtils.requireNonNull(nodeSequence.getFirstItem(true)));</span>
+<span class="nc" id="L168">    return ISequence.of(hasNamespace(node, namespaceArgs));</span>
+  }
+
+  @SuppressWarnings(&quot;PMD.LinguisticNaming&quot;) // false positive
+  @NonNull
+  public static IBooleanItem hasNamespace(
+      @NonNull IAssemblyNodeItem propOrPart,
+      @NonNull ISequence&lt;? extends IStringItem&gt; namespaces) {
+<span class="fc" id="L176">    Object propOrPartObject = propOrPart.getValue();</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">    if (propOrPartObject == null) {</span>
+<span class="nc" id="L178">      throw new InvalidTypeFunctionException(InvalidTypeFunctionException.NODE_HAS_NO_TYPED_VALUE, propOrPart);</span>
+    }
+
+<span class="fc" id="L181">    URI nodeNamespace = null;</span>
+    // get the &quot;ns&quot; flag value
+<span class="fc" id="L183">    IFlagNodeItem ns = propOrPart.getFlagByName(NS_FLAG_QNAME);</span>
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">    if (ns == null) {</span>
+      // check if the node actually has a &quot;ns&quot; flag
+<span class="nc" id="L186">      IAssemblyDefinition definition = propOrPart.getDefinition();</span>
+<span class="nc" id="L187">      IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_QNAME);</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">      if (flag == null) {</span>
+<span class="nc" id="L189">        throw new MetapathException(</span>
+<span class="nc" id="L190">            String.format(</span>
+                &quot;Node at path '%s' bound to '%s' based on the assembly definition '%s' has no OSCAL namespace&quot;,
+<span class="nc" id="L192">                propOrPart.getMetapath(),</span>
+<span class="nc" id="L193">                propOrPart.getClass().getName(),</span>
+<span class="nc" id="L194">                propOrPart.getDefinition().getName()));</span>
+
+      }
+
+<span class="nc" id="L198">      Object defaultValue = flag.getDefinition().getDefaultValue();</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">      if (defaultValue != null) {</span>
+<span class="nc" id="L200">        nodeNamespace = IAnyUriItem.valueOf(ObjectUtils.notNull(defaultValue.toString())).asUri();</span>
+      }
+<span class="nc" id="L202">    } else {</span>
+<span class="fc" id="L203">      nodeNamespace = IAnyUriItem.cast(FnData.fnDataItem(ns)).asUri();</span>
+    }
+
+<span class="fc" id="L206">    String nodeNamespaceString = AbstractProperty.normalizeNamespace(nodeNamespace).toString();</span>
+<span class="fc" id="L207">    return IBooleanItem.valueOf(namespaces.stream()</span>
+<span class="fc" id="L208">        .map(node -&gt; nodeNamespaceString.equals(node.asString()))</span>
+<span class="fc" id="L209">        .anyMatch(bool -&gt; bool));</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

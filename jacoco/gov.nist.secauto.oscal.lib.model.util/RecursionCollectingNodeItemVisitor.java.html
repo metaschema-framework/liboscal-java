@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecursionCollectingNodeItemVisitor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model.util</a> &gt; <span class="el_source">RecursionCollectingNodeItemVisitor.java</span></div><h1>RecursionCollectingNodeItemVisitor.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.model.util;
+
+import gov.nist.secauto.metaschema.core.metapath.item.node.AbstractRecursionPreventingNodeItemVisitor;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyInstanceGroupedNodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IDefinitionNodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItemFactory;
+import gov.nist.secauto.metaschema.core.model.IAssemblyDefinition;
+import gov.nist.secauto.metaschema.core.model.IModule;
+
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+<span class="fc" id="L25">public class RecursionCollectingNodeItemVisitor</span>
+    extends AbstractRecursionPreventingNodeItemVisitor&lt;Void, Void&gt; {
+
+<span class="fc" id="L28">  private final Map&lt;IAssemblyDefinition, AssemblyRecord&gt; assemblyAnalysis = new LinkedHashMap&lt;&gt;();</span>
+
+  public Set&lt;AssemblyRecord&gt; getRecursiveAssemblyDefinitions() {
+<span class="fc" id="L31">    return assemblyAnalysis.values().stream()</span>
+<span class="fc" id="L32">        .filter(AssemblyRecord::isRecursive)</span>
+<span class="fc" id="L33">        .collect(Collectors.toSet());</span>
+  }
+
+  public void visit(@NonNull IModule module) {
+<span class="fc" id="L37">    visitMetaschema(INodeItemFactory.instance().newModuleNodeItem(module), null);</span>
+<span class="fc" id="L38">  }</span>
+
+  @Override
+  public Void visitAssembly(IAssemblyNodeItem item, Void context) {
+<span class="fc" id="L42">    IAssemblyDefinition definition = item.getDefinition();</span>
+
+    // get the assembly record from the cache
+<span class="fc" id="L45">    AssemblyRecord record = assemblyAnalysis.get(definition);</span>
+<span class="fc" id="L46">    boolean retval = true;</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">    if (record == null) {</span>
+<span class="fc" id="L48">      record = new AssemblyRecord(definition);</span>
+<span class="fc" id="L49">      assemblyAnalysis.put(definition, record);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">    } else if (isDecendant(item, definition)) {</span>
+<span class="fc" id="L51">      record.markRecursive();</span>
+<span class="fc" id="L52">      record.addLocation(item);</span>
+    }
+<span class="fc" id="L54">    return super.visitAssembly(item, context);</span>
+  }
+
+  @Override
+  public Void visitAssembly(IAssemblyInstanceGroupedNodeItem item, Void context) {
+<span class="nc" id="L59">    return visitAssembly((IAssemblyNodeItem) item, context);</span>
+  }
+
+  @Override
+  protected Void defaultResult() {
+<span class="fc" id="L64">    return null;</span>
+  }
+
+  public static final class AssemblyRecord {
+    @NonNull
+    private final IAssemblyDefinition definition;
+    private boolean recursive; // false
+<span class="fc" id="L71">    @NonNull</span>
+    private final List&lt;IDefinitionNodeItem&lt;?, ?&gt;&gt; locations = new LinkedList&lt;&gt;();
+
+<span class="fc" id="L74">    private AssemblyRecord(@NonNull IAssemblyDefinition definition) {</span>
+<span class="fc" id="L75">      this.definition = definition;</span>
+<span class="fc" id="L76">    }</span>
+
+    public IAssemblyDefinition getDefinition() {
+<span class="fc" id="L79">      return definition;</span>
+    }
+
+    public boolean isRecursive() {
+<span class="fc" id="L83">      return recursive;</span>
+    }
+
+    public void markRecursive() {
+<span class="fc" id="L87">      recursive = true;</span>
+<span class="fc" id="L88">    }</span>
+
+    @NonNull
+    public List&lt;IDefinitionNodeItem&lt;?, ?&gt;&gt; getLocations() {
+<span class="fc" id="L92">      return locations;</span>
+    }
+
+    public void addLocation(@NonNull IDefinitionNodeItem&lt;?, ?&gt; location) {
+<span class="fc" id="L96">      this.locations.add(location);</span>
+<span class="fc" id="L97">    }</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

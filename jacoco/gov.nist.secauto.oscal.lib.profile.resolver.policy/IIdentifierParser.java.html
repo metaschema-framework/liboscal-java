@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IIdentifierParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.profile.resolver.policy</a> &gt; <span class="el_source">IIdentifierParser.java</span></div><h1>IIdentifierParser.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.profile.resolver.policy;
+
+import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
+public interface IIdentifierParser {
+  @NonNull
+<span class="fc" id="L15">  IIdentifierParser FRAGMENT_PARSER = new PatternIdentifierParser(&quot;^#([^#]+)(?:#.*)?$&quot;, 1);</span>
+  @NonNull
+<span class="fc" id="L17">  IIdentifierParser IDENTITY_PARSER = new IIdentifierParser() {</span>
+
+    @Override
+    public String parse(@NonNull String reference) {
+<span class="fc" id="L21">      return reference;</span>
+    }
+
+    @Override
+    public String update(@NonNull String reference, @NonNull String newIdentifier) {
+<span class="fc" id="L26">      return newIdentifier;</span>
+    }
+  };
+
+  /**
+   * Parse the {@code referenceText} for the identifier.
+   *
+   * @param referenceText
+   *          the reference text containing the identifier
+   * @return the identifier, or {@code null} if the identifier could not be parsed
+   */
+  @Nullable
+  String parse(@NonNull String referenceText);
+
+  /**
+   * Substitute the provided {@code newIdentifier} with the identifier in the
+   * {@code referenceText}.
+   *
+   * @param referenceText
+   *          the reference text containing the original identifier
+   * @param newIdentifier
+   *          the new identifier to replace the existing identifier
+   * @return the updated reference text with the identifier replaced
+   * @throws ProfileResolutionEvaluationException
+   *           if the identifier could not be updated
+   */
+  @NonNull
+  String update(@NonNull String referenceText, @NonNull String newIdentifier);
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LinkReferencePolicy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.profile.resolver.policy</a> &gt; <span class="el_source">LinkReferencePolicy.java</span></div><h1>LinkReferencePolicy.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.profile.resolver.policy;
+
+import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
+import gov.nist.secauto.metaschema.core.util.CollectionUtil;
+import gov.nist.secauto.metaschema.core.util.CustomCollectors;
+import gov.nist.secauto.oscal.lib.model.Link;
+import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Locale;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+public class LinkReferencePolicy
+    extends AbstractMultiItemTypeReferencePolicy&lt;Link&gt; {
+<span class="fc" id="L26">  private static final Logger LOGGER = LogManager.getLogger(LinkReferencePolicy.class);</span>
+
+  @SuppressWarnings(&quot;null&quot;)
+  @NonNull
+  public static LinkReferencePolicy create(@NonNull IEntityItem.ItemType itemType) {
+<span class="fc" id="L31">    return create(List.of(itemType));</span>
+  }
+
+  @NonNull
+  public static LinkReferencePolicy create(@NonNull List&lt;IEntityItem.ItemType&gt; itemTypes) {
+<span class="fc" id="L36">    return new LinkReferencePolicy(CollectionUtil.requireNonEmpty(itemTypes, &quot;itemTypes&quot;));</span>
+  }
+
+  public LinkReferencePolicy(@NonNull List&lt;IEntityItem.ItemType&gt; itemTypes) {
+<span class="fc" id="L40">    super(IIdentifierParser.FRAGMENT_PARSER, itemTypes);</span>
+<span class="fc" id="L41">  }</span>
+
+  @Override
+  public String getReferenceText(@NonNull Link link) {
+<span class="fc" id="L45">    return link.getHref().toString();</span>
+  }
+
+  @Override
+  public void setReferenceText(@NonNull Link link, @NonNull String newValue) {
+<span class="nc" id="L50">    link.setHref(URI.create(newValue));</span>
+<span class="nc" id="L51">  }</span>
+
+  @Override
+  protected void handleUnselected(
+      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,
+      @NonNull Link link,
+      @NonNull IEntityItem item,
+      @NonNull ReferenceCountingVisitor.Context visitorContext) {
+<span class="fc" id="L59">    URI linkHref = link.getHref();</span>
+<span class="fc" id="L60">    URI sourceUri = item.getSource();</span>
+
+<span class="fc" id="L62">    URI resolved = sourceUri.resolve(linkHref);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">    if (LOGGER.isTraceEnabled()) {</span>
+<span class="nc" id="L64">      LOGGER.atTrace().log(&quot;At path '{}', remapping orphaned URI '{}' to '{}'&quot;,</span>
+<span class="nc" id="L65">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),</span>
+<span class="nc" id="L66">          linkHref.toString(),</span>
+<span class="nc" id="L67">          resolved.toString());</span>
+    }
+<span class="fc" id="L69">    link.setHref(resolved);</span>
+<span class="fc" id="L70">  }</span>
+
+  @Override
+  protected boolean handleIndexMiss(
+      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,
+      @NonNull Link link,
+      @NonNull List&lt;IEntityItem.ItemType&gt; itemTypes,
+      @NonNull String identifier,
+      @NonNull ReferenceCountingVisitor.Context visitorContext) {
+<span class="nc bnc" id="L79" title="All 2 branches missed.">    if (LOGGER.isWarnEnabled()) {</span>
+<span class="nc" id="L80">      LOGGER.atWarn().log(</span>
+          &quot;The link at '{}' with rel '{}' should reference a {} identified by '{}'.&quot;
+              + &quot; The index did not contain the identifier.&quot;,
+<span class="nc" id="L83">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),</span>
+<span class="nc" id="L84">          link.getRel(),</span>
+<span class="nc" id="L85">          itemTypes.stream()</span>
+<span class="nc" id="L86">              .map(en -&gt; en.name().toLowerCase(Locale.ROOT))</span>
+<span class="nc" id="L87">              .collect(CustomCollectors.joiningWithOxfordComma(&quot;or&quot;)),</span>
+          identifier);
+    }
+<span class="nc" id="L90">    return true;</span>
+  }
+
+  @Override
+  protected boolean handleIdentifierNonMatch(
+      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,
+      @NonNull Link reference,
+      @NonNull ReferenceCountingVisitor.Context visitorContext) {
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">    if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L99">      LOGGER.atDebug().log(&quot;Ignoring URI '{}' at '{}'&quot;,</span>
+<span class="fc" id="L100">          reference.getHref().toString(),</span>
+<span class="fc" id="L101">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
+    }
+
+<span class="fc" id="L104">    return true;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

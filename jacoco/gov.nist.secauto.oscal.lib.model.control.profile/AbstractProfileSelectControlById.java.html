@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractProfileSelectControlById.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model.control.profile</a> &gt; <span class="el_source">AbstractProfileSelectControlById.java</span></div><h1>AbstractProfileSelectControlById.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.model.control.profile;
+
+import gov.nist.secauto.oscal.lib.model.Matching;
+import gov.nist.secauto.oscal.lib.model.ProfileSelectControlById;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+<span class="fc" id="L19">public abstract class AbstractProfileSelectControlById implements IProfileSelectControlById {</span>
+  // TODO: move implementation from profile resolver selection code here
+
+  @NonNull
+  public static Builder builder() {
+<span class="fc" id="L24">    return new Builder();</span>
+  }
+
+<span class="fc" id="L27">  public static class Builder {</span>
+    private boolean withChildControls; // false;
+<span class="fc" id="L29">    private final List&lt;String&gt; withIds = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L30">    private final List&lt;Pattern&gt; matching = new LinkedList&lt;&gt;();</span>
+
+    @NonNull
+    public Builder withChildControls(boolean value) {
+<span class="nc" id="L34">      this.withChildControls = value;</span>
+<span class="nc" id="L35">      return this;</span>
+    }
+
+    @NonNull
+    public Builder withId(@NonNull String id) {
+<span class="fc" id="L40">      withIds.add(id);</span>
+<span class="fc" id="L41">      return this;</span>
+    }
+
+    @NonNull
+    public Builder withIds(@NonNull Collection&lt;String&gt; ids) {
+<span class="nc" id="L46">      withIds.addAll(ids);</span>
+<span class="nc" id="L47">      return this;</span>
+    }
+
+    @NonNull
+    public Builder matching(@NonNull Pattern pattern) {
+<span class="nc" id="L52">      matching.add(pattern);</span>
+<span class="nc" id="L53">      return this;</span>
+    }
+
+    @NonNull
+    public ProfileSelectControlById build() {
+<span class="fc" id="L58">      ProfileSelectControlById retval = new ProfileSelectControlById();</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">      retval.setWithChildControls(withChildControls ? &quot;yes&quot; : &quot;no&quot;);</span>
+<span class="fc" id="L60">      retval.setWithIds(withIds);</span>
+<span class="fc" id="L61">      retval.setMatching(matching.stream()</span>
+<span class="fc" id="L62">          .map(pattern -&gt; {</span>
+<span class="nc" id="L63">            Matching matching = new Matching();</span>
+<span class="nc" id="L64">            matching.setPattern(pattern.pattern());</span>
+<span class="nc" id="L65">            return matching;</span>
+          })
+<span class="fc" id="L67">          .collect(Collectors.toList()));</span>
+<span class="fc" id="L68">      return retval;</span>
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

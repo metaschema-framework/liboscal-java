@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SelectObjectiveById.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">SelectObjectiveById.java</span></div><h1>SelectObjectiveById.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.adapter.TokenAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFlag;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaAssembly;
+import java.lang.Override;
+import java.lang.String;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * Used to select a control objective for inclusion/exclusion based on the control objective's identifier.
+ */
+@MetaschemaAssembly(
+    formalName = &quot;Select Objective&quot;,
+    description = &quot;Used to select a control objective for inclusion/exclusion based on the control objective's identifier.&quot;,
+    name = &quot;select-objective-by-id&quot;,
+    moduleClass = OscalAssessmentCommonModule.class
+)
+public class SelectObjectiveById implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  /**
+   * &quot;Points to an assessment objective.&quot;
+   */
+  @BoundFlag(
+      formalName = &quot;Objective ID&quot;,
+      description = &quot;Points to an assessment objective.&quot;,
+      name = &quot;objective-id&quot;,
+      required = true,
+      typeAdapter = TokenAdapter.class
+  )
+  private String _objectiveId;
+
+  public SelectObjectiveById() {
+<span class="nc" id="L38">    this(null);</span>
+<span class="nc" id="L39">  }</span>
+
+<span class="nc" id="L41">  public SelectObjectiveById(IMetaschemaData data) {</span>
+<span class="nc" id="L42">    this.__metaschemaData = data;</span>
+<span class="nc" id="L43">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L47">    return __metaschemaData;</span>
+  }
+
+  public String getObjectiveId() {
+<span class="nc" id="L51">    return _objectiveId;</span>
+  }
+
+  public void setObjectiveId(String value) {
+<span class="nc" id="L55">    _objectiveId = value;</span>
+<span class="nc" id="L56">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L60">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

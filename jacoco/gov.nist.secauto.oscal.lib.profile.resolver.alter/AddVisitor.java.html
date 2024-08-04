@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddVisitor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.profile.resolver.alter</a> &gt; <span class="el_source">AddVisitor.java</span></div><h1>AddVisitor.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.profile.resolver.alter;
+
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLine;
+import gov.nist.secauto.metaschema.core.util.CollectionUtil;
+import gov.nist.secauto.metaschema.core.util.CustomCollectors;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.model.Catalog;
+import gov.nist.secauto.oscal.lib.model.CatalogGroup;
+import gov.nist.secauto.oscal.lib.model.Control;
+import gov.nist.secauto.oscal.lib.model.ControlPart;
+import gov.nist.secauto.oscal.lib.model.Link;
+import gov.nist.secauto.oscal.lib.model.Parameter;
+import gov.nist.secauto.oscal.lib.model.Property;
+import gov.nist.secauto.oscal.lib.model.control.catalog.ICatalogVisitor;
+import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
+
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
+<span class="fc" id="L39">public class AddVisitor implements ICatalogVisitor&lt;Boolean, AddVisitor.Context&gt; {</span>
+<span class="fc" id="L40">  public enum TargetType {</span>
+<span class="fc" id="L41">    CONTROL(&quot;control&quot;, Control.class),</span>
+<span class="fc" id="L42">    PARAM(&quot;param&quot;, Parameter.class),</span>
+<span class="fc" id="L43">    PART(&quot;part&quot;, ControlPart.class);</span>
+
+    @NonNull
+    private static final Map&lt;Class&lt;?&gt;, TargetType&gt; CLASS_TO_TYPE;
+    @NonNull
+    private static final Map&lt;String, TargetType&gt; NAME_TO_TYPE;
+    @NonNull
+    private final String fieldName;
+    @NonNull
+    private final Class&lt;?&gt; clazz;
+
+    static {
+      {
+<span class="fc" id="L56">        Map&lt;Class&lt;?&gt;, TargetType&gt; map = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        for (TargetType type : values()) {</span>
+<span class="fc" id="L58">          map.put(type.getClazz(), type);</span>
+        }
+<span class="fc" id="L60">        CLASS_TO_TYPE = CollectionUtil.unmodifiableMap(map);</span>
+      }
+
+      {
+<span class="fc" id="L64">        Map&lt;String, TargetType&gt; map = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        for (TargetType type : values()) {</span>
+<span class="fc" id="L66">          map.put(type.fieldName(), type);</span>
+        }
+<span class="fc" id="L68">        NAME_TO_TYPE = CollectionUtil.unmodifiableMap(map);</span>
+      }
+<span class="fc" id="L70">    }</span>
+
+    /**
+     * Get the target type associated with the provided {@code clazz}.
+     *
+     * @param clazz
+     *          the class to identify the target type for
+     * @return the associated target type or {@code null} if the class is not
+     *         associated with a target type
+     */
+    @Nullable
+    public static TargetType forClass(@NonNull Class&lt;?&gt; clazz) {
+<span class="fc" id="L82">      Class&lt;?&gt; target = clazz;</span>
+      TargetType retval;
+      // recurse over parent classes to find a match
+      do {
+<span class="fc" id="L86">        retval = CLASS_TO_TYPE.get(target);</span>
+<span class="pc bpc" id="L87" title="3 of 4 branches missed.">      } while (retval == null &amp;&amp; (target = target.getSuperclass()) != null);</span>
+<span class="fc" id="L88">      return retval;</span>
+    }
+
+    /**
+     * Get the target type associated with the provided field {@code name}.
+     *
+     * @param name
+     *          the field name to identify the target type for
+     * @return the associated target type or {@code null} if the name is not
+     *         associated with a target type
+     */
+    @Nullable
+    public static TargetType forFieldName(@Nullable String name) {
+<span class="nc bnc" id="L101" title="All 2 branches missed.">      return name == null ? null : NAME_TO_TYPE.get(name);</span>
+    }
+
+<span class="fc" id="L104">    TargetType(@NonNull String fieldName, @NonNull Class&lt;?&gt; clazz) {</span>
+<span class="fc" id="L105">      this.fieldName = fieldName;</span>
+<span class="fc" id="L106">      this.clazz = clazz;</span>
+<span class="fc" id="L107">    }</span>
+
+    /**
+     * Get the field name associated with the target type.
+     *
+     * @return the name
+     */
+    public String fieldName() {
+<span class="fc" id="L115">      return fieldName;</span>
+    }
+
+    /**
+     * Get the bound class associated with the target type.
+     *
+     * @return the class
+     */
+    public Class&lt;?&gt; getClazz() {
+<span class="fc" id="L124">      return clazz;</span>
+    }
+  }
+
+<span class="fc" id="L128">  public enum Position {</span>
+<span class="fc" id="L129">    BEFORE,</span>
+<span class="fc" id="L130">    AFTER,</span>
+<span class="fc" id="L131">    STARTING,</span>
+<span class="fc" id="L132">    ENDING;</span>
+
+    @NonNull
+    private static final Map&lt;String, Position&gt; NAME_TO_POSITION;
+
+    static {
+<span class="fc" id="L138">      Map&lt;String, Position&gt; map = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">      for (Position position : values()) {</span>
+<span class="fc" id="L140">        map.put(position.name().toLowerCase(Locale.ROOT), position);</span>
+      }
+<span class="fc" id="L142">      NAME_TO_POSITION = CollectionUtil.unmodifiableMap(map);</span>
+<span class="fc" id="L143">    }</span>
+
+    /**
+     * Get the position associated with the provided {@code name}.
+     *
+     * @param name
+     *          the name to identify the position for
+     * @return the associated position or {@code null} if the name is not associated
+     *         with a position
+     */
+    @Nullable
+    public static Position forName(@Nullable String name) {
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">      return name == null ? null : NAME_TO_POSITION.get(name);</span>
+    }
+  }
+
+  @NonNull
+<span class="fc" id="L160">  private static final AddVisitor INSTANCE = new AddVisitor();</span>
+  private static final Map&lt;TargetType, Set&lt;TargetType&gt;&gt; APPLICABLE_TARGETS;
+
+  static {
+<span class="fc" id="L164">    APPLICABLE_TARGETS = new EnumMap&lt;&gt;(TargetType.class);</span>
+<span class="fc" id="L165">    APPLICABLE_TARGETS.put(TargetType.CONTROL, Set.of(TargetType.CONTROL, TargetType.PARAM, TargetType.PART));</span>
+<span class="fc" id="L166">    APPLICABLE_TARGETS.put(TargetType.PARAM, Set.of(TargetType.PARAM));</span>
+<span class="fc" id="L167">    APPLICABLE_TARGETS.put(TargetType.PART, Set.of(TargetType.PART));</span>
+<span class="fc" id="L168">  }</span>
+
+  private static Set&lt;TargetType&gt; getApplicableTypes(@NonNull TargetType type) {
+<span class="fc" id="L171">    return APPLICABLE_TARGETS.getOrDefault(type, CollectionUtil.emptySet());</span>
+  }
+
+  /**
+   * Apply the add directive.
+   *
+   * @param control
+   *          the control target
+   * @param position
+   *          the position to apply the content or {@code null}
+   * @param byId
+   *          the identifier of the target or {@code null}
+   * @param title
+   *          a title to set
+   * @param params
+   *          parameters to add
+   * @param props
+   *          properties to add
+   * @param links
+   *          links to add
+   * @param parts
+   *          parts to add
+   * @return {@code true} if the modification was made or {@code false} otherwise
+   * @throws ProfileResolutionEvaluationException
+   *           if a processing error occurred during profile resolution
+   */
+  public static boolean add(
+      @NonNull Control control,
+      @Nullable Position position,
+      @Nullable String byId,
+      @Nullable MarkupLine title,
+      @NonNull List&lt;Parameter&gt; params,
+      @NonNull List&lt;Property&gt; props,
+      @NonNull List&lt;Link&gt; links,
+      @NonNull List&lt;ControlPart&gt; parts) {
+<span class="fc" id="L206">    return INSTANCE.visitControl(</span>
+        control,
+        new Context(
+            control,
+<span class="pc bpc" id="L210" title="1 of 2 branches missed.">            position == null ? Position.ENDING : position,</span>
+            byId,
+            title,
+            params,
+            props,
+            links,
+            parts));
+  }
+
+  @Override
+  public Boolean visitCatalog(Catalog catalog, Context context) {
+    // not required
+<span class="nc" id="L222">    throw new UnsupportedOperationException(&quot;not needed&quot;);</span>
+  }
+
+  @Override
+  public Boolean visitGroup(CatalogGroup group, Context context) {
+    // not required
+<span class="nc" id="L228">    throw new UnsupportedOperationException(&quot;not needed&quot;);</span>
+  }
+
+  /**
+   * If the add applies to the current object, then apply the child objects.
+   * &lt;p&gt;
+   * An add applies if:
+   * &lt;ol&gt;
+   * &lt;li&gt;the {@code targetItem} supports all of the children&lt;/li&gt;
+   * &lt;li&gt;the context matches if:
+   * &lt;ul&gt;
+   * &lt;li&gt;the target item's id matches the &quot;by-id&quot;; or&lt;/li&gt;
+   * &lt;li&gt;the &quot;by-id&quot; is not defined and the target item is the control matching
+   * the target context&lt;/li&gt;
+   * &lt;/ul&gt;
+   * &lt;/li&gt;
+   * &lt;/ol&gt;
+   *
+   * @param &lt;T&gt;
+   *          the type of the {@code targetItem}
+   * @param targetItem
+   *          the current target to process
+   * @param titleConsumer
+   *          a consumer to apply a title to or {@code null} if the object has no
+   *          title field
+   * @param paramsSupplier
+   *          a supplier for the child {@link Parameter} collection
+   * @param propsSupplier
+   *          a supplier for the child {@link Property} collection
+   * @param linksSupplier
+   *          a supplier for the child {@link Link} collection
+   * @param partsSupplier
+   *          a supplier for the child {@link ControlPart} collection
+   * @param context
+   *          the add context
+   * @return {@code true} if a modification was made or {@code false} otherwise
+   */
+  private static &lt;T&gt; boolean handleCurrent(
+      @NonNull T targetItem,
+      @Nullable Consumer&lt;MarkupLine&gt; titleConsumer,
+      @Nullable Supplier&lt;? extends List&lt;Parameter&gt;&gt; paramsSupplier,
+      @Nullable Supplier&lt;? extends List&lt;Property&gt;&gt; propsSupplier,
+      @Nullable Supplier&lt;? extends List&lt;Link&gt;&gt; linksSupplier,
+      @Nullable Supplier&lt;? extends List&lt;ControlPart&gt;&gt; partsSupplier,
+      @NonNull Context context) {
+<span class="fc" id="L273">    boolean retval = false;</span>
+<span class="fc" id="L274">    Position position = context.getPosition();</span>
+<span class="pc bpc" id="L275" title="1 of 4 branches missed.">    if (context.appliesTo(targetItem) &amp;&amp; !context.isSequenceTargeted(targetItem)) {</span>
+      // the target item is the target of the add
+<span class="fc" id="L277">      MarkupLine newTitle = context.getTitle();</span>
+<span class="pc bpc" id="L278" title="1 of 2 branches missed.">      if (newTitle != null) {</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">        assert titleConsumer != null;</span>
+<span class="nc" id="L280">        titleConsumer.accept(newTitle);</span>
+      }
+
+<span class="fc" id="L283">      handleCollection(position, context.getParams(), paramsSupplier);</span>
+<span class="fc" id="L284">      handleCollection(position, context.getProps(), propsSupplier);</span>
+<span class="fc" id="L285">      handleCollection(position, context.getLinks(), linksSupplier);</span>
+<span class="fc" id="L286">      handleCollection(position, context.getParts(), partsSupplier);</span>
+<span class="fc" id="L287">      retval = true;</span>
+    }
+<span class="fc" id="L289">    return retval;</span>
+  }
+
+  private static &lt;T&gt; void handleCollection(
+      @NonNull Position position,
+      @NonNull List&lt;T&gt; newItems,
+      @Nullable Supplier&lt;? extends List&lt;T&gt;&gt; originalCollectionSupplier) {
+<span class="fc bfc" id="L296" title="All 2 branches covered.">    if (originalCollectionSupplier != null) {</span>
+<span class="fc" id="L297">      List&lt;T&gt; oldItems = originalCollectionSupplier.get();</span>
+<span class="fc bfc" id="L298" title="All 2 branches covered.">      if (!newItems.isEmpty()) {</span>
+<span class="fc bfc" id="L299" title="All 2 branches covered.">        if (Position.STARTING.equals(position)) {</span>
+<span class="fc" id="L300">          oldItems.addAll(0, newItems);</span>
+        } else { // ENDING
+<span class="fc" id="L302">          oldItems.addAll(newItems);</span>
+        }
+      }
+    }
+<span class="fc" id="L306">  }</span>
+
+  // private static &lt;T&gt; void handleChild(
+  // @NonNull TargetType itemType,
+  // @NonNull Supplier&lt;? extends List&lt;T&gt;&gt; collectionSupplier,
+  // @Nullable Consumer&lt;T&gt; handler,
+  // @NonNull Context context) {
+  // boolean handleChildren = !Collections.disjoint(context.getTargetItemTypes(),
+  // getApplicableTypes(itemType));
+  // if (handleChildren &amp;&amp; handler != null) {
+  // // if the child item type is applicable and there is a handler, iterate over
+  // children
+  // Iterator&lt;T&gt; iter = collectionSupplier.get().iterator();
+  // while (iter.hasNext()) {
+  // T item = iter.next();
+  // if (item != null) {
+  // handler.accept(item);
+  // }
+  // }
+  // }
+  // }
+
+  private static &lt;T&gt; boolean handleChild(
+      @NonNull TargetType itemType,
+      @NonNull Supplier&lt;? extends List&lt;T&gt;&gt; originalCollectionSupplier,
+      @NonNull Supplier&lt;? extends List&lt;T&gt;&gt; newItemsSupplier,
+      @Nullable Function&lt;T, Boolean&gt; handler,
+      @NonNull Context context) {
+
+    // determine if this child type can match
+<span class="fc" id="L336">    boolean isItemTypeMatch = context.isMatchingType(itemType);</span>
+
+<span class="fc" id="L338">    Set&lt;TargetType&gt; applicableTypes = getApplicableTypes(itemType);</span>
+<span class="pc bpc" id="L339" title="1 of 4 branches missed.">    boolean descendChild = handler != null &amp;&amp; !Collections.disjoint(context.getTargetItemTypes(), applicableTypes);</span>
+
+<span class="fc" id="L341">    boolean retval = false;</span>
+<span class="pc bpc" id="L342" title="1 of 4 branches missed.">    if (isItemTypeMatch || descendChild) {</span>
+      // if the item type is applicable, attempt to match by id
+<span class="fc" id="L344">      List&lt;T&gt; collection = originalCollectionSupplier.get();</span>
+<span class="fc" id="L345">      ListIterator&lt;T&gt; iter = collection.listIterator();</span>
+<span class="fc" id="L346">      boolean deferred = false;</span>
+<span class="fc bfc" id="L347" title="All 2 branches covered.">      while (iter.hasNext()) {</span>
+<span class="fc" id="L348">        T item = ObjectUtils.requireNonNull(iter.next());</span>
+
+<span class="pc bpc" id="L350" title="1 of 6 branches missed.">        if (isItemTypeMatch &amp;&amp; context.appliesTo(item) &amp;&amp; context.isSequenceTargeted(item)) {</span>
+          // if id match, inject the new items into the collection
+<span class="pc bpc" id="L352" title="2 of 4 branches missed.">          switch (context.getPosition()) {</span>
+          case AFTER: {
+<span class="fc" id="L354">            newItemsSupplier.get().forEach(iter::add);</span>
+<span class="fc" id="L355">            retval = true;</span>
+<span class="fc" id="L356">            break;</span>
+          }
+          case BEFORE: {
+<span class="fc" id="L359">            iter.previous();</span>
+<span class="fc" id="L360">            List&lt;T&gt; adds = newItemsSupplier.get();</span>
+<span class="fc" id="L361">            adds.forEach(iter::add);</span>
+<span class="fc" id="L362">            item = iter.next();</span>
+<span class="fc" id="L363">            retval = true;</span>
+<span class="fc" id="L364">            break;</span>
+          }
+          case STARTING:
+          case ENDING:
+<span class="nc" id="L368">            deferred = true;</span>
+<span class="nc" id="L369">            break;</span>
+          default:
+<span class="nc" id="L371">            throw new UnsupportedOperationException(context.getPosition().name().toLowerCase(Locale.ROOT));</span>
+          }
+        }
+
+<span class="pc bpc" id="L375" title="1 of 2 branches missed.">        if (descendChild) {</span>
+<span class="pc bpc" id="L376" title="1 of 2 branches missed.">          assert handler != null;</span>
+
+          // handle child items since they are applicable to the search criteria
+<span class="fc bfc" id="L379" title="All 4 branches covered.">          retval = retval || handler.apply(item);</span>
+        }
+<span class="fc" id="L381">      }</span>
+
+<span class="pc bpc" id="L383" title="1 of 2 branches missed.">      if (deferred) {</span>
+<span class="nc" id="L384">        List&lt;T&gt; newItems = newItemsSupplier.get();</span>
+<span class="nc bnc" id="L385" title="All 2 branches missed.">        if (Position.ENDING.equals(context.getPosition())) {</span>
+<span class="nc" id="L386">          collection.addAll(newItems);</span>
+<span class="nc" id="L387">          retval = true;</span>
+<span class="nc bnc" id="L388" title="All 2 branches missed.">        } else if (Position.STARTING.equals(context.getPosition())) {</span>
+<span class="nc" id="L389">          collection.addAll(0, newItems);</span>
+<span class="nc" id="L390">          retval = true;</span>
+        }
+      }
+    }
+<span class="fc" id="L394">    return retval;</span>
+  }
+
+  @Override
+  public Boolean visitControl(Control control, Context context) {
+<span class="pc bpc" id="L399" title="1 of 2 branches missed.">    assert context != null;</span>
+
+<span class="pc bpc" id="L401" title="1 of 2 branches missed.">    if (control.getParams() == null) {</span>
+<span class="nc" id="L402">      control.setParams(new LinkedList&lt;&gt;());</span>
+    }
+
+<span class="pc bpc" id="L405" title="1 of 2 branches missed.">    if (control.getProps() == null) {</span>
+<span class="nc" id="L406">      control.setProps(new LinkedList&lt;&gt;());</span>
+    }
+
+<span class="pc bpc" id="L409" title="1 of 2 branches missed.">    if (control.getLinks() == null) {</span>
+<span class="nc" id="L410">      control.setLinks(new LinkedList&lt;&gt;());</span>
+    }
+
+<span class="pc bpc" id="L413" title="1 of 2 branches missed.">    if (control.getParts() == null) {</span>
+<span class="nc" id="L414">      control.setParts(new LinkedList&lt;&gt;());</span>
+    }
+
+<span class="fc" id="L417">    boolean retval = handleCurrent(</span>
+        control,
+<span class="fc" id="L419">        control::setTitle,</span>
+<span class="fc" id="L420">        control::getParams,</span>
+<span class="fc" id="L421">        control::getProps,</span>
+<span class="fc" id="L422">        control::getLinks,</span>
+<span class="fc" id="L423">        control::getParts,</span>
+        context);
+
+    // visit params
+<span class="fc bfc" id="L427" title="All 4 branches covered.">    retval = retval || handleChild(</span>
+        TargetType.PARAM,
+<span class="fc" id="L429">        control::getParams,</span>
+<span class="fc" id="L430">        context::getParams,</span>
+<span class="fc" id="L431">        child -&gt; visitParameter(ObjectUtils.notNull(child), context),</span>
+        context);
+
+    // visit parts
+<span class="pc bpc" id="L435" title="1 of 4 branches missed.">    retval = retval || handleChild(</span>
+        TargetType.PART,
+<span class="fc" id="L437">        control::getParts,</span>
+<span class="fc" id="L438">        context::getParts,</span>
+<span class="fc" id="L439">        child -&gt; visitPart(child, context),</span>
+        context);
+
+    // visit control children
+<span class="pc bpc" id="L443" title="1 of 2 branches missed.">    for (Control childControl : CollectionUtil.listOrEmpty(control.getControls())) {</span>
+<span class="nc" id="L444">      Set&lt;TargetType&gt; applicableTypes = getApplicableTypes(TargetType.CONTROL);</span>
+<span class="nc bnc" id="L445" title="All 2 branches missed.">      if (!Collections.disjoint(context.getTargetItemTypes(), applicableTypes)) {</span>
+<span class="nc bnc" id="L446" title="All 4 branches missed.">        retval = retval || visitControl(ObjectUtils.requireNonNull(childControl), context);</span>
+      }
+<span class="nc" id="L448">    }</span>
+<span class="fc" id="L449">    return retval;</span>
+  }
+
+  @Override
+  public Boolean visitParameter(Parameter parameter, Context context) {
+<span class="pc bpc" id="L454" title="1 of 2 branches missed.">    assert context != null;</span>
+<span class="pc bpc" id="L455" title="1 of 2 branches missed.">    if (parameter.getProps() == null) {</span>
+<span class="nc" id="L456">      parameter.setProps(new LinkedList&lt;&gt;());</span>
+    }
+
+<span class="pc bpc" id="L459" title="1 of 2 branches missed.">    if (parameter.getLinks() == null) {</span>
+<span class="nc" id="L460">      parameter.setLinks(new LinkedList&lt;&gt;());</span>
+    }
+
+<span class="fc" id="L463">    return handleCurrent(</span>
+        parameter,
+        null,
+        null,
+<span class="fc" id="L467">        parameter::getProps,</span>
+<span class="fc" id="L468">        parameter::getLinks,</span>
+        null,
+        context);
+  }
+
+  /**
+   * Visit the control part.
+   *
+   * @param part
+   *          the bound part object
+   * @param context
+   *          the visitor context
+   * @return {@code true} if the removal was applied or {@code false} otherwise
+   */
+  public boolean visitPart(ControlPart part, Context context) {
+<span class="pc bpc" id="L483" title="1 of 2 branches missed.">    assert context != null;</span>
+<span class="pc bpc" id="L484" title="1 of 2 branches missed.">    if (part.getProps() == null) {</span>
+<span class="nc" id="L485">      part.setProps(new LinkedList&lt;&gt;());</span>
+    }
+
+<span class="pc bpc" id="L488" title="1 of 2 branches missed.">    if (part.getLinks() == null) {</span>
+<span class="nc" id="L489">      part.setLinks(new LinkedList&lt;&gt;());</span>
+    }
+
+<span class="pc bpc" id="L492" title="1 of 2 branches missed.">    if (part.getParts() == null) {</span>
+<span class="nc" id="L493">      part.setParts(new LinkedList&lt;&gt;());</span>
+    }
+
+<span class="fc" id="L496">    boolean retval = handleCurrent(</span>
+        part,
+        null,
+        null,
+<span class="fc" id="L500">        part::getProps,</span>
+<span class="fc" id="L501">        part::getLinks,</span>
+<span class="fc" id="L502">        part::getParts,</span>
+        context);
+
+<span class="pc bpc" id="L505" title="3 of 4 branches missed.">    return retval || handleChild(</span>
+        TargetType.PART,
+<span class="nc" id="L507">        part::getParts,</span>
+<span class="nc" id="L508">        context::getParts,</span>
+<span class="nc" id="L509">        child -&gt; visitPart(child, context),</span>
+        context);
+  }
+
+  static final class Context {
+    @NonNull
+<span class="fc" id="L515">    private static final Set&lt;TargetType&gt; TITLE_TYPES = ObjectUtils.notNull(</span>
+<span class="fc" id="L516">        Set.of(TargetType.CONTROL, TargetType.PART));</span>
+    @NonNull
+<span class="fc" id="L518">    private static final Set&lt;TargetType&gt; PARAM_TYPES = ObjectUtils.notNull(</span>
+<span class="fc" id="L519">        Set.of(TargetType.CONTROL, TargetType.PARAM));</span>
+    @NonNull
+<span class="fc" id="L521">    private static final Set&lt;TargetType&gt; PROP_TYPES = ObjectUtils.notNull(</span>
+<span class="fc" id="L522">        Set.of(TargetType.CONTROL, TargetType.PARAM, TargetType.PART));</span>
+    @NonNull
+<span class="fc" id="L524">    private static final Set&lt;TargetType&gt; LINK_TYPES = ObjectUtils.notNull(</span>
+<span class="fc" id="L525">        Set.of(TargetType.CONTROL, TargetType.PARAM, TargetType.PART));</span>
+    @NonNull
+<span class="fc" id="L527">    private static final Set&lt;TargetType&gt; PART_TYPES = ObjectUtils.notNull(</span>
+<span class="fc" id="L528">        Set.of(TargetType.CONTROL, TargetType.PART));</span>
+
+    @NonNull
+    private final Control control;
+    @NonNull
+    private final Position position;
+    @Nullable
+    private final String byId;
+    @Nullable
+    private final MarkupLine title;
+    @NonNull
+    private final List&lt;Parameter&gt; params;
+    @NonNull
+    private final List&lt;Property&gt; props;
+    @NonNull
+    private final List&lt;Link&gt; links;
+    @NonNull
+    private final List&lt;ControlPart&gt; parts;
+    @NonNull
+    private final Set&lt;TargetType&gt; targetItemTypes;
+
+    public Context(
+        @NonNull Control control,
+        @NonNull Position position,
+        @Nullable String byId,
+        @Nullable MarkupLine title,
+        @NonNull List&lt;Parameter&gt; params,
+        @NonNull List&lt;Property&gt; props,
+        @NonNull List&lt;Link&gt; links,
+<span class="fc" id="L557">        @NonNull List&lt;ControlPart&gt; parts) {</span>
+
+<span class="fc" id="L559">      Set&lt;TargetType&gt; targetItemTypes = ObjectUtils.notNull(EnumSet.allOf(TargetType.class));</span>
+
+<span class="fc" id="L561">      List&lt;String&gt; additionObjects = new LinkedList&lt;&gt;();</span>
+
+<span class="fc" id="L563">      boolean sequenceTarget = true;</span>
+<span class="pc bpc" id="L564" title="1 of 2 branches missed.">      if (title != null) {</span>
+<span class="nc" id="L565">        targetItemTypes.retainAll(TITLE_TYPES);</span>
+<span class="nc" id="L566">        additionObjects.add(&quot;title&quot;);</span>
+<span class="nc" id="L567">        sequenceTarget = false;</span>
+      }
+
+<span class="fc bfc" id="L570" title="All 2 branches covered.">      if (!params.isEmpty()) {</span>
+<span class="fc" id="L571">        targetItemTypes.retainAll(PARAM_TYPES);</span>
+<span class="fc" id="L572">        additionObjects.add(&quot;param&quot;);</span>
+      }
+
+<span class="fc bfc" id="L575" title="All 2 branches covered.">      if (!props.isEmpty()) {</span>
+<span class="fc" id="L576">        targetItemTypes.retainAll(PROP_TYPES);</span>
+<span class="fc" id="L577">        additionObjects.add(&quot;prop&quot;);</span>
+<span class="fc" id="L578">        sequenceTarget = false;</span>
+      }
+
+<span class="pc bpc" id="L581" title="1 of 2 branches missed.">      if (!links.isEmpty()) {</span>
+<span class="nc" id="L582">        targetItemTypes.retainAll(LINK_TYPES);</span>
+<span class="nc" id="L583">        additionObjects.add(&quot;link&quot;);</span>
+<span class="nc" id="L584">        sequenceTarget = false;</span>
+      }
+
+<span class="fc bfc" id="L587" title="All 2 branches covered.">      if (!parts.isEmpty()) {</span>
+<span class="fc" id="L588">        targetItemTypes.retainAll(PART_TYPES);</span>
+<span class="fc" id="L589">        additionObjects.add(&quot;part&quot;);</span>
+      }
+
+<span class="fc bfc" id="L592" title="All 4 branches covered.">      if (Position.BEFORE.equals(position) || Position.AFTER.equals(position)) {</span>
+<span class="pc bpc" id="L593" title="1 of 2 branches missed.">        if (!sequenceTarget) {</span>
+<span class="nc" id="L594">          throw new ProfileResolutionEvaluationException(</span>
+              &quot;When using position before or after, one collection of parameters or parts can be specified.&quot;
+                  + &quot; Other additions must not be used.&quot;);
+        }
+<span class="pc bpc" id="L598" title="2 of 6 branches missed.">        if (sequenceTarget &amp;&amp; !params.isEmpty() &amp;&amp; parts.isEmpty()) {</span>
+<span class="fc" id="L599">          targetItemTypes.retainAll(Set.of(TargetType.PARAM));</span>
+<span class="pc bpc" id="L600" title="3 of 6 branches missed.">        } else if (sequenceTarget &amp;&amp; !parts.isEmpty() &amp;&amp; params.isEmpty()) {</span>
+<span class="fc" id="L601">          targetItemTypes.retainAll(Set.of(TargetType.PART));</span>
+        } else {
+<span class="nc" id="L603">          throw new ProfileResolutionEvaluationException(</span>
+              &quot;When using position before or after, only one collection of parameters or parts can be specified.&quot;);
+        }
+      }
+
+<span class="pc bpc" id="L608" title="1 of 2 branches missed.">      if (targetItemTypes.isEmpty()) {</span>
+<span class="nc" id="L609">        throw new ProfileResolutionEvaluationException(&quot;No parent object supports the requested objects to add: &quot; +</span>
+<span class="nc" id="L610">            additionObjects.stream().collect(CustomCollectors.joiningWithOxfordComma(&quot;or&quot;)));</span>
+      }
+
+<span class="fc" id="L613">      this.control = control;</span>
+<span class="fc" id="L614">      this.position = position;</span>
+<span class="fc" id="L615">      this.byId = byId;</span>
+<span class="fc" id="L616">      this.title = title;</span>
+<span class="fc" id="L617">      this.params = params;</span>
+<span class="fc" id="L618">      this.props = props;</span>
+<span class="fc" id="L619">      this.links = links;</span>
+<span class="fc" id="L620">      this.parts = parts;</span>
+<span class="fc" id="L621">      this.targetItemTypes = CollectionUtil.unmodifiableSet(targetItemTypes);</span>
+<span class="fc" id="L622">    }</span>
+
+    public Control getControl() {
+<span class="nc" id="L625">      return control;</span>
+    }
+
+    @NonNull
+    public Position getPosition() {
+<span class="fc" id="L630">      return position;</span>
+    }
+
+    @Nullable
+    public String getById() {
+<span class="fc" id="L635">      return byId;</span>
+    }
+
+    @Nullable
+    public MarkupLine getTitle() {
+<span class="fc" id="L640">      return title;</span>
+    }
+
+    @NonNull
+    public List&lt;Parameter&gt; getParams() {
+<span class="fc" id="L645">      return params;</span>
+    }
+
+    @NonNull
+    public List&lt;Property&gt; getProps() {
+<span class="fc" id="L650">      return props;</span>
+    }
+
+    @NonNull
+    public List&lt;Link&gt; getLinks() {
+<span class="fc" id="L655">      return links;</span>
+    }
+
+    @NonNull
+    public List&lt;ControlPart&gt; getParts() {
+<span class="fc" id="L660">      return parts;</span>
+    }
+
+    @NonNull
+    public Set&lt;TargetType&gt; getTargetItemTypes() {
+<span class="fc" id="L665">      return targetItemTypes;</span>
+    }
+
+    public boolean isMatchingType(@NonNull TargetType type) {
+<span class="fc" id="L669">      return getTargetItemTypes().contains(type);</span>
+    }
+
+    public &lt;T&gt; boolean isSequenceTargeted(T targetItem) {
+<span class="fc" id="L673">      TargetType objectType = TargetType.forClass(targetItem.getClass());</span>
+<span class="fc bfc" id="L674" title="All 4 branches covered.">      return (Position.BEFORE.equals(position) || Position.AFTER.equals(position))</span>
+<span class="pc bpc" id="L675" title="1 of 4 branches missed.">          &amp;&amp; (TargetType.PARAM.equals(objectType) &amp;&amp; isMatchingType(TargetType.PARAM)</span>
+<span class="pc bpc" id="L676" title="2 of 4 branches missed.">              || TargetType.PART.equals(objectType) &amp;&amp; isMatchingType(TargetType.PART));</span>
+    }
+
+    private boolean checkValue(@Nullable String actual, @Nullable String expected) {
+<span class="nc bnc" id="L680" title="All 4 branches missed.">      return expected == null || expected.equals(actual);</span>
+    }
+
+    /**
+     * Determine if the provided {@code obj} is the target of the add.
+     *
+     * @param obj
+     *          the current object
+     * @return {@code true} if the current object applies or {@code false} otherwise
+     */
+    public boolean appliesTo(@NonNull Object obj) {
+<span class="fc" id="L691">      TargetType objectType = TargetType.forClass(obj.getClass());</span>
+
+<span class="pc bpc" id="L693" title="1 of 4 branches missed.">      boolean retval = objectType != null &amp;&amp; isMatchingType(objectType);</span>
+<span class="fc bfc" id="L694" title="All 2 branches covered.">      if (retval) {</span>
+<span class="pc bpc" id="L695" title="1 of 2 branches missed.">        assert objectType != null;</span>
+
+        // check other criteria
+<span class="fc" id="L698">        String actualId = null;</span>
+
+<span class="pc bpc" id="L700" title="1 of 4 branches missed.">        switch (objectType) {</span>
+        case CONTROL: {
+<span class="fc" id="L702">          Control control = (Control) obj;</span>
+<span class="fc" id="L703">          actualId = control.getId();</span>
+<span class="fc" id="L704">          break;</span>
+        }
+        case PARAM: {
+<span class="fc" id="L707">          Parameter param = (Parameter) obj;</span>
+<span class="fc" id="L708">          actualId = param.getId();</span>
+<span class="fc" id="L709">          break;</span>
+        }
+        case PART: {
+<span class="fc" id="L712">          ControlPart part = (ControlPart) obj;</span>
+<span class="pc bpc" id="L713" title="1 of 2 branches missed.">          actualId = part.getId() == null ? null : part.getId();</span>
+<span class="fc" id="L714">          break;</span>
+        }
+        default:
+<span class="nc" id="L717">          throw new UnsupportedOperationException(objectType.fieldName());</span>
+        }
+
+<span class="fc" id="L720">        String byId = getById();</span>
+<span class="pc bpc" id="L721" title="3 of 4 branches missed.">        if (getById() == null &amp;&amp; TargetType.CONTROL.equals(objectType)) {</span>
+<span class="nc" id="L722">          retval = getControl().equals(obj);</span>
+        } else {
+<span class="pc bpc" id="L724" title="1 of 4 branches missed.">          retval = byId != null &amp;&amp; byId.equals(actualId);</span>
+        }
+      }
+<span class="fc" id="L727">      return retval;</span>
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

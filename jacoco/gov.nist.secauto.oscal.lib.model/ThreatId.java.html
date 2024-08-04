@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ThreatId.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">ThreatId.java</span></div><h1>ThreatId.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.adapter.UriAdapter;
+import gov.nist.secauto.metaschema.core.datatype.adapter.UriReferenceAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.core.model.constraint.IConstraint;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValue;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValues;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFieldValue;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFlag;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaField;
+import gov.nist.secauto.metaschema.databind.model.annotations.ValueConstraints;
+import java.lang.Override;
+import java.lang.String;
+import java.net.URI;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * A pointer, by ID, to an externally-defined threat.
+ */
+@MetaschemaField(
+    formalName = &quot;Threat ID&quot;,
+    description = &quot;A pointer, by ID, to an externally-defined threat.&quot;,
+    name = &quot;threat-id&quot;,
+    moduleClass = OscalAssessmentCommonModule.class
+)
+public class ThreatId implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  /**
+   * &quot;Specifies the source of the threat information.&quot;
+   */
+  @BoundFlag(
+      formalName = &quot;Threat Type Identification System&quot;,
+      description = &quot;Specifies the source of the threat information.&quot;,
+      name = &quot;system&quot;,
+      required = true,
+      typeAdapter = UriAdapter.class,
+      remarks = &quot;This value must be an [absolute URI](https://pages.nist.gov/OSCAL/concepts/uri-use/#absolute-uri) that serves as a [naming system identifier](https://pages.nist.gov/OSCAL/concepts/uri-use/#use-as-a-naming-system-identifier).&quot;,
+      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, allowOthers = true, values = {@AllowedValue(value = &quot;http://fedramp.gov&quot;, description = &quot;\\*\\*deprecated\\*\\* The value conforms to FedRAMP definitions. This value has been deprecated; use `http://fedramp.gov/ns/oscal` instead.&quot;), @AllowedValue(value = &quot;http://fedramp.gov/ns/oscal&quot;, description = &quot;The value conforms to FedRAMP definitions.&quot;)}))
+  )
+  private URI _system;
+
+  /**
+   * &quot;An optional location for the threat data, from which this ID originates.&quot;
+   */
+  @BoundFlag(
+      formalName = &quot;Threat Information Resource Reference&quot;,
+      description = &quot;An optional location for the threat data, from which this ID originates.&quot;,
+      name = &quot;href&quot;,
+      typeAdapter = UriReferenceAdapter.class,
+      remarks = &quot;This value may be one of:\n&quot;
+              + &quot;\n&quot;
+              + &quot;1. an [absolute URI](https://pages.nist.gov/OSCAL/concepts/uri-use/#absolute-uri) that points to a network resolvable resource,\n&quot;
+              + &quot;2. a [relative reference](https://pages.nist.gov/OSCAL/concepts/uri-use/#relative-reference) pointing to a network resolvable resource whose base URI is the URI of the containing document, or\n&quot;
+              + &quot;3. a bare URI fragment (i.e., \\`#uuid\\`) pointing to a `back-matter` resource in this or an imported document (see [linking to another OSCAL object](https://pages.nist.gov/OSCAL/concepts/uri-use/#linking-to-another-oscal-object)).&quot;
+  )
+  private URI _href;
+
+  @BoundFieldValue(
+      valueKeyName = &quot;id&quot;,
+      typeAdapter = UriAdapter.class
+  )
+  private URI _id;
+
+  public ThreatId() {
+<span class="nc" id="L69">    this(null);</span>
+<span class="nc" id="L70">  }</span>
+
+<span class="nc" id="L72">  public ThreatId(IMetaschemaData data) {</span>
+<span class="nc" id="L73">    this.__metaschemaData = data;</span>
+<span class="nc" id="L74">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L78">    return __metaschemaData;</span>
+  }
+
+  public URI getSystem() {
+<span class="nc" id="L82">    return _system;</span>
+  }
+
+  public void setSystem(URI value) {
+<span class="nc" id="L86">    _system = value;</span>
+<span class="nc" id="L87">  }</span>
+
+  public URI getHref() {
+<span class="nc" id="L90">    return _href;</span>
+  }
+
+  public void setHref(URI value) {
+<span class="nc" id="L94">    _href = value;</span>
+<span class="nc" id="L95">  }</span>
+
+  public URI getId() {
+<span class="nc" id="L98">    return _id;</span>
+  }
+
+  public void setId(URI value) {
+<span class="nc" id="L102">    _id = value;</span>
+<span class="nc" id="L103">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L107">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

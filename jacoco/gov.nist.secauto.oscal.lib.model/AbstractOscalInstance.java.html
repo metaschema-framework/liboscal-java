@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractOscalInstance.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">AbstractOscalInstance.java</span></div><h1>AbstractOscalInstance.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.oscal.lib.model.BackMatter.Resource;
+import gov.nist.secauto.oscal.lib.model.metadata.IBackMatter;
+
+import java.util.UUID;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+<span class="fc" id="L15">public abstract class AbstractOscalInstance implements IOscalInstance {</span>
+
+  @Override
+  public Resource getResourceByUuid(@NonNull UUID uuid) {
+<span class="fc" id="L19">    IBackMatter backMatter = getBackMatter();</span>
+
+<span class="fc" id="L21">    Resource retval = null;</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">    if (backMatter != null) {</span>
+<span class="fc" id="L23">      retval = backMatter.getResourceByUuid(uuid);</span>
+    }
+<span class="fc" id="L25">    return retval;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

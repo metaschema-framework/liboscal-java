@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IncludeAll.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">IncludeAll.java</span></div><h1>IncludeAll.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaAssembly;
+import java.lang.Override;
+import java.lang.String;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * Include all controls from the imported catalog or profile resources.
+ */
+@MetaschemaAssembly(
+    formalName = &quot;Include All&quot;,
+    description = &quot;Include all controls from the imported catalog or profile resources.&quot;,
+    name = &quot;include-all&quot;,
+    moduleClass = OscalControlCommonModule.class,
+    remarks = &quot;This element provides an alternative to calling controls individually from a catalog.&quot;
+)
+public class IncludeAll implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  public IncludeAll() {
+<span class="fc" id="L25">    this(null);</span>
+<span class="fc" id="L26">  }</span>
+
+<span class="fc" id="L28">  public IncludeAll(IMetaschemaData data) {</span>
+<span class="fc" id="L29">    this.__metaschemaData = data;</span>
+<span class="fc" id="L30">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L34">    return __metaschemaData;</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="nc" id="L39">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

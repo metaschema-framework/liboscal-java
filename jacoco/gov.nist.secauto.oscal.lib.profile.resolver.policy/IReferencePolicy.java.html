@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IReferencePolicy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.profile.resolver.policy</a> &gt; <span class="el_source">IReferencePolicy.java</span></div><h1>IReferencePolicy.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.profile.resolver.policy;
+
+import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
+import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+public interface IReferencePolicy&lt;T&gt; {
+  @NonNull
+<span class="fc" id="L15">  IReferencePolicy&lt;Object&gt; IGNORE_POLICY = new IReferencePolicy&lt;&gt;() {</span>
+
+    @Override
+    public boolean handleReference(
+        @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,
+        @NonNull Object reference,
+        @NonNull ReferenceCountingVisitor.Context referenceVisitorContext) {
+<span class="fc" id="L22">      return true;</span>
+    }
+  };
+
+  /**
+   * Get a reference policy that will ignore processing the reference.
+   *
+   * @param &lt;T&gt;
+   *          the type of the reference object
+   * @return the policy
+   */
+  @SuppressWarnings(&quot;unchecked&quot;)
+  @NonNull
+  static &lt;T&gt; IReferencePolicy&lt;T&gt; ignore() {
+<span class="fc" id="L36">    return (IReferencePolicy&lt;T&gt;) IGNORE_POLICY;</span>
+  }
+
+  /**
+   * Handle the provided {@code reference}.
+   *
+   * @param contextItem
+   *          the nodes containing the reference
+   * @param reference
+   *          the reference object to process
+   * @param referenceVisitorContext
+   *          used to lookup and resolve items
+   * @return {@code true} if the reference was handled, or {@code false} otherwise
+   * @throws ProfileResolutionEvaluationException
+   *           if there was an error handing the reference
+   */
+  boolean handleReference(
+      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,
+      @NonNull T reference,
+      @NonNull ReferenceCountingVisitor.Context referenceVisitorContext);
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

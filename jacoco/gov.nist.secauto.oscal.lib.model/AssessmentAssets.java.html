@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AssessmentAssets.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">AssessmentAssets.java</span></div><h1>AssessmentAssets.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.adapter.UuidAdapter;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLine;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLineAdapter;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultiline;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultilineAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.core.model.JsonGroupAsBehavior;
+import gov.nist.secauto.metaschema.core.model.constraint.IConstraint;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.metaschema.databind.model.annotations.AssemblyConstraints;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundField;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFlag;
+import gov.nist.secauto.metaschema.databind.model.annotations.GroupAs;
+import gov.nist.secauto.metaschema.databind.model.annotations.IsUnique;
+import gov.nist.secauto.metaschema.databind.model.annotations.KeyField;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaAssembly;
+import java.lang.Override;
+import java.lang.String;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * Identifies the assets used to perform this assessment, such as the assessment team, scanning tools, and assumptions.
+ */
+@MetaschemaAssembly(
+    formalName = &quot;Assessment Assets&quot;,
+    description = &quot;Identifies the assets used to perform this assessment, such as the assessment team, scanning tools, and assumptions.&quot;,
+    name = &quot;assessment-assets&quot;,
+    moduleClass = OscalAssessmentCommonModule.class,
+    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = &quot;unique-ssp-assessment-assets-component&quot;, level = IConstraint.Level.ERROR, target = &quot;component&quot;, keyFields = @KeyField(target = &quot;@uuid&quot;), remarks = &quot;Since multiple assessment `component` entries can be provided, each component must have a unique `uuid`.&quot;))
+)
+public class AssessmentAssets implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  @BoundAssembly(
+      formalName = &quot;Component&quot;,
+      description = &quot;A defined component that can be part of an implemented system.&quot;,
+      useName = &quot;component&quot;,
+      remarks = &quot;Used to add any components for tools used during the assessment. These are represented here to avoid mixing with system components.\n&quot;
+              + &quot;\n&quot;
+              + &quot;The technology tools used by the assessor to perform the assessment, such as vulnerability scanners. In the assessment plan these are the intended tools. In the assessment results, these are the actual tools used, including any differences from the assessment plan.&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;components&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;SystemComponent&gt; _components;
+
+  @BoundAssembly(
+      formalName = &quot;Assessment Platform&quot;,
+      description = &quot;Used to represent the toolset used to perform aspects of the assessment.&quot;,
+      useName = &quot;assessment-platform&quot;,
+      minOccurs = 1,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;assessment-platforms&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;AssessmentPlatform&gt; _assessmentPlatforms;
+
+  public AssessmentAssets() {
+<span class="nc" id="L65">    this(null);</span>
+<span class="nc" id="L66">  }</span>
+
+<span class="nc" id="L68">  public AssessmentAssets(IMetaschemaData data) {</span>
+<span class="nc" id="L69">    this.__metaschemaData = data;</span>
+<span class="nc" id="L70">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L74">    return __metaschemaData;</span>
+  }
+
+  public List&lt;SystemComponent&gt; getComponents() {
+<span class="nc" id="L78">    return _components;</span>
+  }
+
+  public void setComponents(List&lt;SystemComponent&gt; value) {
+<span class="nc" id="L82">    _components = value;</span>
+<span class="nc" id="L83">  }</span>
+
+  /**
+   * Add a new {@link SystemComponent} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addComponent(SystemComponent item) {
+<span class="nc" id="L91">    SystemComponent value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">    if (_components == null) {</span>
+<span class="nc" id="L93">      _components = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L95">    return _components.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link SystemComponent} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeComponent(SystemComponent item) {
+<span class="nc" id="L104">    SystemComponent value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L105" title="All 4 branches missed.">    return _components != null &amp;&amp; _components.remove(value);</span>
+  }
+
+  public List&lt;AssessmentPlatform&gt; getAssessmentPlatforms() {
+<span class="nc" id="L109">    return _assessmentPlatforms;</span>
+  }
+
+  public void setAssessmentPlatforms(List&lt;AssessmentPlatform&gt; value) {
+<span class="nc" id="L113">    _assessmentPlatforms = value;</span>
+<span class="nc" id="L114">  }</span>
+
+  /**
+   * Add a new {@link AssessmentPlatform} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addAssessmentPlatform(AssessmentPlatform item) {
+<span class="nc" id="L122">    AssessmentPlatform value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">    if (_assessmentPlatforms == null) {</span>
+<span class="nc" id="L124">      _assessmentPlatforms = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L126">    return _assessmentPlatforms.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link AssessmentPlatform} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeAssessmentPlatform(AssessmentPlatform item) {
+<span class="nc" id="L135">    AssessmentPlatform value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L136" title="All 4 branches missed.">    return _assessmentPlatforms != null &amp;&amp; _assessmentPlatforms.remove(value);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="nc" id="L141">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+
+  /**
+   * Used to represent the toolset used to perform aspects of the assessment.
+   */
+  @MetaschemaAssembly(
+      formalName = &quot;Assessment Platform&quot;,
+      description = &quot;Used to represent the toolset used to perform aspects of the assessment.&quot;,
+      name = &quot;assessment-platform&quot;,
+      moduleClass = OscalAssessmentCommonModule.class
+  )
+  public static class AssessmentPlatform implements IBoundObject {
+    private final IMetaschemaData __metaschemaData;
+
+    /**
+     * &quot;A &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented\&quot;&gt;machine-oriented&lt;/a&gt;, &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#globally-unique\&quot;&gt;globally unique&lt;/a&gt; identifier with &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#cross-instance\&quot;&gt;cross-instance&lt;/a&gt; scope that can be used to reference this assessment platform elsewhere in this or other OSCAL instances. The locally defined &lt;em&gt;UUID&lt;/em&gt; of the &lt;code&gt;assessment platform&lt;/code&gt; can be used to reference the data item locally or globally (e.g., in an &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#scope\&quot;&gt;imported OSCAL instance&lt;/a&gt;). This UUID should be assigned &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#consistency\&quot;&gt;per-subject&lt;/a&gt;, which means it should be consistently used to identify the same subject across revisions of the document.&quot;
+     */
+    @BoundFlag(
+        formalName = &quot;Assessment Platform Universally Unique Identifier&quot;,
+        description = &quot;A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented), [globally unique](https://pages.nist.gov/OSCAL/concepts/identifier-use/#globally-unique) identifier with [cross-instance](https://pages.nist.gov/OSCAL/concepts/identifier-use/#cross-instance) scope that can be used to reference this assessment platform elsewhere in this or other OSCAL instances. The locally defined *UUID* of the `assessment platform` can be used to reference the data item locally or globally (e.g., in an [imported OSCAL instance](https://pages.nist.gov/OSCAL/concepts/identifier-use/#scope)). This UUID should be assigned [per-subject](https://pages.nist.gov/OSCAL/concepts/identifier-use/#consistency), which means it should be consistently used to identify the same subject across revisions of the document.&quot;,
+        name = &quot;uuid&quot;,
+        required = true,
+        typeAdapter = UuidAdapter.class
+    )
+    private UUID _uuid;
+
+    @BoundField(
+        formalName = &quot;Assessment Platform Title&quot;,
+        description = &quot;The title or name for the assessment platform.&quot;,
+        useName = &quot;title&quot;,
+        typeAdapter = MarkupLineAdapter.class
+    )
+    private MarkupLine _title;
+
+    @BoundAssembly(
+        formalName = &quot;Property&quot;,
+        description = &quot;An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.&quot;,
+        useName = &quot;prop&quot;,
+        maxOccurs = -1,
+        groupAs = @GroupAs(name = &quot;props&quot;, inJson = JsonGroupAsBehavior.LIST)
+    )
+    private List&lt;Property&gt; _props;
+
+    @BoundAssembly(
+        formalName = &quot;Link&quot;,
+        description = &quot;A reference to a local or remote resource, that has a specific relation to the containing object.&quot;,
+        useName = &quot;link&quot;,
+        maxOccurs = -1,
+        groupAs = @GroupAs(name = &quot;links&quot;, inJson = JsonGroupAsBehavior.LIST)
+    )
+    private List&lt;Link&gt; _links;
+
+    @BoundAssembly(
+        formalName = &quot;Uses Component&quot;,
+        description = &quot;The set of components that are used by the assessment platform.&quot;,
+        useName = &quot;uses-component&quot;,
+        maxOccurs = -1,
+        groupAs = @GroupAs(name = &quot;uses-components&quot;, inJson = JsonGroupAsBehavior.LIST)
+    )
+    private List&lt;UsesComponent&gt; _usesComponents;
+
+    @BoundField(
+        formalName = &quot;Remarks&quot;,
+        description = &quot;Additional commentary about the containing object.&quot;,
+        useName = &quot;remarks&quot;,
+        typeAdapter = MarkupMultilineAdapter.class
+    )
+    private MarkupMultiline _remarks;
+
+    public AssessmentPlatform() {
+<span class="nc" id="L212">      this(null);</span>
+<span class="nc" id="L213">    }</span>
+
+<span class="nc" id="L215">    public AssessmentPlatform(IMetaschemaData data) {</span>
+<span class="nc" id="L216">      this.__metaschemaData = data;</span>
+<span class="nc" id="L217">    }</span>
+
+    @Override
+    public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L221">      return __metaschemaData;</span>
+    }
+
+    public UUID getUuid() {
+<span class="nc" id="L225">      return _uuid;</span>
+    }
+
+    public void setUuid(UUID value) {
+<span class="nc" id="L229">      _uuid = value;</span>
+<span class="nc" id="L230">    }</span>
+
+    public MarkupLine getTitle() {
+<span class="nc" id="L233">      return _title;</span>
+    }
+
+    public void setTitle(MarkupLine value) {
+<span class="nc" id="L237">      _title = value;</span>
+<span class="nc" id="L238">    }</span>
+
+    public List&lt;Property&gt; getProps() {
+<span class="nc" id="L241">      return _props;</span>
+    }
+
+    public void setProps(List&lt;Property&gt; value) {
+<span class="nc" id="L245">      _props = value;</span>
+<span class="nc" id="L246">    }</span>
+
+    /**
+     * Add a new {@link Property} item to the underlying collection.
+     * @param item the item to add
+     * @return {@code true}
+     */
+    public boolean addProp(Property item) {
+<span class="nc" id="L254">      Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">      if (_props == null) {</span>
+<span class="nc" id="L256">        _props = new LinkedList&lt;&gt;();</span>
+      }
+<span class="nc" id="L258">      return _props.add(value);</span>
+    }
+
+    /**
+     * Remove the first matching {@link Property} item from the underlying collection.
+     * @param item the item to remove
+     * @return {@code true} if the item was removed or {@code false} otherwise
+     */
+    public boolean removeProp(Property item) {
+<span class="nc" id="L267">      Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L268" title="All 4 branches missed.">      return _props != null &amp;&amp; _props.remove(value);</span>
+    }
+
+    public List&lt;Link&gt; getLinks() {
+<span class="nc" id="L272">      return _links;</span>
+    }
+
+    public void setLinks(List&lt;Link&gt; value) {
+<span class="nc" id="L276">      _links = value;</span>
+<span class="nc" id="L277">    }</span>
+
+    /**
+     * Add a new {@link Link} item to the underlying collection.
+     * @param item the item to add
+     * @return {@code true}
+     */
+    public boolean addLink(Link item) {
+<span class="nc" id="L285">      Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L286" title="All 2 branches missed.">      if (_links == null) {</span>
+<span class="nc" id="L287">        _links = new LinkedList&lt;&gt;();</span>
+      }
+<span class="nc" id="L289">      return _links.add(value);</span>
+    }
+
+    /**
+     * Remove the first matching {@link Link} item from the underlying collection.
+     * @param item the item to remove
+     * @return {@code true} if the item was removed or {@code false} otherwise
+     */
+    public boolean removeLink(Link item) {
+<span class="nc" id="L298">      Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L299" title="All 4 branches missed.">      return _links != null &amp;&amp; _links.remove(value);</span>
+    }
+
+    public List&lt;UsesComponent&gt; getUsesComponents() {
+<span class="nc" id="L303">      return _usesComponents;</span>
+    }
+
+    public void setUsesComponents(List&lt;UsesComponent&gt; value) {
+<span class="nc" id="L307">      _usesComponents = value;</span>
+<span class="nc" id="L308">    }</span>
+
+    /**
+     * Add a new {@link UsesComponent} item to the underlying collection.
+     * @param item the item to add
+     * @return {@code true}
+     */
+    public boolean addUsesComponent(UsesComponent item) {
+<span class="nc" id="L316">      UsesComponent value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L317" title="All 2 branches missed.">      if (_usesComponents == null) {</span>
+<span class="nc" id="L318">        _usesComponents = new LinkedList&lt;&gt;();</span>
+      }
+<span class="nc" id="L320">      return _usesComponents.add(value);</span>
+    }
+
+    /**
+     * Remove the first matching {@link UsesComponent} item from the underlying collection.
+     * @param item the item to remove
+     * @return {@code true} if the item was removed or {@code false} otherwise
+     */
+    public boolean removeUsesComponent(UsesComponent item) {
+<span class="nc" id="L329">      UsesComponent value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L330" title="All 4 branches missed.">      return _usesComponents != null &amp;&amp; _usesComponents.remove(value);</span>
+    }
+
+    public MarkupMultiline getRemarks() {
+<span class="nc" id="L334">      return _remarks;</span>
+    }
+
+    public void setRemarks(MarkupMultiline value) {
+<span class="nc" id="L338">      _remarks = value;</span>
+<span class="nc" id="L339">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L343">      return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+    }
+
+    /**
+     * The set of components that are used by the assessment platform.
+     */
+    @MetaschemaAssembly(
+        formalName = &quot;Uses Component&quot;,
+        description = &quot;The set of components that are used by the assessment platform.&quot;,
+        name = &quot;uses-component&quot;,
+        moduleClass = OscalAssessmentCommonModule.class,
+        modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = &quot;unique-ssp-uses-component-responsible-party&quot;, level = IConstraint.Level.ERROR, target = &quot;responsible-party&quot;, keyFields = @KeyField(target = &quot;@role-id&quot;), remarks = &quot;Since `responsible-party` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once.&quot;))
+    )
+    public static class UsesComponent implements IBoundObject {
+      private final IMetaschemaData __metaschemaData;
+
+      /**
+       * &quot;A &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented\&quot;&gt;machine-oriented&lt;/a&gt; identifier reference to a component that is implemented as part of an inventory item.&quot;
+       */
+      @BoundFlag(
+          formalName = &quot;Component Universally Unique Identifier Reference&quot;,
+          description = &quot;A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented) identifier reference to a component that is implemented as part of an inventory item.&quot;,
+          name = &quot;component-uuid&quot;,
+          required = true,
+          typeAdapter = UuidAdapter.class
+      )
+      private UUID _componentUuid;
+
+      @BoundAssembly(
+          formalName = &quot;Property&quot;,
+          description = &quot;An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.&quot;,
+          useName = &quot;prop&quot;,
+          maxOccurs = -1,
+          groupAs = @GroupAs(name = &quot;props&quot;, inJson = JsonGroupAsBehavior.LIST)
+      )
+      private List&lt;Property&gt; _props;
+
+      @BoundAssembly(
+          formalName = &quot;Link&quot;,
+          description = &quot;A reference to a local or remote resource, that has a specific relation to the containing object.&quot;,
+          useName = &quot;link&quot;,
+          maxOccurs = -1,
+          groupAs = @GroupAs(name = &quot;links&quot;, inJson = JsonGroupAsBehavior.LIST)
+      )
+      private List&lt;Link&gt; _links;
+
+      @BoundAssembly(
+          formalName = &quot;Responsible Party&quot;,
+          description = &quot;A reference to a set of persons and/or organizations that have responsibility for performing the referenced role in the context of the containing object.&quot;,
+          useName = &quot;responsible-party&quot;,
+          maxOccurs = -1,
+          groupAs = @GroupAs(name = &quot;responsible-parties&quot;, inJson = JsonGroupAsBehavior.LIST)
+      )
+      private List&lt;ResponsibleParty&gt; _responsibleParties;
+
+      @BoundField(
+          formalName = &quot;Remarks&quot;,
+          description = &quot;Additional commentary about the containing object.&quot;,
+          useName = &quot;remarks&quot;,
+          typeAdapter = MarkupMultilineAdapter.class
+      )
+      private MarkupMultiline _remarks;
+
+      public UsesComponent() {
+<span class="nc" id="L407">        this(null);</span>
+<span class="nc" id="L408">      }</span>
+
+<span class="nc" id="L410">      public UsesComponent(IMetaschemaData data) {</span>
+<span class="nc" id="L411">        this.__metaschemaData = data;</span>
+<span class="nc" id="L412">      }</span>
+
+      @Override
+      public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L416">        return __metaschemaData;</span>
+      }
+
+      public UUID getComponentUuid() {
+<span class="nc" id="L420">        return _componentUuid;</span>
+      }
+
+      public void setComponentUuid(UUID value) {
+<span class="nc" id="L424">        _componentUuid = value;</span>
+<span class="nc" id="L425">      }</span>
+
+      public List&lt;Property&gt; getProps() {
+<span class="nc" id="L428">        return _props;</span>
+      }
+
+      public void setProps(List&lt;Property&gt; value) {
+<span class="nc" id="L432">        _props = value;</span>
+<span class="nc" id="L433">      }</span>
+
+      /**
+       * Add a new {@link Property} item to the underlying collection.
+       * @param item the item to add
+       * @return {@code true}
+       */
+      public boolean addProp(Property item) {
+<span class="nc" id="L441">        Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L442" title="All 2 branches missed.">        if (_props == null) {</span>
+<span class="nc" id="L443">          _props = new LinkedList&lt;&gt;();</span>
+        }
+<span class="nc" id="L445">        return _props.add(value);</span>
+      }
+
+      /**
+       * Remove the first matching {@link Property} item from the underlying collection.
+       * @param item the item to remove
+       * @return {@code true} if the item was removed or {@code false} otherwise
+       */
+      public boolean removeProp(Property item) {
+<span class="nc" id="L454">        Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L455" title="All 4 branches missed.">        return _props != null &amp;&amp; _props.remove(value);</span>
+      }
+
+      public List&lt;Link&gt; getLinks() {
+<span class="nc" id="L459">        return _links;</span>
+      }
+
+      public void setLinks(List&lt;Link&gt; value) {
+<span class="nc" id="L463">        _links = value;</span>
+<span class="nc" id="L464">      }</span>
+
+      /**
+       * Add a new {@link Link} item to the underlying collection.
+       * @param item the item to add
+       * @return {@code true}
+       */
+      public boolean addLink(Link item) {
+<span class="nc" id="L472">        Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L473" title="All 2 branches missed.">        if (_links == null) {</span>
+<span class="nc" id="L474">          _links = new LinkedList&lt;&gt;();</span>
+        }
+<span class="nc" id="L476">        return _links.add(value);</span>
+      }
+
+      /**
+       * Remove the first matching {@link Link} item from the underlying collection.
+       * @param item the item to remove
+       * @return {@code true} if the item was removed or {@code false} otherwise
+       */
+      public boolean removeLink(Link item) {
+<span class="nc" id="L485">        Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L486" title="All 4 branches missed.">        return _links != null &amp;&amp; _links.remove(value);</span>
+      }
+
+      public List&lt;ResponsibleParty&gt; getResponsibleParties() {
+<span class="nc" id="L490">        return _responsibleParties;</span>
+      }
+
+      public void setResponsibleParties(List&lt;ResponsibleParty&gt; value) {
+<span class="nc" id="L494">        _responsibleParties = value;</span>
+<span class="nc" id="L495">      }</span>
+
+      /**
+       * Add a new {@link ResponsibleParty} item to the underlying collection.
+       * @param item the item to add
+       * @return {@code true}
+       */
+      public boolean addResponsibleParty(ResponsibleParty item) {
+<span class="nc" id="L503">        ResponsibleParty value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L504" title="All 2 branches missed.">        if (_responsibleParties == null) {</span>
+<span class="nc" id="L505">          _responsibleParties = new LinkedList&lt;&gt;();</span>
+        }
+<span class="nc" id="L507">        return _responsibleParties.add(value);</span>
+      }
+
+      /**
+       * Remove the first matching {@link ResponsibleParty} item from the underlying collection.
+       * @param item the item to remove
+       * @return {@code true} if the item was removed or {@code false} otherwise
+       */
+      public boolean removeResponsibleParty(ResponsibleParty item) {
+<span class="nc" id="L516">        ResponsibleParty value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L517" title="All 4 branches missed.">        return _responsibleParties != null &amp;&amp; _responsibleParties.remove(value);</span>
+      }
+
+      public MarkupMultiline getRemarks() {
+<span class="nc" id="L521">        return _remarks;</span>
+      }
+
+      public void setRemarks(MarkupMultiline value) {
+<span class="nc" id="L525">        _remarks = value;</span>
+<span class="nc" id="L526">      }</span>
+
+      @Override
+      public String toString() {
+<span class="nc" id="L530">        return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+      }
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfileSelectControlById.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">ProfileSelectControlById.java</span></div><h1>ProfileSelectControlById.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.adapter.TokenAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.core.model.JsonGroupAsBehavior;
+import gov.nist.secauto.metaschema.core.model.constraint.IConstraint;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValue;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValues;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundField;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFlag;
+import gov.nist.secauto.metaschema.databind.model.annotations.GroupAs;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.ValueConstraints;
+import gov.nist.secauto.oscal.lib.model.control.profile.AbstractProfileSelectControlById;
+import java.lang.Override;
+import java.lang.String;
+import java.util.LinkedList;
+import java.util.List;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * Select a control or controls from an imported control set.
+ */
+@MetaschemaAssembly(
+    formalName = &quot;Select Control&quot;,
+    description = &quot;Select a control or controls from an imported control set.&quot;,
+    name = &quot;select-control-by-id&quot;,
+    moduleClass = OscalProfileModule.class,
+    remarks = &quot;If `with-child-controls` is \&quot;yes\&quot; on the call to a control, no sibling `call`elements need to be used to call any controls appearing within it. Since generally, this is how control enhancements are represented (as controls within controls), this provides a way to include controls with all their dependent controls (enhancements) without having to call them individually.&quot;
+)
+public class ProfileSelectControlById extends AbstractProfileSelectControlById implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  /**
+   * &quot;When a control is included, whether its child (dependent) controls are also included.&quot;
+   */
+  @BoundFlag(
+      formalName = &quot;Include Contained Controls with Control&quot;,
+      description = &quot;When a control is included, whether its child (dependent) controls are also included.&quot;,
+      name = &quot;with-child-controls&quot;,
+      typeAdapter = TokenAdapter.class,
+      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = &quot;yes&quot;, description = &quot;Include child controls with an included control.&quot;), @AllowedValue(value = &quot;no&quot;, description = &quot;When importing a control, only include child controls that are also explicitly called.&quot;)}))
+  )
+  private String _withChildControls;
+
+  @BoundField(
+      formalName = &quot;Match Controls by Identifier&quot;,
+      description = &quot;Selecting a control by its ID given as a literal.&quot;,
+      useName = &quot;with-id&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;with-ids&quot;, inJson = JsonGroupAsBehavior.LIST),
+      typeAdapter = TokenAdapter.class
+  )
+  private List&lt;String&gt; _withIds;
+
+  @BoundAssembly(
+      formalName = &quot;Match Controls by Pattern&quot;,
+      description = &quot;Selecting a set of controls by matching their IDs with a wildcard pattern.&quot;,
+      useName = &quot;matching&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;matching&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Matching&gt; _matching;
+
+  public ProfileSelectControlById() {
+<span class="fc" id="L70">    this(null);</span>
+<span class="fc" id="L71">  }</span>
+
+<span class="fc" id="L73">  public ProfileSelectControlById(IMetaschemaData data) {</span>
+<span class="fc" id="L74">    this.__metaschemaData = data;</span>
+<span class="fc" id="L75">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L79">    return __metaschemaData;</span>
+  }
+
+  public String getWithChildControls() {
+<span class="fc" id="L83">    return _withChildControls;</span>
+  }
+
+  public void setWithChildControls(String value) {
+<span class="fc" id="L87">    _withChildControls = value;</span>
+<span class="fc" id="L88">  }</span>
+
+  public List&lt;String&gt; getWithIds() {
+<span class="fc" id="L91">    return _withIds;</span>
+  }
+
+  public void setWithIds(List&lt;String&gt; value) {
+<span class="fc" id="L95">    _withIds = value;</span>
+<span class="fc" id="L96">  }</span>
+
+  /**
+   * Add a new {@link String} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addWithId(String item) {
+<span class="nc" id="L104">    String value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">    if (_withIds == null) {</span>
+<span class="nc" id="L106">      _withIds = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L108">    return _withIds.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link String} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeWithId(String item) {
+<span class="nc" id="L117">    String value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L118" title="All 4 branches missed.">    return _withIds != null &amp;&amp; _withIds.remove(value);</span>
+  }
+
+  public List&lt;Matching&gt; getMatching() {
+<span class="fc" id="L122">    return _matching;</span>
+  }
+
+  public void setMatching(List&lt;Matching&gt; value) {
+<span class="fc" id="L126">    _matching = value;</span>
+<span class="fc" id="L127">  }</span>
+
+  /**
+   * Add a new {@link Matching} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addMatching(Matching item) {
+<span class="nc" id="L135">    Matching value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">    if (_matching == null) {</span>
+<span class="nc" id="L137">      _matching = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L139">    return _matching.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Matching} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeMatching(Matching item) {
+<span class="nc" id="L148">    Matching value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L149" title="All 4 branches missed.">    return _matching != null &amp;&amp; _matching.remove(value);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="nc" id="L154">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

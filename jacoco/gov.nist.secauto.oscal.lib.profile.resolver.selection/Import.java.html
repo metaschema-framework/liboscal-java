@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Import.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.profile.resolver.selection</a> &gt; <span class="el_source">Import.java</span></div><h1>Import.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.profile.resolver.selection;
+
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.core.util.VersionUtil;
+
+import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
+import gov.nist.secauto.metaschema.core.util.CollectionUtil;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.model.BackMatter;
+import gov.nist.secauto.oscal.lib.model.BackMatter.Resource;
+import gov.nist.secauto.oscal.lib.model.Catalog;
+import gov.nist.secauto.oscal.lib.model.CatalogGroup;
+import gov.nist.secauto.oscal.lib.model.Control;
+import gov.nist.secauto.oscal.lib.model.Metadata;
+import gov.nist.secauto.oscal.lib.model.Metadata.Location;
+import gov.nist.secauto.oscal.lib.model.Metadata.Party;
+import gov.nist.secauto.oscal.lib.model.Metadata.Role;
+import gov.nist.secauto.oscal.lib.model.Parameter;
+import gov.nist.secauto.oscal.lib.model.ProfileImport;
+import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
+import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionException;
+import gov.nist.secauto.oscal.lib.profile.resolver.policy.ReferenceCountingVisitor;
+import gov.nist.secauto.oscal.lib.profile.resolver.support.BasicIndexer;
+import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;
+import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer;
+
+import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+public class Import {
+
+  @NonNull
+  private final IRootAssemblyNodeItem profile;
+  @NonNull
+  private final IAssemblyNodeItem profileImportItem;
+
+  public Import(
+      @NonNull IRootAssemblyNodeItem profile,
+<span class="fc" id="L51">      @NonNull IAssemblyNodeItem profileImportItem) {</span>
+
+<span class="fc" id="L53">    this.profile = profile;</span>
+<span class="fc" id="L54">    this.profileImportItem = profileImportItem;</span>
+<span class="fc" id="L55">  }</span>
+
+  protected IRootAssemblyNodeItem getProfileItem() {
+<span class="nc" id="L58">    return profile;</span>
+  }
+
+  protected IAssemblyNodeItem getProfileImportItem() {
+<span class="nc" id="L62">    return profileImportItem;</span>
+  }
+
+  @NonNull
+  protected ProfileImport getProfileImport() {
+<span class="fc" id="L67">    return ObjectUtils.requireNonNull((ProfileImport) profileImportItem.getValue());</span>
+  }
+
+  private static Catalog toCatalog(@NonNull IDocumentNodeItem catalogDocument) {
+<span class="fc" id="L71">    return (Catalog) INodeItem.toValue(catalogDocument);</span>
+  }
+
+  @NonNull
+  protected IControlFilter newControlFilter() {
+<span class="fc" id="L76">    return IControlFilter.newInstance(getProfileImport());</span>
+  }
+
+  @NonNull
+  protected IIndexer newIndexer() {
+    // TODO: add support for reassignment
+    // IIdentifierMapper mapper = IIdentifierMapper.IDENTITY;
+    // IIndexer indexer = new ReassignmentIndexer(mapper);
+<span class="fc" id="L84">    return new BasicIndexer();</span>
+  }
+
+  @NonNull
+  public IIndexer resolve(@NonNull IDocumentNodeItem importedCatalogDocument, @NonNull Catalog resolvedCatalog)
+      throws ProfileResolutionException {
+<span class="fc" id="L90">    ProfileImport profileImport = getProfileImport();</span>
+<span class="fc" id="L91">    URI uri = ObjectUtils.requireNonNull(profileImport.getHref(), &quot;profile import href is null&quot;);</span>
+
+    // determine which controls and groups to keep
+<span class="fc" id="L94">    IControlFilter filter = newControlFilter();</span>
+<span class="fc" id="L95">    IIndexer indexer = newIndexer();</span>
+<span class="fc" id="L96">    IControlSelectionState state = new ControlSelectionState(indexer, filter);</span>
+
+    try {
+<span class="fc" id="L99">      ControlSelectionVisitor.instance().visitCatalog(importedCatalogDocument, state);</span>
+
+      // process references
+<span class="fc" id="L102">      ReferenceCountingVisitor.instance().visitCatalog(importedCatalogDocument, indexer, uri);</span>
+
+      // filter based on selections
+<span class="fc" id="L105">      FilterNonSelectedVisitor.instance().visitCatalog(importedCatalogDocument, indexer);</span>
+<span class="nc" id="L106">    } catch (ProfileResolutionEvaluationException ex) {</span>
+<span class="nc" id="L107">      throw new ProfileResolutionException(</span>
+<span class="nc" id="L108">          String.format(&quot;Import: Unable to resolve profile import '%s'. %s&quot;, uri.toString(), ex.getMessage()), ex);</span>
+<span class="fc" id="L109">    }</span>
+
+<span class="fc" id="L111">    Catalog importedCatalog = toCatalog(importedCatalogDocument);</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">    for (Parameter param : CollectionUtil.listOrEmpty(importedCatalog.getParams())) {</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">      if (param != null) {</span>
+<span class="nc" id="L114">        resolvedCatalog.addParam(param);</span>
+      }
+<span class="nc" id="L116">    }</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">    for (Control control : CollectionUtil.listOrEmpty(importedCatalog.getControls())) {</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">      if (control != null) {</span>
+<span class="fc" id="L119">        resolvedCatalog.addControl(control);</span>
+      }
+<span class="fc" id="L121">    }</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">    for (CatalogGroup group : CollectionUtil.listOrEmpty(importedCatalog.getGroups())) {</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">      if (group != null) {</span>
+<span class="fc" id="L124">        resolvedCatalog.addGroup(group);</span>
+      }
+<span class="fc" id="L126">    }</span>
+
+<span class="fc" id="L128">    generateMetadata(importedCatalogDocument, resolvedCatalog, indexer);</span>
+<span class="fc" id="L129">    generateBackMatter(importedCatalogDocument, resolvedCatalog, indexer);</span>
+<span class="fc" id="L130">    return indexer;</span>
+  }
+
+  private static void generateMetadata(
+      @NonNull IDocumentNodeItem importedCatalogDocument,
+      @NonNull Catalog resolvedCatalog,
+      @NonNull IIndexer indexer) {
+<span class="fc" id="L137">    Metadata importedMetadata = toCatalog(importedCatalogDocument).getMetadata();</span>
+
+<span class="fc bfc" id="L139" title="All 2 branches covered.">    if (importedMetadata != null) {</span>
+<span class="fc" id="L140">      Metadata resolvedMetadata = resolvedCatalog.getMetadata();</span>
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">      if (resolvedMetadata == null) {</span>
+<span class="nc" id="L142">        resolvedMetadata = new Metadata();</span>
+<span class="nc" id="L143">        resolvedCatalog.setMetadata(resolvedMetadata);</span>
+      }
+<span class="fc" id="L145">      resolveMetadata(importedMetadata, resolvedMetadata, indexer);</span>
+    }
+<span class="fc" id="L147">  }</span>
+
+  private static void resolveMetadata(
+      @NonNull Metadata imported,
+      @NonNull Metadata resolved,
+      @NonNull IIndexer indexer) {
+<span class="fc" id="L153">    String importedVersion = imported.getOscalVersion();</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">    if (importedVersion != null) {</span>
+<span class="fc" id="L155">      Version importOscalVersion = VersionUtil.parseVersion(importedVersion, null, null);</span>
+
+<span class="fc" id="L157">      Version resolvedCatalogVersion</span>
+<span class="fc" id="L158">          = VersionUtil.parseVersion(resolved.getOscalVersion(), null, null);</span>
+
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">      if (importOscalVersion.compareTo(resolvedCatalogVersion) &gt; 0) {</span>
+<span class="nc" id="L161">        resolved.setOscalVersion(importOscalVersion.toString());</span>
+      }
+    }
+
+    // copy roles, parties, and locations with prop name:keep and any referenced
+<span class="fc" id="L166">    resolved.setRoles(</span>
+<span class="fc" id="L167">        IIndexer.filterDistinct(</span>
+<span class="fc" id="L168">            ObjectUtils.notNull(CollectionUtil.listOrEmpty(resolved.getRoles()).stream()),</span>
+<span class="fc" id="L169">            indexer.getEntitiesByItemType(IEntityItem.ItemType.ROLE),</span>
+            Role::getId)
+<span class="fc" id="L171">            .collect(Collectors.toCollection(LinkedList::new)));</span>
+<span class="fc" id="L172">    resolved.setParties(</span>
+<span class="fc" id="L173">        IIndexer.filterDistinct(</span>
+<span class="fc" id="L174">            ObjectUtils.notNull(CollectionUtil.listOrEmpty(resolved.getParties()).stream()),</span>
+<span class="fc" id="L175">            indexer.getEntitiesByItemType(IEntityItem.ItemType.PARTY),</span>
+            Party::getUuid)
+<span class="fc" id="L177">            .collect(Collectors.toCollection(LinkedList::new)));</span>
+<span class="fc" id="L178">    resolved.setLocations(</span>
+<span class="fc" id="L179">        IIndexer.filterDistinct(</span>
+<span class="fc" id="L180">            ObjectUtils.notNull(CollectionUtil.listOrEmpty(resolved.getLocations()).stream()),</span>
+<span class="fc" id="L181">            indexer.getEntitiesByItemType(IEntityItem.ItemType.LOCATION),</span>
+            Location::getUuid)
+<span class="fc" id="L183">            .collect(Collectors.toCollection(LinkedList::new)));</span>
+<span class="fc" id="L184">  }</span>
+
+  @SuppressWarnings(&quot;PMD.AvoidDeeplyNestedIfStmts&quot;) // not worth a function call
+  private static void generateBackMatter(
+      @NonNull IDocumentNodeItem importedCatalogDocument,
+      @NonNull Catalog resolvedCatalog,
+      @NonNull IIndexer indexer) {
+<span class="fc" id="L191">    BackMatter importedBackMatter = toCatalog(importedCatalogDocument).getBackMatter();</span>
+
+<span class="fc bfc" id="L193" title="All 2 branches covered.">    if (importedBackMatter != null) {</span>
+<span class="fc" id="L194">      BackMatter resolvedBackMatter = resolvedCatalog.getBackMatter();</span>
+
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">      List&lt;Resource&gt; resolvedResources = resolvedBackMatter == null ? CollectionUtil.emptyList()</span>
+<span class="pc" id="L197">          : CollectionUtil.listOrEmpty(resolvedBackMatter.getResources());</span>
+
+<span class="fc" id="L199">      List&lt;Resource&gt; resources = IIndexer.filterDistinct(</span>
+<span class="fc" id="L200">          ObjectUtils.notNull(resolvedResources.stream()),</span>
+<span class="fc" id="L201">          indexer.getEntitiesByItemType(IEntityItem.ItemType.RESOURCE),</span>
+          Resource::getUuid)
+<span class="fc" id="L203">          .collect(Collectors.toCollection(LinkedList::new));</span>
+
+<span class="pc bpc" id="L205" title="1 of 2 branches missed.">      if (!resources.isEmpty()) {</span>
+<span class="pc bpc" id="L206" title="1 of 2 branches missed.">        if (resolvedBackMatter == null) {</span>
+<span class="fc" id="L207">          resolvedBackMatter = new BackMatter();</span>
+<span class="fc" id="L208">          resolvedCatalog.setBackMatter(resolvedBackMatter);</span>
+        }
+
+<span class="fc" id="L211">        resolvedBackMatter.setResources(resources);</span>
+      }
+    }
+<span class="fc" id="L214">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IIndexer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.profile.resolver.support</a> &gt; <span class="el_source">IIndexer.java</span></div><h1>IIndexer.java</h1><pre class="source lang-java linenums">/*
+ * SPDX-FileCopyrightText: none
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+package gov.nist.secauto.oscal.lib.profile.resolver.support;
+
+import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.MetapathExpression.ResultType;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
+import gov.nist.secauto.metaschema.core.util.CustomCollectors;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.OscalBindingContext;
+import gov.nist.secauto.oscal.lib.model.metadata.IProperty;
+import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">public interface IIndexer {</span>
+<span class="fc" id="L35">  enum SelectionStatus {</span>
+<span class="fc" id="L36">    SELECTED,</span>
+<span class="fc" id="L37">    UNSELECTED,</span>
+<span class="fc" id="L38">    UNKNOWN;</span>
+  }
+
+<span class="fc" id="L41">  MetapathExpression HAS_PROP_KEEP_METAPATH = MetapathExpression.compile(</span>
+      &quot;prop[@name='keep' and has-oscal-namespace('&quot; + IProperty.OSCAL_NAMESPACE + &quot;')]/@value = 'always'&quot;,
+      OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
+
+<span class="fc bfc" id="L45" title="All 2 branches covered.">  Predicate&lt;IEntityItem&gt; KEEP_ENTITY_PREDICATE = entity -&gt; entity.getReferenceCount() &gt; 0</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">      || (Boolean) ObjectUtils</span>
+<span class="fc" id="L47">          .notNull(HAS_PROP_KEEP_METAPATH.evaluateAs(entity.getInstance(), ResultType.BOOLEAN));</span>
+
+  static boolean isReferencedEntity(@NonNull IEntityItem entity) {
+<span class="fc" id="L50">    return KEEP_ENTITY_PREDICATE.test(entity);</span>
+  }
+
+  /**
+   * Keep entities that have a reference count greater than zero or are required
+   * to be kept based on the &quot;keep&quot;=&quot;always property.
+   *
+   * @param entities
+   *          the entity items to filter
+   * @return the entities that pass the filter
+   */
+  static Stream&lt;IEntityItem&gt; getReferencedEntitiesAsStream(@NonNull Collection&lt;IEntityItem&gt; entities) {
+<span class="fc" id="L62">    return entities.stream().filter(KEEP_ENTITY_PREDICATE);</span>
+  }
+
+  /**
+   * Keep entities that have a reference count of zero or are not required to be
+   * kept based on the &quot;keep&quot;=&quot;always property.
+   *
+   * @param entities
+   *          the entity items to filter
+   * @return the entities that pass the filter
+   */
+  static Stream&lt;IEntityItem&gt; getUnreferencedEntitiesAsStream(@NonNull Collection&lt;IEntityItem&gt; entities) {
+<span class="fc" id="L74">    return entities.stream().filter(KEEP_ENTITY_PREDICATE.negate());</span>
+  }
+
+  /**
+   * Generates a stream of distinct items that have a reference count greater than
+   * zero or are required to be kept based on the &quot;keep&quot;=&quot;always property.
+   * &lt;p&gt;
+   * Distinct items are determined based on the item's key using the provided
+   * {@code keyMapper}.
+   *
+   * @param &lt;T&gt;
+   *          the item type
+   * @param &lt;K&gt;
+   *          the key type
+   * @param resolvedItems
+   *          a series of previously resolved items to add to prepend to the
+   *          stream
+   * @param importedEntityItems
+   *          a collection of new items to filter then append to the stream
+   * @param keyMapper
+   *          the key mapping function to determine the item's key
+   * @return the resulting series of items with duplicate items with the same key
+   *         removed
+   */
+  // TODO: Is this the right name for this method?
+  static &lt;T, K&gt; Stream&lt;T&gt; filterDistinct(
+      @NonNull Stream&lt;T&gt; resolvedItems,
+      @NonNull Collection&lt;IEntityItem&gt; importedEntityItems,
+      @NonNull Function&lt;? super T, ? extends K&gt; keyMapper) {
+<span class="fc" id="L103">    @SuppressWarnings(&quot;unchecked&quot;) Stream&lt;T&gt; importedStream = getReferencedEntitiesAsStream(importedEntityItems)</span>
+<span class="fc" id="L104">        .map(entity -&gt; (T) entity.getInstanceValue());</span>
+
+<span class="fc" id="L106">    return CustomCollectors.distinctByKey(</span>
+<span class="fc" id="L107">        ObjectUtils.notNull(Stream.concat(resolvedItems, importedStream)),</span>
+        keyMapper,
+<span class="nc" id="L109">        (key, value1, value2) -&gt; value2);</span>
+  }
+
+  static void logIndex(@NonNull IIndexer indexer, @NonNull Level logLevel) {
+<span class="fc" id="L113">    Logger logger = LogManager.getLogger();</span>
+
+<span class="fc" id="L115">    Set&lt;INodeItem&gt; indexedItems = new HashSet&lt;&gt;();</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">    if (logger.isEnabled(logLevel)) {</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">      for (ItemType itemType : ItemType.values()) {</span>
+<span class="pc bpc" id="L118" title="2 of 4 branches missed.">        assert itemType != null;</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        for (IEntityItem item : indexer.getEntitiesByItemType(itemType)) {</span>
+<span class="fc" id="L120">          INodeItem nodeItem = item.getInstance();</span>
+<span class="fc" id="L121">          indexedItems.add(nodeItem);</span>
+<span class="fc" id="L122">          logger.atLevel(logLevel).log(&quot;{} {}: selected: {}, reference count: {}&quot;,</span>
+<span class="fc" id="L123">              itemType.name(),</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">              item.isIdentifierReassigned() ? item.getIdentifier() + &quot;(&quot; + item.getOriginalIdentifier() + &quot;)&quot;</span>
+<span class="pc" id="L125">                  : item.getIdentifier(),</span>
+<span class="fc" id="L126">              indexer.getSelectionStatus(nodeItem),</span>
+<span class="fc" id="L127">              item.getReferenceCount());</span>
+<span class="fc" id="L128">        }</span>
+      }
+    }
+
+<span class="fc bfc" id="L132" title="All 2 branches covered.">    for (Map.Entry&lt;INodeItem, SelectionStatus&gt; entry : indexer.getSelectionStatusMap().entrySet()) {</span>
+<span class="fc" id="L133">      INodeItem nodeItem = entry.getKey();</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">      if (!indexedItems.contains(nodeItem)) {</span>
+<span class="fc" id="L135">        Object value = nodeItem.getValue();</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">        logger.atLevel(logLevel).log(&quot;{}: {}&quot;, value == null ? &quot;(null)&quot; : value.getClass().getName(), entry.getValue());</span>
+      }
+<span class="fc" id="L138">    }</span>
+<span class="fc" id="L139">  }</span>
+
+  @NonNull
+  IEntityItem addRole(@NonNull IModelNodeItem&lt;?, ?&gt; role);
+
+  @NonNull
+  IEntityItem addLocation(@NonNull IModelNodeItem&lt;?, ?&gt; location);
+
+  @NonNull
+  IEntityItem addParty(@NonNull IModelNodeItem&lt;?, ?&gt; party);
+
+  @Nullable
+  IEntityItem addGroup(@NonNull IModelNodeItem&lt;?, ?&gt; group);
+
+  @NonNull
+  IEntityItem addControl(@NonNull IModelNodeItem&lt;?, ?&gt; control);
+
+  @NonNull
+  IEntityItem addParameter(@NonNull IModelNodeItem&lt;?, ?&gt; parameter);
+
+  @Nullable
+  IEntityItem addPart(@NonNull IModelNodeItem&lt;?, ?&gt; part);
+
+  @NonNull
+  IEntityItem addResource(@NonNull IModelNodeItem&lt;?, ?&gt; resource);
+
+  @NonNull
+  Collection&lt;IEntityItem&gt; getEntitiesByItemType(@NonNull IEntityItem.ItemType itemType);
+
+  @Nullable
+  default IEntityItem getEntity(@NonNull IEntityItem.ItemType itemType, @NonNull UUID identifier) {
+<span class="nc" id="L170">    return getEntity(itemType, ObjectUtils.notNull(identifier.toString()), false);</span>
+  }
+
+  /**
+   * Lookup an item of the given {@code itemType} having the given
+   * {@code identifier}.
+   * &lt;p&gt;
+   * Will normalize the case of a UUID-based identifier.
+   *
+   * @param itemType
+   *          the type of item to search for
+   * @param identifier
+   *          the identifier to lookup
+   * @return the matching item or {@code null} if no match was found
+   */
+  @Nullable
+  default IEntityItem getEntity(@NonNull IEntityItem.ItemType itemType, @NonNull String identifier) {
+<span class="fc" id="L187">    return getEntity(itemType, identifier, itemType.isUuid());</span>
+  }
+
+  /**
+   * Lookup an item of the given {@code itemType} having the given
+   * {@code identifier}.
+   * &lt;p&gt;
+   * Will normalize the case of a UUID-based the identifier when requested.
+   *
+   * @param itemType
+   *          the type of item to search for
+   * @param identifier
+   *          the identifier to lookup
+   * @param normalize
+   *          {@code true} if the identifier case should be normalized or
+   *          {@code false} otherwise
+   * @return the matching item or {@code null} if no match was found
+   */
+  @Nullable
+  IEntityItem getEntity(@NonNull IEntityItem.ItemType itemType, @NonNull String identifier, boolean normalize);
+
+  boolean removeItem(@NonNull IEntityItem entity);
+
+  boolean isSelected(@NonNull IEntityItem entity);
+
+  Map&lt;INodeItem, SelectionStatus&gt; getSelectionStatusMap();
+
+  @NonNull
+  SelectionStatus getSelectionStatus(@NonNull INodeItem item);
+
+  void setSelectionStatus(@NonNull INodeItem item, @NonNull SelectionStatus selectionStatus);
+
+  void resetSelectionStatus();
+
+  void append(@NonNull IIndexer result);
+
+  /**
+   * Get a copy of the entity map.
+   *
+   * @return the copy
+   */
+  @NonNull
+  Map&lt;ItemType, Map&lt;String, IEntityItem&gt;&gt; getEntities();
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

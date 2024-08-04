@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SystemInformation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">SystemInformation.java</span></div><h1>SystemInformation.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.adapter.UriAdapter;
+import gov.nist.secauto.metaschema.core.datatype.adapter.UriReferenceAdapter;
+import gov.nist.secauto.metaschema.core.datatype.adapter.UuidAdapter;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLine;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLineAdapter;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultiline;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultilineAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.core.model.JsonGroupAsBehavior;
+import gov.nist.secauto.metaschema.core.model.constraint.IConstraint;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValue;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValues;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundField;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFlag;
+import gov.nist.secauto.metaschema.databind.model.annotations.Expect;
+import gov.nist.secauto.metaschema.databind.model.annotations.GroupAs;
+import gov.nist.secauto.metaschema.databind.model.annotations.IndexHasKey;
+import gov.nist.secauto.metaschema.databind.model.annotations.KeyField;
+import gov.nist.secauto.metaschema.databind.model.annotations.Matches;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.ValueConstraints;
+import java.lang.Override;
+import java.lang.String;
+import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * Contains details about all information types that are stored, processed, or transmitted by the system, such as privacy information, and those defined in &lt;a href=&quot;https://doi.org/10.6028/NIST.SP.800-60v2r1&quot;&gt;NIST SP 800-60&lt;/a&gt;.
+ */
+@MetaschemaAssembly(
+    formalName = &quot;System Information&quot;,
+    description = &quot;Contains details about all information types that are stored, processed, or transmitted by the system, such as privacy information, and those defined in [NIST SP 800-60](https://doi.org/10.6028/NIST.SP.800-60v2r1).&quot;,
+    name = &quot;system-information&quot;,
+    moduleClass = OscalSspModule.class,
+    valueConstraints = @ValueConstraints(allowedValues = {@AllowedValues(level = IConstraint.Level.ERROR, target = &quot;prop[has-oscal-namespace('http://csrc.nist.gov/ns/oscal')]/@name&quot;, values = @AllowedValue(value = &quot;privacy-designation&quot;, description = &quot;Is this a privacy sensitive system? yes or no&quot;)), @AllowedValues(level = IConstraint.Level.ERROR, target = &quot;prop[has-oscal-namespace('http://csrc.nist.gov/ns/oscal') and @name='privacy-designation']/@value&quot;, values = {@AllowedValue(value = &quot;yes&quot;, description = &quot;The system is privacy sensitive.&quot;), @AllowedValue(value = &quot;no&quot;, description = &quot;The system is not privacy sensitive.&quot;)}), @AllowedValues(level = IConstraint.Level.ERROR, target = &quot;link/@rel&quot;, allowOthers = true, values = @AllowedValue(value = &quot;privacy-impact-assessment&quot;, description = &quot;A link to the privacy impact assessment.&quot;)), @AllowedValues(level = IConstraint.Level.ERROR, target = &quot;information-type/(confidentiality-impact|integrity-impact|availability-impact)/(base|selected)&quot;, allowOthers = true, values = {@AllowedValue(value = &quot;fips-199-low&quot;, description = &quot;A 'low' sensitivity level as defined in [FIPS-199](https://doi.org/10.6028/NIST.FIPS.199).&quot;), @AllowedValue(value = &quot;fips-199-moderate&quot;, description = &quot;A 'moderate' sensitivity level as defined in [FIPS-199](https://doi.org/10.6028/NIST.FIPS.199).&quot;), @AllowedValue(value = &quot;fips-199-high&quot;, description = &quot;A 'high' sensitivity level as defined in [FIPS-199](https://doi.org/10.6028/NIST.FIPS.199).&quot;)}, remarks = &quot;FIPS-199 taxonomy is provided here as a starting point. We will provide other taxonomies based on community requests.&quot;)}, indexHasKey = @IndexHasKey(level = IConstraint.Level.ERROR, target = &quot;link[@rel='privacy-impact-assessment' and starts-with(@href,'#')]&quot;, indexName = &quot;index-back-matter-resource&quot;, keyFields = @KeyField(target = &quot;@href&quot;, pattern = &quot;#(.*)&quot;)), matches = {@Matches(level = IConstraint.Level.ERROR, target = &quot;link[@rel='privacy-impact-assessment']/@href[starts-with(.,'#')]&quot;, typeAdapter = UriReferenceAdapter.class), @Matches(level = IConstraint.Level.ERROR, target = &quot;link[@rel='privacy-impact-assessment']/@href[not(starts-with(.,'#'))]&quot;, typeAdapter = UriAdapter.class)})
+)
+public class SystemInformation implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  @BoundAssembly(
+      formalName = &quot;Property&quot;,
+      description = &quot;An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.&quot;,
+      useName = &quot;prop&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;props&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Property&gt; _props;
+
+  @BoundAssembly(
+      formalName = &quot;Link&quot;,
+      description = &quot;A reference to a local or remote resource, that has a specific relation to the containing object.&quot;,
+      useName = &quot;link&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;links&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Link&gt; _links;
+
+  @BoundAssembly(
+      formalName = &quot;Information Type&quot;,
+      description = &quot;Contains details about one information type that is stored, processed, or transmitted by the system, such as privacy information, and those defined in [NIST SP 800-60](https://doi.org/10.6028/NIST.SP.800-60v2r1).&quot;,
+      useName = &quot;information-type&quot;,
+      minOccurs = 1,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;information-types&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;InformationType&gt; _informationTypes;
+
+  public SystemInformation() {
+<span class="nc" id="L78">    this(null);</span>
+<span class="nc" id="L79">  }</span>
+
+<span class="nc" id="L81">  public SystemInformation(IMetaschemaData data) {</span>
+<span class="nc" id="L82">    this.__metaschemaData = data;</span>
+<span class="nc" id="L83">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L87">    return __metaschemaData;</span>
+  }
+
+  public List&lt;Property&gt; getProps() {
+<span class="nc" id="L91">    return _props;</span>
+  }
+
+  public void setProps(List&lt;Property&gt; value) {
+<span class="nc" id="L95">    _props = value;</span>
+<span class="nc" id="L96">  }</span>
+
+  /**
+   * Add a new {@link Property} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addProp(Property item) {
+<span class="nc" id="L104">    Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">    if (_props == null) {</span>
+<span class="nc" id="L106">      _props = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L108">    return _props.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Property} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeProp(Property item) {
+<span class="nc" id="L117">    Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L118" title="All 4 branches missed.">    return _props != null &amp;&amp; _props.remove(value);</span>
+  }
+
+  public List&lt;Link&gt; getLinks() {
+<span class="nc" id="L122">    return _links;</span>
+  }
+
+  public void setLinks(List&lt;Link&gt; value) {
+<span class="nc" id="L126">    _links = value;</span>
+<span class="nc" id="L127">  }</span>
+
+  /**
+   * Add a new {@link Link} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addLink(Link item) {
+<span class="nc" id="L135">    Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">    if (_links == null) {</span>
+<span class="nc" id="L137">      _links = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L139">    return _links.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Link} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeLink(Link item) {
+<span class="nc" id="L148">    Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L149" title="All 4 branches missed.">    return _links != null &amp;&amp; _links.remove(value);</span>
+  }
+
+  public List&lt;InformationType&gt; getInformationTypes() {
+<span class="nc" id="L153">    return _informationTypes;</span>
+  }
+
+  public void setInformationTypes(List&lt;InformationType&gt; value) {
+<span class="nc" id="L157">    _informationTypes = value;</span>
+<span class="nc" id="L158">  }</span>
+
+  /**
+   * Add a new {@link InformationType} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addInformationType(InformationType item) {
+<span class="nc" id="L166">    InformationType value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">    if (_informationTypes == null) {</span>
+<span class="nc" id="L168">      _informationTypes = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L170">    return _informationTypes.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link InformationType} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeInformationType(InformationType item) {
+<span class="nc" id="L179">    InformationType value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L180" title="All 4 branches missed.">    return _informationTypes != null &amp;&amp; _informationTypes.remove(value);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="nc" id="L185">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+
+  /**
+   * Contains details about one information type that is stored, processed, or transmitted by the system, such as privacy information, and those defined in &lt;a href=&quot;https://doi.org/10.6028/NIST.SP.800-60v2r1&quot;&gt;NIST SP 800-60&lt;/a&gt;.
+   */
+  @MetaschemaAssembly(
+      formalName = &quot;Information Type&quot;,
+      description = &quot;Contains details about one information type that is stored, processed, or transmitted by the system, such as privacy information, and those defined in [NIST SP 800-60](https://doi.org/10.6028/NIST.SP.800-60v2r1).&quot;,
+      name = &quot;information-type&quot;,
+      moduleClass = OscalSspModule.class,
+      valueConstraints = @ValueConstraints(expect = @Expect(level = IConstraint.Level.WARNING, test = &quot;@uuid&quot;, message = &quot;It is a best practice to provide a UUID.&quot;))
+  )
+  public static class InformationType implements IBoundObject {
+    private final IMetaschemaData __metaschemaData;
+
+    /**
+     * &quot;A &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented\&quot;&gt;machine-oriented&lt;/a&gt;, &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#globally-unique\&quot;&gt;globally unique&lt;/a&gt; identifier with &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#cross-instance\&quot;&gt;cross-instance&lt;/a&gt; scope that can be used to reference this information type elsewhere in &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#ssp-identifiers\&quot;&gt;this or other OSCAL instances&lt;/a&gt;. The locally defined &lt;em&gt;UUID&lt;/em&gt; of the &lt;code&gt;information type&lt;/code&gt; can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned &lt;a href=\&quot;https://pages.nist.gov/OSCAL/concepts/identifier-use/#consistency\&quot;&gt;per-subject&lt;/a&gt;, which means it should be consistently used to identify the same subject across revisions of the document.&quot;
+     */
+    @BoundFlag(
+        formalName = &quot;Information Type Universally Unique Identifier&quot;,
+        description = &quot;A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented), [globally unique](https://pages.nist.gov/OSCAL/concepts/identifier-use/#globally-unique) identifier with [cross-instance](https://pages.nist.gov/OSCAL/concepts/identifier-use/#cross-instance) scope that can be used to reference this information type elsewhere in [this or other OSCAL instances](https://pages.nist.gov/OSCAL/concepts/identifier-use/#ssp-identifiers). The locally defined *UUID* of the `information type` can be used to reference the data item locally or globally (e.g., in an imported OSCAL instance). This UUID should be assigned [per-subject](https://pages.nist.gov/OSCAL/concepts/identifier-use/#consistency), which means it should be consistently used to identify the same subject across revisions of the document.&quot;,
+        name = &quot;uuid&quot;,
+        typeAdapter = UuidAdapter.class
+    )
+    private UUID _uuid;
+
+    @BoundField(
+        formalName = &quot;title field&quot;,
+        description = &quot;A human readable name for the information type. This title should be meaningful within the context of the system.&quot;,
+        useName = &quot;title&quot;,
+        minOccurs = 1,
+        typeAdapter = MarkupLineAdapter.class
+    )
+    private MarkupLine _title;
+
+    @BoundField(
+        formalName = &quot;Information Type Description&quot;,
+        description = &quot;A summary of how this information type is used within the system.&quot;,
+        useName = &quot;description&quot;,
+        minOccurs = 1,
+        typeAdapter = MarkupMultilineAdapter.class
+    )
+    private MarkupMultiline _description;
+
+    @BoundAssembly(
+        formalName = &quot;Information Type Categorization&quot;,
+        description = &quot;A set of information type identifiers qualified by the given identification `system` used, such as NIST SP 800-60.&quot;,
+        useName = &quot;categorization&quot;,
+        maxOccurs = -1,
+        groupAs = @GroupAs(name = &quot;categorizations&quot;, inJson = JsonGroupAsBehavior.LIST)
+    )
+    private List&lt;Categorization&gt; _categorizations;
+
+    @BoundAssembly(
+        formalName = &quot;Property&quot;,
+        description = &quot;An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.&quot;,
+        useName = &quot;prop&quot;,
+        maxOccurs = -1,
+        groupAs = @GroupAs(name = &quot;props&quot;, inJson = JsonGroupAsBehavior.LIST)
+    )
+    private List&lt;Property&gt; _props;
+
+    @BoundAssembly(
+        formalName = &quot;Link&quot;,
+        description = &quot;A reference to a local or remote resource, that has a specific relation to the containing object.&quot;,
+        useName = &quot;link&quot;,
+        maxOccurs = -1,
+        groupAs = @GroupAs(name = &quot;links&quot;, inJson = JsonGroupAsBehavior.LIST)
+    )
+    private List&lt;Link&gt; _links;
+
+    @BoundAssembly(
+        formalName = &quot;Confidentiality Impact Level&quot;,
+        description = &quot;The expected level of impact resulting from the unauthorized disclosure of the described information.&quot;,
+        useName = &quot;confidentiality-impact&quot;
+    )
+    private Impact _confidentialityImpact;
+
+    @BoundAssembly(
+        formalName = &quot;Integrity Impact Level&quot;,
+        description = &quot;The expected level of impact resulting from the unauthorized modification of the described information.&quot;,
+        useName = &quot;integrity-impact&quot;
+    )
+    private Impact _integrityImpact;
+
+    @BoundAssembly(
+        formalName = &quot;Availability Impact Level&quot;,
+        description = &quot;The expected level of impact resulting from the disruption of access to or use of the described information or the information system.&quot;,
+        useName = &quot;availability-impact&quot;
+    )
+    private Impact _availabilityImpact;
+
+    public InformationType() {
+<span class="nc" id="L279">      this(null);</span>
+<span class="nc" id="L280">    }</span>
+
+<span class="nc" id="L282">    public InformationType(IMetaschemaData data) {</span>
+<span class="nc" id="L283">      this.__metaschemaData = data;</span>
+<span class="nc" id="L284">    }</span>
+
+    @Override
+    public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L288">      return __metaschemaData;</span>
+    }
+
+    public UUID getUuid() {
+<span class="nc" id="L292">      return _uuid;</span>
+    }
+
+    public void setUuid(UUID value) {
+<span class="nc" id="L296">      _uuid = value;</span>
+<span class="nc" id="L297">    }</span>
+
+    public MarkupLine getTitle() {
+<span class="nc" id="L300">      return _title;</span>
+    }
+
+    public void setTitle(MarkupLine value) {
+<span class="nc" id="L304">      _title = value;</span>
+<span class="nc" id="L305">    }</span>
+
+    public MarkupMultiline getDescription() {
+<span class="nc" id="L308">      return _description;</span>
+    }
+
+    public void setDescription(MarkupMultiline value) {
+<span class="nc" id="L312">      _description = value;</span>
+<span class="nc" id="L313">    }</span>
+
+    public List&lt;Categorization&gt; getCategorizations() {
+<span class="nc" id="L316">      return _categorizations;</span>
+    }
+
+    public void setCategorizations(List&lt;Categorization&gt; value) {
+<span class="nc" id="L320">      _categorizations = value;</span>
+<span class="nc" id="L321">    }</span>
+
+    /**
+     * Add a new {@link Categorization} item to the underlying collection.
+     * @param item the item to add
+     * @return {@code true}
+     */
+    public boolean addCategorization(Categorization item) {
+<span class="nc" id="L329">      Categorization value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L330" title="All 2 branches missed.">      if (_categorizations == null) {</span>
+<span class="nc" id="L331">        _categorizations = new LinkedList&lt;&gt;();</span>
+      }
+<span class="nc" id="L333">      return _categorizations.add(value);</span>
+    }
+
+    /**
+     * Remove the first matching {@link Categorization} item from the underlying collection.
+     * @param item the item to remove
+     * @return {@code true} if the item was removed or {@code false} otherwise
+     */
+    public boolean removeCategorization(Categorization item) {
+<span class="nc" id="L342">      Categorization value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L343" title="All 4 branches missed.">      return _categorizations != null &amp;&amp; _categorizations.remove(value);</span>
+    }
+
+    public List&lt;Property&gt; getProps() {
+<span class="nc" id="L347">      return _props;</span>
+    }
+
+    public void setProps(List&lt;Property&gt; value) {
+<span class="nc" id="L351">      _props = value;</span>
+<span class="nc" id="L352">    }</span>
+
+    /**
+     * Add a new {@link Property} item to the underlying collection.
+     * @param item the item to add
+     * @return {@code true}
+     */
+    public boolean addProp(Property item) {
+<span class="nc" id="L360">      Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L361" title="All 2 branches missed.">      if (_props == null) {</span>
+<span class="nc" id="L362">        _props = new LinkedList&lt;&gt;();</span>
+      }
+<span class="nc" id="L364">      return _props.add(value);</span>
+    }
+
+    /**
+     * Remove the first matching {@link Property} item from the underlying collection.
+     * @param item the item to remove
+     * @return {@code true} if the item was removed or {@code false} otherwise
+     */
+    public boolean removeProp(Property item) {
+<span class="nc" id="L373">      Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L374" title="All 4 branches missed.">      return _props != null &amp;&amp; _props.remove(value);</span>
+    }
+
+    public List&lt;Link&gt; getLinks() {
+<span class="nc" id="L378">      return _links;</span>
+    }
+
+    public void setLinks(List&lt;Link&gt; value) {
+<span class="nc" id="L382">      _links = value;</span>
+<span class="nc" id="L383">    }</span>
+
+    /**
+     * Add a new {@link Link} item to the underlying collection.
+     * @param item the item to add
+     * @return {@code true}
+     */
+    public boolean addLink(Link item) {
+<span class="nc" id="L391">      Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L392" title="All 2 branches missed.">      if (_links == null) {</span>
+<span class="nc" id="L393">        _links = new LinkedList&lt;&gt;();</span>
+      }
+<span class="nc" id="L395">      return _links.add(value);</span>
+    }
+
+    /**
+     * Remove the first matching {@link Link} item from the underlying collection.
+     * @param item the item to remove
+     * @return {@code true} if the item was removed or {@code false} otherwise
+     */
+    public boolean removeLink(Link item) {
+<span class="nc" id="L404">      Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L405" title="All 4 branches missed.">      return _links != null &amp;&amp; _links.remove(value);</span>
+    }
+
+    public Impact getConfidentialityImpact() {
+<span class="nc" id="L409">      return _confidentialityImpact;</span>
+    }
+
+    public void setConfidentialityImpact(Impact value) {
+<span class="nc" id="L413">      _confidentialityImpact = value;</span>
+<span class="nc" id="L414">    }</span>
+
+    public Impact getIntegrityImpact() {
+<span class="nc" id="L417">      return _integrityImpact;</span>
+    }
+
+    public void setIntegrityImpact(Impact value) {
+<span class="nc" id="L421">      _integrityImpact = value;</span>
+<span class="nc" id="L422">    }</span>
+
+    public Impact getAvailabilityImpact() {
+<span class="nc" id="L425">      return _availabilityImpact;</span>
+    }
+
+    public void setAvailabilityImpact(Impact value) {
+<span class="nc" id="L429">      _availabilityImpact = value;</span>
+<span class="nc" id="L430">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L434">      return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+    }
+
+    /**
+     * A set of information type identifiers qualified by the given identification &lt;code&gt;system&lt;/code&gt; used, such as NIST SP 800-60.
+     */
+    @MetaschemaAssembly(
+        formalName = &quot;Information Type Categorization&quot;,
+        description = &quot;A set of information type identifiers qualified by the given identification `system` used, such as NIST SP 800-60.&quot;,
+        name = &quot;categorization&quot;,
+        moduleClass = OscalSspModule.class
+    )
+    public static class Categorization implements IBoundObject {
+      private final IMetaschemaData __metaschemaData;
+
+      /**
+       * &quot;Specifies the information type identification system used.&quot;
+       */
+      @BoundFlag(
+          formalName = &quot;Information Type Identification System&quot;,
+          description = &quot;Specifies the information type identification system used.&quot;,
+          name = &quot;system&quot;,
+          required = true,
+          typeAdapter = UriAdapter.class,
+          remarks = &quot;This value must be an [absolute URI](https://pages.nist.gov/OSCAL/concepts/uri-use/#absolute-uri) that serves as a [naming system identifier](https://pages.nist.gov/OSCAL/concepts/uri-use/#use-as-a-naming-system-identifier).&quot;,
+          valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, allowOthers = true, values = @AllowedValue(value = &quot;http://doi.org/10.6028/NIST.SP.800-60v2r1&quot;, description = &quot;Based on the section identifiers in NIST [Special Publication 800-60 Volume II Revision 1](https://doi.org/10.6028/NIST.SP.800-60v2r1).&quot;)))
+      )
+      private URI _system;
+
+      @BoundField(
+          formalName = &quot;Information Type Systematized Identifier&quot;,
+          description = &quot;A [human-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#human-oriented), [globally unique](https://pages.nist.gov/OSCAL/concepts/identifier-use/#globally-unique) identifier qualified by the given identification `system` used, such as NIST SP 800-60. This identifier has [cross-instance](https://pages.nist.gov/OSCAL/concepts/identifier-use/#cross-instance) scope and can be used to reference this system elsewhere in [this or other OSCAL instances](https://pages.nist.gov/OSCAL/concepts/identifier-use/#ssp-identifiers). This id should be assigned [per-subject](https://pages.nist.gov/OSCAL/concepts/identifier-use/#consistency), which means it should be consistently used to identify the same subject across revisions of the document.&quot;,
+          useName = &quot;information-type-id&quot;,
+          maxOccurs = -1,
+          groupAs = @GroupAs(name = &quot;information-type-ids&quot;, inJson = JsonGroupAsBehavior.LIST)
+      )
+      private List&lt;String&gt; _informationTypeIds;
+
+      public Categorization() {
+<span class="nc" id="L473">        this(null);</span>
+<span class="nc" id="L474">      }</span>
+
+<span class="nc" id="L476">      public Categorization(IMetaschemaData data) {</span>
+<span class="nc" id="L477">        this.__metaschemaData = data;</span>
+<span class="nc" id="L478">      }</span>
+
+      @Override
+      public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L482">        return __metaschemaData;</span>
+      }
+
+      public URI getSystem() {
+<span class="nc" id="L486">        return _system;</span>
+      }
+
+      public void setSystem(URI value) {
+<span class="nc" id="L490">        _system = value;</span>
+<span class="nc" id="L491">      }</span>
+
+      public List&lt;String&gt; getInformationTypeIds() {
+<span class="nc" id="L494">        return _informationTypeIds;</span>
+      }
+
+      public void setInformationTypeIds(List&lt;String&gt; value) {
+<span class="nc" id="L498">        _informationTypeIds = value;</span>
+<span class="nc" id="L499">      }</span>
+
+      /**
+       * Add a new {@link String} item to the underlying collection.
+       * @param item the item to add
+       * @return {@code true}
+       */
+      public boolean addInformationTypeId(String item) {
+<span class="nc" id="L507">        String value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L508" title="All 2 branches missed.">        if (_informationTypeIds == null) {</span>
+<span class="nc" id="L509">          _informationTypeIds = new LinkedList&lt;&gt;();</span>
+        }
+<span class="nc" id="L511">        return _informationTypeIds.add(value);</span>
+      }
+
+      /**
+       * Remove the first matching {@link String} item from the underlying collection.
+       * @param item the item to remove
+       * @return {@code true} if the item was removed or {@code false} otherwise
+       */
+      public boolean removeInformationTypeId(String item) {
+<span class="nc" id="L520">        String value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L521" title="All 4 branches missed.">        return _informationTypeIds != null &amp;&amp; _informationTypeIds.remove(value);</span>
+      }
+
+      @Override
+      public String toString() {
+<span class="nc" id="L526">        return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+      }
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

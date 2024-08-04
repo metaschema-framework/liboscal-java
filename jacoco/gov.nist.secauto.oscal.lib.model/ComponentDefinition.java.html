@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ComponentDefinition.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">ComponentDefinition.java</span></div><h1>ComponentDefinition.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.adapter.UuidAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.core.model.JsonGroupAsBehavior;
+import gov.nist.secauto.metaschema.core.model.constraint.IConstraint;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.metaschema.databind.model.annotations.AssemblyConstraints;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFlag;
+import gov.nist.secauto.metaschema.databind.model.annotations.GroupAs;
+import gov.nist.secauto.metaschema.databind.model.annotations.Index;
+import gov.nist.secauto.metaschema.databind.model.annotations.IsUnique;
+import gov.nist.secauto.metaschema.databind.model.annotations.KeyField;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaAssembly;
+import java.lang.Override;
+import java.lang.String;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * A collection of component descriptions, which may optionally be grouped by capability.
+ */
+@MetaschemaAssembly(
+    formalName = &quot;Component Definition&quot;,
+    description = &quot;A collection of component descriptions, which may optionally be grouped by capability.&quot;,
+    name = &quot;component-definition&quot;,
+    moduleClass = OscalComponentDefinitionModule.class,
+    rootName = &quot;component-definition&quot;,
+    modelConstraints = @AssemblyConstraints(index = @Index(level = IConstraint.Level.ERROR, target = &quot;component&quot;, name = &quot;index-system-component-uuid&quot;, keyFields = @KeyField(target = &quot;@uuid&quot;), remarks = &quot;Since multiple `component` entries can be provided, each component must have a unique `uuid`.&quot;), unique = @IsUnique(id = &quot;unique-component-definition-capability&quot;, level = IConstraint.Level.ERROR, target = &quot;capability&quot;, keyFields = @KeyField(target = &quot;@uuid&quot;), remarks = &quot;A given `component` must not be referenced more than once within the same `capability`.&quot;))
+)
+public class ComponentDefinition implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  /**
+   * &quot;Provides a globally unique means to identify a given component definition instance.&quot;
+   */
+  @BoundFlag(
+      formalName = &quot;Component Definition Universally Unique Identifier&quot;,
+      description = &quot;Provides a globally unique means to identify a given component definition instance.&quot;,
+      name = &quot;uuid&quot;,
+      required = true,
+      typeAdapter = UuidAdapter.class
+  )
+  private UUID _uuid;
+
+  @BoundAssembly(
+      formalName = &quot;Document Metadata&quot;,
+      description = &quot;Provides information about the containing document, and defines concepts that are shared across the document.&quot;,
+      useName = &quot;metadata&quot;,
+      minOccurs = 1
+  )
+  private Metadata _metadata;
+
+  @BoundAssembly(
+      formalName = &quot;Import Component Definition&quot;,
+      description = &quot;Loads a component definition from another resource.&quot;,
+      useName = &quot;import-component-definition&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;import-component-definitions&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;ImportComponentDefinition&gt; _importComponentDefinitions;
+
+  @BoundAssembly(
+      formalName = &quot;Component&quot;,
+      description = &quot;A defined component that can be part of an implemented system.&quot;,
+      useName = &quot;component&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;components&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;DefinedComponent&gt; _components;
+
+  @BoundAssembly(
+      formalName = &quot;Capability&quot;,
+      description = &quot;A grouping of other components and/or capabilities.&quot;,
+      useName = &quot;capability&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;capabilities&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Capability&gt; _capabilities;
+
+  @BoundAssembly(
+      formalName = &quot;Back matter&quot;,
+      description = &quot;A collection of resources that may be referenced from within the OSCAL document instance.&quot;,
+      useName = &quot;back-matter&quot;
+  )
+  private BackMatter _backMatter;
+
+  public ComponentDefinition() {
+<span class="nc" id="L94">    this(null);</span>
+<span class="nc" id="L95">  }</span>
+
+<span class="nc" id="L97">  public ComponentDefinition(IMetaschemaData data) {</span>
+<span class="nc" id="L98">    this.__metaschemaData = data;</span>
+<span class="nc" id="L99">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L103">    return __metaschemaData;</span>
+  }
+
+  public UUID getUuid() {
+<span class="nc" id="L107">    return _uuid;</span>
+  }
+
+  public void setUuid(UUID value) {
+<span class="nc" id="L111">    _uuid = value;</span>
+<span class="nc" id="L112">  }</span>
+
+  public Metadata getMetadata() {
+<span class="nc" id="L115">    return _metadata;</span>
+  }
+
+  public void setMetadata(Metadata value) {
+<span class="nc" id="L119">    _metadata = value;</span>
+<span class="nc" id="L120">  }</span>
+
+  public List&lt;ImportComponentDefinition&gt; getImportComponentDefinitions() {
+<span class="nc" id="L123">    return _importComponentDefinitions;</span>
+  }
+
+  public void setImportComponentDefinitions(List&lt;ImportComponentDefinition&gt; value) {
+<span class="nc" id="L127">    _importComponentDefinitions = value;</span>
+<span class="nc" id="L128">  }</span>
+
+  /**
+   * Add a new {@link ImportComponentDefinition} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addImportComponentDefinition(ImportComponentDefinition item) {
+<span class="nc" id="L136">    ImportComponentDefinition value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">    if (_importComponentDefinitions == null) {</span>
+<span class="nc" id="L138">      _importComponentDefinitions = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L140">    return _importComponentDefinitions.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link ImportComponentDefinition} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeImportComponentDefinition(ImportComponentDefinition item) {
+<span class="nc" id="L149">    ImportComponentDefinition value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L150" title="All 4 branches missed.">    return _importComponentDefinitions != null &amp;&amp; _importComponentDefinitions.remove(value);</span>
+  }
+
+  public List&lt;DefinedComponent&gt; getComponents() {
+<span class="nc" id="L154">    return _components;</span>
+  }
+
+  public void setComponents(List&lt;DefinedComponent&gt; value) {
+<span class="nc" id="L158">    _components = value;</span>
+<span class="nc" id="L159">  }</span>
+
+  /**
+   * Add a new {@link DefinedComponent} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addComponent(DefinedComponent item) {
+<span class="nc" id="L167">    DefinedComponent value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">    if (_components == null) {</span>
+<span class="nc" id="L169">      _components = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L171">    return _components.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link DefinedComponent} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeComponent(DefinedComponent item) {
+<span class="nc" id="L180">    DefinedComponent value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L181" title="All 4 branches missed.">    return _components != null &amp;&amp; _components.remove(value);</span>
+  }
+
+  public List&lt;Capability&gt; getCapabilities() {
+<span class="nc" id="L185">    return _capabilities;</span>
+  }
+
+  public void setCapabilities(List&lt;Capability&gt; value) {
+<span class="nc" id="L189">    _capabilities = value;</span>
+<span class="nc" id="L190">  }</span>
+
+  /**
+   * Add a new {@link Capability} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addCapability(Capability item) {
+<span class="nc" id="L198">    Capability value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">    if (_capabilities == null) {</span>
+<span class="nc" id="L200">      _capabilities = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L202">    return _capabilities.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Capability} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeCapability(Capability item) {
+<span class="nc" id="L211">    Capability value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L212" title="All 4 branches missed.">    return _capabilities != null &amp;&amp; _capabilities.remove(value);</span>
+  }
+
+  public BackMatter getBackMatter() {
+<span class="nc" id="L216">    return _backMatter;</span>
+  }
+
+  public void setBackMatter(BackMatter value) {
+<span class="nc" id="L220">    _backMatter = value;</span>
+<span class="nc" id="L221">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L225">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

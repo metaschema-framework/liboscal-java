@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Merge.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">Merge.java</span></div><h1>Merge.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.adapter.BooleanAdapter;
+import gov.nist.secauto.metaschema.core.datatype.adapter.StringAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.core.model.JsonGroupAsBehavior;
+import gov.nist.secauto.metaschema.core.model.constraint.IConstraint;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValue;
+import gov.nist.secauto.metaschema.databind.model.annotations.AllowedValues;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundField;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundFlag;
+import gov.nist.secauto.metaschema.databind.model.annotations.Expect;
+import gov.nist.secauto.metaschema.databind.model.annotations.GroupAs;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.ValueConstraints;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.LinkedList;
+import java.util.List;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * Provides structuring directives that instruct how controls are organized after profile resolution.
+ */
+@MetaschemaAssembly(
+    formalName = &quot;Merge Controls&quot;,
+    description = &quot;Provides structuring directives that instruct how controls are organized after profile resolution.&quot;,
+    name = &quot;merge&quot;,
+    moduleClass = OscalProfileModule.class
+)
+public class Merge implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  @BoundAssembly(
+      formalName = &quot;Combination Rule&quot;,
+      description = &quot;A Combine element defines how to resolve duplicate instances of the same control (e.g., controls with the same ID).&quot;,
+      useName = &quot;combine&quot;
+  )
+  private Combine _combine;
+
+  @BoundAssembly(
+      formalName = &quot;Flat Without Grouping&quot;,
+      description = &quot;Directs that controls appear without any grouping structure.&quot;,
+      useName = &quot;flat&quot;,
+      minOccurs = 1
+  )
+  private Flat _flat;
+
+  @BoundField(
+      formalName = &quot;Group As-Is&quot;,
+      description = &quot;Indicates that the controls selected should retain their original grouping as defined in the import source.&quot;,
+      useName = &quot;as-is&quot;,
+      minOccurs = 1,
+      typeAdapter = BooleanAdapter.class
+  )
+  private Boolean _asIs;
+
+  @BoundAssembly(
+      formalName = &quot;Custom Grouping&quot;,
+      description = &quot;Provides an alternate grouping structure that selected controls will be placed in.&quot;,
+      useName = &quot;custom&quot;,
+      remarks = &quot;The `custom` element represents a custom arrangement or organization of controls in the resolution of a catalog. This structuring directive gives the profile author the ability to define an entirely different organization of controls as compared to their source catalog(s).&quot;,
+      minOccurs = 1
+  )
+  private Custom _custom;
+
+  public Merge() {
+<span class="nc" id="L73">    this(null);</span>
+<span class="nc" id="L74">  }</span>
+
+<span class="fc" id="L76">  public Merge(IMetaschemaData data) {</span>
+<span class="fc" id="L77">    this.__metaschemaData = data;</span>
+<span class="fc" id="L78">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L82">    return __metaschemaData;</span>
+  }
+
+  public Combine getCombine() {
+<span class="nc" id="L86">    return _combine;</span>
+  }
+
+  public void setCombine(Combine value) {
+<span class="nc" id="L90">    _combine = value;</span>
+<span class="nc" id="L91">  }</span>
+
+  public Flat getFlat() {
+<span class="nc" id="L94">    return _flat;</span>
+  }
+
+  public void setFlat(Flat value) {
+<span class="nc" id="L98">    _flat = value;</span>
+<span class="nc" id="L99">  }</span>
+
+  public Boolean getAsIs() {
+<span class="fc" id="L102">    return _asIs;</span>
+  }
+
+  public void setAsIs(Boolean value) {
+<span class="nc" id="L106">    _asIs = value;</span>
+<span class="nc" id="L107">  }</span>
+
+  public Custom getCustom() {
+<span class="nc" id="L110">    return _custom;</span>
+  }
+
+  public void setCustom(Custom value) {
+<span class="nc" id="L114">    _custom = value;</span>
+<span class="nc" id="L115">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L119">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+
+  /**
+   * A Combine element defines how to resolve duplicate instances of the same control (e.g., controls with the same ID).
+   */
+  @MetaschemaAssembly(
+      formalName = &quot;Combination Rule&quot;,
+      description = &quot;A Combine element defines how to resolve duplicate instances of the same control (e.g., controls with the same ID).&quot;,
+      name = &quot;combine&quot;,
+      moduleClass = OscalProfileModule.class,
+      valueConstraints = @ValueConstraints(expect = @Expect(id = &quot;req-merge-combine&quot;, level = IConstraint.Level.ERROR, test = &quot;not(@method='merge')&quot;))
+  )
+  public static class Combine implements IBoundObject {
+    private final IMetaschemaData __metaschemaData;
+
+    /**
+     * &quot;Declare how clashing controls should be handled.&quot;
+     */
+    @BoundFlag(
+        formalName = &quot;Combination Method&quot;,
+        description = &quot;Declare how clashing controls should be handled.&quot;,
+        name = &quot;method&quot;,
+        typeAdapter = StringAdapter.class,
+        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = &quot;use-first&quot;, description = &quot;Use the first definition - the first control with a given ID is used; subsequent ones are discarded&quot;), @AllowedValue(value = &quot;merge&quot;, description = &quot;\\*\\*(*deprecated* )\\*\\* \\*\\*(*unspecified*)\\*\\* Merge - controls with the same ID are combined&quot;), @AllowedValue(value = &quot;keep&quot;, description = &quot;Keep - controls with the same ID are kept, retaining the clash&quot;)}))
+    )
+    private String _method;
+
+    public Combine() {
+<span class="nc" id="L148">      this(null);</span>
+<span class="nc" id="L149">    }</span>
+
+<span class="fc" id="L151">    public Combine(IMetaschemaData data) {</span>
+<span class="fc" id="L152">      this.__metaschemaData = data;</span>
+<span class="fc" id="L153">    }</span>
+
+    @Override
+    public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L157">      return __metaschemaData;</span>
+    }
+
+    public String getMethod() {
+<span class="nc" id="L161">      return _method;</span>
+    }
+
+    public void setMethod(String value) {
+<span class="nc" id="L165">      _method = value;</span>
+<span class="nc" id="L166">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L170">      return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+    }
+  }
+
+  /**
+   * Directs that controls appear without any grouping structure.
+   */
+  @MetaschemaAssembly(
+      formalName = &quot;Flat Without Grouping&quot;,
+      description = &quot;Directs that controls appear without any grouping structure.&quot;,
+      name = &quot;flat&quot;,
+      moduleClass = OscalProfileModule.class
+  )
+  public static class Flat implements IBoundObject {
+    private final IMetaschemaData __metaschemaData;
+
+    public Flat() {
+<span class="nc" id="L187">      this(null);</span>
+<span class="nc" id="L188">    }</span>
+
+<span class="nc" id="L190">    public Flat(IMetaschemaData data) {</span>
+<span class="nc" id="L191">      this.__metaschemaData = data;</span>
+<span class="nc" id="L192">    }</span>
+
+    @Override
+    public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L196">      return __metaschemaData;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L201">      return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+    }
+  }
+
+  /**
+   * Provides an alternate grouping structure that selected controls will be placed in.
+   */
+  @MetaschemaAssembly(
+      formalName = &quot;Custom Grouping&quot;,
+      description = &quot;Provides an alternate grouping structure that selected controls will be placed in.&quot;,
+      name = &quot;custom&quot;,
+      moduleClass = OscalProfileModule.class,
+      remarks = &quot;The `custom` element represents a custom arrangement or organization of controls in the resolution of a catalog. This structuring directive gives the profile author the ability to define an entirely different organization of controls as compared to their source catalog(s).&quot;
+  )
+  public static class Custom implements IBoundObject {
+    private final IMetaschemaData __metaschemaData;
+
+    @BoundAssembly(
+        formalName = &quot;Control Group&quot;,
+        description = &quot;A group of (selected) controls or of groups of controls.&quot;,
+        useName = &quot;group&quot;,
+        maxOccurs = -1,
+        groupAs = @GroupAs(name = &quot;groups&quot;, inJson = JsonGroupAsBehavior.LIST)
+    )
+    private List&lt;ProfileGroup&gt; _groups;
+
+    @BoundAssembly(
+        formalName = &quot;Insert Controls&quot;,
+        description = &quot;Specifies which controls to use in the containing context.&quot;,
+        useName = &quot;insert-controls&quot;,
+        maxOccurs = -1,
+        groupAs = @GroupAs(name = &quot;insert-controls&quot;, inJson = JsonGroupAsBehavior.LIST)
+    )
+    private List&lt;InsertControls&gt; _insertControls;
+
+    public Custom() {
+<span class="nc" id="L237">      this(null);</span>
+<span class="nc" id="L238">    }</span>
+
+<span class="nc" id="L240">    public Custom(IMetaschemaData data) {</span>
+<span class="nc" id="L241">      this.__metaschemaData = data;</span>
+<span class="nc" id="L242">    }</span>
+
+    @Override
+    public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L246">      return __metaschemaData;</span>
+    }
+
+    public List&lt;ProfileGroup&gt; getGroups() {
+<span class="nc" id="L250">      return _groups;</span>
+    }
+
+    public void setGroups(List&lt;ProfileGroup&gt; value) {
+<span class="nc" id="L254">      _groups = value;</span>
+<span class="nc" id="L255">    }</span>
+
+    /**
+     * Add a new {@link ProfileGroup} item to the underlying collection.
+     * @param item the item to add
+     * @return {@code true}
+     */
+    public boolean addGroup(ProfileGroup item) {
+<span class="nc" id="L263">      ProfileGroup value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L264" title="All 2 branches missed.">      if (_groups == null) {</span>
+<span class="nc" id="L265">        _groups = new LinkedList&lt;&gt;();</span>
+      }
+<span class="nc" id="L267">      return _groups.add(value);</span>
+    }
+
+    /**
+     * Remove the first matching {@link ProfileGroup} item from the underlying collection.
+     * @param item the item to remove
+     * @return {@code true} if the item was removed or {@code false} otherwise
+     */
+    public boolean removeGroup(ProfileGroup item) {
+<span class="nc" id="L276">      ProfileGroup value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L277" title="All 4 branches missed.">      return _groups != null &amp;&amp; _groups.remove(value);</span>
+    }
+
+    public List&lt;InsertControls&gt; getInsertControls() {
+<span class="nc" id="L281">      return _insertControls;</span>
+    }
+
+    public void setInsertControls(List&lt;InsertControls&gt; value) {
+<span class="nc" id="L285">      _insertControls = value;</span>
+<span class="nc" id="L286">    }</span>
+
+    /**
+     * Add a new {@link InsertControls} item to the underlying collection.
+     * @param item the item to add
+     * @return {@code true}
+     */
+    public boolean addInsertControls(InsertControls item) {
+<span class="nc" id="L294">      InsertControls value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L295" title="All 2 branches missed.">      if (_insertControls == null) {</span>
+<span class="nc" id="L296">        _insertControls = new LinkedList&lt;&gt;();</span>
+      }
+<span class="nc" id="L298">      return _insertControls.add(value);</span>
+    }
+
+    /**
+     * Remove the first matching {@link InsertControls} item from the underlying collection.
+     * @param item the item to remove
+     * @return {@code true} if the item was removed or {@code false} otherwise
+     */
+    public boolean removeInsertControls(InsertControls item) {
+<span class="nc" id="L307">      InsertControls value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L308" title="All 4 branches missed.">      return _insertControls != null &amp;&amp; _insertControls.remove(value);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L313">      return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

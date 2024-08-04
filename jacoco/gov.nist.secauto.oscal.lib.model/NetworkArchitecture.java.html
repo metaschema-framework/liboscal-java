@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NetworkArchitecture.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OSCAL Java Library</a> &gt; <a href="index.source.html" class="el_package">gov.nist.secauto.oscal.lib.model</a> &gt; <span class="el_source">NetworkArchitecture.java</span></div><h1>NetworkArchitecture.java</h1><pre class="source lang-java linenums">package gov.nist.secauto.oscal.lib.model;
+
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultiline;
+import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultilineAdapter;
+import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.model.IMetaschemaData;
+import gov.nist.secauto.metaschema.core.model.JsonGroupAsBehavior;
+import gov.nist.secauto.metaschema.core.model.constraint.IConstraint;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.metaschema.databind.model.annotations.AssemblyConstraints;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundAssembly;
+import gov.nist.secauto.metaschema.databind.model.annotations.BoundField;
+import gov.nist.secauto.metaschema.databind.model.annotations.GroupAs;
+import gov.nist.secauto.metaschema.databind.model.annotations.IsUnique;
+import gov.nist.secauto.metaschema.databind.model.annotations.KeyField;
+import gov.nist.secauto.metaschema.databind.model.annotations.MetaschemaAssembly;
+import java.lang.Override;
+import java.lang.String;
+import java.util.LinkedList;
+import java.util.List;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * A description of the system's network architecture, optionally supplemented by diagrams that illustrate the network architecture.
+ */
+@MetaschemaAssembly(
+    formalName = &quot;Network Architecture&quot;,
+    description = &quot;A description of the system's network architecture, optionally supplemented by diagrams that illustrate the network architecture.&quot;,
+    name = &quot;network-architecture&quot;,
+    moduleClass = OscalSspModule.class,
+    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = &quot;unique-ssp-network-architecture-diagram&quot;, level = IConstraint.Level.ERROR, target = &quot;diagram&quot;, keyFields = @KeyField(target = &quot;@uuid&quot;), remarks = &quot;A given `uuid` must be assigned only once to a diagram.&quot;))
+)
+public class NetworkArchitecture implements IBoundObject {
+  private final IMetaschemaData __metaschemaData;
+
+  @BoundField(
+      formalName = &quot;Network Architecture Description&quot;,
+      description = &quot;A summary of the system's network architecture.&quot;,
+      useName = &quot;description&quot;,
+      minOccurs = 1,
+      typeAdapter = MarkupMultilineAdapter.class
+  )
+  private MarkupMultiline _description;
+
+  @BoundAssembly(
+      formalName = &quot;Property&quot;,
+      description = &quot;An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.&quot;,
+      useName = &quot;prop&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;props&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Property&gt; _props;
+
+  @BoundAssembly(
+      formalName = &quot;Link&quot;,
+      description = &quot;A reference to a local or remote resource, that has a specific relation to the containing object.&quot;,
+      useName = &quot;link&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;links&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Link&gt; _links;
+
+  @BoundAssembly(
+      formalName = &quot;Diagram&quot;,
+      description = &quot;A graphic that provides a visual representation the system, or some aspect of it.&quot;,
+      useName = &quot;diagram&quot;,
+      maxOccurs = -1,
+      groupAs = @GroupAs(name = &quot;diagrams&quot;, inJson = JsonGroupAsBehavior.LIST)
+  )
+  private List&lt;Diagram&gt; _diagrams;
+
+  @BoundField(
+      formalName = &quot;Remarks&quot;,
+      description = &quot;Additional commentary about the containing object.&quot;,
+      useName = &quot;remarks&quot;,
+      typeAdapter = MarkupMultilineAdapter.class
+  )
+  private MarkupMultiline _remarks;
+
+  public NetworkArchitecture() {
+<span class="nc" id="L82">    this(null);</span>
+<span class="nc" id="L83">  }</span>
+
+<span class="nc" id="L85">  public NetworkArchitecture(IMetaschemaData data) {</span>
+<span class="nc" id="L86">    this.__metaschemaData = data;</span>
+<span class="nc" id="L87">  }</span>
+
+  @Override
+  public IMetaschemaData getMetaschemaData() {
+<span class="nc" id="L91">    return __metaschemaData;</span>
+  }
+
+  public MarkupMultiline getDescription() {
+<span class="nc" id="L95">    return _description;</span>
+  }
+
+  public void setDescription(MarkupMultiline value) {
+<span class="nc" id="L99">    _description = value;</span>
+<span class="nc" id="L100">  }</span>
+
+  public List&lt;Property&gt; getProps() {
+<span class="nc" id="L103">    return _props;</span>
+  }
+
+  public void setProps(List&lt;Property&gt; value) {
+<span class="nc" id="L107">    _props = value;</span>
+<span class="nc" id="L108">  }</span>
+
+  /**
+   * Add a new {@link Property} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addProp(Property item) {
+<span class="nc" id="L116">    Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">    if (_props == null) {</span>
+<span class="nc" id="L118">      _props = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L120">    return _props.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Property} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeProp(Property item) {
+<span class="nc" id="L129">    Property value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L130" title="All 4 branches missed.">    return _props != null &amp;&amp; _props.remove(value);</span>
+  }
+
+  public List&lt;Link&gt; getLinks() {
+<span class="nc" id="L134">    return _links;</span>
+  }
+
+  public void setLinks(List&lt;Link&gt; value) {
+<span class="nc" id="L138">    _links = value;</span>
+<span class="nc" id="L139">  }</span>
+
+  /**
+   * Add a new {@link Link} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addLink(Link item) {
+<span class="nc" id="L147">    Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">    if (_links == null) {</span>
+<span class="nc" id="L149">      _links = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L151">    return _links.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Link} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeLink(Link item) {
+<span class="nc" id="L160">    Link value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L161" title="All 4 branches missed.">    return _links != null &amp;&amp; _links.remove(value);</span>
+  }
+
+  public List&lt;Diagram&gt; getDiagrams() {
+<span class="nc" id="L165">    return _diagrams;</span>
+  }
+
+  public void setDiagrams(List&lt;Diagram&gt; value) {
+<span class="nc" id="L169">    _diagrams = value;</span>
+<span class="nc" id="L170">  }</span>
+
+  /**
+   * Add a new {@link Diagram} item to the underlying collection.
+   * @param item the item to add
+   * @return {@code true}
+   */
+  public boolean addDiagram(Diagram item) {
+<span class="nc" id="L178">    Diagram value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">    if (_diagrams == null) {</span>
+<span class="nc" id="L180">      _diagrams = new LinkedList&lt;&gt;();</span>
+    }
+<span class="nc" id="L182">    return _diagrams.add(value);</span>
+  }
+
+  /**
+   * Remove the first matching {@link Diagram} item from the underlying collection.
+   * @param item the item to remove
+   * @return {@code true} if the item was removed or {@code false} otherwise
+   */
+  public boolean removeDiagram(Diagram item) {
+<span class="nc" id="L191">    Diagram value = ObjectUtils.requireNonNull(item,&quot;item cannot be null&quot;);</span>
+<span class="nc bnc" id="L192" title="All 4 branches missed.">    return _diagrams != null &amp;&amp; _diagrams.remove(value);</span>
+  }
+
+  public MarkupMultiline getRemarks() {
+<span class="nc" id="L196">    return _remarks;</span>
+  }
+
+  public void setRemarks(MarkupMultiline value) {
+<span class="nc" id="L200">    _remarks = value;</span>
+<span class="nc" id="L201">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L205">    return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
