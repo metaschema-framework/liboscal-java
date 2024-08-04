@@ -12,6 +12,7 @@ https://github.com/google/guava/.*
 https://github.com/vsch/flexmark-java/.*
 https://hc.apache.org/httpcomponents-client-5.0.x/5.1.3/httpclient5/
 https://logging.apache.org/log4j/2.x/log4j/.*
+http://objenesis.org/objenesis
 https://pmd.github.io/latest/pmd_userdocs_cpd.html
 https://www.antlr.org/antlr4-runtime/
 http://www.mozilla.org/MPL/2.0/
