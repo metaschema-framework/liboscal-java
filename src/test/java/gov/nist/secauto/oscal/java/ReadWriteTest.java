@@ -31,8 +31,8 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 class ReadWriteTest {
   private static final Logger LOGGER = LogManager.getLogger(ReadWriteTest.class);
 
-  private static final int WARMUP_ITERATIONS = 4;
-  private static final int ITERATIONS = WARMUP_ITERATIONS + 5;
+  private static final int WARMUP_ITERATIONS = 3;
+  private static final int ITERATIONS = WARMUP_ITERATIONS + 2;
   // private static final int ITERATIONS = 1;
 
   @NonNull

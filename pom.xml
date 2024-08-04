@@ -18,7 +18,7 @@
 	<description>A Java library that parses XML, JSON, and YAML data
 		formatted acording to a Metaschema-based model.
 	</description>
-	<url>https://github.com/metaschema-framework/liboscal-java</url>
+	<url>${site.url}</url>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
@@ -26,7 +26,7 @@
 	</issueManagement>
 
 	<scm>
-		<url>https://github.com/metaschema-framework/liboscal-java</url>
+		<url>${scm.url}/tree/develop</url>
 		<connection>scm:git:git@github.com:metaschema-framework/liboscal-java.git</connection>
 		<developerConnection>scm:git:git@github.com:metaschema-framework/liboscal-java.git</developerConnection>
 		<tag>HEAD</tag>
@@ -65,7 +65,7 @@
 
 	<properties>
 		<!-- site configuration -->
-		<site.url>https://liboscal-java.metaschema.dev/</site.url>
+		<site.url>https://liboscal-java.metaschema.dev</site.url>
 		<scm.url>https://github.com/metaschema-framework/liboscal-java</scm.url>
 		<issueManagement.url>https://github.com/metaschema-framework/liboscal-java/issues</issueManagement.url>
 
@@ -257,13 +257,6 @@
 					</configuration>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-site-plugin</artifactId>
-					<configuration>
-						<topSiteURL>${site.url}</topSiteURL>
-					</configuration>
-				</plugin>
-				<plugin>
 					<groupId>org.cyclonedx</groupId>
 					<artifactId>cyclonedx-maven-plugin</artifactId>
 					<version>${plugin.cyclonedx.version}</version>
@@ -307,6 +300,26 @@
 							<sourceDirectory>
 								${project.build.testSourceDirectory}</sourceDirectory>
 						</sourceDirectories>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<configuration>
+						<!-- deploy is handled by the scm plugin -->
+						<skipDeploy>true</skipDeploy>
+						<relativizeSiteLinks>true</relativizeSiteLinks>
+						<generateReports>true</generateReports>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jxr-plugin</artifactId>
+					<version>3.4.0</version>
+					<configuration>
+						<excludes>
+							<exclude>**/module-info.java</exclude>
+						</excludes>
 					</configuration>
 				</plugin>
 			</plugins>
@@ -549,8 +562,28 @@
 					</usedDependencies>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+            <id>default</id>
+						<configuration>
+							<linkJavadoc>false</linkJavadoc>
+						</configuration>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 	<profiles>
 		<profile>
 			<id>release</id>
