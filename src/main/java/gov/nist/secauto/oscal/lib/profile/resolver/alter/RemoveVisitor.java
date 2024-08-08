@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -215,6 +216,11 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
     throw new UnsupportedOperationException("not needed");
   }
 
+  @NonNull
+  private static <T> List<T> modifiableListOrEmpty(@Nullable List<T> list) {
+    return list == null ? CollectionUtil.emptyList() : list;
+  }
+
   @Override
   public Boolean visitControl(Control control, Context context) {
     assert context != null;
@@ -222,27 +228,27 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
     // visit params
     boolean retval = handle(
         TargetType.PARAM,
-        () -> CollectionUtil.listOrEmpty(control.getParams()),
+        () -> modifiableListOrEmpty(control.getParams()),
         child -> visitParameter(ObjectUtils.notNull(child), context),
         context);
 
     // visit props
     retval = retval || handle(
         TargetType.PROP,
-        () -> CollectionUtil.listOrEmpty(control.getProps()),
+        () -> modifiableListOrEmpty(control.getProps()),
         null,
         context);
 
     // visit links
     retval = retval || handle(
         TargetType.LINK,
-        () -> CollectionUtil.listOrEmpty(control.getLinks()),
+        () -> modifiableListOrEmpty(control.getLinks()),
         null,
         context);
 
     return retval || handle(
         TargetType.PART,
-        () -> CollectionUtil.listOrEmpty(control.getParts()),
+        () -> modifiableListOrEmpty(control.getParts()),
         child -> visitPart(child, context),
         context);
   }
@@ -254,13 +260,13 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
     // visit props
     boolean retval = handle(
         TargetType.PROP,
-        () -> CollectionUtil.listOrEmpty(parameter.getProps()),
+        () -> modifiableListOrEmpty(parameter.getProps()),
         null,
         context);
 
     return retval || handle(
         TargetType.LINK,
-        () -> CollectionUtil.listOrEmpty(parameter.getLinks()),
+        () -> modifiableListOrEmpty(parameter.getLinks()),
         null,
         context);
   }
@@ -280,20 +286,20 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
     // visit props
     boolean retval = handle(
         TargetType.PROP,
-        () -> CollectionUtil.listOrEmpty(part.getProps()),
+        () -> modifiableListOrEmpty(part.getProps()),
         null,
         context);
 
     // visit links
     retval = retval || handle(
         TargetType.LINK,
-        () -> CollectionUtil.listOrEmpty(part.getLinks()),
+        () -> modifiableListOrEmpty(part.getLinks()),
         null,
         context);
 
     return retval || handle(
         TargetType.PART,
-        () -> CollectionUtil.listOrEmpty(part.getParts()),
+        () -> modifiableListOrEmpty(part.getParts()),
         child -> visitPart(child, context),
         context);
   }
