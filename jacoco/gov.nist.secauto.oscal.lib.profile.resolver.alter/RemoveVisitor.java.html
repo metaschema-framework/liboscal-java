@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -33,12 +34,12 @@ import java.util.function.Supplier;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-<span class="nc" id="L36">public class RemoveVisitor implements ICatalogVisitor&lt;Boolean, RemoveVisitor.Context&gt; {</span>
-<span class="nc" id="L37">  public enum TargetType {</span>
-<span class="nc" id="L38">    PARAM(&quot;param&quot;, Parameter.class),</span>
-<span class="nc" id="L39">    PROP(&quot;prop&quot;, Property.class),</span>
-<span class="nc" id="L40">    LINK(&quot;link&quot;, Link.class),</span>
-<span class="nc" id="L41">    PART(&quot;part&quot;, ControlPart.class);</span>
+<span class="nc" id="L37">public class RemoveVisitor implements ICatalogVisitor&lt;Boolean, RemoveVisitor.Context&gt; {</span>
+<span class="nc" id="L38">  public enum TargetType {</span>
+<span class="nc" id="L39">    PARAM(&quot;param&quot;, Parameter.class),</span>
+<span class="nc" id="L40">    PROP(&quot;prop&quot;, Property.class),</span>
+<span class="nc" id="L41">    LINK(&quot;link&quot;, Link.class),</span>
+<span class="nc" id="L42">    PART(&quot;part&quot;, ControlPart.class);</span>
 
     @NonNull
     private static final Map&lt;Class&lt;?&gt;, TargetType&gt; CLASS_TO_TYPE;
@@ -51,21 +52,21 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 
     static {
       {
-<span class="nc" id="L54">        Map&lt;Class&lt;?&gt;, TargetType&gt; map = new ConcurrentHashMap&lt;&gt;();</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        for (TargetType type : values()) {</span>
-<span class="nc" id="L56">          map.put(type.getClazz(), type);</span>
+<span class="nc" id="L55">        Map&lt;Class&lt;?&gt;, TargetType&gt; map = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        for (TargetType type : values()) {</span>
+<span class="nc" id="L57">          map.put(type.getClazz(), type);</span>
         }
-<span class="nc" id="L58">        CLASS_TO_TYPE = CollectionUtil.unmodifiableMap(map);</span>
+<span class="nc" id="L59">        CLASS_TO_TYPE = CollectionUtil.unmodifiableMap(map);</span>
       }
 
       {
-<span class="nc" id="L62">        Map&lt;String, TargetType&gt; map = new ConcurrentHashMap&lt;&gt;();</span>
-<span class="nc bnc" id="L63" title="All 2 branches missed.">        for (TargetType type : values()) {</span>
-<span class="nc" id="L64">          map.put(type.fieldName(), type);</span>
+<span class="nc" id="L63">        Map&lt;String, TargetType&gt; map = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        for (TargetType type : values()) {</span>
+<span class="nc" id="L65">          map.put(type.fieldName(), type);</span>
         }
-<span class="nc" id="L66">        NAME_TO_TYPE = CollectionUtil.unmodifiableMap(map);</span>
+<span class="nc" id="L67">        NAME_TO_TYPE = CollectionUtil.unmodifiableMap(map);</span>
       }
-<span class="nc" id="L68">    }</span>
+<span class="nc" id="L69">    }</span>
 
     /**
      * Get the target type associated with the provided {@code clazz}.
@@ -77,13 +78,13 @@ import edu.umd.cs.findbugs.annotations.Nullable;
      */
     @Nullable
     public static TargetType forClass(@NonNull Class&lt;?&gt; clazz) {
-<span class="nc" id="L80">      Class&lt;?&gt; target = clazz;</span>
+<span class="nc" id="L81">      Class&lt;?&gt; target = clazz;</span>
       TargetType retval;
       // recurse over parent classes to find a match
       do {
-<span class="nc" id="L84">        retval = CLASS_TO_TYPE.get(target);</span>
-<span class="nc bnc" id="L85" title="All 4 branches missed.">      } while (retval == null &amp;&amp; (target = target.getSuperclass()) != null);</span>
-<span class="nc" id="L86">      return retval;</span>
+<span class="nc" id="L85">        retval = CLASS_TO_TYPE.get(target);</span>
+<span class="nc bnc" id="L86" title="All 4 branches missed.">      } while (retval == null &amp;&amp; (target = target.getSuperclass()) != null);</span>
+<span class="nc" id="L87">      return retval;</span>
     }
 
     /**
@@ -96,13 +97,13 @@ import edu.umd.cs.findbugs.annotations.Nullable;
      */
     @Nullable
     public static TargetType forFieldName(@Nullable String name) {
-<span class="nc bnc" id="L99" title="All 2 branches missed.">      return name == null ? null : NAME_TO_TYPE.get(name);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">      return name == null ? null : NAME_TO_TYPE.get(name);</span>
     }
 
-<span class="nc" id="L102">    TargetType(@NonNull String fieldName, @NonNull Class&lt;?&gt; clazz) {</span>
-<span class="nc" id="L103">      this.fieldName = fieldName;</span>
-<span class="nc" id="L104">      this.clazz = clazz;</span>
-<span class="nc" id="L105">    }</span>
+<span class="nc" id="L103">    TargetType(@NonNull String fieldName, @NonNull Class&lt;?&gt; clazz) {</span>
+<span class="nc" id="L104">      this.fieldName = fieldName;</span>
+<span class="nc" id="L105">      this.clazz = clazz;</span>
+<span class="nc" id="L106">    }</span>
 
     /**
      * Get the field name associated with the target type.
@@ -110,7 +111,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
      * @return the name
      */
     public String fieldName() {
-<span class="nc" id="L113">      return fieldName;</span>
+<span class="nc" id="L114">      return fieldName;</span>
     }
 
     /**
@@ -119,24 +120,24 @@ import edu.umd.cs.findbugs.annotations.Nullable;
      * @return the class
      */
     public Class&lt;?&gt; getClazz() {
-<span class="nc" id="L122">      return clazz;</span>
+<span class="nc" id="L123">      return clazz;</span>
     }
 
   }
 
   @NonNull
-<span class="nc" id="L128">  private static final RemoveVisitor INSTANCE = new RemoveVisitor();</span>
+<span class="nc" id="L129">  private static final RemoveVisitor INSTANCE = new RemoveVisitor();</span>
 
   private static final Map&lt;TargetType, Set&lt;TargetType&gt;&gt; APPLICABLE_TARGETS;
 
   static {
-<span class="nc" id="L133">    APPLICABLE_TARGETS = new EnumMap&lt;&gt;(TargetType.class);</span>
-<span class="nc" id="L134">    APPLICABLE_TARGETS.put(TargetType.PARAM, Set.of(TargetType.PROP, TargetType.LINK));</span>
-<span class="nc" id="L135">    APPLICABLE_TARGETS.put(TargetType.PART, Set.of(TargetType.PART, TargetType.PROP, TargetType.LINK));</span>
-<span class="nc" id="L136">  }</span>
+<span class="nc" id="L134">    APPLICABLE_TARGETS = new EnumMap&lt;&gt;(TargetType.class);</span>
+<span class="nc" id="L135">    APPLICABLE_TARGETS.put(TargetType.PARAM, Set.of(TargetType.PROP, TargetType.LINK));</span>
+<span class="nc" id="L136">    APPLICABLE_TARGETS.put(TargetType.PART, Set.of(TargetType.PART, TargetType.PROP, TargetType.LINK));</span>
+<span class="nc" id="L137">  }</span>
 
   private static Set&lt;TargetType&gt; getApplicableTypes(@NonNull TargetType type) {
-<span class="nc" id="L139">    return APPLICABLE_TARGETS.getOrDefault(type, CollectionUtil.emptySet());</span>
+<span class="nc" id="L140">    return APPLICABLE_TARGETS.getOrDefault(type, CollectionUtil.emptySet());</span>
   }
 
   private static &lt;T&gt; boolean handle(
@@ -145,31 +146,31 @@ import edu.umd.cs.findbugs.annotations.Nullable;
       @Nullable Function&lt;T, Boolean&gt; handler,
       @NonNull Context context) {
 
-<span class="nc bnc" id="L148" title="All 2 branches missed.">    boolean handleChildren = !Collections.disjoint(context.getTargetItemTypes(), getApplicableTypes(itemType));</span>
-<span class="nc" id="L149">    boolean retval = false;</span>
-<span class="nc bnc" id="L150" title="All 2 branches missed.">    if (context.isMatchingType(itemType)) {</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">    boolean handleChildren = !Collections.disjoint(context.getTargetItemTypes(), getApplicableTypes(itemType));</span>
+<span class="nc" id="L150">    boolean retval = false;</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">    if (context.isMatchingType(itemType)) {</span>
       // if the item type is applicable, attempt to remove any items
-<span class="nc" id="L152">      Iterator&lt;T&gt; iter = supplier.get().iterator();</span>
-<span class="nc bnc" id="L153" title="All 2 branches missed.">      while (iter.hasNext()) {</span>
-<span class="nc" id="L154">        T item = iter.next();</span>
+<span class="nc" id="L153">      Iterator&lt;T&gt; iter = supplier.get().iterator();</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">      while (iter.hasNext()) {</span>
+<span class="nc" id="L155">        T item = iter.next();</span>
 
-<span class="nc bnc" id="L156" title="All 4 branches missed.">        if (item == null || context.isApplicableTo(item)) {</span>
-<span class="nc" id="L157">          iter.remove();</span>
-<span class="nc" id="L158">          retval = true;</span>
+<span class="nc bnc" id="L157" title="All 4 branches missed.">        if (item == null || context.isApplicableTo(item)) {</span>
+<span class="nc" id="L158">          iter.remove();</span>
+<span class="nc" id="L159">          retval = true;</span>
           // ignore removed items and their children
-<span class="nc bnc" id="L160" title="All 4 branches missed.">        } else if (handler != null &amp;&amp; handleChildren) {</span>
+<span class="nc bnc" id="L161" title="All 4 branches missed.">        } else if (handler != null &amp;&amp; handleChildren) {</span>
           // handle child items since they are applicable to the search criteria
-<span class="nc bnc" id="L162" title="All 4 branches missed.">          retval = retval || handler.apply(item);</span>
+<span class="nc bnc" id="L163" title="All 4 branches missed.">          retval = retval || handler.apply(item);</span>
         }
-<span class="nc" id="L164">      }</span>
-<span class="nc bnc" id="L165" title="All 4 branches missed.">    } else if (handleChildren &amp;&amp; handler != null) {</span>
-<span class="nc bnc" id="L166" title="All 2 branches missed.">      for (T item : supplier.get()) {</span>
-<span class="nc bnc" id="L167" title="All 2 branches missed.">        if (item != null) {</span>
-<span class="nc bnc" id="L168" title="All 4 branches missed.">          retval = retval || handler.apply(item);</span>
+<span class="nc" id="L165">      }</span>
+<span class="nc bnc" id="L166" title="All 4 branches missed.">    } else if (handleChildren &amp;&amp; handler != null) {</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">      for (T item : supplier.get()) {</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">        if (item != null) {</span>
+<span class="nc bnc" id="L169" title="All 4 branches missed.">          retval = retval || handler.apply(item);</span>
         }
-<span class="nc" id="L170">      }</span>
+<span class="nc" id="L171">      }</span>
     }
-<span class="nc" id="L172">    return retval;</span>
+<span class="nc" id="L173">    return retval;</span>
   }
 
   /**
@@ -198,7 +199,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
       @Nullable String objectId,
       @Nullable String objectNamespace,
       @Nullable TargetType itemType) {
-<span class="nc" id="L201">    return INSTANCE.visitControl(</span>
+<span class="nc" id="L202">    return INSTANCE.visitControl(</span>
         control,
         new Context(objectName, objectClass, objectId, objectNamespace, itemType));
   }
@@ -206,61 +207,66 @@ import edu.umd.cs.findbugs.annotations.Nullable;
   @Override
   public Boolean visitCatalog(Catalog catalog, Context context) {
     // not required
-<span class="nc" id="L209">    throw new UnsupportedOperationException(&quot;not needed&quot;);</span>
+<span class="nc" id="L210">    throw new UnsupportedOperationException(&quot;not needed&quot;);</span>
   }
 
   @Override
   public Boolean visitGroup(CatalogGroup group, Context context) {
     // not required
-<span class="nc" id="L215">    throw new UnsupportedOperationException(&quot;not needed&quot;);</span>
+<span class="nc" id="L216">    throw new UnsupportedOperationException(&quot;not needed&quot;);</span>
+  }
+
+  @NonNull
+  private static &lt;T&gt; List&lt;T&gt; modifiableListOrEmpty(@Nullable List&lt;T&gt; list) {
+<span class="nc bnc" id="L221" title="All 2 branches missed.">    return list == null ? CollectionUtil.emptyList() : list;</span>
   }
 
   @Override
   public Boolean visitControl(Control control, Context context) {
-<span class="nc bnc" id="L220" title="All 2 branches missed.">    assert context != null;</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">    assert context != null;</span>
 
     // visit params
-<span class="nc" id="L223">    boolean retval = handle(</span>
+<span class="nc" id="L229">    boolean retval = handle(</span>
         TargetType.PARAM,
-<span class="nc" id="L225">        () -&gt; CollectionUtil.listOrEmpty(control.getParams()),</span>
-<span class="nc" id="L226">        child -&gt; visitParameter(ObjectUtils.notNull(child), context),</span>
+<span class="nc" id="L231">        () -&gt; modifiableListOrEmpty(control.getParams()),</span>
+<span class="nc" id="L232">        child -&gt; visitParameter(ObjectUtils.notNull(child), context),</span>
         context);
 
     // visit props
-<span class="nc bnc" id="L230" title="All 4 branches missed.">    retval = retval || handle(</span>
+<span class="nc bnc" id="L236" title="All 4 branches missed.">    retval = retval || handle(</span>
         TargetType.PROP,
-<span class="nc" id="L232">        () -&gt; CollectionUtil.listOrEmpty(control.getProps()),</span>
+<span class="nc" id="L238">        () -&gt; modifiableListOrEmpty(control.getProps()),</span>
         null,
         context);
 
     // visit links
-<span class="nc bnc" id="L237" title="All 4 branches missed.">    retval = retval || handle(</span>
+<span class="nc bnc" id="L243" title="All 4 branches missed.">    retval = retval || handle(</span>
         TargetType.LINK,
-<span class="nc" id="L239">        () -&gt; CollectionUtil.listOrEmpty(control.getLinks()),</span>
+<span class="nc" id="L245">        () -&gt; modifiableListOrEmpty(control.getLinks()),</span>
         null,
         context);
 
-<span class="nc bnc" id="L243" title="All 4 branches missed.">    return retval || handle(</span>
+<span class="nc bnc" id="L249" title="All 4 branches missed.">    return retval || handle(</span>
         TargetType.PART,
-<span class="nc" id="L245">        () -&gt; CollectionUtil.listOrEmpty(control.getParts()),</span>
-<span class="nc" id="L246">        child -&gt; visitPart(child, context),</span>
+<span class="nc" id="L251">        () -&gt; modifiableListOrEmpty(control.getParts()),</span>
+<span class="nc" id="L252">        child -&gt; visitPart(child, context),</span>
         context);
   }
 
   @Override
   public Boolean visitParameter(Parameter parameter, Context context) {
-<span class="nc bnc" id="L252" title="All 2 branches missed.">    assert context != null;</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">    assert context != null;</span>
 
     // visit props
-<span class="nc" id="L255">    boolean retval = handle(</span>
+<span class="nc" id="L261">    boolean retval = handle(</span>
         TargetType.PROP,
-<span class="nc" id="L257">        () -&gt; CollectionUtil.listOrEmpty(parameter.getProps()),</span>
+<span class="nc" id="L263">        () -&gt; modifiableListOrEmpty(parameter.getProps()),</span>
         null,
         context);
 
-<span class="nc bnc" id="L261" title="All 4 branches missed.">    return retval || handle(</span>
+<span class="nc bnc" id="L267" title="All 4 branches missed.">    return retval || handle(</span>
         TargetType.LINK,
-<span class="nc" id="L263">        () -&gt; CollectionUtil.listOrEmpty(parameter.getLinks()),</span>
+<span class="nc" id="L269">        () -&gt; modifiableListOrEmpty(parameter.getLinks()),</span>
         null,
         context);
   }
@@ -275,26 +281,26 @@ import edu.umd.cs.findbugs.annotations.Nullable;
    * @return {@code true} if the removal was applied or {@code false} otherwise
    */
   public boolean visitPart(ControlPart part, Context context) {
-<span class="nc bnc" id="L278" title="All 2 branches missed.">    assert context != null;</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">    assert context != null;</span>
 
     // visit props
-<span class="nc" id="L281">    boolean retval = handle(</span>
+<span class="nc" id="L287">    boolean retval = handle(</span>
         TargetType.PROP,
-<span class="nc" id="L283">        () -&gt; CollectionUtil.listOrEmpty(part.getProps()),</span>
+<span class="nc" id="L289">        () -&gt; modifiableListOrEmpty(part.getProps()),</span>
         null,
         context);
 
     // visit links
-<span class="nc bnc" id="L288" title="All 4 branches missed.">    retval = retval || handle(</span>
+<span class="nc bnc" id="L294" title="All 4 branches missed.">    retval = retval || handle(</span>
         TargetType.LINK,
-<span class="nc" id="L290">        () -&gt; CollectionUtil.listOrEmpty(part.getLinks()),</span>
+<span class="nc" id="L296">        () -&gt; modifiableListOrEmpty(part.getLinks()),</span>
         null,
         context);
 
-<span class="nc bnc" id="L294" title="All 4 branches missed.">    return retval || handle(</span>
+<span class="nc bnc" id="L300" title="All 4 branches missed.">    return retval || handle(</span>
         TargetType.PART,
-<span class="nc" id="L296">        () -&gt; CollectionUtil.listOrEmpty(part.getParts()),</span>
-<span class="nc" id="L297">        child -&gt; visitPart(child, context),</span>
+<span class="nc" id="L302">        () -&gt; modifiableListOrEmpty(part.getParts()),</span>
+<span class="nc" id="L303">        child -&gt; visitPart(child, context),</span>
         context);
   }
 
@@ -303,26 +309,26 @@ import edu.umd.cs.findbugs.annotations.Nullable;
      * Types with an &quot;name&quot; flag.
      */
     @NonNull
-<span class="nc" id="L306">    private static final Set&lt;TargetType&gt; NAME_TYPES = ObjectUtils.notNull(</span>
-<span class="nc" id="L307">        Set.of(TargetType.PART, TargetType.PROP));</span>
+<span class="nc" id="L312">    private static final Set&lt;TargetType&gt; NAME_TYPES = ObjectUtils.notNull(</span>
+<span class="nc" id="L313">        Set.of(TargetType.PART, TargetType.PROP));</span>
     /**
      * Types with an &quot;class&quot; flag.
      */
     @NonNull
-<span class="nc" id="L312">    private static final Set&lt;TargetType&gt; CLASS_TYPES = ObjectUtils.notNull(</span>
-<span class="nc" id="L313">        Set.of(TargetType.PARAM, TargetType.PART, TargetType.PROP));</span>
+<span class="nc" id="L318">    private static final Set&lt;TargetType&gt; CLASS_TYPES = ObjectUtils.notNull(</span>
+<span class="nc" id="L319">        Set.of(TargetType.PARAM, TargetType.PART, TargetType.PROP));</span>
     /**
      * Types with an &quot;id&quot; flag.
      */
     @NonNull
-<span class="nc" id="L318">    private static final Set&lt;TargetType&gt; ID_TYPES = ObjectUtils.notNull(</span>
-<span class="nc" id="L319">        Set.of(TargetType.PARAM, TargetType.PART));</span>
+<span class="nc" id="L324">    private static final Set&lt;TargetType&gt; ID_TYPES = ObjectUtils.notNull(</span>
+<span class="nc" id="L325">        Set.of(TargetType.PARAM, TargetType.PART));</span>
     /**
      * Types with an &quot;ns&quot; flag.
      */
     @NonNull
-<span class="nc" id="L324">    private static final Set&lt;TargetType&gt; NAMESPACE_TYPES = ObjectUtils.notNull(</span>
-<span class="nc" id="L325">        Set.of(TargetType.PART, TargetType.PROP));</span>
+<span class="nc" id="L330">    private static final Set&lt;TargetType&gt; NAMESPACE_TYPES = ObjectUtils.notNull(</span>
+<span class="nc" id="L331">        Set.of(TargetType.PART, TargetType.PROP));</span>
 
     @Nullable
     private final String objectName;
@@ -341,18 +347,18 @@ import edu.umd.cs.findbugs.annotations.Nullable;
         @NonNull Set&lt;TargetType&gt; allowedTypes,
         @Nullable String value,
         @Nullable TargetType itemType) {
-<span class="nc" id="L344">      boolean retval = false;</span>
-<span class="nc bnc" id="L345" title="All 2 branches missed.">      if (value != null) {</span>
-<span class="nc" id="L346">        retval = effectiveTypes.retainAll(allowedTypes);</span>
-<span class="nc bnc" id="L347" title="All 4 branches missed.">        if (itemType != null &amp;&amp; !allowedTypes.contains(itemType)) {</span>
-<span class="nc" id="L348">          throw new ProfileResolutionEvaluationException(</span>
-<span class="nc" id="L349">              String.format(&quot;%s='%s' is not supported for items of type '%s'&quot;,</span>
+<span class="nc" id="L350">      boolean retval = false;</span>
+<span class="nc bnc" id="L351" title="All 2 branches missed.">      if (value != null) {</span>
+<span class="nc" id="L352">        retval = effectiveTypes.retainAll(allowedTypes);</span>
+<span class="nc bnc" id="L353" title="All 4 branches missed.">        if (itemType != null &amp;&amp; !allowedTypes.contains(itemType)) {</span>
+<span class="nc" id="L354">          throw new ProfileResolutionEvaluationException(</span>
+<span class="nc" id="L355">              String.format(&quot;%s='%s' is not supported for items of type '%s'&quot;,</span>
                   criteria,
                   value,
-<span class="nc" id="L352">                  itemType.fieldName()));</span>
+<span class="nc" id="L358">                  itemType.fieldName()));</span>
         }
       }
-<span class="nc" id="L355">      return retval;</span>
+<span class="nc" id="L361">      return retval;</span>
     }
 
     private Context(
@@ -360,113 +366,113 @@ import edu.umd.cs.findbugs.annotations.Nullable;
         @Nullable String objectClass,
         @Nullable String objectId,
         @Nullable String objectNamespace,
-<span class="nc" id="L363">        @Nullable TargetType itemType) {</span>
+<span class="nc" id="L369">        @Nullable TargetType itemType) {</span>
 
       // determine the set of effective item types to search for
       // this helps with short-circuit searching for parts of the graph that cannot
       // match
-<span class="nc" id="L368">      @NonNull Set&lt;TargetType&gt; targetItemTypes = ObjectUtils.notNull(EnumSet.allOf(TargetType.class));</span>
-<span class="nc" id="L369">      filterTypes(targetItemTypes, &quot;by-name&quot;, NAME_TYPES, objectName, itemType);</span>
-<span class="nc" id="L370">      filterTypes(targetItemTypes, &quot;by-class&quot;, CLASS_TYPES, objectClass, itemType);</span>
-<span class="nc" id="L371">      filterTypes(targetItemTypes, &quot;by-id&quot;, ID_TYPES, objectId, itemType);</span>
-<span class="nc" id="L372">      filterTypes(targetItemTypes, &quot;by-ns&quot;, NAMESPACE_TYPES, objectNamespace, itemType);</span>
+<span class="nc" id="L374">      @NonNull Set&lt;TargetType&gt; targetItemTypes = ObjectUtils.notNull(EnumSet.allOf(TargetType.class));</span>
+<span class="nc" id="L375">      filterTypes(targetItemTypes, &quot;by-name&quot;, NAME_TYPES, objectName, itemType);</span>
+<span class="nc" id="L376">      filterTypes(targetItemTypes, &quot;by-class&quot;, CLASS_TYPES, objectClass, itemType);</span>
+<span class="nc" id="L377">      filterTypes(targetItemTypes, &quot;by-id&quot;, ID_TYPES, objectId, itemType);</span>
+<span class="nc" id="L378">      filterTypes(targetItemTypes, &quot;by-ns&quot;, NAMESPACE_TYPES, objectNamespace, itemType);</span>
 
-<span class="nc bnc" id="L374" title="All 2 branches missed.">      if (itemType != null) {</span>
-<span class="nc" id="L375">        targetItemTypes.retainAll(Set.of(itemType));</span>
+<span class="nc bnc" id="L380" title="All 2 branches missed.">      if (itemType != null) {</span>
+<span class="nc" id="L381">        targetItemTypes.retainAll(Set.of(itemType));</span>
       }
 
-<span class="nc bnc" id="L378" title="All 2 branches missed.">      if (targetItemTypes.isEmpty()) {</span>
-<span class="nc" id="L379">        throw new ProfileResolutionEvaluationException(&quot;The filter matches no available item types&quot;);</span>
+<span class="nc bnc" id="L384" title="All 2 branches missed.">      if (targetItemTypes.isEmpty()) {</span>
+<span class="nc" id="L385">        throw new ProfileResolutionEvaluationException(&quot;The filter matches no available item types&quot;);</span>
       }
 
-<span class="nc" id="L382">      this.objectName = objectName;</span>
-<span class="nc" id="L383">      this.objectClass = objectClass;</span>
-<span class="nc" id="L384">      this.objectId = objectId;</span>
-<span class="nc" id="L385">      this.objectNamespace = objectNamespace;</span>
-<span class="nc" id="L386">      this.targetItemTypes = CollectionUtil.unmodifiableSet(targetItemTypes);</span>
-<span class="nc" id="L387">    }</span>
+<span class="nc" id="L388">      this.objectName = objectName;</span>
+<span class="nc" id="L389">      this.objectClass = objectClass;</span>
+<span class="nc" id="L390">      this.objectId = objectId;</span>
+<span class="nc" id="L391">      this.objectNamespace = objectNamespace;</span>
+<span class="nc" id="L392">      this.targetItemTypes = CollectionUtil.unmodifiableSet(targetItemTypes);</span>
+<span class="nc" id="L393">    }</span>
 
     @Nullable
     public String getObjectName() {
-<span class="nc" id="L391">      return objectName;</span>
+<span class="nc" id="L397">      return objectName;</span>
     }
 
     @Nullable
     public String getObjectClass() {
-<span class="nc" id="L396">      return objectClass;</span>
+<span class="nc" id="L402">      return objectClass;</span>
     }
 
     @Nullable
     public String getObjectId() {
-<span class="nc" id="L401">      return objectId;</span>
+<span class="nc" id="L407">      return objectId;</span>
     }
 
     @NonNull
     public Set&lt;TargetType&gt; getTargetItemTypes() {
-<span class="nc" id="L406">      return targetItemTypes;</span>
+<span class="nc" id="L412">      return targetItemTypes;</span>
     }
 
     public boolean isMatchingType(@NonNull TargetType type) {
-<span class="nc" id="L410">      return getTargetItemTypes().contains(type);</span>
+<span class="nc" id="L416">      return getTargetItemTypes().contains(type);</span>
     }
 
     @Nullable
     public String getObjectNamespace() {
-<span class="nc" id="L415">      return objectNamespace;</span>
+<span class="nc" id="L421">      return objectNamespace;</span>
     }
 
     private static boolean checkValue(@Nullable String actual, @Nullable String expected) {
-<span class="nc bnc" id="L419" title="All 4 branches missed.">      return expected == null || expected.equals(actual);</span>
+<span class="nc bnc" id="L425" title="All 4 branches missed.">      return expected == null || expected.equals(actual);</span>
     }
 
     public boolean isApplicableTo(@NonNull Object obj) {
-<span class="nc" id="L423">      TargetType objectType = TargetType.forClass(obj.getClass());</span>
+<span class="nc" id="L429">      TargetType objectType = TargetType.forClass(obj.getClass());</span>
 
-<span class="nc bnc" id="L425" title="All 4 branches missed.">      boolean retval = objectType != null &amp;&amp; getTargetItemTypes().contains(objectType);</span>
-<span class="nc bnc" id="L426" title="All 2 branches missed.">      if (retval) {</span>
-<span class="nc bnc" id="L427" title="All 2 branches missed.">        assert objectType != null;</span>
+<span class="nc bnc" id="L431" title="All 4 branches missed.">      boolean retval = objectType != null &amp;&amp; getTargetItemTypes().contains(objectType);</span>
+<span class="nc bnc" id="L432" title="All 2 branches missed.">      if (retval) {</span>
+<span class="nc bnc" id="L433" title="All 2 branches missed.">        assert objectType != null;</span>
 
         // check other criteria
-<span class="nc" id="L430">        String actualName = null;</span>
-<span class="nc" id="L431">        String actualClass = null;</span>
-<span class="nc" id="L432">        String actualId = null;</span>
-<span class="nc" id="L433">        String actualNamespace = null;</span>
+<span class="nc" id="L436">        String actualName = null;</span>
+<span class="nc" id="L437">        String actualClass = null;</span>
+<span class="nc" id="L438">        String actualId = null;</span>
+<span class="nc" id="L439">        String actualNamespace = null;</span>
 
-<span class="nc bnc" id="L435" title="All 5 branches missed.">        switch (objectType) {</span>
+<span class="nc bnc" id="L441" title="All 5 branches missed.">        switch (objectType) {</span>
         case PARAM: {
-<span class="nc" id="L437">          Parameter param = (Parameter) obj;</span>
-<span class="nc" id="L438">          actualClass = param.getClazz();</span>
-<span class="nc" id="L439">          actualId = param.getId();</span>
-<span class="nc" id="L440">          break;</span>
+<span class="nc" id="L443">          Parameter param = (Parameter) obj;</span>
+<span class="nc" id="L444">          actualClass = param.getClazz();</span>
+<span class="nc" id="L445">          actualId = param.getId();</span>
+<span class="nc" id="L446">          break;</span>
         }
         case PROP: {
-<span class="nc" id="L443">          Property prop = (Property) obj;</span>
-<span class="nc" id="L444">          actualName = prop.getName();</span>
-<span class="nc" id="L445">          actualClass = prop.getClazz();</span>
-<span class="nc bnc" id="L446" title="All 2 branches missed.">          actualNamespace = prop.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : prop.getNs().toString();</span>
-<span class="nc" id="L447">          break;</span>
+<span class="nc" id="L449">          Property prop = (Property) obj;</span>
+<span class="nc" id="L450">          actualName = prop.getName();</span>
+<span class="nc" id="L451">          actualClass = prop.getClazz();</span>
+<span class="nc bnc" id="L452" title="All 2 branches missed.">          actualNamespace = prop.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : prop.getNs().toString();</span>
+<span class="nc" id="L453">          break;</span>
         }
         case PART: {
-<span class="nc" id="L450">          ControlPart part = (ControlPart) obj;</span>
-<span class="nc" id="L451">          actualName = part.getName();</span>
-<span class="nc" id="L452">          actualClass = part.getClazz();</span>
-<span class="nc bnc" id="L453" title="All 2 branches missed.">          actualId = part.getId() == null ? null : part.getId();</span>
-<span class="nc bnc" id="L454" title="All 2 branches missed.">          actualNamespace = part.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();</span>
-<span class="nc" id="L455">          break;</span>
+<span class="nc" id="L456">          ControlPart part = (ControlPart) obj;</span>
+<span class="nc" id="L457">          actualName = part.getName();</span>
+<span class="nc" id="L458">          actualClass = part.getClazz();</span>
+<span class="nc bnc" id="L459" title="All 2 branches missed.">          actualId = part.getId() == null ? null : part.getId();</span>
+<span class="nc bnc" id="L460" title="All 2 branches missed.">          actualNamespace = part.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();</span>
+<span class="nc" id="L461">          break;</span>
         }
         case LINK:
           // do nothing
-<span class="nc" id="L459">          break;</span>
+<span class="nc" id="L465">          break;</span>
         default:
-<span class="nc" id="L461">          throw new UnsupportedOperationException(objectType.name().toLowerCase(Locale.ROOT));</span>
+<span class="nc" id="L467">          throw new UnsupportedOperationException(objectType.name().toLowerCase(Locale.ROOT));</span>
         }
 
-<span class="nc bnc" id="L464" title="All 2 branches missed.">        retval = checkValue(actualName, getObjectName())</span>
-<span class="nc bnc" id="L465" title="All 2 branches missed.">            &amp;&amp; checkValue(actualClass, getObjectClass())</span>
-<span class="nc bnc" id="L466" title="All 2 branches missed.">            &amp;&amp; checkValue(actualId, getObjectId())</span>
-<span class="nc bnc" id="L467" title="All 2 branches missed.">            &amp;&amp; checkValue(actualNamespace, getObjectNamespace());</span>
+<span class="nc bnc" id="L470" title="All 2 branches missed.">        retval = checkValue(actualName, getObjectName())</span>
+<span class="nc bnc" id="L471" title="All 2 branches missed.">            &amp;&amp; checkValue(actualClass, getObjectClass())</span>
+<span class="nc bnc" id="L472" title="All 2 branches missed.">            &amp;&amp; checkValue(actualId, getObjectId())</span>
+<span class="nc bnc" id="L473" title="All 2 branches missed.">            &amp;&amp; checkValue(actualNamespace, getObjectNamespace());</span>
       }
-<span class="nc" id="L469">      return retval;</span>
+<span class="nc" id="L475">      return retval;</span>
     }
   }
 }
