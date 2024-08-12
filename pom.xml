@@ -85,7 +85,7 @@
 		<dependency.infinispan.version>13.0.10.Final</dependency.infinispan.version>
 		<dependency.jmock-junit5.version>2.13.1</dependency.jmock-junit5.version>
 		<dependency.log4j2.version>2.23.1</dependency.log4j2.version>
-		<dependency.saxon.version>12.4</dependency.saxon.version>
+		<dependency.saxon.version>12.5</dependency.saxon.version>
 		<dependency.spotbugs-annotations.version>4.8.6</dependency.spotbugs-annotations.version>
 		<dependency.xmlbeans.version>5.2.1</dependency.xmlbeans.version>
 		<dependency.xmlresolver.version>6.0.4</dependency.xmlresolver.version>
