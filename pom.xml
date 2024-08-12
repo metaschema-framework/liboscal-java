@@ -88,7 +88,7 @@
 		<dependency.saxon.version>12.5</dependency.saxon.version>
 		<dependency.spotbugs-annotations.version>4.8.3</dependency.spotbugs-annotations.version>
 		<dependency.xmlbeans.version>5.2.1</dependency.xmlbeans.version>
-		<dependency.xmlresolver.version>6.0.4</dependency.xmlresolver.version>
+		<dependency.xmlresolver.version>6.0.8</dependency.xmlresolver.version>
 		<dependency.xmlunit.version>2.10.0</dependency.xmlunit.version>
 
 		<plugin.cyclonedx.version>2.8.1</plugin.cyclonedx.version>
