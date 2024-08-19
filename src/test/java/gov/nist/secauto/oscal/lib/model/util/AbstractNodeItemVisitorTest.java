@@ -5,9 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.model.util;
 
-import gov.nist.secauto.metaschema.core.metapath.item.node.AbstractRecursionPreventingNodeItemVisitor;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDefinitionNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItemFactory;
 import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValue;
 import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValuesConstraint;
 import gov.nist.secauto.metaschema.databind.model.IBoundModule;
@@ -17,14 +15,11 @@ import gov.nist.secauto.oscal.lib.model.util.AllowedValueCollectingNodeItemVisit
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -91,46 +86,4 @@ class AbstractNodeItemVisitorTest {
     return retval;
   }
 
-  @Test
-  void testAssemblyRecursion() {
-    IBoundModule module = OscalBindingContext.instance().registerModule(OscalCompleteModule.class);
-    RecursionCollectingNodeItemVisitor walker = new RecursionCollectingNodeItemVisitor();
-    walker.visit(module);
-    Set<RecursionCollectingNodeItemVisitor.AssemblyRecord> recursiveAssemblies
-        = walker.getRecursiveAssemblyDefinitions();
-
-    System.out.println("Recursive Assemblies");
-    System.out.println("--------------------");
-    recursiveAssemblies.forEach(record -> {
-      System.out.println(record.getDefinition().getFormalName());
-      record.getLocations().forEach(location -> {
-        System.out.println("- " + metapath(location));
-      });
-    });
-  }
-
-  @Test
-  void testRecursion() {
-    AbstractRecursionPreventingNodeItemVisitor<Void, Void> visitor
-        = new AbstractRecursionPreventingNodeItemVisitor<>() {
-          @Override
-          protected Void defaultResult() {
-            return null;
-          }
-        };
-
-    IBoundModule module = OscalBindingContext.instance().registerModule(OscalCompleteModule.class);
-    visitor.visitMetaschema(INodeItemFactory.instance().newModuleNodeItem(module), null);
-  }
-
-  @Test
-  void testErDiagram() throws IOException {
-    MermaidErDiagramGenerator visitor = new MermaidErDiagramGenerator();
-
-    IBoundModule module = OscalBindingContext.instance().registerModule(OscalCompleteModule.class);
-
-    try (PrintWriter writer = new PrintWriter(System.out)) {
-      visitor.generate(module, writer);
-    }
-  }
 }
