@@ -35,23 +35,21 @@ public class InsertReferencePolicy
   protected List&lt;IEntityItem.ItemType&gt; getEntityItemTypes(@NonNull InsertAnchorNode insert) {
 <span class="fc" id="L36">    String type = insert.getType().toString();</span>
 
-    List&lt;IEntityItem.ItemType&gt; itemTypes;
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">    if (!&quot;param&quot;.equals(type)) {</span>
-<span class="nc" id="L40">      throw new UnsupportedOperationException(&quot;unrecognized insert type: &quot; + type);</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">    if (!&quot;param&quot;.equals(type)) {</span>
+<span class="nc" id="L39">      throw new UnsupportedOperationException(&quot;unrecognized insert type: &quot; + type);</span>
     }
-<span class="fc" id="L42">    itemTypes = CollectionUtil.singletonList(IEntityItem.ItemType.PARAMETER);</span>
-<span class="fc" id="L43">    return itemTypes;</span>
+<span class="fc" id="L41">    return CollectionUtil.singletonList(IEntityItem.ItemType.PARAMETER);</span>
   }
 
   @Override
   public String getReferenceText(@NonNull InsertAnchorNode insert) {
-<span class="fc" id="L48">    return insert.getIdReference().toString();</span>
+<span class="fc" id="L46">    return insert.getIdReference().toString();</span>
   }
 
   @Override
   public void setReferenceText(@NonNull InsertAnchorNode insert, @NonNull String newReference) {
-<span class="fc" id="L53">    insert.setIdReference(ObjectUtils.notNull(BasedSequence.of(newReference)));</span>
-<span class="fc" id="L54">  }</span>
+<span class="fc" id="L51">    insert.setIdReference(ObjectUtils.notNull(BasedSequence.of(newReference)));</span>
+<span class="fc" id="L52">  }</span>
 
   @Override
   protected boolean handleIndexMiss(
@@ -60,18 +58,18 @@ public class InsertReferencePolicy
       @NonNull List&lt;IEntityItem.ItemType&gt; itemTypes,
       @NonNull String identifier,
       @NonNull ReferenceCountingVisitor.Context visitorContext) {
-<span class="nc bnc" id="L63" title="All 2 branches missed.">    if (LOGGER.isErrorEnabled()) {</span>
-<span class="nc" id="L64">      LOGGER.atError().log(</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">    if (LOGGER.isErrorEnabled()) {</span>
+<span class="nc" id="L62">      LOGGER.atError().log(</span>
           &quot;The '{}' insert at '{}' should reference a '{}' identified by '{}'.&quot;
               + &quot; The index did not contain the identifier.&quot;,
-<span class="nc" id="L67">          insert.getType().toString(),</span>
-<span class="nc" id="L68">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),</span>
-<span class="nc" id="L69">          itemTypes.stream()</span>
-<span class="nc" id="L70">              .map(type -&gt; type.name().toLowerCase(Locale.ROOT))</span>
-<span class="nc" id="L71">              .collect(CustomCollectors.joiningWithOxfordComma(&quot;or&quot;)),</span>
+<span class="nc" id="L65">          insert.getType().toString(),</span>
+<span class="nc" id="L66">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),</span>
+<span class="nc" id="L67">          itemTypes.stream()</span>
+<span class="nc" id="L68">              .map(type -&gt; type.name().toLowerCase(Locale.ROOT))</span>
+<span class="nc" id="L69">              .collect(CustomCollectors.joiningWithOxfordComma(&quot;or&quot;)),</span>
           identifier);
     }
-<span class="nc" id="L74">    return true;</span>
+<span class="nc" id="L72">    return true;</span>
   }
 
 }

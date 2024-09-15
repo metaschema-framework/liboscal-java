@@ -689,58 +689,54 @@
 <span class="source-line-no">676</span><span id="line-676">              || TargetType.PART.equals(objectType) &amp;&amp; isMatchingType(TargetType.PART));</span>
 <span class="source-line-no">677</span><span id="line-677">    }</span>
 <span class="source-line-no">678</span><span id="line-678"></span>
-<span class="source-line-no">679</span><span id="line-679">    private boolean checkValue(@Nullable String actual, @Nullable String expected) {</span>
-<span class="source-line-no">680</span><span id="line-680">      return expected == null || expected.equals(actual);</span>
-<span class="source-line-no">681</span><span id="line-681">    }</span>
-<span class="source-line-no">682</span><span id="line-682"></span>
-<span class="source-line-no">683</span><span id="line-683">    /**</span>
-<span class="source-line-no">684</span><span id="line-684">     * Determine if the provided {@code obj} is the target of the add.</span>
-<span class="source-line-no">685</span><span id="line-685">     *</span>
-<span class="source-line-no">686</span><span id="line-686">     * @param obj</span>
-<span class="source-line-no">687</span><span id="line-687">     *          the current object</span>
-<span class="source-line-no">688</span><span id="line-688">     * @return {@code true} if the current object applies or {@code false} otherwise</span>
-<span class="source-line-no">689</span><span id="line-689">     */</span>
-<span class="source-line-no">690</span><span id="line-690">    public boolean appliesTo(@NonNull Object obj) {</span>
-<span class="source-line-no">691</span><span id="line-691">      TargetType objectType = TargetType.forClass(obj.getClass());</span>
+<span class="source-line-no">679</span><span id="line-679">    /**</span>
+<span class="source-line-no">680</span><span id="line-680">     * Determine if the provided {@code obj} is the target of the add.</span>
+<span class="source-line-no">681</span><span id="line-681">     *</span>
+<span class="source-line-no">682</span><span id="line-682">     * @param obj</span>
+<span class="source-line-no">683</span><span id="line-683">     *          the current object</span>
+<span class="source-line-no">684</span><span id="line-684">     * @return {@code true} if the current object applies or {@code false} otherwise</span>
+<span class="source-line-no">685</span><span id="line-685">     */</span>
+<span class="source-line-no">686</span><span id="line-686">    public boolean appliesTo(@NonNull Object obj) {</span>
+<span class="source-line-no">687</span><span id="line-687">      TargetType objectType = TargetType.forClass(obj.getClass());</span>
+<span class="source-line-no">688</span><span id="line-688"></span>
+<span class="source-line-no">689</span><span id="line-689">      boolean retval = objectType != null &amp;&amp; isMatchingType(objectType);</span>
+<span class="source-line-no">690</span><span id="line-690">      if (retval) {</span>
+<span class="source-line-no">691</span><span id="line-691">        assert objectType != null;</span>
 <span class="source-line-no">692</span><span id="line-692"></span>
-<span class="source-line-no">693</span><span id="line-693">      boolean retval = objectType != null &amp;&amp; isMatchingType(objectType);</span>
-<span class="source-line-no">694</span><span id="line-694">      if (retval) {</span>
-<span class="source-line-no">695</span><span id="line-695">        assert objectType != null;</span>
-<span class="source-line-no">696</span><span id="line-696"></span>
-<span class="source-line-no">697</span><span id="line-697">        // check other criteria</span>
-<span class="source-line-no">698</span><span id="line-698">        String actualId = null;</span>
-<span class="source-line-no">699</span><span id="line-699"></span>
-<span class="source-line-no">700</span><span id="line-700">        switch (objectType) {</span>
-<span class="source-line-no">701</span><span id="line-701">        case CONTROL: {</span>
-<span class="source-line-no">702</span><span id="line-702">          Control control = (Control) obj;</span>
-<span class="source-line-no">703</span><span id="line-703">          actualId = control.getId();</span>
-<span class="source-line-no">704</span><span id="line-704">          break;</span>
-<span class="source-line-no">705</span><span id="line-705">        }</span>
-<span class="source-line-no">706</span><span id="line-706">        case PARAM: {</span>
-<span class="source-line-no">707</span><span id="line-707">          Parameter param = (Parameter) obj;</span>
-<span class="source-line-no">708</span><span id="line-708">          actualId = param.getId();</span>
-<span class="source-line-no">709</span><span id="line-709">          break;</span>
-<span class="source-line-no">710</span><span id="line-710">        }</span>
-<span class="source-line-no">711</span><span id="line-711">        case PART: {</span>
-<span class="source-line-no">712</span><span id="line-712">          ControlPart part = (ControlPart) obj;</span>
-<span class="source-line-no">713</span><span id="line-713">          actualId = part.getId() == null ? null : part.getId();</span>
-<span class="source-line-no">714</span><span id="line-714">          break;</span>
-<span class="source-line-no">715</span><span id="line-715">        }</span>
-<span class="source-line-no">716</span><span id="line-716">        default:</span>
-<span class="source-line-no">717</span><span id="line-717">          throw new UnsupportedOperationException(objectType.fieldName());</span>
-<span class="source-line-no">718</span><span id="line-718">        }</span>
-<span class="source-line-no">719</span><span id="line-719"></span>
-<span class="source-line-no">720</span><span id="line-720">        String byId = getById();</span>
-<span class="source-line-no">721</span><span id="line-721">        if (getById() == null &amp;&amp; TargetType.CONTROL.equals(objectType)) {</span>
-<span class="source-line-no">722</span><span id="line-722">          retval = getControl().equals(obj);</span>
-<span class="source-line-no">723</span><span id="line-723">        } else {</span>
-<span class="source-line-no">724</span><span id="line-724">          retval = byId != null &amp;&amp; byId.equals(actualId);</span>
-<span class="source-line-no">725</span><span id="line-725">        }</span>
-<span class="source-line-no">726</span><span id="line-726">      }</span>
-<span class="source-line-no">727</span><span id="line-727">      return retval;</span>
-<span class="source-line-no">728</span><span id="line-728">    }</span>
-<span class="source-line-no">729</span><span id="line-729">  }</span>
-<span class="source-line-no">730</span><span id="line-730">}</span>
+<span class="source-line-no">693</span><span id="line-693">        // check other criteria</span>
+<span class="source-line-no">694</span><span id="line-694">        String actualId = null;</span>
+<span class="source-line-no">695</span><span id="line-695"></span>
+<span class="source-line-no">696</span><span id="line-696">        switch (objectType) {</span>
+<span class="source-line-no">697</span><span id="line-697">        case CONTROL: {</span>
+<span class="source-line-no">698</span><span id="line-698">          Control control = (Control) obj;</span>
+<span class="source-line-no">699</span><span id="line-699">          actualId = control.getId();</span>
+<span class="source-line-no">700</span><span id="line-700">          break;</span>
+<span class="source-line-no">701</span><span id="line-701">        }</span>
+<span class="source-line-no">702</span><span id="line-702">        case PARAM: {</span>
+<span class="source-line-no">703</span><span id="line-703">          Parameter param = (Parameter) obj;</span>
+<span class="source-line-no">704</span><span id="line-704">          actualId = param.getId();</span>
+<span class="source-line-no">705</span><span id="line-705">          break;</span>
+<span class="source-line-no">706</span><span id="line-706">        }</span>
+<span class="source-line-no">707</span><span id="line-707">        case PART: {</span>
+<span class="source-line-no">708</span><span id="line-708">          ControlPart part = (ControlPart) obj;</span>
+<span class="source-line-no">709</span><span id="line-709">          actualId = part.getId() == null ? null : part.getId();</span>
+<span class="source-line-no">710</span><span id="line-710">          break;</span>
+<span class="source-line-no">711</span><span id="line-711">        }</span>
+<span class="source-line-no">712</span><span id="line-712">        default:</span>
+<span class="source-line-no">713</span><span id="line-713">          throw new UnsupportedOperationException(objectType.fieldName());</span>
+<span class="source-line-no">714</span><span id="line-714">        }</span>
+<span class="source-line-no">715</span><span id="line-715"></span>
+<span class="source-line-no">716</span><span id="line-716">        String byId = getById();</span>
+<span class="source-line-no">717</span><span id="line-717">        if (getById() == null &amp;&amp; TargetType.CONTROL.equals(objectType)) {</span>
+<span class="source-line-no">718</span><span id="line-718">          retval = getControl().equals(obj);</span>
+<span class="source-line-no">719</span><span id="line-719">        } else {</span>
+<span class="source-line-no">720</span><span id="line-720">          retval = byId != null &amp;&amp; byId.equals(actualId);</span>
+<span class="source-line-no">721</span><span id="line-721">        }</span>
+<span class="source-line-no">722</span><span id="line-722">      }</span>
+<span class="source-line-no">723</span><span id="line-723">      return retval;</span>
+<span class="source-line-no">724</span><span id="line-724">    }</span>
+<span class="source-line-no">725</span><span id="line-725">  }</span>
+<span class="source-line-no">726</span><span id="line-726">}</span>
 
 
 

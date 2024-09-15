@@ -676,10 +676,6 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 <span class="pc bpc" id="L676" title="2 of 4 branches missed.">              || TargetType.PART.equals(objectType) &amp;&amp; isMatchingType(TargetType.PART));</span>
     }
 
-    private boolean checkValue(@Nullable String actual, @Nullable String expected) {
-<span class="nc bnc" id="L680" title="All 4 branches missed.">      return expected == null || expected.equals(actual);</span>
-    }
-
     /**
      * Determine if the provided {@code obj} is the target of the add.
      *
@@ -688,43 +684,43 @@ import edu.umd.cs.findbugs.annotations.Nullable;
      * @return {@code true} if the current object applies or {@code false} otherwise
      */
     public boolean appliesTo(@NonNull Object obj) {
-<span class="fc" id="L691">      TargetType objectType = TargetType.forClass(obj.getClass());</span>
+<span class="fc" id="L687">      TargetType objectType = TargetType.forClass(obj.getClass());</span>
 
-<span class="pc bpc" id="L693" title="1 of 4 branches missed.">      boolean retval = objectType != null &amp;&amp; isMatchingType(objectType);</span>
-<span class="fc bfc" id="L694" title="All 2 branches covered.">      if (retval) {</span>
-<span class="pc bpc" id="L695" title="1 of 2 branches missed.">        assert objectType != null;</span>
+<span class="pc bpc" id="L689" title="1 of 4 branches missed.">      boolean retval = objectType != null &amp;&amp; isMatchingType(objectType);</span>
+<span class="fc bfc" id="L690" title="All 2 branches covered.">      if (retval) {</span>
+<span class="pc bpc" id="L691" title="1 of 2 branches missed.">        assert objectType != null;</span>
 
         // check other criteria
-<span class="fc" id="L698">        String actualId = null;</span>
+<span class="fc" id="L694">        String actualId = null;</span>
 
-<span class="pc bpc" id="L700" title="1 of 4 branches missed.">        switch (objectType) {</span>
+<span class="pc bpc" id="L696" title="1 of 4 branches missed.">        switch (objectType) {</span>
         case CONTROL: {
-<span class="fc" id="L702">          Control control = (Control) obj;</span>
-<span class="fc" id="L703">          actualId = control.getId();</span>
-<span class="fc" id="L704">          break;</span>
+<span class="fc" id="L698">          Control control = (Control) obj;</span>
+<span class="fc" id="L699">          actualId = control.getId();</span>
+<span class="fc" id="L700">          break;</span>
         }
         case PARAM: {
-<span class="fc" id="L707">          Parameter param = (Parameter) obj;</span>
-<span class="fc" id="L708">          actualId = param.getId();</span>
-<span class="fc" id="L709">          break;</span>
+<span class="fc" id="L703">          Parameter param = (Parameter) obj;</span>
+<span class="fc" id="L704">          actualId = param.getId();</span>
+<span class="fc" id="L705">          break;</span>
         }
         case PART: {
-<span class="fc" id="L712">          ControlPart part = (ControlPart) obj;</span>
-<span class="pc bpc" id="L713" title="1 of 2 branches missed.">          actualId = part.getId() == null ? null : part.getId();</span>
-<span class="fc" id="L714">          break;</span>
+<span class="fc" id="L708">          ControlPart part = (ControlPart) obj;</span>
+<span class="pc bpc" id="L709" title="1 of 2 branches missed.">          actualId = part.getId() == null ? null : part.getId();</span>
+<span class="fc" id="L710">          break;</span>
         }
         default:
-<span class="nc" id="L717">          throw new UnsupportedOperationException(objectType.fieldName());</span>
+<span class="nc" id="L713">          throw new UnsupportedOperationException(objectType.fieldName());</span>
         }
 
-<span class="fc" id="L720">        String byId = getById();</span>
-<span class="pc bpc" id="L721" title="3 of 4 branches missed.">        if (getById() == null &amp;&amp; TargetType.CONTROL.equals(objectType)) {</span>
-<span class="nc" id="L722">          retval = getControl().equals(obj);</span>
+<span class="fc" id="L716">        String byId = getById();</span>
+<span class="pc bpc" id="L717" title="3 of 4 branches missed.">        if (getById() == null &amp;&amp; TargetType.CONTROL.equals(objectType)) {</span>
+<span class="nc" id="L718">          retval = getControl().equals(obj);</span>
         } else {
-<span class="pc bpc" id="L724" title="1 of 4 branches missed.">          retval = byId != null &amp;&amp; byId.equals(actualId);</span>
+<span class="pc bpc" id="L720" title="1 of 4 branches missed.">          retval = byId != null &amp;&amp; byId.equals(actualId);</span>
         }
       }
-<span class="fc" id="L727">      return retval;</span>
+<span class="fc" id="L723">      return retval;</span>
     }
   }
 }
