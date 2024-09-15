@@ -15,6 +15,7 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDefinitionNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IFieldNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IFlagNodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IModuleNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItemFactory;
 import gov.nist.secauto.metaschema.core.model.IModule;
 import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValuesConstraint;
@@ -43,7 +44,12 @@ public class AllowedValueCollectingNodeItemVisitor
             .build());
     context.disablePredicateEvaluation();
 
-    visitMetaschema(INodeItemFactory.instance().newModuleNodeItem(module), context);
+    visit(INodeItemFactory.instance().newModuleNodeItem(module), context);
+  }
+
+  public void visit(@NonNull IModuleNodeItem module, @NonNull DynamicContext context) {
+
+    visitMetaschema(module, context);
   }
 
   private void handleAllowedValuesAtLocation(@NonNull IDefinitionNodeItem<?, ?> itemLocation, DynamicContext context) {
@@ -117,6 +123,7 @@ public class AllowedValueCollectingNodeItemVisitor
       return item;
     }
 
+    @NonNull
     public List<AllowedValuesRecord> getAllowedValues() {
       return allowedValues;
     }
@@ -143,14 +150,17 @@ public class AllowedValueCollectingNodeItemVisitor
       this.target = target;
     }
 
+    @NonNull
     public IAllowedValuesConstraint getAllowedValues() {
       return allowedValues;
     }
 
+    @NonNull
     public IDefinitionNodeItem<?, ?> getLocation() {
       return location;
     }
 
+    @NonNull
     public IDefinitionNodeItem<?, ?> getTarget() {
       return target;
     }

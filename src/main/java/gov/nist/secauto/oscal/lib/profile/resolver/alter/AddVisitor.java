@@ -676,10 +676,6 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
               || TargetType.PART.equals(objectType) && isMatchingType(TargetType.PART));
     }
 
-    private boolean checkValue(@Nullable String actual, @Nullable String expected) {
-      return expected == null || expected.equals(actual);
-    }
-
     /**
      * Determine if the provided {@code obj} is the target of the add.
      *
