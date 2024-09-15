@@ -35,12 +35,10 @@ public class InsertReferencePolicy
   protected List<IEntityItem.ItemType> getEntityItemTypes(@NonNull InsertAnchorNode insert) {
     String type = insert.getType().toString();
 
-    List<IEntityItem.ItemType> itemTypes;
     if (!"param".equals(type)) {
       throw new UnsupportedOperationException("unrecognized insert type: " + type);
     }
-    itemTypes = CollectionUtil.singletonList(IEntityItem.ItemType.PARAMETER);
-    return itemTypes;
+    return CollectionUtil.singletonList(IEntityItem.ItemType.PARAMETER);
   }
 
   @Override
