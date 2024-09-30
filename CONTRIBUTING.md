@@ -77,12 +77,12 @@ You can contact the maintainers of this project at [maintainers@metaschema.dev](
 
 ### Core metaschema functions and custom project functions
 
-The Metaschema [specification](https://pages.nist.gov/metaschema/specification/syntax/metapath/) and the conformant [metaschema-java](https://github.com/metaschema-framework/metaschema-java) library implement the Metapath functions required by the specification. However, other libraries, such as this [this project's library](/) can extend the inventory of available functionality with custom functions that are not required in the core specification. These are OSCAL-specific functions, not core Metaschema functions. At the the of the v4.1.0 release, there are only two custom OSCAL-specific functions in this library.
+The Metaschema [specification](https://pages.nist.gov/metaschema/specification/syntax/metapath/) and the conformant [metaschema-java](https://github.com/metaschema-framework/metaschema-java/tree/develop/CONTRIBUTING.md#core-metaschema-functions-functions) library implement the Metapath functions required by the specification. However, other libraries, such as this [this project's library](https://github.com/metaschema-framework/liboscal-java) can extend the inventory of available functionality with custom functions that are not required in the core specification. These are OSCAL-specific functions, not core Metaschema functions. At the the of the v4.1.0 release, there are only two custom OSCAL-specific functions in this library.
 
 - The [`HasOscalNamespace` class](https://github.com/metaschema-framework/liboscal-java/blob/v4.1.0/src/main/java/gov/nist/secauto/oscal/lib/metapath/function/library/HasOscalNamespace.java) implements the `has-oscal-namespace` function.
 - The [`ResolveProfile` class](https://github.com/metaschema-framework/liboscal-java/blob/v4.1.0/src/main/java/gov/nist/secauto/oscal/lib/metapath/function/library/HasOscalNamespace.java) implements the `resolve-profile()` function.
 
-See the library's [registry class with an inventory of these functions](https://github.com/metaschema-framework/liboscal-java/blob/develop/src/main/java/gov/nist/secauto/oscal/lib/metapath/function/library/OscalFunctionLibrary.java) for a current list of custom, OSCAL-specific functions after the v4.1.0 release.
+See the library's [registry class with an inventory of these functions](https://github.com/metaschema-framework/liboscal-java/blob/main/src/main/java/gov/nist/secauto/oscal/lib/metapath/function/library/OscalFunctionLibrary.java) for a current list of custom, OSCAL-specific functions after the v4.1.0 release.
 
 # Licenses and attribution
 
