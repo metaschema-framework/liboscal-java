@@ -17,6 +17,7 @@ http://objenesis.org/objenesis
 https://pmd.github.io/latest/pmd_userdocs_cpd.html
 https://www.antlr.org/antlr4-runtime/
 http://www.gnu.org/licenses
+https://www.gnu.org/licenses/old-licenses
 http://www.mojohaus.org/.*
 http://www.mozilla.org/MPL/2.0/
 # prone to long timeouts
