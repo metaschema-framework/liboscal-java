@@ -81,9 +81,15 @@ import javax.xml.namespace.QName;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class ProfileResolver {
+
+  public enum StructuringDirective {
+    FLAT,
+    AS_IS,
+    CUSTOM;
+  }
+
   private static final Logger LOGGER = LogManager.getLogger(ProfileResolver.class);
   @NonNull
   private static final QName IMPORT_QNAME = new QName(OscalModelConstants.NS_OSCAL, "import");
@@ -113,59 +119,44 @@ public class ProfileResolver {
       = MetapathExpression.compile("/catalog",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
-  public enum StructuringDirective {
-    FLAT,
-    AS_IS,
-    CUSTOM;
+  @NonNull
+  private final DynamicContext dynamicContext;
+
+  public ProfileResolver() {
+    this(newDynamicContext());
   }
 
-  private IBoundLoader loader;
-  private DynamicContext dynamicContext;
+  public ProfileResolver(@NonNull DynamicContext dynamicContext) {
+    this.dynamicContext = dynamicContext;
+  }
+
+  @NonNull
+  private static DynamicContext newDynamicContext() {
+    IBoundLoader loader = OscalBindingContext.instance().newBoundLoader();
+    loader.disableFeature(DeserializationFeature.DESERIALIZE_VALIDATE_CONSTRAINTS);
+
+    DynamicContext retval = new DynamicContext(StaticContext.builder()
+        .defaultModelNamespace(OscalModelConstants.NS_URI_OSCAL)
+        .build());
+    retval.setDocumentLoader(loader);
+    return retval;
+  }
 
   /**
    * Gets the configured loader or creates a new default loader if no loader was
    * configured.
    *
    * @return the bound loader
+   * @since 5.0.0
    */
   @NonNull
-  public IBoundLoader getBoundLoader() {
-    synchronized (this) {
-      if (loader == null) {
-        loader = OscalBindingContext.instance().newBoundLoader();
-        loader.disableFeature(DeserializationFeature.DESERIALIZE_VALIDATE_CONSTRAINTS);
-      }
-      assert loader != null;
-      return loader;
-    }
-  }
-
-  public void setBoundLoader(@NonNull IBoundLoader loader) {
-    synchronized (this) {
-      this.loader = loader;
-    }
+  public IDocumentLoader getDocumentLoader() {
+    return getDynamicContext().getDocumentLoader();
   }
 
   @NonNull
-  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "intending to expose this field")
   public DynamicContext getDynamicContext() {
-    synchronized (this) {
-      if (dynamicContext == null) {
-        dynamicContext = new DynamicContext(StaticContext.builder()
-            .defaultModelNamespace(OscalModelConstants.NS_URI_OSCAL)
-            .build());
-        dynamicContext.setDocumentLoader(getBoundLoader());
-      }
-      assert dynamicContext != null;
-      return dynamicContext;
-    }
-  }
-
-  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "intending to store this parameter")
-  public void setDynamicContext(@NonNull DynamicContext dynamicContext) {
-    synchronized (this) {
-      this.dynamicContext = dynamicContext;
-    }
+    return dynamicContext;
   }
 
   @Nullable
@@ -181,7 +172,7 @@ public class ProfileResolver {
   @NonNull
   public IDocumentNodeItem resolve(@NonNull URL url)
       throws URISyntaxException, IOException, ProfileResolutionException {
-    IBoundLoader loader = getBoundLoader();
+    IDocumentLoader loader = getDocumentLoader();
     IDocumentNodeItem catalogOrProfile = loader.loadAsNodeItem(url);
     return resolve(catalogOrProfile, new Stack<>());
   }
@@ -193,7 +184,7 @@ public class ProfileResolver {
 
   @NonNull
   public IDocumentNodeItem resolve(@NonNull Path path) throws IOException, ProfileResolutionException {
-    IBoundLoader loader = getBoundLoader();
+    IDocumentLoader loader = getDocumentLoader();
     IDocumentNodeItem catalogOrProfile = loader.loadAsNodeItem(path);
     return resolve(catalogOrProfile, new Stack<>());
   }

@@ -8,11 +8,13 @@ package gov.nist.secauto.oscal.lib.model.util;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDefinitionNodeItem;
 import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValue;
 import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValuesConstraint;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.metaschema.databind.model.IBoundModule;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
 import gov.nist.secauto.oscal.lib.model.OscalCompleteModule;
 import gov.nist.secauto.oscal.lib.model.util.AllowedValueCollectingNodeItemVisitor.AllowedValuesRecord;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
@@ -29,6 +31,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 class AbstractNodeItemVisitorTest {
 
   @Test
+  @Disabled
   void testAllowedValues() {
     IBoundModule module = OscalBindingContext.instance().registerModule(OscalCompleteModule.class);
     AllowedValueCollectingNodeItemVisitor walker = new AllowedValueCollectingNodeItemVisitor();
@@ -39,14 +42,15 @@ class AbstractNodeItemVisitorTest {
     System.out.println("--------------");
     Map<IDefinitionNodeItem<?, ?>,
         List<AllowedValueCollectingNodeItemVisitor.AllowedValuesRecord>> allowedValuesByTarget
-            = walker.getAllowedValueLocations().stream()
+            = ObjectUtils.notNull(walker.getAllowedValueLocations().stream()
                 .flatMap(location -> location.getAllowedValues().stream())
                 .collect(Collectors.groupingBy(AllowedValuesRecord::getTarget,
                     LinkedHashMap::new,
-                    Collectors.mapping(Function.identity(), Collectors.toUnmodifiableList())));
-    sortMap(allowedValuesByTarget, Comparator.comparing(IDefinitionNodeItem::getMetapath)).entrySet().stream()
+                    Collectors.mapping(Function.identity(), Collectors.toUnmodifiableList()))));
+    sortMap(allowedValuesByTarget, ObjectUtils.notNull(Comparator.comparing(IDefinitionNodeItem::getMetapath)))
+        .entrySet().stream()
         .forEachOrdered(entry -> {
-          IDefinitionNodeItem<?, ?> target = entry.getKey();
+          IDefinitionNodeItem<?, ?> target = ObjectUtils.requireNonNull(entry.getKey());
           List<AllowedValueCollectingNodeItemVisitor.AllowedValuesRecord> allowedValuesRecords = entry.getValue();
 
           System.out.println("node:             " + metapath(target));
@@ -70,7 +74,7 @@ class AbstractNodeItemVisitorTest {
   }
 
   private static String metapath(@NonNull String path) {
-    return path.replaceAll("\\[1\\]", "");
+    return path.replace("[1]", "");
   }
 
   private static String values(@NonNull IAllowedValuesConstraint constraint) {

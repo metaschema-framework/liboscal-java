@@ -127,7 +127,8 @@ public final class ResolveProfile {
   }
 
   @NonNull
-  public static IDocumentNodeItem resolveProfile(@NonNull IDocumentNodeItem profile,
+  public static IDocumentNodeItem resolveProfile(
+      @NonNull IDocumentNodeItem profile,
       @NonNull DynamicContext dynamicContext) {
     Object profileObject = INodeItem.toValue(profile);
 
@@ -136,8 +137,7 @@ public final class ResolveProfile {
       retval = profile;
     } else {
       // this is a profile
-      ProfileResolver resolver = new ProfileResolver();
-      resolver.setDynamicContext(dynamicContext);
+      ProfileResolver resolver = new ProfileResolver(dynamicContext);
       try {
         retval = resolver.resolve(profile);
       } catch (IOException | ProfileResolutionException ex) {
