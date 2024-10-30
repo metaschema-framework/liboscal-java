@@ -6,12 +6,15 @@
 package gov.nist.secauto.oscal.lib;
 
 import gov.nist.secauto.metaschema.core.metapath.StaticContext;
-import gov.nist.secauto.metaschema.core.model.IModuleLoader;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.metaschema.databind.DefaultBindingContext;
+import gov.nist.secauto.metaschema.databind.IBindingContext;
+import gov.nist.secauto.metaschema.databind.SimpleModuleLoaderStrategy;
 import gov.nist.secauto.oscal.lib.model.AssessmentPlan;
 import gov.nist.secauto.oscal.lib.model.AssessmentResults;
 import gov.nist.secauto.oscal.lib.model.Catalog;
 import gov.nist.secauto.oscal.lib.model.ComponentDefinition;
+import gov.nist.secauto.oscal.lib.model.OscalCompleteModule;
 import gov.nist.secauto.oscal.lib.model.PlanOfActionAndMilestones;
 import gov.nist.secauto.oscal.lib.model.Profile;
 import gov.nist.secauto.oscal.lib.model.SystemSecurityPlan;
@@ -21,56 +24,79 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import nl.talsmasoftware.lazy4j.Lazy;
 
 public class OscalBindingContext
     extends DefaultBindingContext {
+
   @NonNull
   public static final StaticContext OSCAL_STATIC_METAPATH_CONTEXT = StaticContext.builder()
       .defaultModelNamespace(OscalModelConstants.NS_URI_OSCAL)
       .build();
   @NonNull
-  private static final OscalBindingContext SINGLETON = new OscalBindingContext();
+  private static final Lazy<OscalBindingContext> SINGLETON = Lazy.lazy(OscalBindingContext::new);
 
   @NonNull
-  @SuppressFBWarnings(value = "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", justification = "class initialization")
   public static OscalBindingContext instance() {
-    return SINGLETON;
+    return ObjectUtils.notNull(SINGLETON.get());
   }
 
   /**
-   * Construct a new OSCAL-flavored binding context with custom constraints.
+   * Get a new builder that can produce a new, configured OSCAL-flavored binding
+   * context.
    *
-   * @param modulePostProcessors
-   *          a list of module post processors to call after loading a module
+   * @return the builder
+   * @since 2.0.0
    */
-  @SuppressFBWarnings(value = "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR",
-      justification = "public constructor allows customized use in specialized usecases")
-  public OscalBindingContext(@NonNull List<IModuleLoader.IModulePostProcessor> modulePostProcessors) {
-    super(modulePostProcessors);
-    registerBindingMatcher(Catalog.class);
-    registerBindingMatcher(Profile.class);
-    registerBindingMatcher(SystemSecurityPlan.class);
-    registerBindingMatcher(ComponentDefinition.class);
-    registerBindingMatcher(AssessmentPlan.class);
-    registerBindingMatcher(AssessmentResults.class);
-    registerBindingMatcher(PlanOfActionAndMilestones.class);
+  public static IBindingContext.BindingContextBuilder builder() {
+    return new IBindingContext.BindingContextBuilder(OscalBindingContext::new);
+  }
+
+  /**
+   * Get a new OSCAL-flavored {@link IBindingContext} instance, which can be used
+   * to load information that binds a model to a set of Java classes.
+   *
+   * @return a new binding context
+   * @since 2.0.0
+   */
+  @NonNull
+  public static OscalBindingContext newInstance() {
+    return new OscalBindingContext();
+  }
+
+  /**
+   * Get a new OSCAL-flavored {@link IBindingContext} instance, which can be used
+   * to load information that binds a model to a set of Java classes.
+   *
+   * @param strategy
+   *          the loader strategy to use when loading Metaschema modules
+   * @return a new binding context
+   * @since 2.0.0
+   */
+  @NonNull
+  public static OscalBindingContext newInstance(@NonNull IBindingContext.IModuleLoaderStrategy strategy) {
+    return new OscalBindingContext(strategy);
   }
 
   /**
    * Construct a new OSCAL-flavored binding context.
    */
   protected OscalBindingContext() {
-    registerBindingMatcher(Catalog.class);
-    registerBindingMatcher(Profile.class);
-    registerBindingMatcher(SystemSecurityPlan.class);
-    registerBindingMatcher(ComponentDefinition.class);
-    registerBindingMatcher(AssessmentPlan.class);
-    registerBindingMatcher(AssessmentResults.class);
-    registerBindingMatcher(PlanOfActionAndMilestones.class);
+    this(new SimpleModuleLoaderStrategy());
+  }
+
+  /**
+   * Construct a new OSCAL-flavored binding context.
+   *
+   * @param strategy
+   *          the behavior class to use for loading Metaschema modules
+   * @since 2.0.0
+   */
+  public OscalBindingContext(@NonNull IBindingContext.IModuleLoaderStrategy strategy) {
+    super(strategy);
+    registerModule(OscalCompleteModule.class);
   }
 
   @NonNull

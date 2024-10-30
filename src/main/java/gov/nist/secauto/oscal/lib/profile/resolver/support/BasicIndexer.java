@@ -111,7 +111,7 @@ public class BasicIndexer implements IIndexer {
       IIndexer.SelectionStatus status = getSelectionStatus(instance);
       if (IIndexer.SelectionStatus.UNKNOWN.equals(status)) {
         // lookup the status if not known
-        IModelNodeItem<?, ?> containerItem = CONTAINER_METAPATH.evaluateAs(instance, ResultType.NODE);
+        IModelNodeItem<?, ?> containerItem = CONTAINER_METAPATH.evaluateAs(instance, ResultType.ITEM);
         assert containerItem != null;
         status = getSelectionStatus(containerItem);
 
@@ -195,7 +195,7 @@ public class BasicIndexer implements IIndexer {
     @SuppressWarnings("PMD.UseConcurrentHashMap") // need ordering
     Map<String, IEntityItem> entityGroup = entityTypeToIdentifierToEntityMap.computeIfAbsent(
         type,
-        (key) -> Collections.synchronizedMap(new LinkedHashMap<>()));
+        key -> Collections.synchronizedMap(new LinkedHashMap<>()));
     IEntityItem oldEntity = entityGroup.put(item.getIdentifier(), item);
 
     if (oldEntity != null && LOGGER.isWarnEnabled()) {
