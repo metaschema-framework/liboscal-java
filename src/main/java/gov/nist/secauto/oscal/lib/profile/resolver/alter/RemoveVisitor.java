@@ -456,7 +456,10 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
           ControlPart part = (ControlPart) obj;
           actualName = part.getName();
           actualClass = part.getClazz();
-          actualId = part.getId() == null ? null : part.getId();
+          String partId = part.getId();
+          if (partId != null) {
+            actualId = partId;
+          }
           actualNamespace = part.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();
           break;
         }

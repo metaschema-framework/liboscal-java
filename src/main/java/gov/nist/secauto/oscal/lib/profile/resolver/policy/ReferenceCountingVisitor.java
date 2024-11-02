@@ -492,7 +492,7 @@ public final class ReferenceCountingVisitor
     }
   }
 
-  protected void resolveEntity(
+  protected static void resolveEntity(
       @NonNull IEntityItem entity,
       @NonNull Context context,
       @NonNull BiConsumer<IEntityItem, Context> handler) {
