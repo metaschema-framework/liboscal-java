@@ -36,6 +36,7 @@ import java.util.function.Supplier;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
+@SuppressWarnings("PMD.CouplingBetweenObjects")
 public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> {
   public enum TargetType {
     CONTROL("control", Control.class),
@@ -205,7 +206,7 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
       @NonNull List<ControlPart> parts) {
     return INSTANCE.visitControl(
         control,
-        new Context(
+        Context.newContext(
             control,
             position == null ? Position.ENDING : position,
             byId,
@@ -325,6 +326,7 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
   // }
   // }
 
+  @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.CognitiveComplexity" })
   private static <T> boolean handleChild(
       @NonNull TargetType itemType,
       @NonNull Supplier<? extends List<T>> originalCollectionSupplier,
@@ -546,7 +548,8 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
     @NonNull
     private final Set<TargetType> targetItemTypes;
 
-    public Context(
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.CognitiveComplexity", "PMD.NPathComplexity" })
+    public static Context newContext(
         @NonNull Control control,
         @NonNull Position position,
         @Nullable String byId,
@@ -555,9 +558,7 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
         @NonNull List<Property> props,
         @NonNull List<Link> links,
         @NonNull List<ControlPart> parts) {
-
       Set<TargetType> targetItemTypes = ObjectUtils.notNull(EnumSet.allOf(TargetType.class));
-
       List<String> additionObjects = new LinkedList<>();
 
       boolean sequenceTarget = true;
@@ -595,9 +596,9 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
               "When using position before or after, one collection of parameters or parts can be specified."
                   + " Other additions must not be used.");
         }
-        if (sequenceTarget && !params.isEmpty() && parts.isEmpty()) {
+        if (!params.isEmpty() && parts.isEmpty()) {
           targetItemTypes.retainAll(Set.of(TargetType.PARAM));
-        } else if (sequenceTarget && !parts.isEmpty() && params.isEmpty()) {
+        } else if (!parts.isEmpty() && params.isEmpty()) {
           targetItemTypes.retainAll(Set.of(TargetType.PART));
         } else {
           throw new ProfileResolutionEvaluationException(
@@ -610,6 +611,28 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
             additionObjects.stream().collect(CustomCollectors.joiningWithOxfordComma("or")));
       }
 
+      return new Context(
+          control,
+          position,
+          byId,
+          title,
+          params,
+          props,
+          links,
+          parts,
+          targetItemTypes);
+    }
+
+    private Context(
+        @NonNull Control control,
+        @NonNull Position position,
+        @Nullable String byId,
+        @Nullable MarkupLine title,
+        @NonNull List<Parameter> params,
+        @NonNull List<Property> props,
+        @NonNull List<Link> links,
+        @NonNull List<ControlPart> parts,
+        @NonNull Set<TargetType> targetItemTypes) {
       this.control = control;
       this.position = position;
       this.byId = byId;
@@ -621,55 +644,56 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
       this.targetItemTypes = CollectionUtil.unmodifiableSet(targetItemTypes);
     }
 
-    public Control getControl() {
+    @NonNull
+    private Control getControl() {
       return control;
     }
 
     @NonNull
-    public Position getPosition() {
+    private Position getPosition() {
       return position;
     }
 
     @Nullable
-    public String getById() {
+    private String getById() {
       return byId;
     }
 
     @Nullable
-    public MarkupLine getTitle() {
+    private MarkupLine getTitle() {
       return title;
     }
 
     @NonNull
-    public List<Parameter> getParams() {
+    private List<Parameter> getParams() {
       return params;
     }
 
     @NonNull
-    public List<Property> getProps() {
+    private List<Property> getProps() {
       return props;
     }
 
     @NonNull
-    public List<Link> getLinks() {
+    private List<Link> getLinks() {
       return links;
     }
 
     @NonNull
-    public List<ControlPart> getParts() {
+    private List<ControlPart> getParts() {
       return parts;
     }
 
     @NonNull
-    public Set<TargetType> getTargetItemTypes() {
+    private Set<TargetType> getTargetItemTypes() {
       return targetItemTypes;
     }
 
-    public boolean isMatchingType(@NonNull TargetType type) {
+    private boolean isMatchingType(@NonNull TargetType type) {
       return getTargetItemTypes().contains(type);
     }
 
-    public <T> boolean isSequenceTargeted(T targetItem) {
+    private <T> boolean isSequenceTargeted(T targetItem) {
       TargetType objectType = TargetType.forClass(targetItem.getClass());
       return (Position.BEFORE.equals(position) || Position.AFTER.equals(position))
           && (TargetType.PARAM.equals(objectType) && isMatchingType(TargetType.PARAM)
@@ -683,7 +707,7 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
      *          the current object
      * @return {@code true} if the current object applies or {@code false} otherwise
      */
-    public boolean appliesTo(@NonNull Object obj) {
+    private boolean appliesTo(@NonNull Object obj) {
       TargetType objectType = TargetType.forClass(obj.getClass());
 
       boolean retval = objectType != null && isMatchingType(objectType);
@@ -692,7 +716,6 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
 
         // check other criteria
         String actualId = null;
-
         switch (objectType) {
         case CONTROL: {
           Control control = (Control) obj;
@@ -706,7 +729,10 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
         }
         case PART: {
           ControlPart part = (ControlPart) obj;
-          actualId = part.getId() == null ? null : part.getId();
+          String partId = part.getId();
+          if (part.getId() != null) {
+            actualId = partId;
+          }
           break;
         }
         default:

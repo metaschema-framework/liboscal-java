@@ -35,7 +35,6 @@ public class OscalBindingContext
   public static final StaticContext OSCAL_STATIC_METAPATH_CONTEXT = StaticContext.builder()
       .defaultModelNamespace(OscalModelConstants.NS_URI_OSCAL)
       .build();
-  @NonNull
   private static final Lazy<OscalBindingContext> SINGLETON = Lazy.lazy(OscalBindingContext::new);
 
   @NonNull
@@ -94,6 +93,7 @@ public class OscalBindingContext
    *          the behavior class to use for loading Metaschema modules
    * @since 2.0.0
    */
+  @SuppressWarnings("PMD.ConstructorCallsOverridableMethod") // false positive
   public OscalBindingContext(@NonNull IBindingContext.IModuleLoaderStrategy strategy) {
     super(strategy);
     registerModule(OscalCompleteModule.class);

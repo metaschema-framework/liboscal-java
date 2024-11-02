@@ -5,12 +5,8 @@
 
 package gov.nist.secauto.oscal.lib.metapath.function.library;
 
-import com.google.auto.service.AutoService;
-
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionLibrary;
-import gov.nist.secauto.metaschema.core.metapath.function.IFunctionLibrary;
 
-@AutoService(IFunctionLibrary.class)
 public class OscalFunctionLibrary
     extends FunctionLibrary {
 
@@ -25,7 +21,5 @@ public class OscalFunctionLibrary
     registerFunction(ResolveProfile.SIGNATURE_ONE_ARG_METAPATH);
     registerFunction(HasOscalNamespace.SIGNATURE_ONE_ARG_METAPATH);
     registerFunction(HasOscalNamespace.SIGNATURE_TWO_ARGS_METAPATH);
-
   }
-
 }
