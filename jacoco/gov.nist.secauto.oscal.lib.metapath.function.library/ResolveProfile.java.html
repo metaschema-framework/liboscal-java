@@ -127,17 +127,17 @@ public final class ResolveProfile {
   }
 
   @NonNull
-  public static IDocumentNodeItem resolveProfile(@NonNull IDocumentNodeItem profile,
+  public static IDocumentNodeItem resolveProfile(
+      @NonNull IDocumentNodeItem profile,
       @NonNull DynamicContext dynamicContext) {
-<span class="nc" id="L132">    Object profileObject = INodeItem.toValue(profile);</span>
+<span class="nc" id="L133">    Object profileObject = INodeItem.toValue(profile);</span>
 
     IDocumentNodeItem retval;
-<span class="nc bnc" id="L135" title="All 2 branches missed.">    if (profileObject instanceof Catalog) {</span>
-<span class="nc" id="L136">      retval = profile;</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">    if (profileObject instanceof Catalog) {</span>
+<span class="nc" id="L137">      retval = profile;</span>
     } else {
       // this is a profile
-<span class="nc" id="L139">      ProfileResolver resolver = new ProfileResolver();</span>
-<span class="nc" id="L140">      resolver.setDynamicContext(dynamicContext);</span>
+<span class="nc" id="L140">      ProfileResolver resolver = new ProfileResolver(dynamicContext);</span>
       try {
 <span class="nc" id="L142">        retval = resolver.resolve(profile);</span>
 <span class="nc" id="L143">      } catch (IOException | ProfileResolutionException ex) {</span>

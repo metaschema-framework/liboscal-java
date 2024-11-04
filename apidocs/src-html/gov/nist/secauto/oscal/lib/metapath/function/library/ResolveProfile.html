@@ -140,17 +140,17 @@
 <span class="source-line-no">127</span><span id="line-127">  }</span>
 <span class="source-line-no">128</span><span id="line-128"></span>
 <span class="source-line-no">129</span><span id="line-129">  @NonNull</span>
-<span class="source-line-no">130</span><span id="line-130">  public static IDocumentNodeItem resolveProfile(@NonNull IDocumentNodeItem profile,</span>
-<span class="source-line-no">131</span><span id="line-131">      @NonNull DynamicContext dynamicContext) {</span>
-<span class="source-line-no">132</span><span id="line-132">    Object profileObject = INodeItem.toValue(profile);</span>
-<span class="source-line-no">133</span><span id="line-133"></span>
-<span class="source-line-no">134</span><span id="line-134">    IDocumentNodeItem retval;</span>
-<span class="source-line-no">135</span><span id="line-135">    if (profileObject instanceof Catalog) {</span>
-<span class="source-line-no">136</span><span id="line-136">      retval = profile;</span>
-<span class="source-line-no">137</span><span id="line-137">    } else {</span>
-<span class="source-line-no">138</span><span id="line-138">      // this is a profile</span>
-<span class="source-line-no">139</span><span id="line-139">      ProfileResolver resolver = new ProfileResolver();</span>
-<span class="source-line-no">140</span><span id="line-140">      resolver.setDynamicContext(dynamicContext);</span>
+<span class="source-line-no">130</span><span id="line-130">  public static IDocumentNodeItem resolveProfile(</span>
+<span class="source-line-no">131</span><span id="line-131">      @NonNull IDocumentNodeItem profile,</span>
+<span class="source-line-no">132</span><span id="line-132">      @NonNull DynamicContext dynamicContext) {</span>
+<span class="source-line-no">133</span><span id="line-133">    Object profileObject = INodeItem.toValue(profile);</span>
+<span class="source-line-no">134</span><span id="line-134"></span>
+<span class="source-line-no">135</span><span id="line-135">    IDocumentNodeItem retval;</span>
+<span class="source-line-no">136</span><span id="line-136">    if (profileObject instanceof Catalog) {</span>
+<span class="source-line-no">137</span><span id="line-137">      retval = profile;</span>
+<span class="source-line-no">138</span><span id="line-138">    } else {</span>
+<span class="source-line-no">139</span><span id="line-139">      // this is a profile</span>
+<span class="source-line-no">140</span><span id="line-140">      ProfileResolver resolver = new ProfileResolver(dynamicContext);</span>
 <span class="source-line-no">141</span><span id="line-141">      try {</span>
 <span class="source-line-no">142</span><span id="line-142">        retval = resolver.resolve(profile);</span>
 <span class="source-line-no">143</span><span id="line-143">      } catch (IOException | ProfileResolutionException ex) {</span>

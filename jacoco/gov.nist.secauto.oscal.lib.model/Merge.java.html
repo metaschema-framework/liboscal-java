@@ -140,7 +140,7 @@ public class Merge implements IBoundObject {
         description = &quot;Declare how clashing controls should be handled.&quot;,
         name = &quot;method&quot;,
         typeAdapter = StringAdapter.class,
-        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = &quot;use-first&quot;, description = &quot;Use the first definition - the first control with a given ID is used; subsequent ones are discarded&quot;), @AllowedValue(value = &quot;merge&quot;, description = &quot;\\*\\*(*deprecated* )\\*\\* \\*\\*(*unspecified*)\\*\\* Merge - controls with the same ID are combined&quot;), @AllowedValue(value = &quot;keep&quot;, description = &quot;Keep - controls with the same ID are kept, retaining the clash&quot;)}))
+        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = &quot;use-first&quot;, description = &quot;Use the first definition - the first control with a given ID is used; subsequent ones are discarded&quot;), @AllowedValue(value = &quot;merge&quot;, description = &quot;\\*\\*(*deprecated* )\\*\\* \\*\\*(*unspecified*)\\*\\* Merge - controls with the same ID are combined&quot;, deprecatedVersion = &quot;1.0.1&quot;), @AllowedValue(value = &quot;keep&quot;, description = &quot;Keep - controls with the same ID are kept, retaining the clash&quot;)}))
     )
     private String _method;
 

@@ -124,7 +124,7 @@
 <span class="source-line-no">111</span><span id="line-111">      IIndexer.SelectionStatus status = getSelectionStatus(instance);</span>
 <span class="source-line-no">112</span><span id="line-112">      if (IIndexer.SelectionStatus.UNKNOWN.equals(status)) {</span>
 <span class="source-line-no">113</span><span id="line-113">        // lookup the status if not known</span>
-<span class="source-line-no">114</span><span id="line-114">        IModelNodeItem&lt;?, ?&gt; containerItem = CONTAINER_METAPATH.evaluateAs(instance, ResultType.NODE);</span>
+<span class="source-line-no">114</span><span id="line-114">        IModelNodeItem&lt;?, ?&gt; containerItem = CONTAINER_METAPATH.evaluateAs(instance, ResultType.ITEM);</span>
 <span class="source-line-no">115</span><span id="line-115">        assert containerItem != null;</span>
 <span class="source-line-no">116</span><span id="line-116">        status = getSelectionStatus(containerItem);</span>
 <span class="source-line-no">117</span><span id="line-117"></span>
@@ -208,7 +208,7 @@
 <span class="source-line-no">195</span><span id="line-195">    @SuppressWarnings("PMD.UseConcurrentHashMap") // need ordering</span>
 <span class="source-line-no">196</span><span id="line-196">    Map&lt;String, IEntityItem&gt; entityGroup = entityTypeToIdentifierToEntityMap.computeIfAbsent(</span>
 <span class="source-line-no">197</span><span id="line-197">        type,</span>
-<span class="source-line-no">198</span><span id="line-198">        (key) -&gt; Collections.synchronizedMap(new LinkedHashMap&lt;&gt;()));</span>
+<span class="source-line-no">198</span><span id="line-198">        key -&gt; Collections.synchronizedMap(new LinkedHashMap&lt;&gt;()));</span>
 <span class="source-line-no">199</span><span id="line-199">    IEntityItem oldEntity = entityGroup.put(item.getIdentifier(), item);</span>
 <span class="source-line-no">200</span><span id="line-200"></span>
 <span class="source-line-no">201</span><span id="line-201">    if (oldEntity != null &amp;&amp; LOGGER.isWarnEnabled()) {</span>

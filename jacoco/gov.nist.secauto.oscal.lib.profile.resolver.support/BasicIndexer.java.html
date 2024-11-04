@@ -111,7 +111,7 @@ public class BasicIndexer implements IIndexer {
 <span class="fc" id="L111">      IIndexer.SelectionStatus status = getSelectionStatus(instance);</span>
 <span class="pc bpc" id="L112" title="1 of 2 branches missed.">      if (IIndexer.SelectionStatus.UNKNOWN.equals(status)) {</span>
         // lookup the status if not known
-<span class="nc" id="L114">        IModelNodeItem&lt;?, ?&gt; containerItem = CONTAINER_METAPATH.evaluateAs(instance, ResultType.NODE);</span>
+<span class="nc" id="L114">        IModelNodeItem&lt;?, ?&gt; containerItem = CONTAINER_METAPATH.evaluateAs(instance, ResultType.ITEM);</span>
 <span class="nc bnc" id="L115" title="All 2 branches missed.">        assert containerItem != null;</span>
 <span class="nc" id="L116">        status = getSelectionStatus(containerItem);</span>
 
@@ -195,7 +195,7 @@ public class BasicIndexer implements IIndexer {
     @SuppressWarnings(&quot;PMD.UseConcurrentHashMap&quot;) // need ordering
 <span class="fc" id="L196">    Map&lt;String, IEntityItem&gt; entityGroup = entityTypeToIdentifierToEntityMap.computeIfAbsent(</span>
         type,
-<span class="fc" id="L198">        (key) -&gt; Collections.synchronizedMap(new LinkedHashMap&lt;&gt;()));</span>
+<span class="fc" id="L198">        key -&gt; Collections.synchronizedMap(new LinkedHashMap&lt;&gt;()));</span>
 <span class="fc" id="L199">    IEntityItem oldEntity = entityGroup.put(item.getIdentifier(), item);</span>
 
 <span class="pc bpc" id="L201" title="1 of 4 branches missed.">    if (oldEntity != null &amp;&amp; LOGGER.isWarnEnabled()) {</span>

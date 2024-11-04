@@ -135,17 +135,17 @@
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>   }
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>   @NonNull
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> IDocumentNodeItem resolveProfile(@NonNull IDocumentNodeItem profile,
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>       @NonNull DynamicContext dynamicContext) {
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>     Object profileObject = INodeItem.toValue(profile);
-<a class="jxr_linenumber" name="L133" href="#L133">133</a> 
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>     IDocumentNodeItem retval;
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">if</strong> (profileObject instanceof Catalog) {
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>       retval = profile;
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>       <em class="jxr_comment">// this is a profile</em>
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>       <a name="ProfileResolver" href="../../../../../../../../gov/nist/secauto/oscal/lib/profile/resolver/ProfileResolver.html#ProfileResolver">ProfileResolver</a> resolver = <strong class="jxr_keyword">new</strong> <a name="ProfileResolver" href="../../../../../../../../gov/nist/secauto/oscal/lib/profile/resolver/ProfileResolver.html#ProfileResolver">ProfileResolver</a>();
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>       resolver.setDynamicContext(dynamicContext);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> IDocumentNodeItem resolveProfile(
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>       @NonNull IDocumentNodeItem profile,
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>       @NonNull DynamicContext dynamicContext) {
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>     Object profileObject = INodeItem.toValue(profile);
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> 
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     IDocumentNodeItem retval;
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     <strong class="jxr_keyword">if</strong> (profileObject instanceof Catalog) {
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>       retval = profile;
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>       <em class="jxr_comment">// this is a profile</em>
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>       <a name="ProfileResolver" href="../../../../../../../../gov/nist/secauto/oscal/lib/profile/resolver/ProfileResolver.html#ProfileResolver">ProfileResolver</a> resolver = <strong class="jxr_keyword">new</strong> <a name="ProfileResolver" href="../../../../../../../../gov/nist/secauto/oscal/lib/profile/resolver/ProfileResolver.html#ProfileResolver">ProfileResolver</a>(dynamicContext);
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>       <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         retval = resolver.resolve(profile);
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>       } <strong class="jxr_keyword">catch</strong> (IOException | <a name="ProfileResolutionException" href="../../../../../../../../gov/nist/secauto/oscal/lib/profile/resolver/ProfileResolutionException.html#ProfileResolutionException">ProfileResolutionException</a> ex) {

@@ -464,26 +464,29 @@
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>           ControlPart part = (ControlPart) obj;
 <a class="jxr_linenumber" name="L457" href="#L457">457</a>           actualName = part.getName();
 <a class="jxr_linenumber" name="L458" href="#L458">458</a>           actualClass = part.getClazz();
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>           actualId = part.getId() == <strong class="jxr_keyword">null</strong> ? <strong class="jxr_keyword">null</strong> : part.getId();
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>           actualNamespace = part.getNs() == <strong class="jxr_keyword">null</strong> ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>           <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>         }
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>         <strong class="jxr_keyword">case</strong> LINK:
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>           <em class="jxr_comment">// do nothing</em>
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>           <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>         <strong class="jxr_keyword">default</strong>:
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(objectType.name().toLowerCase(Locale.ROOT));
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>         }
-<a class="jxr_linenumber" name="L469" href="#L469">469</a> 
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>         retval = checkValue(actualName, getObjectName())
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>             &amp;&amp; checkValue(actualClass, getObjectClass())
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>             &amp;&amp; checkValue(actualId, getObjectId())
-<a class="jxr_linenumber" name="L473" href="#L473">473</a>             &amp;&amp; checkValue(actualNamespace, getObjectNamespace());
-<a class="jxr_linenumber" name="L474" href="#L474">474</a>       }
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>       <strong class="jxr_keyword">return</strong> retval;
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>     }
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>   }
-<a class="jxr_linenumber" name="L478" href="#L478">478</a> }
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>           String partId = part.getId();
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>           <strong class="jxr_keyword">if</strong> (partId != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>             actualId = partId;
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>           }
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>           actualNamespace = part.getNs() == <strong class="jxr_keyword">null</strong> ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>         }
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>         <strong class="jxr_keyword">case</strong> LINK:
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>           <em class="jxr_comment">// do nothing</em>
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>         <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(objectType.name().toLowerCase(Locale.ROOT));
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>         }
+<a class="jxr_linenumber" name="L472" href="#L472">472</a> 
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>         retval = checkValue(actualName, getObjectName())
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>             &amp;&amp; checkValue(actualClass, getObjectClass())
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>             &amp;&amp; checkValue(actualId, getObjectId())
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>             &amp;&amp; checkValue(actualNamespace, getObjectNamespace());
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>       }
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>       <strong class="jxr_keyword">return</strong> retval;
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>     }
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>   }
+<a class="jxr_linenumber" name="L481" href="#L481">481</a> }
 </pre>
 <hr/>
 <div id="footer">© 2024</div>

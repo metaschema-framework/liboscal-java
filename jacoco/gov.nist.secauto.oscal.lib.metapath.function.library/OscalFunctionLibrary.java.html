@@ -5,28 +5,22 @@
 
 package gov.nist.secauto.oscal.lib.metapath.function.library;
 
-import com.google.auto.service.AutoService;
-
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionLibrary;
-import gov.nist.secauto.metaschema.core.metapath.function.IFunctionLibrary;
 
-@AutoService(IFunctionLibrary.class)
 public class OscalFunctionLibrary
     extends FunctionLibrary {
 
-<span class="fc" id="L17">  public OscalFunctionLibrary() {</span>
-<span class="fc" id="L18">    registerFunction(ResolveProfile.SIGNATURE_NO_ARG);</span>
-<span class="fc" id="L19">    registerFunction(ResolveProfile.SIGNATURE_ONE_ARG);</span>
-<span class="fc" id="L20">    registerFunction(HasOscalNamespace.SIGNATURE_ONE_ARG);</span>
-<span class="fc" id="L21">    registerFunction(HasOscalNamespace.SIGNATURE_TWO_ARGS);</span>
+<span class="fc" id="L13">  public OscalFunctionLibrary() {</span>
+<span class="fc" id="L14">    registerFunction(ResolveProfile.SIGNATURE_NO_ARG);</span>
+<span class="fc" id="L15">    registerFunction(ResolveProfile.SIGNATURE_ONE_ARG);</span>
+<span class="fc" id="L16">    registerFunction(HasOscalNamespace.SIGNATURE_ONE_ARG);</span>
+<span class="fc" id="L17">    registerFunction(HasOscalNamespace.SIGNATURE_TWO_ARGS);</span>
 
     // for backwards compatibility with no function namespace
-<span class="fc" id="L24">    registerFunction(ResolveProfile.SIGNATURE_NO_ARG_METAPATH);</span>
-<span class="fc" id="L25">    registerFunction(ResolveProfile.SIGNATURE_ONE_ARG_METAPATH);</span>
-<span class="fc" id="L26">    registerFunction(HasOscalNamespace.SIGNATURE_ONE_ARG_METAPATH);</span>
-<span class="fc" id="L27">    registerFunction(HasOscalNamespace.SIGNATURE_TWO_ARGS_METAPATH);</span>
-
-<span class="fc" id="L29">  }</span>
-
+<span class="fc" id="L20">    registerFunction(ResolveProfile.SIGNATURE_NO_ARG_METAPATH);</span>
+<span class="fc" id="L21">    registerFunction(ResolveProfile.SIGNATURE_ONE_ARG_METAPATH);</span>
+<span class="fc" id="L22">    registerFunction(HasOscalNamespace.SIGNATURE_ONE_ARG_METAPATH);</span>
+<span class="fc" id="L23">    registerFunction(HasOscalNamespace.SIGNATURE_TWO_ARGS_METAPATH);</span>
+<span class="fc" id="L24">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -39,7 +39,7 @@ public class ThreatId implements IBoundObject {
       required = true,
       typeAdapter = UriAdapter.class,
       remarks = &quot;This value must be an [absolute URI](https://pages.nist.gov/OSCAL/concepts/uri-use/#absolute-uri) that serves as a [naming system identifier](https://pages.nist.gov/OSCAL/concepts/uri-use/#use-as-a-naming-system-identifier).&quot;,
-      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, allowOthers = true, values = {@AllowedValue(value = &quot;http://fedramp.gov&quot;, description = &quot;\\*\\*deprecated\\*\\* The value conforms to FedRAMP definitions. This value has been deprecated; use `http://fedramp.gov/ns/oscal` instead.&quot;), @AllowedValue(value = &quot;http://fedramp.gov/ns/oscal&quot;, description = &quot;The value conforms to FedRAMP definitions.&quot;)}))
+      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, allowOthers = true, values = {@AllowedValue(value = &quot;http://fedramp.gov&quot;, description = &quot;\\*\\*deprecated\\*\\* The value conforms to FedRAMP definitions. This value has been deprecated; use `http://fedramp.gov/ns/oscal` instead.&quot;, deprecatedVersion = &quot;1.0.3&quot;), @AllowedValue(value = &quot;http://fedramp.gov/ns/oscal&quot;, description = &quot;The value conforms to FedRAMP definitions.&quot;)}))
   )
   private URI _system;
 
