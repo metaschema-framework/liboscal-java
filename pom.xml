@@ -9,7 +9,7 @@
 
 	<groupId>dev.metaschema.oscal</groupId>
 	<artifactId>liboscal-java</artifactId>
-	<version>5.0.0-SNAPSHOT</version>
+	<version>5.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>OSCAL Java Library</name>
@@ -27,7 +27,7 @@
 		<url>${scm.url}/tree/develop</url>
 		<connection>scm:git:git@github.com:metaschema-framework/liboscal-java.git</connection>
 		<developerConnection>scm:git:git@github.com:metaschema-framework/liboscal-java.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>v5.0.0</tag>
 	</scm>
 
 	<distributionManagement>
