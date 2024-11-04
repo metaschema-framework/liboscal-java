@@ -9,7 +9,7 @@
 
 	<groupId>dev.metaschema.oscal</groupId>
 	<artifactId>liboscal-java</artifactId>
-	<version>5.1.0-SNAPSHOT</version>
+	<version>5.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>OSCAL Java Library</name>
@@ -78,7 +78,7 @@
 		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<dependency.metaschema-framework.version>2.0.0</dependency.metaschema-framework.version>
+		<dependency.metaschema-framework.version>2.0.1-SNAPSHOT</dependency.metaschema-framework.version>
 
 		<dependency.commons-lang3.version>3.17.0</dependency.commons-lang3.version>
 		<dependency.infinispan.version>13.0.10.Final</dependency.infinispan.version>
