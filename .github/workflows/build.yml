@@ -154,7 +154,7 @@ jobs:
         path: html-link-report.md
         retention-days: 5
     - name: Create issue if bad links detected
-      if: ${{ failure() && env.lychee_exit_code != 0 && env.INPUT_ISSUE_ON_ERROR == 'true' }}
+      if: ${{ !cancelled() && env.lychee_exit_code != 0 && env.INPUT_ISSUE_ON_ERROR == 'true' }}
       uses: peter-evans/create-issue-from-file@e8ef132d6df98ed982188e460ebb3b5d4ef3a9cd
       with:
         title: Scheduled Check of Website Content Found Bad Hyperlinks
@@ -163,7 +163,7 @@ jobs:
           bug
           documentation
     - name: Fail on link check error
-      if: ${{ failure() && env.lychee_exit_code != 0 && env.INPUT_FAIL_ON_ERROR == 'true' }}
+      if: ${{ !cancelled() && env.lychee_exit_code != 0 && env.INPUT_FAIL_ON_ERROR == 'true' }}
       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
       with:
         script: |
