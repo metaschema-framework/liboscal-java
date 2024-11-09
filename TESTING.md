@@ -90,7 +90,7 @@ This aspect is supported in multiple ways.
 
 - Building instructions are included in the [README.md](../../README.md#building).
 - Code documenation is provided using Javadocs in the [project website](). This is accessable for each module under "Project Reports".
-- Some modules provide basic usage examples, e.g. [Metaschema XML](https://pages.nist.gov/liboscal-java/metaschema-model/).
+- Some modules provide basic usage examples, e.g. [Metaschema XML](https://liboscal-java.metaschema.dev/).
 
 Improving documentation is a current work focus for the project.
 
