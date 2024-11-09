@@ -63,7 +63,8 @@ public final class TestUtil {
     }
 
     @Override
-    public @NonNull String mapPartIdentifier(@NonNull String identifier) {
+    public @NonNull
+    String mapPartIdentifier(@NonNull String identifier) {
       return reassign(identifier);
     }
   };

@@ -307,7 +307,8 @@ public class ProfileResolver {
       throws IOException, ProfileResolutionException {
 
     // first verify there is at least one import
-    @SuppressWarnings("unchecked") List<IAssemblyNodeItem> profileImports
+    @SuppressWarnings("unchecked")
+    List<IAssemblyNodeItem> profileImports
         = (List<IAssemblyNodeItem>) profileItem.getModelItemsByName(IMPORT_QNAME);
     if (profileImports.isEmpty()) {
       throw new ProfileResolutionException(String.format("Profile '%s' has no imports", profileItem.getBaseUri()));

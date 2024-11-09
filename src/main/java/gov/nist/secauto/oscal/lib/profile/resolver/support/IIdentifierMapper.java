@@ -32,7 +32,8 @@ public interface IIdentifierMapper {
     }
 
     @Override
-    public @NonNull String mapPartIdentifier(@NonNull String identifier) {
+    public @NonNull
+    String mapPartIdentifier(@NonNull String identifier) {
       return identifier;
     }
   };

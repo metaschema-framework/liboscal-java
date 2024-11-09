@@ -21,17 +21,20 @@ public interface IControlFilter {
   @NonNull
   IControlFilter ALWAYS_MATCH = new IControlFilter() {
     @Override
-    public @NonNull Pair<Boolean, Boolean> match(@NonNull IControl control, boolean defaultMatch) {
+    public @NonNull
+    Pair<Boolean, Boolean> match(@NonNull IControl control, boolean defaultMatch) {
       return IControlSelectionFilter.MATCH;
     }
 
     @Override
-    public @NonNull IControlSelectionFilter getInclusionFilter() {
+    public @NonNull
+    IControlSelectionFilter getInclusionFilter() {
       return IControlSelectionFilter.ALL_MATCH;
     }
 
     @Override
-    public @NonNull IControlSelectionFilter getExclusionFilter() {
+    public @NonNull
+    IControlSelectionFilter getExclusionFilter() {
       return IControlSelectionFilter.NONE_MATCH;
     }
   };
@@ -40,17 +43,20 @@ public interface IControlFilter {
   IControlFilter NONE_MATCH = new IControlFilter() {
 
     @Override
-    public @NonNull Pair<Boolean, Boolean> match(@NonNull IControl control, boolean defaultMatch) {
+    public @NonNull
+    Pair<Boolean, Boolean> match(@NonNull IControl control, boolean defaultMatch) {
       return IControlSelectionFilter.NON_MATCH;
     }
 
     @Override
-    public @NonNull IControlSelectionFilter getInclusionFilter() {
+    public @NonNull
+    IControlSelectionFilter getInclusionFilter() {
       return IControlSelectionFilter.NONE_MATCH;
     }
 
     @Override
-    public @NonNull IControlSelectionFilter getExclusionFilter() {
+    public @NonNull
+    IControlSelectionFilter getExclusionFilter() {
       return IControlSelectionFilter.NONE_MATCH;
     }
   };
@@ -160,7 +166,8 @@ public interface IControlFilter {
 
     @Override
     public Pair<Boolean, Boolean> match(@NonNull IControl control, boolean defaultMatch) {
-      @NonNull Pair<Boolean, Boolean> result = getInclusionFilter().apply(control);
+      @NonNull
+      Pair<Boolean, Boolean> result = getInclusionFilter().apply(control);
       boolean left = ObjectUtils.notNull(result.getLeft());
       if (left) {
         // this is a positive include match. Is it excluded?

@@ -371,7 +371,8 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
       // determine the set of effective item types to search for
       // this helps with short-circuit searching for parts of the graph that cannot
       // match
-      @NonNull Set<TargetType> targetItemTypes = ObjectUtils.notNull(EnumSet.allOf(TargetType.class));
+      @NonNull
+      Set<TargetType> targetItemTypes = ObjectUtils.notNull(EnumSet.allOf(TargetType.class));
       filterTypes(targetItemTypes, "by-name", NAME_TYPES, objectName, itemType);
       filterTypes(targetItemTypes, "by-class", CLASS_TYPES, objectClass, itemType);
       filterTypes(targetItemTypes, "by-id", ID_TYPES, objectId, itemType);

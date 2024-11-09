@@ -100,7 +100,8 @@ public interface IIndexer {
       @NonNull Stream<T> resolvedItems,
       @NonNull Collection<IEntityItem> importedEntityItems,
       @NonNull Function<? super T, ? extends K> keyMapper) {
-    @SuppressWarnings("unchecked") Stream<T> importedStream = getReferencedEntitiesAsStream(importedEntityItems)
+    @SuppressWarnings("unchecked")
+    Stream<T> importedStream = getReferencedEntitiesAsStream(importedEntityItems)
         .map(entity -> (T) entity.getInstanceValue());
 
     return CustomCollectors.distinctByKey(
