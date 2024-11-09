@@ -30,6 +30,10 @@ env:
   MAVEN_VERSION: 3.9.8
   JAVA_DISTRO: 'temurin'
   JAVA_VERSION_FILE: .java-version
+  # Post Maven artifacts to the artifact repo if the branch is 'develop' or 'release/*'. This avoids publishing artifacts for pull requests
+  COMMIT_MAVEN_ARTIFACTS: ${{ (github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')) && github.repository_owner == 'metaschema-framework' }}
+  # Upload CodeQL results if the branch is 'develop' or 'release/*' or a pull request targeting these branches.
+  UPLOAD_CODEQL: ${{ ((github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')) || (github.event_name == 'pull_request' && (github.base_ref == 'refs/heads/develop' || startsWith(github.base_ref, 'refs/heads/release/')))) && 'always' || 'never' }}
 jobs:
   build-code:
     name: Code
@@ -38,14 +42,13 @@ jobs:
       actions: read
       contents: read
       security-events: write
-
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       with:
         submodules: recursive
         filter: tree:0
     - name: Checkout maven2 branch
-      if: (github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')) && github.repository_owner == 'metaschema-framework'
+      if: env.COMMIT_MAVEN_ARTIFACTS == 'true'
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       with:
         path: maven2
@@ -78,19 +81,20 @@ jobs:
       run: |
         mvn -B -e -Prelease -Psnapshots -DaltDeploymentRepository=repo-snapshot::file://${GITHUB_WORKSPACE}/maven2/ -DaltSnapshotDeploymentRepository=repo-snapshot::file://${GITHUB_WORKSPACE}/maven2/ -DrepositoryId=repo-snapshot deploy
     - name: Deploy Artifacts
-      if: (github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')) && github.repository_owner == 'metaschema-framework'
+      if: env.COMMIT_MAVEN_ARTIFACTS == 'true'
       run: |
+        MVN_COORDS=$(echo '${project.groupId}:${project.artifactId}:${project.version}' | mvn -N -q -DforceStdout help:evaluate)
         cd maven2
-        git pull -r --autostash
+        git pull -r -s ours --autostash
         git add -A
-        git config user.name "$(git log -n 1 --pretty=format:%an)"
-        git config user.email "$(git log -n 1 --pretty=format:%ae)"
-        git commit -m "[CI SKIP] Deploying artifacts."
+        git config user.name "GitHub Action"
+        git config user.email "action@github.com"
+        git commit -m "[CI SKIP] Deploying artifacts for $MVN_COORDS."
         git push
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@662472033e021d55d94146f66f6058822b0b39fd
       with:
-        upload: ${{ ((github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')) || (github.event_name == 'pull_request' && (github.base_ref == 'refs/heads/develop' || startsWith(github.base_ref, 'refs/heads/release/')))) && 'always' || 'never' }}
+        upload: ${{ env.UPLOAD_CODEQL }}
   build-website:
     name: Website
     runs-on: ubuntu-20.04
@@ -113,7 +117,7 @@ jobs:
       uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b
       with:
         java-version-file: ${{ env.JAVA_VERSION_FILE }}
-        distribution:  ${{ env.JAVA_DISTRO }}
+        distribution: ${{ env.JAVA_DISTRO }}
         cache: 'maven'
     # -------------------------
     # Maven Build
@@ -135,7 +139,7 @@ jobs:
       name: Link Checker
       uses: lycheeverse/lychee-action@7cd0af4c74a61395d455af97419279d86aafaede
       with:
-        args: --verbose --no-progress --accept 200,206,429 './target/staging/**/*.html'  --remap "https://github.com/metaschema-framework/liboscal-java/tree/develop/ file://${GITHUB_WORKSPACE}/" --remap "https://liboscal-java.metaschema.dev/ file://${GITHUB_WORKSPACE}/target/staging/" --exclude-mail
+        args: --verbose --no-progress --accept 200,206,429 './target/staging/**/*.html'  --remap "https://github.com/metaschema-framework/metaschema-java/tree/main/ file://${GITHUB_WORKSPACE}/" --remap "https://metaschema-java.metaschema.dev/ file://${GITHUB_WORKSPACE}/target/staging/" --exclude-mail
         format: markdown
         output: html-link-report.md
         debug: true
@@ -150,7 +154,7 @@ jobs:
         path: html-link-report.md
         retention-days: 5
     - name: Create issue if bad links detected
-      if: ${{ !cancelled() && env.lychee_exit_code != 0 && env.INPUT_ISSUE_ON_ERROR == 'true' }}
+      if: ${{ failure() && env.lychee_exit_code != 0 && env.INPUT_ISSUE_ON_ERROR == 'true' }}
       uses: peter-evans/create-issue-from-file@e8ef132d6df98ed982188e460ebb3b5d4ef3a9cd
       with:
         title: Scheduled Check of Website Content Found Bad Hyperlinks
@@ -159,7 +163,7 @@ jobs:
           bug
           documentation
     - name: Fail on link check error
-      if: ${{ !cancelled() && env.lychee_exit_code != 0 && env.INPUT_FAIL_ON_ERROR == 'true' }}
+      if: ${{ failure() && env.lychee_exit_code != 0 && env.INPUT_FAIL_ON_ERROR == 'true' }}
       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
       with:
         script: |
