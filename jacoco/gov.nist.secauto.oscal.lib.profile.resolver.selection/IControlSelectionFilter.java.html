@@ -36,8 +36,9 @@ public interface IControlSelectionFilter extends Function&lt;IControl, Pair&lt;B
 <span class="fc" id="L36">      private final Set&lt;String&gt; keys = Arrays.stream(identifiers).collect(Collectors.toUnmodifiableSet());</span>
 
       @Override
-      public @NonNull Pair&lt;Boolean, Boolean&gt; apply(IControl control) {
-<span class="fc" id="L40">        return ObjectUtils.notNull(Pair.of(keys.contains(control.getId()), false));</span>
+      public @NonNull
+      Pair&lt;Boolean, Boolean&gt; apply(IControl control) {
+<span class="fc" id="L41">        return ObjectUtils.notNull(Pair.of(keys.contains(control.getId()), false));</span>
       }
 
     };

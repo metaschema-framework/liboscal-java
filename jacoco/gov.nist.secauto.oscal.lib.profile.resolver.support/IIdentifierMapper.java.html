@@ -32,8 +32,9 @@ public interface IIdentifierMapper {
     }
 
     @Override
-    public @NonNull String mapPartIdentifier(@NonNull String identifier) {
-<span class="nc" id="L36">      return identifier;</span>
+    public @NonNull
+    String mapPartIdentifier(@NonNull String identifier) {
+<span class="nc" id="L37">      return identifier;</span>
     }
   };
 
@@ -57,31 +58,31 @@ public interface IIdentifierMapper {
       @NonNull IEntityItem.ItemType itemType,
       @NonNull String identifier) {
     String retval;
-<span class="pc bpc" id="L60" title="4 of 7 branches missed.">    switch (itemType) {</span>
+<span class="pc bpc" id="L61" title="4 of 7 branches missed.">    switch (itemType) {</span>
     case CONTROL:
-<span class="fc" id="L62">      retval = mapControlIdentifier(identifier);</span>
-<span class="fc" id="L63">      break;</span>
+<span class="fc" id="L63">      retval = mapControlIdentifier(identifier);</span>
+<span class="fc" id="L64">      break;</span>
     case GROUP:
-<span class="fc" id="L65">      retval = mapGroupIdentifier(identifier);</span>
-<span class="fc" id="L66">      break;</span>
+<span class="fc" id="L66">      retval = mapGroupIdentifier(identifier);</span>
+<span class="fc" id="L67">      break;</span>
     case PARAMETER:
-<span class="fc" id="L68">      retval = mapParameterIdentifier(identifier);</span>
-<span class="fc" id="L69">      break;</span>
+<span class="fc" id="L69">      retval = mapParameterIdentifier(identifier);</span>
+<span class="fc" id="L70">      break;</span>
     case PART:
-<span class="nc" id="L71">      retval = mapPartIdentifier(identifier);</span>
-<span class="nc" id="L72">      break;</span>
+<span class="nc" id="L72">      retval = mapPartIdentifier(identifier);</span>
+<span class="nc" id="L73">      break;</span>
     case ROLE:
-<span class="nc" id="L74">      retval = mapRoleIdentifier(identifier);</span>
-<span class="nc" id="L75">      break;</span>
+<span class="nc" id="L75">      retval = mapRoleIdentifier(identifier);</span>
+<span class="nc" id="L76">      break;</span>
     case LOCATION:
     case PARTY:
     case RESOURCE:
-<span class="nc" id="L79">      retval = identifier;</span>
-<span class="nc" id="L80">      break;</span>
+<span class="nc" id="L80">      retval = identifier;</span>
+<span class="nc" id="L81">      break;</span>
     default:
-<span class="nc" id="L82">      throw new UnsupportedOperationException(&quot;Unsupported item type: &quot; + itemType.name());</span>
+<span class="nc" id="L83">      throw new UnsupportedOperationException(&quot;Unsupported item type: &quot; + itemType.name());</span>
     }
-<span class="fc" id="L84">    return retval;</span>
+<span class="fc" id="L85">    return retval;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

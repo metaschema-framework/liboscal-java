@@ -379,114 +379,115 @@
 <a class="jxr_linenumber" name="L371" href="#L371">371</a>       <em class="jxr_comment">// determine the set of effective item types to search for</em>
 <a class="jxr_linenumber" name="L372" href="#L372">372</a>       <em class="jxr_comment">// this helps with short-circuit searching for parts of the graph that cannot</em>
 <a class="jxr_linenumber" name="L373" href="#L373">373</a>       <em class="jxr_comment">// match</em>
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>       @NonNull Set&lt;TargetType&gt; targetItemTypes = ObjectUtils.notNull(EnumSet.allOf(TargetType.<strong class="jxr_keyword">class</strong>));
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>       filterTypes(targetItemTypes, <span class="jxr_string">"by-name"</span>, NAME_TYPES, objectName, itemType);
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>       filterTypes(targetItemTypes, <span class="jxr_string">"by-class"</span>, CLASS_TYPES, objectClass, itemType);
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>       filterTypes(targetItemTypes, <span class="jxr_string">"by-id"</span>, ID_TYPES, objectId, itemType);
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>       filterTypes(targetItemTypes, <span class="jxr_string">"by-ns"</span>, NAMESPACE_TYPES, objectNamespace, itemType);
-<a class="jxr_linenumber" name="L379" href="#L379">379</a> 
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>       <strong class="jxr_keyword">if</strong> (itemType != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>         targetItemTypes.retainAll(Set.of(itemType));
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>       }
-<a class="jxr_linenumber" name="L383" href="#L383">383</a> 
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>       <strong class="jxr_keyword">if</strong> (targetItemTypes.isEmpty()) {
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ProfileResolutionEvaluationException" href="../../../../../../../../gov/nist/secauto/oscal/lib/profile/resolver/ProfileResolutionEvaluationException.html#ProfileResolutionEvaluationException">ProfileResolutionEvaluationException</a>(<span class="jxr_string">"The filter matches no available item types"</span>);
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>       }
-<a class="jxr_linenumber" name="L387" href="#L387">387</a> 
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>       <strong class="jxr_keyword">this</strong>.objectName = objectName;
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>       <strong class="jxr_keyword">this</strong>.objectClass = objectClass;
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>       <strong class="jxr_keyword">this</strong>.objectId = objectId;
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>       <strong class="jxr_keyword">this</strong>.objectNamespace = objectNamespace;
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>       <strong class="jxr_keyword">this</strong>.targetItemTypes = CollectionUtil.unmodifiableSet(targetItemTypes);
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>     }
-<a class="jxr_linenumber" name="L394" href="#L394">394</a> 
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>     @Nullable
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>     <strong class="jxr_keyword">public</strong> String getObjectName() {
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>       <strong class="jxr_keyword">return</strong> objectName;
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>     }
-<a class="jxr_linenumber" name="L399" href="#L399">399</a> 
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>     @Nullable
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>     <strong class="jxr_keyword">public</strong> String getObjectClass() {
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>       <strong class="jxr_keyword">return</strong> objectClass;
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>     }
-<a class="jxr_linenumber" name="L404" href="#L404">404</a> 
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>     @Nullable
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>     <strong class="jxr_keyword">public</strong> String getObjectId() {
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>       <strong class="jxr_keyword">return</strong> objectId;
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>     }
-<a class="jxr_linenumber" name="L409" href="#L409">409</a> 
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>     @NonNull
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>     <strong class="jxr_keyword">public</strong> Set&lt;TargetType&gt; getTargetItemTypes() {
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>       <strong class="jxr_keyword">return</strong> targetItemTypes;
-<a class="jxr_linenumber" name="L413" href="#L413">413</a>     }
-<a class="jxr_linenumber" name="L414" href="#L414">414</a> 
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isMatchingType(@NonNull TargetType type) {
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>       <strong class="jxr_keyword">return</strong> getTargetItemTypes().contains(type);
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     }
-<a class="jxr_linenumber" name="L418" href="#L418">418</a> 
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>     @Nullable
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>     <strong class="jxr_keyword">public</strong> String getObjectNamespace() {
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>       <strong class="jxr_keyword">return</strong> objectNamespace;
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>     }
-<a class="jxr_linenumber" name="L423" href="#L423">423</a> 
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> checkValue(@Nullable String actual, @Nullable String expected) {
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>       <strong class="jxr_keyword">return</strong> expected == <strong class="jxr_keyword">null</strong> || expected.equals(actual);
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>     }
-<a class="jxr_linenumber" name="L427" href="#L427">427</a> 
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isApplicableTo(@NonNull Object obj) {
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>       TargetType objectType = TargetType.forClass(obj.getClass());
-<a class="jxr_linenumber" name="L430" href="#L430">430</a> 
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>       <strong class="jxr_keyword">boolean</strong> retval = objectType != <strong class="jxr_keyword">null</strong> &amp;&amp; getTargetItemTypes().contains(objectType);
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>       <strong class="jxr_keyword">if</strong> (retval) {
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>         assert objectType != <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L434" href="#L434">434</a> 
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>         <em class="jxr_comment">// check other criteria</em>
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>         String actualName = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>         String actualClass = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>         String actualId = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>         String actualNamespace = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L440" href="#L440">440</a> 
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>         <strong class="jxr_keyword">switch</strong> (objectType) {
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>         <strong class="jxr_keyword">case</strong> PARAM: {
-<a class="jxr_linenumber" name="L443" href="#L443">443</a>           Parameter param = (Parameter) obj;
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>           actualClass = param.getClazz();
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>           actualId = param.getId();
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>           <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>         }
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>         <strong class="jxr_keyword">case</strong> PROP: {
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>           Property prop = (Property) obj;
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>           actualName = prop.getName();
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>           actualClass = prop.getClazz();
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>           actualNamespace = prop.getNs() == <strong class="jxr_keyword">null</strong> ? IProperty.OSCAL_NAMESPACE.toString() : prop.getNs().toString();
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>           <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>         }
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>         <strong class="jxr_keyword">case</strong> PART: {
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>           ControlPart part = (ControlPart) obj;
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>           actualName = part.getName();
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>           actualClass = part.getClazz();
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>           String partId = part.getId();
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>           <strong class="jxr_keyword">if</strong> (partId != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>             actualId = partId;
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>           }
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>           actualNamespace = part.getNs() == <strong class="jxr_keyword">null</strong> ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>           <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>         }
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>         <strong class="jxr_keyword">case</strong> LINK:
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>           <em class="jxr_comment">// do nothing</em>
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>           <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>         <strong class="jxr_keyword">default</strong>:
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(objectType.name().toLowerCase(Locale.ROOT));
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>         }
-<a class="jxr_linenumber" name="L472" href="#L472">472</a> 
-<a class="jxr_linenumber" name="L473" href="#L473">473</a>         retval = checkValue(actualName, getObjectName())
-<a class="jxr_linenumber" name="L474" href="#L474">474</a>             &amp;&amp; checkValue(actualClass, getObjectClass())
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>             &amp;&amp; checkValue(actualId, getObjectId())
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>             &amp;&amp; checkValue(actualNamespace, getObjectNamespace());
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>       }
-<a class="jxr_linenumber" name="L478" href="#L478">478</a>       <strong class="jxr_keyword">return</strong> retval;
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>     }
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>   }
-<a class="jxr_linenumber" name="L481" href="#L481">481</a> }
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>       @NonNull
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>       Set&lt;TargetType&gt; targetItemTypes = ObjectUtils.notNull(EnumSet.allOf(TargetType.<strong class="jxr_keyword">class</strong>));
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>       filterTypes(targetItemTypes, <span class="jxr_string">"by-name"</span>, NAME_TYPES, objectName, itemType);
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>       filterTypes(targetItemTypes, <span class="jxr_string">"by-class"</span>, CLASS_TYPES, objectClass, itemType);
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>       filterTypes(targetItemTypes, <span class="jxr_string">"by-id"</span>, ID_TYPES, objectId, itemType);
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>       filterTypes(targetItemTypes, <span class="jxr_string">"by-ns"</span>, NAMESPACE_TYPES, objectNamespace, itemType);
+<a class="jxr_linenumber" name="L380" href="#L380">380</a> 
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>       <strong class="jxr_keyword">if</strong> (itemType != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>         targetItemTypes.retainAll(Set.of(itemType));
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>       }
+<a class="jxr_linenumber" name="L384" href="#L384">384</a> 
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>       <strong class="jxr_keyword">if</strong> (targetItemTypes.isEmpty()) {
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ProfileResolutionEvaluationException" href="../../../../../../../../gov/nist/secauto/oscal/lib/profile/resolver/ProfileResolutionEvaluationException.html#ProfileResolutionEvaluationException">ProfileResolutionEvaluationException</a>(<span class="jxr_string">"The filter matches no available item types"</span>);
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>       }
+<a class="jxr_linenumber" name="L388" href="#L388">388</a> 
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>       <strong class="jxr_keyword">this</strong>.objectName = objectName;
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>       <strong class="jxr_keyword">this</strong>.objectClass = objectClass;
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>       <strong class="jxr_keyword">this</strong>.objectId = objectId;
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>       <strong class="jxr_keyword">this</strong>.objectNamespace = objectNamespace;
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>       <strong class="jxr_keyword">this</strong>.targetItemTypes = CollectionUtil.unmodifiableSet(targetItemTypes);
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>     }
+<a class="jxr_linenumber" name="L395" href="#L395">395</a> 
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>     @Nullable
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>     <strong class="jxr_keyword">public</strong> String getObjectName() {
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>       <strong class="jxr_keyword">return</strong> objectName;
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>     }
+<a class="jxr_linenumber" name="L400" href="#L400">400</a> 
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>     @Nullable
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>     <strong class="jxr_keyword">public</strong> String getObjectClass() {
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>       <strong class="jxr_keyword">return</strong> objectClass;
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>     }
+<a class="jxr_linenumber" name="L405" href="#L405">405</a> 
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>     @Nullable
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>     <strong class="jxr_keyword">public</strong> String getObjectId() {
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>       <strong class="jxr_keyword">return</strong> objectId;
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>     }
+<a class="jxr_linenumber" name="L410" href="#L410">410</a> 
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>     @NonNull
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>     <strong class="jxr_keyword">public</strong> Set&lt;TargetType&gt; getTargetItemTypes() {
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>       <strong class="jxr_keyword">return</strong> targetItemTypes;
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>     }
+<a class="jxr_linenumber" name="L415" href="#L415">415</a> 
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isMatchingType(@NonNull TargetType type) {
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>       <strong class="jxr_keyword">return</strong> getTargetItemTypes().contains(type);
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>     }
+<a class="jxr_linenumber" name="L419" href="#L419">419</a> 
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>     @Nullable
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>     <strong class="jxr_keyword">public</strong> String getObjectNamespace() {
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>       <strong class="jxr_keyword">return</strong> objectNamespace;
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>     }
+<a class="jxr_linenumber" name="L424" href="#L424">424</a> 
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> checkValue(@Nullable String actual, @Nullable String expected) {
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>       <strong class="jxr_keyword">return</strong> expected == <strong class="jxr_keyword">null</strong> || expected.equals(actual);
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>     }
+<a class="jxr_linenumber" name="L428" href="#L428">428</a> 
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isApplicableTo(@NonNull Object obj) {
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>       TargetType objectType = TargetType.forClass(obj.getClass());
+<a class="jxr_linenumber" name="L431" href="#L431">431</a> 
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>       <strong class="jxr_keyword">boolean</strong> retval = objectType != <strong class="jxr_keyword">null</strong> &amp;&amp; getTargetItemTypes().contains(objectType);
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>       <strong class="jxr_keyword">if</strong> (retval) {
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>         assert objectType != <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L435" href="#L435">435</a> 
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>         <em class="jxr_comment">// check other criteria</em>
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>         String actualName = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>         String actualClass = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>         String actualId = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>         String actualNamespace = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L441" href="#L441">441</a> 
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>         <strong class="jxr_keyword">switch</strong> (objectType) {
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>         <strong class="jxr_keyword">case</strong> PARAM: {
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>           Parameter param = (Parameter) obj;
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>           actualClass = param.getClazz();
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>           actualId = param.getId();
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>         }
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>         <strong class="jxr_keyword">case</strong> PROP: {
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>           Property prop = (Property) obj;
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>           actualName = prop.getName();
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>           actualClass = prop.getClazz();
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>           actualNamespace = prop.getNs() == <strong class="jxr_keyword">null</strong> ? IProperty.OSCAL_NAMESPACE.toString() : prop.getNs().toString();
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>         }
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">case</strong> PART: {
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>           ControlPart part = (ControlPart) obj;
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>           actualName = part.getName();
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>           actualClass = part.getClazz();
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>           String partId = part.getId();
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>           <strong class="jxr_keyword">if</strong> (partId != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>             actualId = partId;
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>           }
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>           actualNamespace = part.getNs() == <strong class="jxr_keyword">null</strong> ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>         }
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>         <strong class="jxr_keyword">case</strong> LINK:
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>           <em class="jxr_comment">// do nothing</em>
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>         <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(objectType.name().toLowerCase(Locale.ROOT));
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>         }
+<a class="jxr_linenumber" name="L473" href="#L473">473</a> 
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>         retval = checkValue(actualName, getObjectName())
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>             &amp;&amp; checkValue(actualClass, getObjectClass())
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>             &amp;&amp; checkValue(actualId, getObjectId())
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>             &amp;&amp; checkValue(actualNamespace, getObjectNamespace());
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>       }
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>       <strong class="jxr_keyword">return</strong> retval;
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>     }
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>   }
+<a class="jxr_linenumber" name="L482" href="#L482">482</a> }
 </pre>
 <hr/>
 <div id="footer">© 2024</div>

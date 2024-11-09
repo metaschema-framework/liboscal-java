@@ -45,58 +45,59 @@
 <span class="source-line-no">032</span><span id="line-32">    }</span>
 <span class="source-line-no">033</span><span id="line-33"></span>
 <span class="source-line-no">034</span><span id="line-34">    @Override</span>
-<span class="source-line-no">035</span><span id="line-35">    public @NonNull String mapPartIdentifier(@NonNull String identifier) {</span>
-<span class="source-line-no">036</span><span id="line-36">      return identifier;</span>
-<span class="source-line-no">037</span><span id="line-37">    }</span>
-<span class="source-line-no">038</span><span id="line-38">  };</span>
-<span class="source-line-no">039</span><span id="line-39"></span>
-<span class="source-line-no">040</span><span id="line-40">  @NonNull</span>
-<span class="source-line-no">041</span><span id="line-41">  String mapRoleIdentifier(@NonNull String identifier);</span>
-<span class="source-line-no">042</span><span id="line-42"></span>
-<span class="source-line-no">043</span><span id="line-43">  @NonNull</span>
-<span class="source-line-no">044</span><span id="line-44">  String mapControlIdentifier(@NonNull String identifier);</span>
-<span class="source-line-no">045</span><span id="line-45"></span>
-<span class="source-line-no">046</span><span id="line-46">  @NonNull</span>
-<span class="source-line-no">047</span><span id="line-47">  String mapGroupIdentifier(@NonNull String identifier);</span>
-<span class="source-line-no">048</span><span id="line-48"></span>
-<span class="source-line-no">049</span><span id="line-49">  @NonNull</span>
-<span class="source-line-no">050</span><span id="line-50">  String mapParameterIdentifier(@NonNull String identifier);</span>
-<span class="source-line-no">051</span><span id="line-51"></span>
-<span class="source-line-no">052</span><span id="line-52">  @NonNull</span>
-<span class="source-line-no">053</span><span id="line-53">  String mapPartIdentifier(@NonNull String identifier);</span>
-<span class="source-line-no">054</span><span id="line-54"></span>
-<span class="source-line-no">055</span><span id="line-55">  @NonNull</span>
-<span class="source-line-no">056</span><span id="line-56">  default String mapByItemType(</span>
-<span class="source-line-no">057</span><span id="line-57">      @NonNull IEntityItem.ItemType itemType,</span>
-<span class="source-line-no">058</span><span id="line-58">      @NonNull String identifier) {</span>
-<span class="source-line-no">059</span><span id="line-59">    String retval;</span>
-<span class="source-line-no">060</span><span id="line-60">    switch (itemType) {</span>
-<span class="source-line-no">061</span><span id="line-61">    case CONTROL:</span>
-<span class="source-line-no">062</span><span id="line-62">      retval = mapControlIdentifier(identifier);</span>
-<span class="source-line-no">063</span><span id="line-63">      break;</span>
-<span class="source-line-no">064</span><span id="line-64">    case GROUP:</span>
-<span class="source-line-no">065</span><span id="line-65">      retval = mapGroupIdentifier(identifier);</span>
-<span class="source-line-no">066</span><span id="line-66">      break;</span>
-<span class="source-line-no">067</span><span id="line-67">    case PARAMETER:</span>
-<span class="source-line-no">068</span><span id="line-68">      retval = mapParameterIdentifier(identifier);</span>
-<span class="source-line-no">069</span><span id="line-69">      break;</span>
-<span class="source-line-no">070</span><span id="line-70">    case PART:</span>
-<span class="source-line-no">071</span><span id="line-71">      retval = mapPartIdentifier(identifier);</span>
-<span class="source-line-no">072</span><span id="line-72">      break;</span>
-<span class="source-line-no">073</span><span id="line-73">    case ROLE:</span>
-<span class="source-line-no">074</span><span id="line-74">      retval = mapRoleIdentifier(identifier);</span>
-<span class="source-line-no">075</span><span id="line-75">      break;</span>
-<span class="source-line-no">076</span><span id="line-76">    case LOCATION:</span>
-<span class="source-line-no">077</span><span id="line-77">    case PARTY:</span>
-<span class="source-line-no">078</span><span id="line-78">    case RESOURCE:</span>
-<span class="source-line-no">079</span><span id="line-79">      retval = identifier;</span>
-<span class="source-line-no">080</span><span id="line-80">      break;</span>
-<span class="source-line-no">081</span><span id="line-81">    default:</span>
-<span class="source-line-no">082</span><span id="line-82">      throw new UnsupportedOperationException("Unsupported item type: " + itemType.name());</span>
-<span class="source-line-no">083</span><span id="line-83">    }</span>
-<span class="source-line-no">084</span><span id="line-84">    return retval;</span>
-<span class="source-line-no">085</span><span id="line-85">  }</span>
-<span class="source-line-no">086</span><span id="line-86">}</span>
+<span class="source-line-no">035</span><span id="line-35">    public @NonNull</span>
+<span class="source-line-no">036</span><span id="line-36">    String mapPartIdentifier(@NonNull String identifier) {</span>
+<span class="source-line-no">037</span><span id="line-37">      return identifier;</span>
+<span class="source-line-no">038</span><span id="line-38">    }</span>
+<span class="source-line-no">039</span><span id="line-39">  };</span>
+<span class="source-line-no">040</span><span id="line-40"></span>
+<span class="source-line-no">041</span><span id="line-41">  @NonNull</span>
+<span class="source-line-no">042</span><span id="line-42">  String mapRoleIdentifier(@NonNull String identifier);</span>
+<span class="source-line-no">043</span><span id="line-43"></span>
+<span class="source-line-no">044</span><span id="line-44">  @NonNull</span>
+<span class="source-line-no">045</span><span id="line-45">  String mapControlIdentifier(@NonNull String identifier);</span>
+<span class="source-line-no">046</span><span id="line-46"></span>
+<span class="source-line-no">047</span><span id="line-47">  @NonNull</span>
+<span class="source-line-no">048</span><span id="line-48">  String mapGroupIdentifier(@NonNull String identifier);</span>
+<span class="source-line-no">049</span><span id="line-49"></span>
+<span class="source-line-no">050</span><span id="line-50">  @NonNull</span>
+<span class="source-line-no">051</span><span id="line-51">  String mapParameterIdentifier(@NonNull String identifier);</span>
+<span class="source-line-no">052</span><span id="line-52"></span>
+<span class="source-line-no">053</span><span id="line-53">  @NonNull</span>
+<span class="source-line-no">054</span><span id="line-54">  String mapPartIdentifier(@NonNull String identifier);</span>
+<span class="source-line-no">055</span><span id="line-55"></span>
+<span class="source-line-no">056</span><span id="line-56">  @NonNull</span>
+<span class="source-line-no">057</span><span id="line-57">  default String mapByItemType(</span>
+<span class="source-line-no">058</span><span id="line-58">      @NonNull IEntityItem.ItemType itemType,</span>
+<span class="source-line-no">059</span><span id="line-59">      @NonNull String identifier) {</span>
+<span class="source-line-no">060</span><span id="line-60">    String retval;</span>
+<span class="source-line-no">061</span><span id="line-61">    switch (itemType) {</span>
+<span class="source-line-no">062</span><span id="line-62">    case CONTROL:</span>
+<span class="source-line-no">063</span><span id="line-63">      retval = mapControlIdentifier(identifier);</span>
+<span class="source-line-no">064</span><span id="line-64">      break;</span>
+<span class="source-line-no">065</span><span id="line-65">    case GROUP:</span>
+<span class="source-line-no">066</span><span id="line-66">      retval = mapGroupIdentifier(identifier);</span>
+<span class="source-line-no">067</span><span id="line-67">      break;</span>
+<span class="source-line-no">068</span><span id="line-68">    case PARAMETER:</span>
+<span class="source-line-no">069</span><span id="line-69">      retval = mapParameterIdentifier(identifier);</span>
+<span class="source-line-no">070</span><span id="line-70">      break;</span>
+<span class="source-line-no">071</span><span id="line-71">    case PART:</span>
+<span class="source-line-no">072</span><span id="line-72">      retval = mapPartIdentifier(identifier);</span>
+<span class="source-line-no">073</span><span id="line-73">      break;</span>
+<span class="source-line-no">074</span><span id="line-74">    case ROLE:</span>
+<span class="source-line-no">075</span><span id="line-75">      retval = mapRoleIdentifier(identifier);</span>
+<span class="source-line-no">076</span><span id="line-76">      break;</span>
+<span class="source-line-no">077</span><span id="line-77">    case LOCATION:</span>
+<span class="source-line-no">078</span><span id="line-78">    case PARTY:</span>
+<span class="source-line-no">079</span><span id="line-79">    case RESOURCE:</span>
+<span class="source-line-no">080</span><span id="line-80">      retval = identifier;</span>
+<span class="source-line-no">081</span><span id="line-81">      break;</span>
+<span class="source-line-no">082</span><span id="line-82">    default:</span>
+<span class="source-line-no">083</span><span id="line-83">      throw new UnsupportedOperationException("Unsupported item type: " + itemType.name());</span>
+<span class="source-line-no">084</span><span id="line-84">    }</span>
+<span class="source-line-no">085</span><span id="line-85">    return retval;</span>
+<span class="source-line-no">086</span><span id="line-86">  }</span>
+<span class="source-line-no">087</span><span id="line-87">}</span>
 
 
 

@@ -43,137 +43,138 @@
 <span class="source-line-no">030</span><span id="line-30">  public Stream&lt;InsertAnchorNode&gt; getInserts(@NonNull Predicate&lt;InsertAnchorNode&gt; filter) {</span>
 <span class="source-line-no">031</span><span id="line-31">    MarkupMultiline prose = getProse();</span>
 <span class="source-line-no">032</span><span id="line-32"></span>
-<span class="source-line-no">033</span><span id="line-33">    @NonNull Stream&lt;InsertAnchorNode&gt; retval;</span>
-<span class="source-line-no">034</span><span id="line-34">    if (prose == null) {</span>
-<span class="source-line-no">035</span><span id="line-35">      retval = ObjectUtils.notNull(Stream.empty());</span>
-<span class="source-line-no">036</span><span id="line-36">    } else {</span>
-<span class="source-line-no">037</span><span id="line-37">      List&lt;InsertAnchorNode&gt; result = prose.getInserts(filter);</span>
-<span class="source-line-no">038</span><span id="line-38">      retval = ObjectUtils.notNull(result.stream());</span>
-<span class="source-line-no">039</span><span id="line-39">    }</span>
-<span class="source-line-no">040</span><span id="line-40">    return retval;</span>
-<span class="source-line-no">041</span><span id="line-41">  }</span>
-<span class="source-line-no">042</span><span id="line-42"></span>
-<span class="source-line-no">043</span><span id="line-43">  public Stream&lt;IPart&gt; getPartsRecursively() {</span>
-<span class="source-line-no">044</span><span id="line-44">    return Stream.concat(</span>
-<span class="source-line-no">045</span><span id="line-45">        Stream.of(this),</span>
-<span class="source-line-no">046</span><span id="line-46">        CollectionUtil.listOrEmpty(getParts()).stream()</span>
-<span class="source-line-no">047</span><span id="line-47">            .flatMap(AbstractPart::getPartsRecursively));</span>
-<span class="source-line-no">048</span><span id="line-48">  }</span>
-<span class="source-line-no">049</span><span id="line-49"></span>
-<span class="source-line-no">050</span><span id="line-50">  @NonNull</span>
-<span class="source-line-no">051</span><span id="line-51">  public static Builder builder(@NonNull String name) {</span>
-<span class="source-line-no">052</span><span id="line-52">    return new Builder(name);</span>
-<span class="source-line-no">053</span><span id="line-53">  }</span>
-<span class="source-line-no">054</span><span id="line-54"></span>
-<span class="source-line-no">055</span><span id="line-55">  public static class Builder {</span>
-<span class="source-line-no">056</span><span id="line-56">    private String id;</span>
-<span class="source-line-no">057</span><span id="line-57">    @NonNull</span>
-<span class="source-line-no">058</span><span id="line-58">    private final String name;</span>
-<span class="source-line-no">059</span><span id="line-59">    private URI namespace;</span>
-<span class="source-line-no">060</span><span id="line-60">    private String clazz;</span>
-<span class="source-line-no">061</span><span id="line-61">    private MarkupMultiline prose;</span>
-<span class="source-line-no">062</span><span id="line-62">    private MarkupLine title;</span>
-<span class="source-line-no">063</span><span id="line-63">    private final List&lt;Property&gt; props = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">064</span><span id="line-64">    private final List&lt;Link&gt; links = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">065</span><span id="line-65">    private final List&lt;ControlPart&gt; parts = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">066</span><span id="line-66"></span>
-<span class="source-line-no">067</span><span id="line-67">    public Builder(@NonNull String name) {</span>
-<span class="source-line-no">068</span><span id="line-68">      this.name = Objects.requireNonNull(name);</span>
-<span class="source-line-no">069</span><span id="line-69">    }</span>
-<span class="source-line-no">070</span><span id="line-70"></span>
-<span class="source-line-no">071</span><span id="line-71">    @SuppressWarnings("PMD.ShortMethodName")</span>
-<span class="source-line-no">072</span><span id="line-72">    @NonNull</span>
-<span class="source-line-no">073</span><span id="line-73">    public Builder id(@NonNull String value) {</span>
-<span class="source-line-no">074</span><span id="line-74">      this.id = Objects.requireNonNull(value);</span>
-<span class="source-line-no">075</span><span id="line-75">      return this;</span>
-<span class="source-line-no">076</span><span id="line-76">    }</span>
-<span class="source-line-no">077</span><span id="line-77"></span>
-<span class="source-line-no">078</span><span id="line-78">    @NonNull</span>
-<span class="source-line-no">079</span><span id="line-79">    public Builder namespace(@NonNull URI value) {</span>
-<span class="source-line-no">080</span><span id="line-80">      this.namespace = Objects.requireNonNull(value);</span>
-<span class="source-line-no">081</span><span id="line-81">      return this;</span>
-<span class="source-line-no">082</span><span id="line-82">    }</span>
-<span class="source-line-no">083</span><span id="line-83"></span>
-<span class="source-line-no">084</span><span id="line-84">    @NonNull</span>
-<span class="source-line-no">085</span><span id="line-85">    public Builder clazz(@NonNull String value) {</span>
-<span class="source-line-no">086</span><span id="line-86">      this.clazz = Objects.requireNonNull(value);</span>
-<span class="source-line-no">087</span><span id="line-87">      return this;</span>
-<span class="source-line-no">088</span><span id="line-88">    }</span>
-<span class="source-line-no">089</span><span id="line-89"></span>
-<span class="source-line-no">090</span><span id="line-90">    @NonNull</span>
-<span class="source-line-no">091</span><span id="line-91">    public Builder title(@NonNull String markdown) {</span>
-<span class="source-line-no">092</span><span id="line-92">      return title(MarkupLine.fromMarkdown(Objects.requireNonNull(markdown)));</span>
-<span class="source-line-no">093</span><span id="line-93">    }</span>
-<span class="source-line-no">094</span><span id="line-94"></span>
-<span class="source-line-no">095</span><span id="line-95">    @NonNull</span>
-<span class="source-line-no">096</span><span id="line-96">    public Builder title(@NonNull MarkupLine value) {</span>
-<span class="source-line-no">097</span><span id="line-97">      this.title = Objects.requireNonNull(value);</span>
-<span class="source-line-no">098</span><span id="line-98">      return this;</span>
-<span class="source-line-no">099</span><span id="line-99">    }</span>
-<span class="source-line-no">100</span><span id="line-100"></span>
-<span class="source-line-no">101</span><span id="line-101">    @NonNull</span>
-<span class="source-line-no">102</span><span id="line-102">    public Builder prose(@NonNull String markdown) {</span>
-<span class="source-line-no">103</span><span id="line-103">      return prose(MarkupMultiline.fromMarkdown(Objects.requireNonNull(markdown)));</span>
-<span class="source-line-no">104</span><span id="line-104">    }</span>
-<span class="source-line-no">105</span><span id="line-105"></span>
-<span class="source-line-no">106</span><span id="line-106">    @NonNull</span>
-<span class="source-line-no">107</span><span id="line-107">    public Builder prose(@NonNull MarkupMultiline value) {</span>
-<span class="source-line-no">108</span><span id="line-108">      this.prose = Objects.requireNonNull(value);</span>
-<span class="source-line-no">109</span><span id="line-109">      return this;</span>
-<span class="source-line-no">110</span><span id="line-110">    }</span>
-<span class="source-line-no">111</span><span id="line-111"></span>
-<span class="source-line-no">112</span><span id="line-112">    @NonNull</span>
-<span class="source-line-no">113</span><span id="line-113">    public Builder prop(@NonNull Property value) {</span>
-<span class="source-line-no">114</span><span id="line-114">      this.props.add(Objects.requireNonNull(value));</span>
-<span class="source-line-no">115</span><span id="line-115">      return this;</span>
-<span class="source-line-no">116</span><span id="line-116">    }</span>
-<span class="source-line-no">117</span><span id="line-117"></span>
-<span class="source-line-no">118</span><span id="line-118">    @NonNull</span>
-<span class="source-line-no">119</span><span id="line-119">    public Builder link(@NonNull Link value) {</span>
-<span class="source-line-no">120</span><span id="line-120">      this.links.add(Objects.requireNonNull(value));</span>
-<span class="source-line-no">121</span><span id="line-121">      return this;</span>
-<span class="source-line-no">122</span><span id="line-122">    }</span>
-<span class="source-line-no">123</span><span id="line-123"></span>
-<span class="source-line-no">124</span><span id="line-124">    @NonNull</span>
-<span class="source-line-no">125</span><span id="line-125">    public Builder part(@NonNull ControlPart value) {</span>
-<span class="source-line-no">126</span><span id="line-126">      this.parts.add(Objects.requireNonNull(value));</span>
-<span class="source-line-no">127</span><span id="line-127">      return this;</span>
-<span class="source-line-no">128</span><span id="line-128">    }</span>
-<span class="source-line-no">129</span><span id="line-129"></span>
-<span class="source-line-no">130</span><span id="line-130">    @NonNull</span>
-<span class="source-line-no">131</span><span id="line-131">    public ControlPart build() {</span>
-<span class="source-line-no">132</span><span id="line-132">      ControlPart retval = new ControlPart();</span>
-<span class="source-line-no">133</span><span id="line-133"></span>
-<span class="source-line-no">134</span><span id="line-134">      retval.setName(name);</span>
-<span class="source-line-no">135</span><span id="line-135"></span>
-<span class="source-line-no">136</span><span id="line-136">      if (id != null) {</span>
-<span class="source-line-no">137</span><span id="line-137">        retval.setId(id);</span>
-<span class="source-line-no">138</span><span id="line-138">      }</span>
-<span class="source-line-no">139</span><span id="line-139">      if (namespace != null) {</span>
-<span class="source-line-no">140</span><span id="line-140">        retval.setNs(namespace);</span>
-<span class="source-line-no">141</span><span id="line-141">      }</span>
-<span class="source-line-no">142</span><span id="line-142">      if (clazz != null) {</span>
-<span class="source-line-no">143</span><span id="line-143">        retval.setClazz(clazz);</span>
-<span class="source-line-no">144</span><span id="line-144">      }</span>
-<span class="source-line-no">145</span><span id="line-145">      if (prose != null) {</span>
-<span class="source-line-no">146</span><span id="line-146">        retval.setProse(prose);</span>
-<span class="source-line-no">147</span><span id="line-147">      }</span>
-<span class="source-line-no">148</span><span id="line-148">      if (title != null) {</span>
-<span class="source-line-no">149</span><span id="line-149">        retval.setTitle(title);</span>
-<span class="source-line-no">150</span><span id="line-150">      }</span>
-<span class="source-line-no">151</span><span id="line-151">      if (!props.isEmpty()) {</span>
-<span class="source-line-no">152</span><span id="line-152">        retval.setProps(props);</span>
-<span class="source-line-no">153</span><span id="line-153">      }</span>
-<span class="source-line-no">154</span><span id="line-154">      if (!links.isEmpty()) {</span>
-<span class="source-line-no">155</span><span id="line-155">        retval.setLinks(links);</span>
-<span class="source-line-no">156</span><span id="line-156">      }</span>
-<span class="source-line-no">157</span><span id="line-157">      if (!parts.isEmpty()) {</span>
-<span class="source-line-no">158</span><span id="line-158">        retval.setParts(parts);</span>
-<span class="source-line-no">159</span><span id="line-159">      }</span>
-<span class="source-line-no">160</span><span id="line-160">      return retval;</span>
-<span class="source-line-no">161</span><span id="line-161">    }</span>
-<span class="source-line-no">162</span><span id="line-162">  }</span>
-<span class="source-line-no">163</span><span id="line-163">}</span>
+<span class="source-line-no">033</span><span id="line-33">    @NonNull</span>
+<span class="source-line-no">034</span><span id="line-34">    Stream&lt;InsertAnchorNode&gt; retval;</span>
+<span class="source-line-no">035</span><span id="line-35">    if (prose == null) {</span>
+<span class="source-line-no">036</span><span id="line-36">      retval = ObjectUtils.notNull(Stream.empty());</span>
+<span class="source-line-no">037</span><span id="line-37">    } else {</span>
+<span class="source-line-no">038</span><span id="line-38">      List&lt;InsertAnchorNode&gt; result = prose.getInserts(filter);</span>
+<span class="source-line-no">039</span><span id="line-39">      retval = ObjectUtils.notNull(result.stream());</span>
+<span class="source-line-no">040</span><span id="line-40">    }</span>
+<span class="source-line-no">041</span><span id="line-41">    return retval;</span>
+<span class="source-line-no">042</span><span id="line-42">  }</span>
+<span class="source-line-no">043</span><span id="line-43"></span>
+<span class="source-line-no">044</span><span id="line-44">  public Stream&lt;IPart&gt; getPartsRecursively() {</span>
+<span class="source-line-no">045</span><span id="line-45">    return Stream.concat(</span>
+<span class="source-line-no">046</span><span id="line-46">        Stream.of(this),</span>
+<span class="source-line-no">047</span><span id="line-47">        CollectionUtil.listOrEmpty(getParts()).stream()</span>
+<span class="source-line-no">048</span><span id="line-48">            .flatMap(AbstractPart::getPartsRecursively));</span>
+<span class="source-line-no">049</span><span id="line-49">  }</span>
+<span class="source-line-no">050</span><span id="line-50"></span>
+<span class="source-line-no">051</span><span id="line-51">  @NonNull</span>
+<span class="source-line-no">052</span><span id="line-52">  public static Builder builder(@NonNull String name) {</span>
+<span class="source-line-no">053</span><span id="line-53">    return new Builder(name);</span>
+<span class="source-line-no">054</span><span id="line-54">  }</span>
+<span class="source-line-no">055</span><span id="line-55"></span>
+<span class="source-line-no">056</span><span id="line-56">  public static class Builder {</span>
+<span class="source-line-no">057</span><span id="line-57">    private String id;</span>
+<span class="source-line-no">058</span><span id="line-58">    @NonNull</span>
+<span class="source-line-no">059</span><span id="line-59">    private final String name;</span>
+<span class="source-line-no">060</span><span id="line-60">    private URI namespace;</span>
+<span class="source-line-no">061</span><span id="line-61">    private String clazz;</span>
+<span class="source-line-no">062</span><span id="line-62">    private MarkupMultiline prose;</span>
+<span class="source-line-no">063</span><span id="line-63">    private MarkupLine title;</span>
+<span class="source-line-no">064</span><span id="line-64">    private final List&lt;Property&gt; props = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">065</span><span id="line-65">    private final List&lt;Link&gt; links = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">066</span><span id="line-66">    private final List&lt;ControlPart&gt; parts = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">067</span><span id="line-67"></span>
+<span class="source-line-no">068</span><span id="line-68">    public Builder(@NonNull String name) {</span>
+<span class="source-line-no">069</span><span id="line-69">      this.name = Objects.requireNonNull(name);</span>
+<span class="source-line-no">070</span><span id="line-70">    }</span>
+<span class="source-line-no">071</span><span id="line-71"></span>
+<span class="source-line-no">072</span><span id="line-72">    @SuppressWarnings("PMD.ShortMethodName")</span>
+<span class="source-line-no">073</span><span id="line-73">    @NonNull</span>
+<span class="source-line-no">074</span><span id="line-74">    public Builder id(@NonNull String value) {</span>
+<span class="source-line-no">075</span><span id="line-75">      this.id = Objects.requireNonNull(value);</span>
+<span class="source-line-no">076</span><span id="line-76">      return this;</span>
+<span class="source-line-no">077</span><span id="line-77">    }</span>
+<span class="source-line-no">078</span><span id="line-78"></span>
+<span class="source-line-no">079</span><span id="line-79">    @NonNull</span>
+<span class="source-line-no">080</span><span id="line-80">    public Builder namespace(@NonNull URI value) {</span>
+<span class="source-line-no">081</span><span id="line-81">      this.namespace = Objects.requireNonNull(value);</span>
+<span class="source-line-no">082</span><span id="line-82">      return this;</span>
+<span class="source-line-no">083</span><span id="line-83">    }</span>
+<span class="source-line-no">084</span><span id="line-84"></span>
+<span class="source-line-no">085</span><span id="line-85">    @NonNull</span>
+<span class="source-line-no">086</span><span id="line-86">    public Builder clazz(@NonNull String value) {</span>
+<span class="source-line-no">087</span><span id="line-87">      this.clazz = Objects.requireNonNull(value);</span>
+<span class="source-line-no">088</span><span id="line-88">      return this;</span>
+<span class="source-line-no">089</span><span id="line-89">    }</span>
+<span class="source-line-no">090</span><span id="line-90"></span>
+<span class="source-line-no">091</span><span id="line-91">    @NonNull</span>
+<span class="source-line-no">092</span><span id="line-92">    public Builder title(@NonNull String markdown) {</span>
+<span class="source-line-no">093</span><span id="line-93">      return title(MarkupLine.fromMarkdown(Objects.requireNonNull(markdown)));</span>
+<span class="source-line-no">094</span><span id="line-94">    }</span>
+<span class="source-line-no">095</span><span id="line-95"></span>
+<span class="source-line-no">096</span><span id="line-96">    @NonNull</span>
+<span class="source-line-no">097</span><span id="line-97">    public Builder title(@NonNull MarkupLine value) {</span>
+<span class="source-line-no">098</span><span id="line-98">      this.title = Objects.requireNonNull(value);</span>
+<span class="source-line-no">099</span><span id="line-99">      return this;</span>
+<span class="source-line-no">100</span><span id="line-100">    }</span>
+<span class="source-line-no">101</span><span id="line-101"></span>
+<span class="source-line-no">102</span><span id="line-102">    @NonNull</span>
+<span class="source-line-no">103</span><span id="line-103">    public Builder prose(@NonNull String markdown) {</span>
+<span class="source-line-no">104</span><span id="line-104">      return prose(MarkupMultiline.fromMarkdown(Objects.requireNonNull(markdown)));</span>
+<span class="source-line-no">105</span><span id="line-105">    }</span>
+<span class="source-line-no">106</span><span id="line-106"></span>
+<span class="source-line-no">107</span><span id="line-107">    @NonNull</span>
+<span class="source-line-no">108</span><span id="line-108">    public Builder prose(@NonNull MarkupMultiline value) {</span>
+<span class="source-line-no">109</span><span id="line-109">      this.prose = Objects.requireNonNull(value);</span>
+<span class="source-line-no">110</span><span id="line-110">      return this;</span>
+<span class="source-line-no">111</span><span id="line-111">    }</span>
+<span class="source-line-no">112</span><span id="line-112"></span>
+<span class="source-line-no">113</span><span id="line-113">    @NonNull</span>
+<span class="source-line-no">114</span><span id="line-114">    public Builder prop(@NonNull Property value) {</span>
+<span class="source-line-no">115</span><span id="line-115">      this.props.add(Objects.requireNonNull(value));</span>
+<span class="source-line-no">116</span><span id="line-116">      return this;</span>
+<span class="source-line-no">117</span><span id="line-117">    }</span>
+<span class="source-line-no">118</span><span id="line-118"></span>
+<span class="source-line-no">119</span><span id="line-119">    @NonNull</span>
+<span class="source-line-no">120</span><span id="line-120">    public Builder link(@NonNull Link value) {</span>
+<span class="source-line-no">121</span><span id="line-121">      this.links.add(Objects.requireNonNull(value));</span>
+<span class="source-line-no">122</span><span id="line-122">      return this;</span>
+<span class="source-line-no">123</span><span id="line-123">    }</span>
+<span class="source-line-no">124</span><span id="line-124"></span>
+<span class="source-line-no">125</span><span id="line-125">    @NonNull</span>
+<span class="source-line-no">126</span><span id="line-126">    public Builder part(@NonNull ControlPart value) {</span>
+<span class="source-line-no">127</span><span id="line-127">      this.parts.add(Objects.requireNonNull(value));</span>
+<span class="source-line-no">128</span><span id="line-128">      return this;</span>
+<span class="source-line-no">129</span><span id="line-129">    }</span>
+<span class="source-line-no">130</span><span id="line-130"></span>
+<span class="source-line-no">131</span><span id="line-131">    @NonNull</span>
+<span class="source-line-no">132</span><span id="line-132">    public ControlPart build() {</span>
+<span class="source-line-no">133</span><span id="line-133">      ControlPart retval = new ControlPart();</span>
+<span class="source-line-no">134</span><span id="line-134"></span>
+<span class="source-line-no">135</span><span id="line-135">      retval.setName(name);</span>
+<span class="source-line-no">136</span><span id="line-136"></span>
+<span class="source-line-no">137</span><span id="line-137">      if (id != null) {</span>
+<span class="source-line-no">138</span><span id="line-138">        retval.setId(id);</span>
+<span class="source-line-no">139</span><span id="line-139">      }</span>
+<span class="source-line-no">140</span><span id="line-140">      if (namespace != null) {</span>
+<span class="source-line-no">141</span><span id="line-141">        retval.setNs(namespace);</span>
+<span class="source-line-no">142</span><span id="line-142">      }</span>
+<span class="source-line-no">143</span><span id="line-143">      if (clazz != null) {</span>
+<span class="source-line-no">144</span><span id="line-144">        retval.setClazz(clazz);</span>
+<span class="source-line-no">145</span><span id="line-145">      }</span>
+<span class="source-line-no">146</span><span id="line-146">      if (prose != null) {</span>
+<span class="source-line-no">147</span><span id="line-147">        retval.setProse(prose);</span>
+<span class="source-line-no">148</span><span id="line-148">      }</span>
+<span class="source-line-no">149</span><span id="line-149">      if (title != null) {</span>
+<span class="source-line-no">150</span><span id="line-150">        retval.setTitle(title);</span>
+<span class="source-line-no">151</span><span id="line-151">      }</span>
+<span class="source-line-no">152</span><span id="line-152">      if (!props.isEmpty()) {</span>
+<span class="source-line-no">153</span><span id="line-153">        retval.setProps(props);</span>
+<span class="source-line-no">154</span><span id="line-154">      }</span>
+<span class="source-line-no">155</span><span id="line-155">      if (!links.isEmpty()) {</span>
+<span class="source-line-no">156</span><span id="line-156">        retval.setLinks(links);</span>
+<span class="source-line-no">157</span><span id="line-157">      }</span>
+<span class="source-line-no">158</span><span id="line-158">      if (!parts.isEmpty()) {</span>
+<span class="source-line-no">159</span><span id="line-159">        retval.setParts(parts);</span>
+<span class="source-line-no">160</span><span id="line-160">      }</span>
+<span class="source-line-no">161</span><span id="line-161">      return retval;</span>
+<span class="source-line-no">162</span><span id="line-162">    }</span>
+<span class="source-line-no">163</span><span id="line-163">  }</span>
+<span class="source-line-no">164</span><span id="line-164">}</span>
 
 
 
