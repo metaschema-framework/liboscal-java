@@ -7,13 +7,16 @@ package gov.nist.secauto.oscal.lib;
 
 import gov.nist.secauto.metaschema.core.util.IVersionInfo;
 
+/**
+ * Provides version information for the underlying OSCAL implementation used by this library.
+ */
 public final class OscalVersion implements IVersionInfo {
-  public static final String NAME = "oscal";
-  public static final String BUILD_TIMESTAMP = "${timestamp}";
-  public static final String COMMIT = "@oscal-git.commit.id.abbrev@";
-  public static final String BRANCH = "@oscal-git.branch@";
-  public static final String CLOSEST_TAG = "@oscal-git.closest.tag.name@";
-  public static final String ORIGIN = "@oscal-git.remote.origin.url@";
+  private static final String NAME = "oscal";
+  private static final String BUILD_TIMESTAMP = "${timestamp}";
+  private static final String COMMIT = "@oscal-git.commit.id.abbrev@";
+  private static final String BRANCH = "@oscal-git.branch@";
+  private static final String CLOSEST_TAG = "@oscal-git.closest.tag.name@";
+  private static final String ORIGIN = "@oscal-git.remote.origin.url@";
 
   @Override
   public String getName() {

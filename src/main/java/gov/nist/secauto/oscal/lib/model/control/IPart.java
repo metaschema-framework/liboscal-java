@@ -6,6 +6,7 @@
 package gov.nist.secauto.oscal.lib.model.control;
 
 import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultiline;
+import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
 import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
 import gov.nist.secauto.oscal.lib.model.ControlPart;
 
@@ -21,5 +22,5 @@ public interface IPart {
   List<ControlPart> getParts();
 
   @NonNull
-  Stream<InsertAnchorNode> getInserts(@NonNull Predicate<InsertAnchorNode> filter);
+  Stream<InsertAnchorExtension.InsertAnchorNode> getInserts(@NonNull Predicate<InsertAnchorNode> filter);
 }

@@ -162,7 +162,7 @@ public final class TestUtil {
     return INodeItemFactory.instance().newDocumentNodeItem(
         ObjectUtils.requireNonNull(
             (IBoundDefinitionModelAssembly) OscalBindingContext.instance().getBoundDefinitionForClass(Catalog.class)),
-        ObjectUtils.notNull(Paths.get("").toUri()),
+        ObjectUtils.notNull(Paths.get(System.getProperty("user.dir")).toUri()),
         importedCatalog);
   }
 }
