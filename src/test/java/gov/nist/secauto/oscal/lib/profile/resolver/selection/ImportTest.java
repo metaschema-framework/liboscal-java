@@ -48,14 +48,14 @@ class ImportTest {
     return INodeItemFactory.instance().newDocumentNodeItem(
         ObjectUtils.requireNonNull(
             (IBoundDefinitionModelAssembly) OscalBindingContext.instance().getBoundDefinitionForClass(Catalog.class)),
-        ObjectUtils.notNull(Paths.get("").toUri()),
+        ObjectUtils.notNull(Paths.get(System.getProperty("user.dir")).toUri()),
         importedCatalog);
   }
 
   @SuppressWarnings("null")
   @Test
   void test() throws ProfileResolutionException {
-    URI cwd = Paths.get("").toUri();
+    URI cwd = Paths.get(System.getProperty("user.dir")).toUri();
 
     ProfileImport profileImport = new ProfileImport();
     profileImport.setIncludeAll(new IncludeAll());

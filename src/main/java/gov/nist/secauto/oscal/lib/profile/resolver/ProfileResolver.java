@@ -19,6 +19,7 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItemFactory;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.model.IBoundObject;
+import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.metaschema.databind.io.BindingException;
@@ -77,8 +78,6 @@ import java.util.Stack;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.xml.namespace.QName;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
@@ -92,7 +91,7 @@ public class ProfileResolver {
 
   private static final Logger LOGGER = LogManager.getLogger(ProfileResolver.class);
   @NonNull
-  private static final QName IMPORT_QNAME = new QName(OscalModelConstants.NS_OSCAL, "import");
+  private static final IEnhancedQName IMPORT_QNAME = IEnhancedQName.of(OscalModelConstants.NS_OSCAL, "import");
 
   @NonNull
   private static final MetapathExpression METAPATH_SET_PARAMETER
@@ -136,7 +135,7 @@ public class ProfileResolver {
     loader.disableFeature(DeserializationFeature.DESERIALIZE_VALIDATE_CONSTRAINTS);
 
     DynamicContext retval = new DynamicContext(StaticContext.builder()
-        .defaultModelNamespace(OscalModelConstants.NS_URI_OSCAL)
+        .defaultModelNamespace(OscalModelConstants.NS_OSCAL_URI)
         .build());
     retval.setDocumentLoader(loader);
     return retval;

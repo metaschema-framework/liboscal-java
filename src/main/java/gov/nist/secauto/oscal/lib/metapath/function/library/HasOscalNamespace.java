@@ -22,6 +22,7 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IFlagNodeItem;
 import gov.nist.secauto.metaschema.core.model.IAssemblyDefinition;
 import gov.nist.secauto.metaschema.core.model.IFlagInstance;
+import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;
@@ -29,24 +30,22 @@ import gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;
 import java.net.URI;
 import java.util.List;
 
-import javax.xml.namespace.QName;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class HasOscalNamespace {
   @NonNull
-  private static final QName NS_FLAG_QNAME = new QName("ns");
+  private static final IEnhancedQName NS_FLAG_QNAME = IEnhancedQName.of("ns");
   @NonNull
   static final IFunction SIGNATURE_ONE_ARG = IFunction.builder()
       .name("has-oscal-namespace")
       .namespace(OscalModelConstants.NS_OSCAL)
       .argument(IArgument.builder()
           .name("namespace")
-          .type(IStringItem.class)
+          .type(IStringItem.type())
           .oneOrMore()
           .build())
       .allowUnboundedArity(true)
-      .returnType(IBooleanItem.class)
+      .returnType(IBooleanItem.type())
       .focusDependent()
       .contextIndependent()
       .deterministic()
@@ -60,19 +59,19 @@ public final class HasOscalNamespace {
       .namespace(OscalModelConstants.NS_OSCAL)
       .argument(IArgument.builder()
           .name("propOrPart")
-          .type(IAssemblyNodeItem.class)
+          .type(IAssemblyNodeItem.type())
           .one()
           .build())
       .argument(IArgument.builder()
           .name("namespace")
-          .type(IStringItem.class)
+          .type(IStringItem.type())
           .oneOrMore()
           .build())
       .allowUnboundedArity(true)
       .focusIndependent()
       .contextIndependent()
       .deterministic()
-      .returnType(IBooleanItem.class)
+      .returnType(IBooleanItem.type())
       .returnOne()
       .functionHandler(HasOscalNamespace::executeTwoArg)
       .build();
@@ -83,11 +82,11 @@ public final class HasOscalNamespace {
       .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)
       .argument(IArgument.builder()
           .name("namespace")
-          .type(IStringItem.class)
+          .type(IStringItem.type())
           .oneOrMore()
           .build())
       .allowUnboundedArity(true)
-      .returnType(IBooleanItem.class)
+      .returnType(IBooleanItem.type())
       .focusDependent()
       .contextIndependent()
       .deterministic()
@@ -101,19 +100,19 @@ public final class HasOscalNamespace {
       .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)
       .argument(IArgument.builder()
           .name("propOrPart")
-          .type(IAssemblyNodeItem.class)
+          .type(IAssemblyNodeItem.type())
           .one()
           .build())
       .argument(IArgument.builder()
           .name("namespace")
-          .type(IStringItem.class)
+          .type(IStringItem.type())
           .oneOrMore()
           .build())
       .allowUnboundedArity(true)
       .focusIndependent()
       .contextIndependent()
       .deterministic()
-      .returnType(IBooleanItem.class)
+      .returnType(IBooleanItem.type())
       .returnOne()
       .functionHandler(HasOscalNamespace::executeTwoArg)
       .build();
@@ -184,7 +183,7 @@ public final class HasOscalNamespace {
     if (ns == null) {
       // check if the node actually has a "ns" flag
       IAssemblyDefinition definition = propOrPart.getDefinition();
-      IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_QNAME);
+      IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_QNAME.getIndexPosition());
       if (flag == null) {
         throw new MetapathException(
             String.format(

@@ -5,6 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.model.metadata;
 
+import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.oscal.lib.model.Property;
 
@@ -17,34 +18,32 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.xml.namespace.QName;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractProperty implements IProperty {
 
   @NonNull
-  public static QName qname(URI namespace, @NonNull String name) {
-    return new QName(normalizeNamespace(namespace).toString(), name);
+  public static IEnhancedQName qname(URI namespace, @NonNull String name) {
+    return IEnhancedQName.of(normalizeNamespace(namespace).toASCIIString(), name);
   }
 
   @NonNull
-  public static QName qname(@NonNull String name) {
-    return new QName(OSCAL_NAMESPACE.toString(), name);
+  public static IEnhancedQName qname(@NonNull String name) {
+    return IEnhancedQName.of(OSCAL_NAMESPACE.toString(), name);
   }
 
   @NonNull
   public static URI normalizeNamespace(URI namespace) {
-    URI propertyNamespace = namespace;
-    if (propertyNamespace == null) {
-      propertyNamespace = OSCAL_NAMESPACE;
+    URI retval = namespace;
+    if (retval == null) {
+      retval = OSCAL_NAMESPACE;
     }
-    return propertyNamespace;
+    return retval;
   }
 
   @SuppressWarnings("null")
   @NonNull
-  public static Optional<Property> find(List<Property> props, @NonNull QName qname) {
+  public static Optional<Property> find(List<Property> props, @NonNull IEnhancedQName qname) {
     return CollectionUtil.listOrEmpty(props).stream().filter(prop -> qname.equals(prop.getQName())).findFirst();
   }
 
@@ -63,8 +62,8 @@ public abstract class AbstractProperty implements IProperty {
   }
 
   @NonNull
-  public QName getQName() {
-    return new QName(normalizeNamespace(getNs()).toString(), getName());
+  public IEnhancedQName getQName() {
+    return qname(getNs(), getName());
   }
 
   @NonNull

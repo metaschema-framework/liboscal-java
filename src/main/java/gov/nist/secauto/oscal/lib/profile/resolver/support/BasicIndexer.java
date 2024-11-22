@@ -42,7 +42,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 public class BasicIndexer implements IIndexer {
   private static final Logger LOGGER = LogManager.getLogger(ProfileResolver.class);
   private static final MetapathExpression CONTAINER_METAPATH
-      = MetapathExpression.compile("(ancestor::control|ancestor::group)[1])",
+      = MetapathExpression.compile("(ancestor::control|ancestor::group)[1]",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
   @NonNull

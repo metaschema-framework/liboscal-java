@@ -7,6 +7,7 @@ package gov.nist.secauto.oscal.lib.profile.resolver.policy;
 
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
+import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
 import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
 import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
@@ -32,7 +33,7 @@ public class InsertReferencePolicy
   }
 
   @Override
-  protected List<IEntityItem.ItemType> getEntityItemTypes(@NonNull InsertAnchorNode insert) {
+  protected List<IEntityItem.ItemType> getEntityItemTypes(@NonNull InsertAnchorExtension.InsertAnchorNode insert) {
     String type = insert.getType().toString();
 
     if (!"param".equals(type)) {
@@ -42,19 +43,19 @@ public class InsertReferencePolicy
   }
 
   @Override
-  public String getReferenceText(@NonNull InsertAnchorNode insert) {
+  public String getReferenceText(@NonNull InsertAnchorExtension.InsertAnchorNode insert) {
     return insert.getIdReference().toString();
   }
 
   @Override
-  public void setReferenceText(@NonNull InsertAnchorNode insert, @NonNull String newReference) {
+  public void setReferenceText(@NonNull InsertAnchorExtension.InsertAnchorNode insert, @NonNull String newReference) {
     insert.setIdReference(ObjectUtils.notNull(BasedSequence.of(newReference)));
   }
 
   @Override
   protected boolean handleIndexMiss(
       @NonNull IModelNodeItem<?, ?> contextItem,
-      @NonNull InsertAnchorNode insert,
+      @NonNull InsertAnchorExtension.InsertAnchorNode insert,
       @NonNull List<IEntityItem.ItemType> itemTypes,
       @NonNull String identifier,
       @NonNull ReferenceCountingVisitor.Context visitorContext) {

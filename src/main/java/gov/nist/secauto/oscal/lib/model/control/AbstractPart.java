@@ -7,6 +7,7 @@ package gov.nist.secauto.oscal.lib.model.control;
 
 import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLine;
 import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultiline;
+import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
 import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
@@ -27,15 +28,15 @@ public abstract class AbstractPart implements IPart {
 
   @Override
   @NonNull
-  public Stream<InsertAnchorNode> getInserts(@NonNull Predicate<InsertAnchorNode> filter) {
+  public Stream<InsertAnchorExtension.InsertAnchorNode> getInserts(@NonNull Predicate<InsertAnchorNode> filter) {
     MarkupMultiline prose = getProse();
 
     @NonNull
-    Stream<InsertAnchorNode> retval;
+    Stream<InsertAnchorExtension.InsertAnchorNode> retval;
     if (prose == null) {
       retval = ObjectUtils.notNull(Stream.empty());
     } else {
-      List<InsertAnchorNode> result = prose.getInserts(filter);
+      List<InsertAnchorExtension.InsertAnchorNode> result = prose.getInserts(filter);
       retval = ObjectUtils.notNull(result.stream());
     }
     return retval;

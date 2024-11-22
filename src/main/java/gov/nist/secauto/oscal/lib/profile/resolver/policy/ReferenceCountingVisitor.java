@@ -9,6 +9,7 @@ import com.vladsch.flexmark.ast.InlineLinkNode;
 import com.vladsch.flexmark.util.ast.Node;
 
 import gov.nist.secauto.metaschema.core.datatype.markup.IMarkupString;
+import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
 import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
 import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
 import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
@@ -18,6 +19,7 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IFieldNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
+import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
@@ -45,8 +47,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.BiConsumer;
-
-import javax.xml.namespace.QName;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
@@ -88,7 +88,7 @@ public final class ReferenceCountingVisitor
   private static final IReferencePolicy<Link> LINK_POLICY_IGNORE = IReferencePolicy.ignore();
 
   @NonNull
-  private static final Map<QName, IReferencePolicy<Property>> PROPERTY_POLICIES;
+  private static final Map<IEnhancedQName, IReferencePolicy<Property>> PROPERTY_POLICIES;
   @NonNull
   private static final Map<String, IReferencePolicy<Link>> LINK_POLICIES;
   @NonNull
@@ -426,7 +426,7 @@ public final class ReferenceCountingVisitor
       @NonNull Context context) {
     for (Node node : CollectionUtil.toIterable(
         ObjectUtils.notNull(text.getNodesAsStream().iterator()))) {
-      if (node instanceof InsertAnchorNode) {
+      if (node instanceof InsertAnchorExtension.InsertAnchorNode) {
         handleInsert(contextItem, (InsertAnchorNode) node, context);
       } else if (node instanceof InlineLinkNode) {
         handleAnchor(contextItem, (InlineLinkNode) node, context);
@@ -436,7 +436,7 @@ public final class ReferenceCountingVisitor
 
   private static void handleInsert(
       @NonNull IFieldNodeItem contextItem,
-      @NonNull InsertAnchorNode node,
+      @NonNull InsertAnchorExtension.InsertAnchorNode node,
       @NonNull Context context) {
     boolean retval = INSERT_POLICY.handleReference(contextItem, node, context);
     if (LOGGER.isWarnEnabled() && !retval) {
@@ -462,7 +462,7 @@ public final class ReferenceCountingVisitor
       @NonNull IAssemblyNodeItem item,
       @NonNull Context context) {
     Property property = ObjectUtils.requireNonNull((Property) item.getValue());
-    QName qname = property.getQName();
+    IEnhancedQName qname = property.getQName();
 
     IReferencePolicy<Property> policy = PROPERTY_POLICIES.get(qname);
 

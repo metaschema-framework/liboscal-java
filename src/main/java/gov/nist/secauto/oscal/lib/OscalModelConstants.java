@@ -5,11 +5,10 @@
 
 package gov.nist.secauto.oscal.lib;
 
+import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 
 import java.net.URI;
-
-import javax.xml.namespace.QName;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -18,39 +17,39 @@ public final class OscalModelConstants {
   @NonNull
   public static final String NS_OSCAL = "http://csrc.nist.gov/ns/oscal/1.0";
   @NonNull
-  public static final URI NS_URI_OSCAL = ObjectUtils.notNull(URI.create(NS_OSCAL));
+  public static final URI NS_OSCAL_URI = ObjectUtils.notNull(URI.create(NS_OSCAL));
   @NonNull
-  public static final QName QNAME_METADATA = new QName(NS_OSCAL, "metadata");
+  public static final IEnhancedQName QNAME_METADATA = IEnhancedQName.of(NS_OSCAL, "metadata");
   @NonNull
-  public static final QName QNAME_BACK_MATTER = new QName(NS_OSCAL, "back-matter");
+  public static final IEnhancedQName QNAME_BACK_MATTER = IEnhancedQName.of(NS_OSCAL, "back-matter");
   @NonNull
-  public static final QName QNAME_PROFILE = new QName(NS_OSCAL, "profile");
+  public static final IEnhancedQName QNAME_PROFILE = IEnhancedQName.of(NS_OSCAL, "profile");
   @NonNull
-  public static final QName QNAME_IMPORT = new QName(NS_OSCAL, "import");
+  public static final IEnhancedQName QNAME_IMPORT = IEnhancedQName.of(NS_OSCAL, "import");
   @NonNull
-  public static final QName QNAME_TITLE = new QName(NS_OSCAL, "title");
+  public static final IEnhancedQName QNAME_TITLE = IEnhancedQName.of(NS_OSCAL, "title");
   @NonNull
-  public static final QName QNAME_PROP = new QName(NS_OSCAL, "prop");
+  public static final IEnhancedQName QNAME_PROP = IEnhancedQName.of(NS_OSCAL, "prop");
   @NonNull
-  public static final QName QNAME_LINK = new QName(NS_OSCAL, "link");
+  public static final IEnhancedQName QNAME_LINK = IEnhancedQName.of(NS_OSCAL, "link");
   @NonNull
-  public static final QName QNAME_CITATION = new QName(NS_OSCAL, "citation");
+  public static final IEnhancedQName QNAME_CITATION = IEnhancedQName.of(NS_OSCAL, "citation");
   @NonNull
-  public static final QName QNAME_TEXT = new QName(NS_OSCAL, "text");
+  public static final IEnhancedQName QNAME_TEXT = IEnhancedQName.of(NS_OSCAL, "text");
   @NonNull
-  public static final QName QNAME_PROSE = new QName(NS_OSCAL, "prose");
+  public static final IEnhancedQName QNAME_PROSE = IEnhancedQName.of(NS_OSCAL, "prose");
   @NonNull
-  public static final QName QNAME_PARAM = new QName(NS_OSCAL, "param");
+  public static final IEnhancedQName QNAME_PARAM = IEnhancedQName.of(NS_OSCAL, "param");
   @NonNull
-  public static final QName QNAME_ROLE = new QName(NS_OSCAL, "role");
+  public static final IEnhancedQName QNAME_ROLE = IEnhancedQName.of(NS_OSCAL, "role");
   @NonNull
-  public static final QName QNAME_LOCATION = new QName(NS_OSCAL, "location");
+  public static final IEnhancedQName QNAME_LOCATION = IEnhancedQName.of(NS_OSCAL, "location");
   @NonNull
-  public static final QName QNAME_PARTY = new QName(NS_OSCAL, "party");
+  public static final IEnhancedQName QNAME_PARTY = IEnhancedQName.of(NS_OSCAL, "party");
   @NonNull
-  public static final QName QNAME_GROUP = new QName(NS_OSCAL, "group");
+  public static final IEnhancedQName QNAME_GROUP = IEnhancedQName.of(NS_OSCAL, "group");
   @NonNull
-  public static final QName QNAME_CONTROL = new QName(NS_OSCAL, "control");
+  public static final IEnhancedQName QNAME_CONTROL = IEnhancedQName.of(NS_OSCAL, "control");
 
   private OscalModelConstants() {
     // disable construction
