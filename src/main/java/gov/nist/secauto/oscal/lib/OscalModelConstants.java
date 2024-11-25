@@ -6,9 +6,6 @@
 package gov.nist.secauto.oscal.lib;
 
 import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-
-import java.net.URI;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -16,8 +13,6 @@ public final class OscalModelConstants {
 
   @NonNull
   public static final String NS_OSCAL = "http://csrc.nist.gov/ns/oscal/1.0";
-  @NonNull
-  public static final URI NS_OSCAL_URI = ObjectUtils.notNull(URI.create(NS_OSCAL));
   @NonNull
   public static final IEnhancedQName QNAME_METADATA = IEnhancedQName.of(NS_OSCAL, "metadata");
   @NonNull

@@ -13,7 +13,6 @@ import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExt
 import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
 import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
 import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
-import gov.nist.secauto.metaschema.core.metapath.function.library.FnData;
 import gov.nist.secauto.metaschema.core.metapath.item.atomic.IMarkupItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
@@ -415,7 +414,7 @@ public final class ReferenceCountingVisitor
   private static void handleMarkup(
       @NonNull IFieldNodeItem item,
       @NonNull Context context) {
-    IMarkupItem markupItem = (IMarkupItem) FnData.fnDataItem(item);
+    IMarkupItem markupItem = (IMarkupItem) item.toAtomicItem();
     IMarkupString<?> markup = markupItem.asMarkup();
     handleMarkup(item, markup, context);
   }

@@ -13,7 +13,6 @@ import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
 import gov.nist.secauto.metaschema.core.metapath.function.IArgument;
 import gov.nist.secauto.metaschema.core.metapath.function.IFunction;
 import gov.nist.secauto.metaschema.core.metapath.function.InvalidTypeFunctionException;
-import gov.nist.secauto.metaschema.core.metapath.function.library.FnData;
 import gov.nist.secauto.metaschema.core.metapath.item.IItem;
 import gov.nist.secauto.metaschema.core.metapath.item.atomic.IAnyUriItem;
 import gov.nist.secauto.metaschema.core.metapath.item.atomic.IBooleanItem;
@@ -199,7 +198,7 @@ public final class HasOscalNamespace {
         nodeNamespace = IAnyUriItem.valueOf(ObjectUtils.notNull(defaultValue.toString())).asUri();
       }
     } else {
-      nodeNamespace = IAnyUriItem.cast(FnData.fnDataItem(ns)).asUri();
+      nodeNamespace = IAnyUriItem.cast(ObjectUtils.notNull(ns.toAtomicItem())).asUri();
     }
 
     String nodeNamespaceString = AbstractProperty.normalizeNamespace(nodeNamespace).toString();

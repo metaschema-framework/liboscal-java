@@ -225,6 +225,12 @@
 			<artifactId>metaschema-databind</artifactId>
 			<version>${dependency.metaschema-framework.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>dev.metaschema.java</groupId>
+			<artifactId>metaschema-schema-generator</artifactId>
+			<version>${dependency.metaschema-framework.version}</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>

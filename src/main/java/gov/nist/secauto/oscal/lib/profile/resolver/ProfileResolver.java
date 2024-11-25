@@ -135,7 +135,7 @@ public class ProfileResolver {
     loader.disableFeature(DeserializationFeature.DESERIALIZE_VALIDATE_CONSTRAINTS);
 
     DynamicContext retval = new DynamicContext(StaticContext.builder()
-        .defaultModelNamespace(OscalModelConstants.NS_OSCAL_URI)
+        .defaultModelNamespace(OscalModelConstants.NS_OSCAL)
         .build());
     retval.setDocumentLoader(loader);
     return retval;
