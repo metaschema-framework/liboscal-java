@@ -55,7 +55,7 @@
 <span class="source-line-no">042</span><span id="line-42">public class BasicIndexer implements IIndexer {</span>
 <span class="source-line-no">043</span><span id="line-43">  private static final Logger LOGGER = LogManager.getLogger(ProfileResolver.class);</span>
 <span class="source-line-no">044</span><span id="line-44">  private static final MetapathExpression CONTAINER_METAPATH</span>
-<span class="source-line-no">045</span><span id="line-45">      = MetapathExpression.compile("(ancestor::control|ancestor::group)[1])",</span>
+<span class="source-line-no">045</span><span id="line-45">      = MetapathExpression.compile("(ancestor::control|ancestor::group)[1]",</span>
 <span class="source-line-no">046</span><span id="line-46">          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);</span>
 <span class="source-line-no">047</span><span id="line-47"></span>
 <span class="source-line-no">048</span><span id="line-48">  @NonNull</span>

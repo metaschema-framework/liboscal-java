@@ -170,7 +170,7 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">return</strong> INodeItemFactory.instance().newDocumentNodeItem(
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         ObjectUtils.requireNonNull(
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>             (IBoundDefinitionModelAssembly) OscalBindingContext.instance().getBoundDefinitionForClass(Catalog.<strong class="jxr_keyword">class</strong>)),
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         ObjectUtils.notNull(Paths.get(<span class="jxr_string">""</span>).toUri()),
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         ObjectUtils.notNull(Paths.get(System.getProperty(<span class="jxr_string">"user.dir"</span>)).toUri()),
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>         importedCatalog);
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>   }
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> }

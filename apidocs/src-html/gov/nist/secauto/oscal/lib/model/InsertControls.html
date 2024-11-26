@@ -56,7 +56,7 @@
 <span class="source-line-no">043</span><span id="line-43">      description = "A designation of how a selection of controls in a profile is to be ordered.",</span>
 <span class="source-line-no">044</span><span id="line-44">      name = "order",</span>
 <span class="source-line-no">045</span><span id="line-45">      typeAdapter = TokenAdapter.class,</span>
-<span class="source-line-no">046</span><span id="line-46">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "keep", description = ""), @AllowedValue(value = "ascending", description = ""), @AllowedValue(value = "descending", description = "")}))</span>
+<span class="source-line-no">046</span><span id="line-46">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "keep", description = "Use the order of their appearance, using a depth-first traversal of the source profile's imports."), @AllowedValue(value = "ascending", description = "Sort all selected controls into ascending alphanumeric order by their ID."), @AllowedValue(value = "descending", description = "Sort all selected controls into descending alphanumeric order by their ID.")}))</span>
 <span class="source-line-no">047</span><span id="line-47">  )</span>
 <span class="source-line-no">048</span><span id="line-48">  private String _order;</span>
 <span class="source-line-no">049</span><span id="line-49"></span>
