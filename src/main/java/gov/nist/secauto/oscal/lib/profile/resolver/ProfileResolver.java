@@ -7,12 +7,12 @@ package gov.nist.secauto.oscal.lib.profile.resolver;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
 import gov.nist.secauto.metaschema.core.metapath.IDocumentLoader;
-import gov.nist.secauto.metaschema.core.metapath.ISequence;
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
 import gov.nist.secauto.metaschema.core.metapath.StaticContext;
 import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
 import gov.nist.secauto.metaschema.core.metapath.item.IItem;
+import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
@@ -94,28 +94,28 @@ public class ProfileResolver {
   private static final IEnhancedQName IMPORT_QNAME = IEnhancedQName.of(OscalModelConstants.NS_OSCAL, "import");
 
   @NonNull
-  private static final MetapathExpression METAPATH_SET_PARAMETER
-      = MetapathExpression.compile("modify/set-parameter",
+  private static final IMetapathExpression METAPATH_SET_PARAMETER
+      = IMetapathExpression.compile("modify/set-parameter",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression METAPATH_ALTER
-      = MetapathExpression.compile("modify/alter",
+  private static final IMetapathExpression METAPATH_ALTER
+      = IMetapathExpression.compile("modify/alter",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression METAPATH_ALTER_REMOVE
-      = MetapathExpression.compile("remove",
+  private static final IMetapathExpression METAPATH_ALTER_REMOVE
+      = IMetapathExpression.compile("remove",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression METAPATH_ALTER_ADD
-      = MetapathExpression.compile("add",
+  private static final IMetapathExpression METAPATH_ALTER_ADD
+      = IMetapathExpression.compile("add",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression CATALOG_OR_PROFILE
-      = MetapathExpression.compile("/(catalog|profile)",
+  private static final IMetapathExpression CATALOG_OR_PROFILE
+      = IMetapathExpression.compile("/(catalog|profile)",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression CATALOG
-      = MetapathExpression.compile("/catalog",
+  private static final IMetapathExpression CATALOG
+      = IMetapathExpression.compile("/catalog",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
   @NonNull
@@ -161,7 +161,7 @@ public class ProfileResolver {
   @Nullable
   private static IRootAssemblyNodeItem getRoot(
       @NonNull IDocumentNodeItem document,
-      @NonNull MetapathExpression rootPath) {
+      @NonNull IMetapathExpression rootPath) {
     ISequence<?> result = rootPath.evaluate(document);
     IItem item = result.getFirstItem(false);
 
