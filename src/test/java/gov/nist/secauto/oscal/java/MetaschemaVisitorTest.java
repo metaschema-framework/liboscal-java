@@ -6,10 +6,10 @@
 package gov.nist.secauto.oscal.java;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-import gov.nist.secauto.metaschema.core.metapath.ISequence;
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
 import gov.nist.secauto.metaschema.core.metapath.StaticContext;
 import gov.nist.secauto.metaschema.core.metapath.item.IItem;
+import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.metaschema.databind.io.IBoundLoader;
@@ -61,37 +61,37 @@ class MetaschemaVisitorTest {
     // Catalog.class).serialize(resolvedProfile.toBoundObject(), new FileWriter(new
     // File("resolved-catalog.xml")));
 
-    // evaluatePath(MetapathExpression.compile("resolve-profile(doc(resolve-uri(/profile/import/@href,
+    // evaluatePath(IMetapathExpression.compile("resolve-profile(doc(resolve-uri(/profile/import/@href,
     // document-uri(/profile))))/(profile, catalog)//control/@id"), nodeItem,
     // dynamicContext);
-    evaluatePath(MetapathExpression.compile("//control/@id"), resolvedProfile, dynamicContext);
-    // evaluatePath(MetapathExpression.compile("doc(resolve-uri(/profile/import/@href,
+    evaluatePath(IMetapathExpression.compile("//control/@id"), resolvedProfile, dynamicContext);
+    // evaluatePath(IMetapathExpression.compile("doc(resolve-uri(/profile/import/@href,
     // document-uri(/profile)))/catalog/metadata/last-modified"), nodeItem,
     // dynamicContext);
     // evaluatePath(
-    // MetapathExpression.compile("doc(resolve-uri(/profile/import/@href,
+    // IMetapathExpression.compile("doc(resolve-uri(/profile/import/@href,
     // document-uri(/profile)))/catalog/metadata/last-modified -
     // /catalog/metadata/last-modified"),
     // nodeItem, dynamicContext);
-    // evaluatePath(MetapathExpression.compile("doc(resolve-uri(/profile/import/@href,
+    // evaluatePath(IMetapathExpression.compile("doc(resolve-uri(/profile/import/@href,
     // document-uri(/profile)))/catalog/metadata/last-modified + duration('PT1H')"),
     // nodeItem,
     // dynamicContext);
-    // evaluatePath(MetapathExpression.compile("doc(resolve-uri(/profile/import/@href,
+    // evaluatePath(IMetapathExpression.compile("doc(resolve-uri(/profile/import/@href,
     // document-uri(/profile)))/catalog/metadata/last-modified,/catalog/metadata/last-modified"),
     // nodeItem, dynamicContext);
-    // evaluatePath(MetapathExpression.compile("doc('target/download/content/NIST_SP-800-53_rev5_catalog.xml')"),
+    // evaluatePath(IMetapathExpression.compile("doc('target/download/content/NIST_SP-800-53_rev5_catalog.xml')"),
     // nodeItem, dynamicContext);
     // evaluatePath(Metapath.parseMetapathString("2 eq 1 + 1[/catalog]"),
     // nodeContext, visitor);
     // evaluatePath(Metapath.parseMetapathString("/catalog/back-matter/resource[rlink/@href='https://doi.org/10.6028/NIST.SP.800-53r5']"),
     // nodeItem, dynamicContext);
-    // evaluatePath(MetapathExpression.compile("/catalog//(@id,@uuid)"), nodeItem,
+    // evaluatePath(IMetapathExpression.compile("/catalog//(@id,@uuid)"), nodeItem,
     // dynamicContext);
-    // evaluatePath(MetapathExpression.compile("exists(/catalog//(@id,@uuid))"),
+    // evaluatePath(IMetapathExpression.compile("exists(/catalog//(@id,@uuid))"),
     // nodeItem,
     // dynamicContext);
-    // evaluatePath(MetapathExpression.compile("/catalog//control//prop/@name"),
+    // evaluatePath(IMetapathExpression.compile("/catalog//control//prop/@name"),
     // nodeItem,
     // dynamicContext);
     // evaluatePath(Metapath.parseMetapathString("(/catalog//control[@id='ac-1'])"),
@@ -99,7 +99,7 @@ class MetaschemaVisitorTest {
     // dynamicContext);
   }
 
-  private static void evaluatePath(@NonNull MetapathExpression path, @NonNull IItem nodeContext,
+  private static void evaluatePath(@NonNull IMetapathExpression path, @NonNull IItem nodeContext,
       @NonNull DynamicContext dynamicContext) {
     // System.out.println("Path: " + path.getPath());
     // System.out.println("Compiled Path: " + path.toString());
