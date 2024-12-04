@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.support;
 
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
@@ -34,12 +34,12 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 public abstract class AbstractCatalogEntityVisitor<T, R>
     extends AbstractCatalogVisitor<T, R> {
   @NonNull
-  public static final MetapathExpression CHILD_PART_METAPATH
-      = MetapathExpression.compile("part|part//part",
+  public static final IMetapathExpression CHILD_PART_METAPATH
+      = IMetapathExpression.compile("part|part//part",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression BACK_MATTER_RESOURCES_METAPATH
-      = MetapathExpression.compile("back-matter/resource",
+  private static final IMetapathExpression BACK_MATTER_RESOURCES_METAPATH
+      = IMetapathExpression.compile("back-matter/resource",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
   private static final Set<IEntityItem.ItemType> GROUP_CONTAINER_TYPES

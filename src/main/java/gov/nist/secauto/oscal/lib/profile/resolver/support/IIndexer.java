@@ -5,8 +5,8 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.support;
 
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression.ResultType;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression.ResultType;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
 import gov.nist.secauto.metaschema.core.util.CustomCollectors;
@@ -38,7 +38,7 @@ public interface IIndexer {
     UNKNOWN;
   }
 
-  MetapathExpression HAS_PROP_KEEP_METAPATH = MetapathExpression.compile(
+  IMetapathExpression HAS_PROP_KEEP_METAPATH = IMetapathExpression.compile(
       "prop[@name='keep' and has-oscal-namespace('" + IProperty.OSCAL_NAMESPACE + "')]/@value = 'always'",
       OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 

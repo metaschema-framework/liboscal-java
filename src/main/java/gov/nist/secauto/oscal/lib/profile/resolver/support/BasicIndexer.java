@@ -6,8 +6,8 @@
 package gov.nist.secauto.oscal.lib.profile.resolver.support;
 
 import gov.nist.secauto.metaschema.core.datatype.adapter.UuidAdapter;
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression.ResultType;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression.ResultType;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
@@ -41,8 +41,8 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 public class BasicIndexer implements IIndexer {
   private static final Logger LOGGER = LogManager.getLogger(ProfileResolver.class);
-  private static final MetapathExpression CONTAINER_METAPATH
-      = MetapathExpression.compile("(ancestor::control|ancestor::group)[1]",
+  private static final IMetapathExpression CONTAINER_METAPATH
+      = IMetapathExpression.compile("(ancestor::control|ancestor::group)[1]",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
   @NonNull

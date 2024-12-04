@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.selection;
 
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
 import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
@@ -24,7 +24,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class ControlSelectionState implements IControlSelectionState {
-  private static final MetapathExpression GROUP_CHILDREN = MetapathExpression.compile(
+  private static final IMetapathExpression GROUP_CHILDREN = IMetapathExpression.compile(
       "group|descendant::control",
       OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
@@ -86,9 +86,7 @@ public class ControlSelectionState implements IControlSelectionState {
       } else if (itemValue instanceof CatalogGroup) {
         // get control selection status
         boolean selected = GROUP_CHILDREN.evaluate(item).stream()
-            .map(child -> {
-              return getSelectionState((IModelNodeItem<?, ?>) ObjectUtils.requireNonNull(child)).isSelected();
-            })
+            .map(child -> getSelectionState((IModelNodeItem<?, ?>) ObjectUtils.requireNonNull(child)).isSelected())
             .reduce(false, (first, second) -> first || second);
 
         retval = new SelectionState(selected, false);

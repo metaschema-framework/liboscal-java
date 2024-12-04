@@ -11,7 +11,7 @@ import com.vladsch.flexmark.util.ast.Node;
 import gov.nist.secauto.metaschema.core.datatype.markup.IMarkupString;
 import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
 import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
 import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
 import gov.nist.secauto.metaschema.core.metapath.item.atomic.IMarkupItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
@@ -59,26 +59,26 @@ public final class ReferenceCountingVisitor
   private static final ReferenceCountingVisitor SINGLETON = new ReferenceCountingVisitor();
 
   @NonNull
-  private static final MetapathExpression PARAM_MARKUP_METAPATH
-      = MetapathExpression
+  private static final IMetapathExpression PARAM_MARKUP_METAPATH
+      = IMetapathExpression
           .compile(
               "label|usage|constraint/(description|tests/remarks)|guideline/prose|select/choice|remarks",
               OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression ROLE_MARKUP_METAPATH
-      = MetapathExpression.compile("title|description|remarks",
+  private static final IMetapathExpression ROLE_MARKUP_METAPATH
+      = IMetapathExpression.compile("title|description|remarks",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression LOCATION_MARKUP_METAPATH
-      = MetapathExpression.compile("title|remarks",
+  private static final IMetapathExpression LOCATION_MARKUP_METAPATH
+      = IMetapathExpression.compile("title|remarks",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression PARTY_MARKUP_METAPATH
-      = MetapathExpression.compile("title|remarks",
+  private static final IMetapathExpression PARTY_MARKUP_METAPATH
+      = IMetapathExpression.compile("title|remarks",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
   @NonNull
-  private static final MetapathExpression RESOURCE_MARKUP_METAPATH
-      = MetapathExpression.compile("title|description|remarks",
+  private static final IMetapathExpression RESOURCE_MARKUP_METAPATH
+      = IMetapathExpression.compile("title|description|remarks",
           OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
   @NonNull
