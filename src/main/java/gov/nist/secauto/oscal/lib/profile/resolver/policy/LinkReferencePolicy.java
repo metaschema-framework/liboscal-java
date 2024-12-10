@@ -59,7 +59,7 @@ public class LinkReferencePolicy
     URI linkHref = link.getHref();
     URI sourceUri = item.getSource();
 
-    URI resolved = sourceUri.resolve(linkHref);
+    URI resolved = visitorContext.getUriResolver().resolve(linkHref, sourceUri);
     if (LOGGER.isTraceEnabled()) {
       LOGGER.atTrace().log("At path '{}', remapping orphaned URI '{}' to '{}'",
           contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),
