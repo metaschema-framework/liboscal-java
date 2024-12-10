@@ -47,8 +47,10 @@ class FilterNonSelectedVisitorTest {
     ControlSelectionVisitor.instance().visitCatalog(importedCatalogDocumentItem, state);
 
     // setup reference counting
-    ReferenceCountingVisitor.instance().visitCatalog(importedCatalogDocumentItem, indexer,
-        importedCatalogDocumentItem.getBaseUri());
+    ReferenceCountingVisitor.instance().visitCatalog(
+        importedCatalogDocumentItem,
+        indexer,
+        (uri, src) -> importedCatalogDocumentItem.getBaseUri().resolve(uri));
 
     FilterNonSelectedVisitor.instance().visitCatalog(importedCatalogDocumentItem, indexer);
 

@@ -78,6 +78,7 @@ public interface IEntityItem {
   @NonNull
   ItemType getItemType();
 
+  @NonNull
   URI getSource();
 
   int getReferenceCount();

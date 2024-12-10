@@ -88,7 +88,10 @@ class ImportTest {
               .map(item -> (IAssemblyNodeItem) item))) {
 
         Import catalogImport = new Import(profileRootItem, importItem);
-        catalogImport.resolve(importedCatalogDocumentItem, resolvedCatalog);
+        catalogImport.resolve(
+            importedCatalogDocumentItem,
+            resolvedCatalog,
+            (uri, src) -> importedCatalogDocumentItem.getBaseUri().resolve(uri));
       }
 
     }

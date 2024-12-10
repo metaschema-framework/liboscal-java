@@ -12,6 +12,7 @@ import com.vladsch.flexmark.util.sequence.CharSubSequence;
 import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
 import gov.nist.secauto.metaschema.core.util.CustomCollectors;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;
 
 import org.apache.logging.log4j.LogManager;
@@ -57,10 +58,10 @@ public class AnchorReferencePolicy
       @NonNull InlineLinkNode link,
       @NonNull IEntityItem item,
       @NonNull ReferenceCountingVisitor.Context visitorContext) {
-    URI linkHref = URI.create(link.getUrl().toString());
+    URI linkHref = ObjectUtils.notNull(URI.create(link.getUrl().toString()));
     URI sourceUri = item.getSource();
 
-    URI resolved = sourceUri.resolve(linkHref);
+    URI resolved = visitorContext.getUriResolver().resolve(linkHref, sourceUri);
     if (LOGGER.isTraceEnabled()) {
       LOGGER.atTrace().log("At path '{}', remapping orphaned URI '{}' to '{}'",
           contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),

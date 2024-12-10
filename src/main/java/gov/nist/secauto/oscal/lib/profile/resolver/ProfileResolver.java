@@ -120,13 +120,18 @@ public class ProfileResolver {
 
   @NonNull
   private final DynamicContext dynamicContext;
+  @NonNull
+  private final UriResolver uriResolver;
 
   public ProfileResolver() {
-    this(newDynamicContext());
+    this(newDynamicContext(), (uri, source) -> source.resolve(uri));
   }
 
-  public ProfileResolver(@NonNull DynamicContext dynamicContext) {
+  public ProfileResolver(
+      @NonNull DynamicContext dynamicContext,
+      @NonNull UriResolver uriResolver) {
     this.dynamicContext = dynamicContext;
+    this.uriResolver = uriResolver;
   }
 
   @NonNull
@@ -270,7 +275,7 @@ public class ProfileResolver {
     return (Profile) object;
   }
 
-  private static void generateMetadata(
+  private void generateMetadata(
       @NonNull Catalog resolvedCatalog,
       @NonNull IRootAssemblyNodeItem profileItem) {
     resolvedCatalog.setUuid(UUID.randomUUID());
@@ -292,8 +297,11 @@ public class ProfileResolver {
 
     resolvedMetadata.addProp(AbstractProperty.builder("resolution-tool").value("libOSCAL-Java").build());
 
-    URI profileUri = ObjectUtils.requireNonNull(profileItem.getParentNodeItem().getDocumentUri());
-    resolvedMetadata.addLink(AbstractLink.builder(profileUri).relation("source-profile").build());
+    URI documentUri = profileItem.getParentNodeItem().getDocumentUri();
+    URI profileUri = ObjectUtils.requireNonNull(uriResolver.resolve(documentUri, documentUri));
+    resolvedMetadata.addLink(AbstractLink.builder(profileUri)
+        .relation("source-profile")
+        .build());
 
     resolvedCatalog.setMetadata(resolvedMetadata);
   }
@@ -371,14 +379,15 @@ public class ProfileResolver {
       try {
         IRootAssemblyNodeItem importedCatalogRoot = ObjectUtils.requireNonNull(getRoot(importedCatalog, CATALOG));
         Catalog catalogCopy = (Catalog) OscalBindingContext.instance().deepCopy(
-            (IBoundObject) ObjectUtils.requireNonNull(importedCatalogRoot).getValue(), null);
+            (IBoundObject) ObjectUtils.requireNonNull(importedCatalogRoot).getValue(),
+            null);
 
         importedCatalog = INodeItemFactory.instance().newDocumentNodeItem(
             importedCatalogRoot.getDefinition(),
             ObjectUtils.requireNonNull(importedCatalog.getDocumentUri()),
             catalogCopy);
 
-        return new Import(profileItem, profileImportItem).resolve(importedCatalog, resolvedCatalog);
+        return new Import(profileItem, profileImportItem).resolve(importedCatalog, resolvedCatalog, uriResolver);
       } catch (BindingException ex) {
         throw new IOException(ex);
       }
@@ -547,7 +556,7 @@ public class ProfileResolver {
         ObjectUtils.requireNonNull(profileItem.getBaseUri()),
         resolvedCatalog);
 
-    FlatteningStructuringVisitor.instance().visitCatalog(resolvedCatalogItem, importIndex);
+    new FlatteningStructuringVisitor(uriResolver).visitCatalog(resolvedCatalogItem, importIndex);
   }
 
   @SuppressWarnings("PMD.ExceptionAsFlowControl") // ok
@@ -739,4 +748,9 @@ public class ProfileResolver {
     index.append(profileIndex);
   }
 
+  @FunctionalInterface
+  public interface UriResolver {
+    @NonNull
+    URI resolve(@NonNull URI uri, @NonNull URI source);
+  }
 }
