@@ -141,7 +141,11 @@ public final class ResolveProfile {
       try {
         retval = resolver.resolve(profile);
       } catch (IOException | ProfileResolutionException ex) {
-        throw new MetapathException(String.format("Fun: Unable to resolve profile '%s'", profile.getBaseUri()), ex);
+        throw new MetapathException(
+            String.format("Unable to resolve profile '%s'. %s",
+                profile.getBaseUri(),
+                ex.getLocalizedMessage()),
+            ex);
       }
     }
     return retval;
