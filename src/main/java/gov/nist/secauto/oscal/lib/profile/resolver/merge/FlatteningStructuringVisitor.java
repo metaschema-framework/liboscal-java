@@ -17,6 +17,7 @@ import gov.nist.secauto.oscal.lib.model.Metadata.Location;
 import gov.nist.secauto.oscal.lib.model.Metadata.Party;
 import gov.nist.secauto.oscal.lib.model.Metadata.Role;
 import gov.nist.secauto.oscal.lib.model.Parameter;
+import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolver;
 import gov.nist.secauto.oscal.lib.profile.resolver.policy.ReferenceCountingVisitor;
 import gov.nist.secauto.oscal.lib.profile.resolver.selection.DefaultResult;
 import gov.nist.secauto.oscal.lib.profile.resolver.selection.FilterNonSelectedVisitor;
@@ -26,7 +27,6 @@ import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer.SelectionStatus;
 
-import java.net.URI;
 import java.util.EnumSet;
 import java.util.UUID;
 
@@ -35,17 +35,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class FlatteningStructuringVisitor
     extends AbstractCatalogEntityVisitor<IIndexer, Void> {
-  private static final FlatteningStructuringVisitor SINGLETON = new FlatteningStructuringVisitor();
+  @NonNull
+  private final ProfileResolver.UriResolver uriResolver;
 
-  @SuppressFBWarnings(value = "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", justification = "class initialization")
-  public static FlatteningStructuringVisitor instance() {
-    return SINGLETON;
-  }
-
-  @SuppressFBWarnings(value = "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR",
-      justification = "public constructor allows for extension usecases")
-  public FlatteningStructuringVisitor() {
+  public FlatteningStructuringVisitor(@NonNull ProfileResolver.UriResolver uriResolver) {
     super(ObjectUtils.notNull(EnumSet.of(ItemType.GROUP, ItemType.CONTROL)));
+    this.uriResolver = uriResolver;
   }
 
   @Override
@@ -75,8 +70,7 @@ public class FlatteningStructuringVisitor
     }
 
     // process references, looking for orphaned links to groups
-    URI catalogUri = ObjectUtils.requireNonNull(catalogItem.getDocumentUri());
-    ReferenceCountingVisitor.instance().visitCatalog(catalogItem, index, catalogUri);
+    ReferenceCountingVisitor.instance().visitCatalog(catalogItem, index, uriResolver);
 
     FlatteningFilterNonSelectedVisitor.instance().visitCatalog(catalogItem, index);
     return null;

@@ -47,7 +47,10 @@ class ReferenceCountingVisitorTest {
 
     // setup reference counting
     ReferenceCountingVisitor.instance()
-        .visitCatalog(importedCatalogDocumentItem, indexer, importedCatalogDocumentItem.getBaseUri());
+        .visitCatalog(
+            importedCatalogDocumentItem,
+            indexer,
+            (uri, src) -> importedCatalogDocumentItem.getBaseUri().resolve(uri));
 
     IIndexer.logIndex(indexer, Level.DEBUG);
 
