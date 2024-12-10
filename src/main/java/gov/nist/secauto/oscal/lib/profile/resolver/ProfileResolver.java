@@ -439,12 +439,17 @@ public class ProfileResolver {
       URI uri = rlink == null ? null : rlink.getHref();
 
       if (uri == null) {
-        throw new IOException(String.format("unable to determine URI for resource '%s'", resource.getUuid()));
+        throw new IOException(
+            String.format("Unable to determine URI for resource '%s'.", resource.getUuid()));
       }
 
       uri = baseUri.resolve(uri);
       assert uri != null;
-      retval = loader.loadAsNodeItem(uri);
+      try {
+        retval = loader.loadAsNodeItem(uri);
+      } catch (IOException ex) {
+        throw new IOException(String.format("Unable to load resource '%s'.", uri), ex);
+      }
     }
     return retval;
   }
