@@ -269,7 +269,6 @@ public class FilterNonSelectedVisitor
     private final IIndexer indexer;
 
     private Context(@NonNull IIndexer indexer) {
-      super();
       this.indexer = indexer;
     }
 
