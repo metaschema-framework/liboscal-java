@@ -81,6 +81,7 @@ public class DefaultResult implements IResult {
     if (LOGGER.isDebugEnabled()) {
       LOGGER.atDebug().log("promoting control '{}'", control.getId());
     }
+    // promote
     promotedControls.get().add(control);
   }
 
@@ -90,6 +91,7 @@ public class DefaultResult implements IResult {
     getPromotedParameters().forEach(param -> parent.addParam(ObjectUtils.notNull(param)));
     getPromotedControls().forEach(control -> {
       assert control != null;
+      // add promoted control
       parent.addControl(control);
       control.setParentControl(null);
     });

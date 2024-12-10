@@ -5,6 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -234,5 +235,15 @@ class ProfileResolutionTests {
     Catalog resolvedCatalog = resolveProfile(url);
 
     assertNotNull(resolvedCatalog);
+  }
+
+  @Test
+  void testMultipleImports() throws IOException, ProfileResolutionException, URISyntaxException {
+    File file = new File("src/test/resources/content/oscal-cli-60-profile.json");
+    Catalog resolvedCatalog = resolveProfile(file);
+    assertAll(
+        () -> assertNotNull(resolvedCatalog),
+        () -> assertEquals(1,
+            resolvedCatalog.getControls().stream().filter(control -> "sc-19".equals(control.getId())).count()));
   }
 }
