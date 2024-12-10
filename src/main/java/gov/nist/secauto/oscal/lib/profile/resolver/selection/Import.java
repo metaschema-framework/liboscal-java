@@ -27,6 +27,7 @@ import gov.nist.secauto.oscal.lib.model.Parameter;
 import gov.nist.secauto.oscal.lib.model.ProfileImport;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionException;
+import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolver.UriResolver;
 import gov.nist.secauto.oscal.lib.profile.resolver.policy.ReferenceCountingVisitor;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.BasicIndexer;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;
@@ -85,7 +86,10 @@ public class Import {
   }
 
   @NonNull
-  public IIndexer resolve(@NonNull IDocumentNodeItem importedCatalogDocument, @NonNull Catalog resolvedCatalog)
+  public IIndexer resolve(
+      @NonNull IDocumentNodeItem importedCatalogDocument,
+      @NonNull Catalog resolvedCatalog,
+      @NonNull UriResolver uriResolver)
       throws ProfileResolutionException {
     ProfileImport profileImport = getProfileImport();
     URI uri = ObjectUtils.requireNonNull(profileImport.getHref(), "profile import href is null");
@@ -99,7 +103,7 @@ public class Import {
       ControlSelectionVisitor.instance().visitCatalog(importedCatalogDocument, state);
 
       // process references
-      ReferenceCountingVisitor.instance().visitCatalog(importedCatalogDocument, indexer, uri);
+      ReferenceCountingVisitor.instance().visitCatalog(importedCatalogDocument, indexer, uriResolver);
 
       // filter based on selections
       FilterNonSelectedVisitor.instance().visitCatalog(importedCatalogDocument, indexer);

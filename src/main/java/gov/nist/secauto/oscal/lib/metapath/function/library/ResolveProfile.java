@@ -137,7 +137,8 @@ public final class ResolveProfile {
       retval = profile;
     } else {
       // this is a profile
-      ProfileResolver resolver = new ProfileResolver(dynamicContext);
+      ProfileResolver resolver
+          = new ProfileResolver(dynamicContext, (uri, source) -> profile.getDocumentUri().resolve(uri));
       try {
         retval = resolver.resolve(profile);
       } catch (IOException | ProfileResolutionException ex) {

@@ -30,6 +30,7 @@ import gov.nist.secauto.oscal.lib.model.Link;
 import gov.nist.secauto.oscal.lib.model.Property;
 import gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;
 import gov.nist.secauto.oscal.lib.model.metadata.IProperty;
+import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolver.UriResolver;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.AbstractCatalogEntityVisitor;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer;
@@ -37,7 +38,6 @@ import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.net.URI;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -165,8 +165,11 @@ public final class ReferenceCountingVisitor
   // }
   // }
 
-  public void visitCatalog(@NonNull IDocumentNodeItem catalogItem, @NonNull IIndexer indexer, @NonNull URI baseUri) {
-    Context context = new Context(indexer, baseUri);
+  public void visitCatalog(
+      @NonNull IDocumentNodeItem catalogItem,
+      @NonNull IIndexer indexer,
+      @NonNull UriResolver resolver) {
+    Context context = new Context(indexer, resolver);
     visitCatalog(catalogItem, context);
 
     IIndexer index = context.getIndexer();
@@ -568,13 +571,13 @@ public final class ReferenceCountingVisitor
     @NonNull
     private final IIndexer indexer;
     @NonNull
-    private final URI source;
+    private final UriResolver resolver;
     @NonNull
     private final Set<IEntityItem> resolvedEntities = new HashSet<>();
 
-    private Context(@NonNull IIndexer indexer, @NonNull URI source) {
+    private Context(@NonNull IIndexer indexer, @NonNull UriResolver resolver) {
       this.indexer = indexer;
-      this.source = source;
+      this.resolver = resolver;
     }
 
     @NonNull
@@ -583,15 +586,14 @@ public final class ReferenceCountingVisitor
       return indexer;
     }
 
+    @NonNull
+    public UriResolver getUriResolver() {
+      return resolver;
+    }
+
     @Nullable
     public IEntityItem getEntity(@NonNull IEntityItem.ItemType itemType, @NonNull String identifier) {
       return getIndexer().getEntity(itemType, identifier);
-    }
-
-    @SuppressWarnings("unused")
-    @NonNull
-    private URI getSource() {
-      return source;
     }
 
     public void markResolved(@NonNull IEntityItem entity) {

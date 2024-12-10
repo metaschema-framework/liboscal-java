@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.metaschema.databind.io.DefaultBoundLoader;
 import gov.nist.secauto.metaschema.databind.io.Format;
 import gov.nist.secauto.metaschema.databind.io.ISerializer;
@@ -40,6 +41,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -58,16 +60,11 @@ class ProfileResolutionTests {
   private static final String JUNIT_TEST_PATH = "src/test/resources";
   private static final String PROFILE_EXPECTED_PATH = PROFILE_UNIT_TEST_PATH + "/output-expected";
 
-  private static ProfileResolver profileResolver;
   private static Processor processor;
   private static XsltExecutable compairisonXslt;
 
   @BeforeAll
   static void setup() throws SaxonApiException {
-    DynamicContext context = new DynamicContext(OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
-    context.setDocumentLoader(new DefaultBoundLoader(OscalBindingContext.instance()));
-    profileResolver = new ProfileResolver(context);
-
     processor = new Processor(false);
     XsltCompiler comp = processor.newXsltCompiler();
     compairisonXslt = comp.compile(new StreamSource(new File(XSLT_PATH)));
@@ -81,23 +78,26 @@ class ProfileResolutionTests {
     return compairisonXslt;
   }
 
-  public static ProfileResolver getProfileResolver() {
-    return profileResolver;
+  public static ProfileResolver newProfileResolver(@NonNull URI baseUri) {
+    DynamicContext context = new DynamicContext(OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
+    context.setDocumentLoader(new DefaultBoundLoader(OscalBindingContext.instance()));
+    return new ProfileResolver(context, (uri, src) -> baseUri.resolve(uri));
   }
 
-  private static Catalog resolveProfile(@NonNull Path profileFile)
-      throws FileNotFoundException, IOException, ProfileResolutionException {
-    return (Catalog) INodeItem.toValue(getProfileResolver().resolve(profileFile));
+  private static Catalog resolveProfile(@NonNull Path profilePath)
+      throws FileNotFoundException, IOException, ProfileResolutionException, URISyntaxException {
+    return resolveProfile(ObjectUtils.notNull(profilePath.toUri().toURL()));
   }
 
   private static Catalog resolveProfile(@NonNull File profileFile)
-      throws FileNotFoundException, IOException, ProfileResolutionException {
-    return (Catalog) INodeItem.toValue(getProfileResolver().resolve(profileFile));
+      throws FileNotFoundException, IOException, ProfileResolutionException, URISyntaxException {
+    return resolveProfile(ObjectUtils.notNull(profileFile.toURI().toURL()));
   }
 
   private static Catalog resolveProfile(@NonNull URL profileUrl)
       throws IOException, ProfileResolutionException, URISyntaxException {
-    return (Catalog) INodeItem.toValue(getProfileResolver().resolve(profileUrl));
+    return (Catalog) INodeItem.toValue(
+        newProfileResolver(ObjectUtils.notNull(profileUrl.toURI())).resolve(profileUrl));
   }
 
   /**
@@ -125,16 +125,16 @@ class ProfileResolutionTests {
 
   @ParameterizedTest
   @CsvFileSource(resources = "/profile-tests.csv", numLinesToSkip = 1)
-  void test(String profileName) throws IOException, SaxonApiException {
+  void test(String profileName) throws IOException, SaxonApiException, URISyntaxException {
     performTest(profileName);
   }
 
   @Test
-  void testSingle() throws IOException, SaxonApiException {
+  void testSingle() throws IOException, SaxonApiException, URISyntaxException {
     performTest("modify-adds");
   }
 
-  void performTest(String profileName) throws IOException, SaxonApiException {
+  void performTest(String profileName) throws IOException, SaxonApiException, URISyntaxException {
     String profileLocation = String.format("%s/%s_profile.xml", PROFILE_UNIT_TEST_PATH, profileName);
 
     File profileFile = new File(profileLocation);
@@ -200,7 +200,7 @@ class ProfileResolutionTests {
   }
 
   @Test
-  void testOscalVersion() throws IOException, ProfileResolutionException {
+  void testOscalVersion() throws IOException, ProfileResolutionException, URISyntaxException {
     Path profileFile = Paths.get(JUNIT_TEST_PATH, "content/test-oscal-version-profile.xml");
     assert profileFile != null;
     Catalog catalog = resolveProfile(profileFile);
@@ -209,7 +209,7 @@ class ProfileResolutionTests {
   }
 
   @Test
-  void testImportResourceRelativeLink() throws IOException, ProfileResolutionException {
+  void testImportResourceRelativeLink() throws IOException, ProfileResolutionException, URISyntaxException {
     Path profilePath = Paths.get(JUNIT_TEST_PATH, "content/profile-relative-links-resource.xml");
     assert profilePath != null;
     Catalog resolvedCatalog = resolveProfile(profilePath);
