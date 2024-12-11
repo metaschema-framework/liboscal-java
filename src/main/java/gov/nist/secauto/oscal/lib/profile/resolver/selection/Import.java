@@ -32,6 +32,7 @@ import gov.nist.secauto.oscal.lib.profile.resolver.policy.ReferenceCountingVisit
 import gov.nist.secauto.oscal.lib.profile.resolver.support.BasicIndexer;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer;
+import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer.SelectionStatus;
 
 import java.net.URI;
 import java.util.LinkedList;
@@ -97,6 +98,9 @@ public class Import {
     // determine which controls and groups to keep
     IControlFilter filter = newControlFilter();
     IIndexer indexer = newIndexer();
+    // the catalog is always selected. This ensures that controls defined at the
+    // catalog level are kept and not duplicated
+    indexer.setSelectionStatus(importedCatalogDocument.getRootAssemblyNodeItem(), SelectionStatus.SELECTED);
     IControlSelectionState state = new ControlSelectionState(indexer, filter);
 
     try {
