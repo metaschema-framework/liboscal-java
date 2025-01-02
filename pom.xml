@@ -99,7 +99,7 @@
 		<dependency.infinispan.version>13.0.10.Final</dependency.infinispan.version>
 		<dependency.jmock-junit5.version>2.13.1</dependency.jmock-junit5.version>
 		<dependency.lazy4j.version>2.0.0</dependency.lazy4j.version>
-		<dependency.log4j2.version>2.24.2</dependency.log4j2.version>
+		<dependency.log4j2.version>2.24.3</dependency.log4j2.version>
 		<dependency.saxon.version>12.5</dependency.saxon.version>
 		<dependency.spotbugs-annotations.version>4.8.6</dependency.spotbugs-annotations.version>
 		<dependency.xmlbeans.version>5.3.0</dependency.xmlbeans.version>
