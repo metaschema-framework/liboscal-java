@@ -51,11 +51,14 @@ public class AllowedValueCollectingNodeItemVisitor
     visitMetaschema(module, context);
   }
 
-  private void handleAllowedValuesAtLocation(@NonNull IDefinitionNodeItem<?, ?> itemLocation, DynamicContext context) {
+  private void handleAllowedValuesAtLocation(
+      @NonNull IDefinitionNodeItem<?, ?> itemLocation,
+      @NonNull DynamicContext context) {
     itemLocation.getDefinition().getAllowedValuesConstraints().stream()
         .forEachOrdered(allowedValues -> {
           ISequence<?> result = allowedValues.getTarget().evaluate(itemLocation, context);
           result.stream().forEachOrdered(target -> {
+            assert target != null;
             handleAllowedValues(allowedValues, itemLocation, (IDefinitionNodeItem<?, ?>) target);
           });
         });
@@ -77,18 +80,21 @@ public class AllowedValueCollectingNodeItemVisitor
 
   @Override
   public Void visitFlag(IFlagNodeItem item, DynamicContext context) {
+    assert context != null;
     handleAllowedValuesAtLocation(item, context);
     return super.visitFlag(item, context);
   }
 
   @Override
   public Void visitField(IFieldNodeItem item, DynamicContext context) {
+    assert context != null;
     handleAllowedValuesAtLocation(item, context);
     return super.visitField(item, context);
   }
 
   @Override
   public Void visitAssembly(IAssemblyNodeItem item, DynamicContext context) {
+    assert context != null;
     handleAllowedValuesAtLocation(item, context);
 
     return super.visitAssembly(item, context);

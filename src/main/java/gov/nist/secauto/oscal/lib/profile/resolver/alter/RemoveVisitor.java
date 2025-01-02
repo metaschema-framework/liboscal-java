@@ -450,7 +450,7 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
           Property prop = (Property) obj;
           actualName = prop.getName();
           actualClass = prop.getClazz();
-          actualNamespace = prop.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : prop.getNs().toString();
+          actualNamespace = IProperty.normalizeNamespace(prop.getNs()).toASCIIString();
           break;
         }
         case PART: {
@@ -461,7 +461,7 @@ public class RemoveVisitor implements ICatalogVisitor<Boolean, RemoveVisitor.Con
           if (partId != null) {
             actualId = partId;
           }
-          actualNamespace = part.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();
+          actualNamespace = IProperty.normalizeNamespace(part.getNs()).toASCIIString();
           break;
         }
         case LINK:
