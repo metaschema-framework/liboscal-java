@@ -379,7 +379,7 @@ public class ProfileResolver {
       try {
         IRootAssemblyNodeItem importedCatalogRoot = ObjectUtils.requireNonNull(getRoot(importedCatalog, CATALOG));
         Catalog catalogCopy = (Catalog) OscalBindingContext.instance().deepCopy(
-            (IBoundObject) ObjectUtils.requireNonNull(importedCatalogRoot).getValue(),
+            ObjectUtils.requireNonNull((IBoundObject) importedCatalogRoot.getValue()),
             null);
 
         importedCatalog = INodeItemFactory.instance().newDocumentNodeItem(

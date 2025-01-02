@@ -342,7 +342,7 @@ public final class ReferenceCountingVisitor
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
     item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    ROLE_MARKUP_METAPATH.evaluate(item).getValue()
+    ROLE_MARKUP_METAPATH.evaluate(item)
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 
@@ -352,7 +352,7 @@ public final class ReferenceCountingVisitor
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
     item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    PARTY_MARKUP_METAPATH.evaluate(item).getValue()
+    PARTY_MARKUP_METAPATH.evaluate(item)
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 
@@ -362,7 +362,7 @@ public final class ReferenceCountingVisitor
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
     item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    LOCATION_MARKUP_METAPATH.evaluate(item).getValue()
+    LOCATION_MARKUP_METAPATH.evaluate(item)
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 
@@ -383,7 +383,7 @@ public final class ReferenceCountingVisitor
       }
     });
 
-    RESOURCE_MARKUP_METAPATH.evaluate(item).getValue()
+    RESOURCE_MARKUP_METAPATH.evaluate(item)
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 
@@ -394,7 +394,7 @@ public final class ReferenceCountingVisitor
         .forEach(child -> handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
     item.getModelItemsByName(OscalModelConstants.QNAME_LINK)
         .forEach(child -> handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));
-    PARAM_MARKUP_METAPATH.evaluate(item).getValue()
+    PARAM_MARKUP_METAPATH.evaluate(item)
         .forEach(child -> handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));
   }
 

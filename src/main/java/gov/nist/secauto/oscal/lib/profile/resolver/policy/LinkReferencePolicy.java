@@ -9,6 +9,7 @@ import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.metaschema.core.util.CustomCollectors;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.model.Link;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;
 
@@ -59,7 +60,7 @@ public class LinkReferencePolicy
     URI linkHref = link.getHref();
     URI sourceUri = item.getSource();
 
-    URI resolved = visitorContext.getUriResolver().resolve(linkHref, sourceUri);
+    URI resolved = visitorContext.getUriResolver().resolve(ObjectUtils.requireNonNull(linkHref), sourceUri);
     if (LOGGER.isTraceEnabled()) {
       LOGGER.atTrace().log("At path '{}', remapping orphaned URI '{}' to '{}'",
           contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),

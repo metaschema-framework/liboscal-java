@@ -24,7 +24,7 @@ import gov.nist.secauto.metaschema.core.model.IFlagInstance;
 import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.OscalModelConstants;
-import gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;
+import gov.nist.secauto.oscal.lib.model.metadata.IProperty;
 
 import java.net.URI;
 import java.util.List;
@@ -201,7 +201,7 @@ public final class HasOscalNamespace {
       nodeNamespace = IAnyUriItem.cast(ObjectUtils.notNull(ns.toAtomicItem())).asUri();
     }
 
-    String nodeNamespaceString = AbstractProperty.normalizeNamespace(nodeNamespace).toString();
+    String nodeNamespaceString = IProperty.normalizeNamespace(nodeNamespace).toString();
     return IBooleanItem.valueOf(namespaces.stream()
         .map(node -> nodeNamespaceString.equals(node.asString()))
         .anyMatch(bool -> bool));

@@ -7,6 +7,7 @@ package gov.nist.secauto.oscal.lib.model.metadata;
 
 import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.model.Property;
 
 import java.net.URI;
@@ -23,22 +24,13 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 public abstract class AbstractProperty implements IProperty {
 
   @NonNull
-  public static IEnhancedQName qname(URI namespace, @NonNull String name) {
-    return IEnhancedQName.of(normalizeNamespace(namespace).toASCIIString(), name);
+  public static IEnhancedQName qname(@NonNull URI namespace, @NonNull String name) {
+    return IEnhancedQName.of(ObjectUtils.notNull(namespace.toASCIIString()), name);
   }
 
   @NonNull
   public static IEnhancedQName qname(@NonNull String name) {
-    return IEnhancedQName.of(OSCAL_NAMESPACE.toString(), name);
-  }
-
-  @NonNull
-  public static URI normalizeNamespace(URI namespace) {
-    URI retval = namespace;
-    if (retval == null) {
-      retval = OSCAL_NAMESPACE;
-    }
-    return retval;
+    return IEnhancedQName.of(ObjectUtils.notNull(IProperty.normalizeNamespace(null).toASCIIString()), name);
   }
 
   @SuppressWarnings("null")
@@ -58,12 +50,14 @@ public abstract class AbstractProperty implements IProperty {
 
   @Override
   public boolean isNamespaceEqual(@NonNull URI namespace) {
-    return normalizeNamespace(getNs()).equals(namespace);
+    return IProperty.normalizeNamespace(getNs()).equals(namespace);
   }
 
   @NonNull
   public IEnhancedQName getQName() {
-    return qname(getNs(), getName());
+    return qname(
+        IProperty.normalizeNamespace(getNs()),
+        ObjectUtils.requireNonNull(getName()));
   }
 
   @NonNull
