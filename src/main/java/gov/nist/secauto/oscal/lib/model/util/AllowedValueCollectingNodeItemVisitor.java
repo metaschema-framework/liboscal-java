@@ -6,7 +6,6 @@
 package gov.nist.secauto.oscal.lib.model.util;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
 import gov.nist.secauto.metaschema.core.metapath.StaticContext;
 import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
 import gov.nist.secauto.metaschema.core.metapath.item.node.AbstractRecursionPreventingNodeItemVisitor;
@@ -55,10 +54,7 @@ public class AllowedValueCollectingNodeItemVisitor
   private void handleAllowedValuesAtLocation(@NonNull IDefinitionNodeItem<?, ?> itemLocation, DynamicContext context) {
     itemLocation.getDefinition().getAllowedValuesConstraints().stream()
         .forEachOrdered(allowedValues -> {
-          String metapath = allowedValues.getTarget();
-
-          ISequence<?> result = IMetapathExpression.compile(metapath, context.getStaticContext())
-              .evaluate(itemLocation, context);
+          ISequence<?> result = allowedValues.getTarget().evaluate(itemLocation, context);
           result.stream().forEachOrdered(target -> {
             handleAllowedValues(allowedValues, itemLocation, (IDefinitionNodeItem<?, ?>) target);
           });

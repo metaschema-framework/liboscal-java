@@ -98,6 +98,7 @@
 		<dependency.commons-lang3.version>3.17.0</dependency.commons-lang3.version>
 		<dependency.infinispan.version>13.0.10.Final</dependency.infinispan.version>
 		<dependency.jmock-junit5.version>2.13.1</dependency.jmock-junit5.version>
+		<dependency.lazy4j.version>2.0.0</dependency.lazy4j.version>
 		<dependency.log4j2.version>2.24.2</dependency.log4j2.version>
 		<dependency.saxon.version>12.5</dependency.saxon.version>
 		<dependency.spotbugs-annotations.version>4.8.6</dependency.spotbugs-annotations.version>
@@ -244,7 +245,11 @@
 			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
-
+        <dependency>
+            <groupId>nl.talsmasoftware</groupId>
+            <artifactId>lazy4j</artifactId>
+            <version>${dependency.lazy4j.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
