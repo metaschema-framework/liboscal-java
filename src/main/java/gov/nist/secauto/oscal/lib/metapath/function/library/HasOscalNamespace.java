@@ -35,7 +35,8 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class HasOscalNamespace {
   @NonNull
-  private static final QName NS_FLAG_QNAME = new QName("ns");
+  private static final String NS_FLAG_NAME = "ns";
+
   @NonNull
   static final IFunction SIGNATURE_ONE_ARG = IFunction.builder()
       .name("has-oscal-namespace")
@@ -180,11 +181,11 @@ public final class HasOscalNamespace {
 
     URI nodeNamespace = null;
     // get the "ns" flag value
-    IFlagNodeItem ns = propOrPart.getFlagByName(NS_FLAG_QNAME);
+    IFlagNodeItem ns = propOrPart.getFlagByName(NS_FLAG_NAME);
     if (ns == null) {
       // check if the node actually has a "ns" flag
       IAssemblyDefinition definition = propOrPart.getDefinition();
-      IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_QNAME);
+      IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_NAME);
       if (flag == null) {
         throw new MetapathException(
             String.format(
