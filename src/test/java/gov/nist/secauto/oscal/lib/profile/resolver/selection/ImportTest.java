@@ -5,10 +5,18 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.selection;
 
+import java.net.URI;
+import java.nio.file.Paths;
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItemFactory;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
+import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.metaschema.databind.model.IBoundDefinitionModelAssembly;
@@ -21,14 +29,6 @@ import gov.nist.secauto.oscal.lib.model.ProfileImport;
 import gov.nist.secauto.oscal.lib.model.control.catalog.AbstractControl;
 import gov.nist.secauto.oscal.lib.model.control.profile.AbstractProfileSelectControlById;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionException;
-
-import org.junit.jupiter.api.Test;
-
-import java.net.URI;
-import java.nio.file.Paths;
-import java.util.Collections;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 class ImportTest {
 
@@ -81,10 +81,10 @@ class ImportTest {
     // setup the resolved catalog
     Catalog resolvedCatalog = new Catalog();
     for (IRootAssemblyNodeItem profileRootItem : CollectionUtil
-        .toIterable(profileDocumentItem.getModelItemsByName(OscalModelConstants.QNAME_PROFILE).stream()
+        .toIterable(profileDocumentItem.getModelItemsByName((IEnhancedQName) OscalModelConstants.QNAME_PROFILE).stream()
             .map(rootItem -> (IRootAssemblyNodeItem) rootItem))) {
       for (IAssemblyNodeItem importItem : CollectionUtil.toIterable(
-          profileRootItem.getModelItemsByName(OscalModelConstants.QNAME_IMPORT).stream()
+          profileRootItem.getModelItemsByName((IEnhancedQName) OscalModelConstants.QNAME_IMPORT).stream()
               .map(item -> (IAssemblyNodeItem) item))) {
 
         Import catalogImport = new Import(profileRootItem, importItem);

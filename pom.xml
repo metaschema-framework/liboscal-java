@@ -43,7 +43,7 @@
 			<id>repo-snapshot</id>
 			<url>https://raw.githubusercontent.com/metaschema-framework/maven2/refs/heads/main</url>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 			<releases>
@@ -132,7 +132,7 @@
 				<enabled>false</enabled>
 			</releases>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
@@ -157,7 +157,7 @@
 				<enabled>false</enabled>
 			</releases>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</pluginRepository>
