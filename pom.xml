@@ -43,7 +43,7 @@
 			<id>repo-snapshot</id>
 			<url>https://raw.githubusercontent.com/metaschema-framework/maven2/refs/heads/main</url>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 			<releases>
@@ -93,7 +93,7 @@
 		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<dependency.metaschema-framework.version>2.2.0-SNAPSHOT</dependency.metaschema-framework.version>
+		<dependency.metaschema-framework.version>2.1.0</dependency.metaschema-framework.version>
 
 		<dependency.commons-lang3.version>3.17.0</dependency.commons-lang3.version>
 		<dependency.infinispan.version>13.0.10.Final</dependency.infinispan.version>
@@ -132,7 +132,7 @@
 				<enabled>false</enabled>
 			</releases>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
@@ -157,7 +157,7 @@
 				<enabled>false</enabled>
 			</releases>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</pluginRepository>
