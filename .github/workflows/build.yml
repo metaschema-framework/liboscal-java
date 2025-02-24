@@ -95,6 +95,21 @@ jobs:
         git pull -r -s ours
         echo "Pushing changes"
         git push --force-with-lease
+    # New step for saving artifacts when not deploying
+    - name: Save Build Artifacts
+      if: env.COMMIT_MAVEN_ARTIFACTS != 'true'
+      run: |
+        MVN_COORDS=$(echo '${project.groupId}:${project.artifactId}:${project.version}' | mvn -N -q -DforceStdout help:evaluate)
+        echo "Saving artifacts from build"
+        mkdir -p ${{ runner.temp }}/maven-artifacts
+        cp -r maven2/* ${{ runner.temp }}/maven-artifacts/
+    - name: Upload Maven Artifacts
+      if: env.COMMIT_MAVEN_ARTIFACTS != 'true'
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
+      with:
+        name: maven-artifacts-${{ github.sha }}
+        path: ${{ runner.temp }}/maven-artifacts/
+        retention-days: 5
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@662472033e021d55d94146f66f6058822b0b39fd
       with:
