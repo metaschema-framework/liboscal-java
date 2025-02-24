@@ -95,10 +95,10 @@
 
 		<dependency.metaschema-framework.version>2.2.0-SNAPSHOT</dependency.metaschema-framework.version>
 
-		<dependency.commons-lang3.version>3.17.0</dependency.commons-lang3.version>
+		<dependency.commons-lang3.version>3.14.0</dependency.commons-lang3.version>
 		<dependency.infinispan.version>13.0.10.Final</dependency.infinispan.version>
 		<dependency.jmock-junit5.version>2.13.1</dependency.jmock-junit5.version>
-		<dependency.log4j2.version>2.24.2</dependency.log4j2.version>
+		<dependency.log4j2.version>2.24.3</dependency.log4j2.version>
 		<dependency.saxon.version>12.5</dependency.saxon.version>
 		<dependency.spotbugs-annotations.version>4.8.6</dependency.spotbugs-annotations.version>
 		<dependency.xmlbeans.version>5.2.1</dependency.xmlbeans.version>
@@ -201,6 +201,12 @@
 				<groupId>org.apache.xmlbeans</groupId>
 				<artifactId>xmlbeans</artifactId>
 				<version>5.2.2</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.logging.log4j</groupId>
+						<artifactId>log4j-api</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 
 			<dependency>
