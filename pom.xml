@@ -9,7 +9,7 @@
 
 	<groupId>dev.metaschema.oscal</groupId>
 	<artifactId>liboscal-java</artifactId>
-	<version>5.0.1</version>
+	<version>5.0.2</version>
 	<packaging>jar</packaging>
 
 	<name>OSCAL Java Library</name>
@@ -93,7 +93,7 @@
 		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<dependency.metaschema-framework.version>2.1.0</dependency.metaschema-framework.version>
+		<dependency.metaschema-framework.version>2.2.0</dependency.metaschema-framework.version>
 
 		<dependency.commons-lang3.version>3.17.0</dependency.commons-lang3.version>
 		<dependency.infinispan.version>13.0.10.Final</dependency.infinispan.version>
@@ -101,7 +101,7 @@
 		<dependency.log4j2.version>2.24.3</dependency.log4j2.version>
 		<dependency.saxon.version>12.5</dependency.saxon.version>
 		<dependency.spotbugs-annotations.version>4.8.6</dependency.spotbugs-annotations.version>
-		<dependency.xmlbeans.version>5.2.1</dependency.xmlbeans.version>
+		<dependency.xmlbeans.version>5.3.0</dependency.xmlbeans.version>
 		<dependency.xmlresolver.version>6.0.11</dependency.xmlresolver.version>
 		<dependency.xmlunit.version>2.10.0</dependency.xmlunit.version>
 
@@ -200,7 +200,7 @@
 			<dependency>
 				<groupId>org.apache.xmlbeans</groupId>
 				<artifactId>xmlbeans</artifactId>
-				<version>5.2.2</version>
+				<version>5.3.0</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.apache.logging.log4j</groupId>

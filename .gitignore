@@ -19,3 +19,4 @@ pom.xml.versionsBackup
 release.properties
 velocity.log*
 /.idea
+.DS_Store
