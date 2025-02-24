@@ -95,7 +95,7 @@
 
 		<dependency.metaschema-framework.version>2.1.0</dependency.metaschema-framework.version>
 
-		<dependency.commons-lang3.version>3.14.0</dependency.commons-lang3.version>
+		<dependency.commons-lang3.version>3.17.0</dependency.commons-lang3.version>
 		<dependency.infinispan.version>13.0.10.Final</dependency.infinispan.version>
 		<dependency.jmock-junit5.version>2.13.1</dependency.jmock-junit5.version>
 		<dependency.log4j2.version>2.24.3</dependency.log4j2.version>
