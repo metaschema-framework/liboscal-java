@@ -8,6 +8,7 @@ package gov.nist.secauto.oscal.lib.profile.resolver.selection;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
+import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.model.BackMatter;
@@ -64,14 +65,14 @@ public class FilterNonSelectedVisitor
     result.applyTo(catalog);
 
     catalogItem.modelItems().forEachOrdered(root -> {
-      root.getModelItemsByName(OscalModelConstants.QNAME_METADATA).stream()
+      root.getModelItemsByName(IEnhancedQName.of(OscalModelConstants.QNAME_METADATA)).stream()
           .map(child -> (IAssemblyNodeItem) child)
           .forEachOrdered(child -> {
             assert child != null;
             visitMetadata(child, context);
           });
 
-      root.getModelItemsByName(OscalModelConstants.QNAME_BACK_MATTER).stream()
+      root.getModelItemsByName(IEnhancedQName.of(OscalModelConstants.QNAME_BACK_MATTER)).stream()
           .map(child -> (IAssemblyNodeItem) child)
           .forEachOrdered(child -> {
             assert child != null;

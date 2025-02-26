@@ -6,7 +6,8 @@
 package gov.nist.secauto.oscal.lib.metapath.function.library;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-import gov.nist.secauto.metaschema.core.metapath.ISequence;
+import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
+import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
 import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
 import gov.nist.secauto.metaschema.core.metapath.MetapathException;
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
@@ -14,7 +15,8 @@ import gov.nist.secauto.metaschema.core.metapath.function.IArgument;
 import gov.nist.secauto.metaschema.core.metapath.function.IFunction;
 import gov.nist.secauto.metaschema.core.metapath.item.IItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
+import gov.nist.secauto.metaschema.core.metapath.type.IItemType;
+import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.model.Catalog;
@@ -32,7 +34,6 @@ public final class ResolveProfile {
   static final IFunction SIGNATURE_NO_ARG = IFunction.builder()
       .name("resolve-profile")
       .namespace(OscalModelConstants.NS_OSCAL)
-      .returnType(INodeItem.class)
       .focusDependent()
       .contextDependent()
       .deterministic()
@@ -46,13 +47,11 @@ public final class ResolveProfile {
       .namespace(OscalModelConstants.NS_OSCAL)
       .argument(IArgument.builder()
           .name("profile")
-          .type(INodeItem.class)
           .zeroOrOne()
           .build())
       .focusDependent()
       .contextDependent()
       .deterministic()
-      .returnType(INodeItem.class)
       .returnOne()
       .functionHandler(ResolveProfile::executeOneArg)
       .build();
@@ -61,7 +60,6 @@ public final class ResolveProfile {
   static final IFunction SIGNATURE_NO_ARG_METAPATH = IFunction.builder()
       .name("resolve-profile")
       .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)
-      .returnType(INodeItem.class)
       .focusDependent()
       .contextDependent()
       .deterministic()
@@ -75,13 +73,11 @@ public final class ResolveProfile {
       .namespace(MetapathConstants.NS_METAPATH_FUNCTIONS)
       .argument(IArgument.builder()
           .name("profile")
-          .type(INodeItem.class)
           .zeroOrOne()
           .build())
       .focusDependent()
       .contextDependent()
       .deterministic()
-      .returnType(INodeItem.class)
       .returnOne()
       .functionHandler(ResolveProfile::executeOneArg)
       .build();

@@ -5,20 +5,6 @@
 
 package gov.nist.secauto.oscal.java;
 
-import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-import gov.nist.secauto.metaschema.core.metapath.ISequence;
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
-import gov.nist.secauto.metaschema.core.metapath.StaticContext;
-import gov.nist.secauto.metaschema.core.metapath.item.IItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.metaschema.databind.io.IBoundLoader;
-import gov.nist.secauto.oscal.lib.OscalBindingContext;
-import gov.nist.secauto.oscal.lib.metapath.function.library.ResolveProfile;
-
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,7 +13,20 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import edu.umd.cs.findbugs.annotations.NonNull;
+import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.StaticContext;
+import gov.nist.secauto.metaschema.core.metapath.item.IItem;
+import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.metaschema.databind.io.IBoundLoader;
+import gov.nist.secauto.oscal.lib.OscalBindingContext;
+import gov.nist.secauto.oscal.lib.metapath.function.library.ResolveProfile;
 
 class MetaschemaVisitorTest {
 
@@ -64,7 +63,7 @@ class MetaschemaVisitorTest {
     // evaluatePath(MetapathExpression.compile("resolve-profile(doc(resolve-uri(/profile/import/@href,
     // document-uri(/profile))))/(profile, catalog)//control/@id"), nodeItem,
     // dynamicContext);
-    evaluatePath(MetapathExpression.compile("//control/@id"), resolvedProfile, dynamicContext);
+    evaluatePath(IMetapathExpression.compile("//control/@id"), resolvedProfile, dynamicContext);
     // evaluatePath(MetapathExpression.compile("doc(resolve-uri(/profile/import/@href,
     // document-uri(/profile)))/catalog/metadata/last-modified"), nodeItem,
     // dynamicContext);
@@ -99,7 +98,7 @@ class MetaschemaVisitorTest {
     // dynamicContext);
   }
 
-  private static void evaluatePath(@NonNull MetapathExpression path, @NonNull IItem nodeContext,
+  private static void evaluatePath(@NonNull IMetapathExpression path, @NonNull IItem nodeContext,
       @NonNull DynamicContext dynamicContext) {
     // System.out.println("Path: " + path.getPath());
     // System.out.println("Compiled Path: " + path.toString());

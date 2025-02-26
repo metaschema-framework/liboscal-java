@@ -6,7 +6,7 @@
 package gov.nist.secauto.oscal.lib.metapath.function.library;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-import gov.nist.secauto.metaschema.core.metapath.ISequence;
+import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
 import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
 import gov.nist.secauto.metaschema.core.metapath.MetapathException;
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
@@ -22,6 +22,7 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IFlagNodeItem;
 import gov.nist.secauto.metaschema.core.model.IAssemblyDefinition;
 import gov.nist.secauto.metaschema.core.model.IFlagInstance;
+import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.OscalModelConstants;
 import gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;
@@ -42,11 +43,9 @@ public final class HasOscalNamespace {
       .namespace(OscalModelConstants.NS_OSCAL)
       .argument(IArgument.builder()
           .name("namespace")
-          .type(IStringItem.class)
           .oneOrMore()
           .build())
       .allowUnboundedArity(true)
-      .returnType(IBooleanItem.class)
       .focusDependent()
       .contextIndependent()
       .deterministic()
@@ -60,19 +59,17 @@ public final class HasOscalNamespace {
       .namespace(OscalModelConstants.NS_OSCAL)
       .argument(IArgument.builder()
           .name("propOrPart")
-          .type(IAssemblyNodeItem.class)
           .one()
           .build())
       .argument(IArgument.builder()
           .name("namespace")
-          .type(IStringItem.class)
           .oneOrMore()
           .build())
       .allowUnboundedArity(true)
       .focusIndependent()
       .contextIndependent()
       .deterministic()
-      .returnType(IBooleanItem.class)
+      .returnType(IEnhancedQName.of(IBooleanItem.class.getName()))
       .returnOne()
       .functionHandler(HasOscalNamespace::executeTwoArg)
       .build();

@@ -5,20 +5,6 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.support;
 
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression.ResultType;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
-import gov.nist.secauto.metaschema.core.util.CustomCollectors;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.oscal.lib.OscalBindingContext;
-import gov.nist.secauto.oscal.lib.model.metadata.IProperty;
-import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
-
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,8 +14,20 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
+import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
+import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
+import gov.nist.secauto.metaschema.core.util.CustomCollectors;
+import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import gov.nist.secauto.oscal.lib.OscalBindingContext;
+import gov.nist.secauto.oscal.lib.model.metadata.IProperty;
+import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
 
 public interface IIndexer {
   enum SelectionStatus {
@@ -38,13 +36,13 @@ public interface IIndexer {
     UNKNOWN;
   }
 
-  MetapathExpression HAS_PROP_KEEP_METAPATH = MetapathExpression.compile(
+  IMetapathExpression HAS_PROP_KEEP_METAPATH = IMetapathExpression.compile(
       "prop[@name='keep' and has-oscal-namespace('" + IProperty.OSCAL_NAMESPACE + "')]/@value = 'always'",
       OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);
 
   Predicate<IEntityItem> KEEP_ENTITY_PREDICATE = entity -> entity.getReferenceCount() > 0
       || (Boolean) ObjectUtils
-          .notNull(HAS_PROP_KEEP_METAPATH.evaluateAs(entity.getInstance(), ResultType.BOOLEAN));
+          .notNull(HAS_PROP_KEEP_METAPATH.evaluateAs(entity.getInstance(), IMetapathExpression.ResultType.BOOLEAN));
 
   static boolean isReferencedEntity(@NonNull IEntityItem entity) {
     return KEEP_ENTITY_PREDICATE.test(entity);

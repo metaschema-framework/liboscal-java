@@ -7,7 +7,7 @@ package gov.nist.secauto.oscal.lib.profile.resolver.support;
 
 import gov.nist.secauto.metaschema.core.datatype.adapter.UuidAdapter;
 import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;
-import gov.nist.secauto.metaschema.core.metapath.MetapathExpression.ResultType;
+import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression.ResultType;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
 import gov.nist.secauto.metaschema.core.util.CollectionUtil;
