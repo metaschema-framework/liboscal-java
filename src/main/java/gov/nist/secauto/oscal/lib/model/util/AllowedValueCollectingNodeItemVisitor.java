@@ -18,6 +18,7 @@ import gov.nist.secauto.metaschema.core.metapath.item.node.IModuleNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItemFactory;
 import gov.nist.secauto.metaschema.core.model.IModule;
 import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValuesConstraint;
+import gov.nist.secauto.metaschema.core.model.constraint.ILet;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -81,23 +82,36 @@ public class AllowedValueCollectingNodeItemVisitor
   @Override
   public Void visitFlag(IFlagNodeItem item, DynamicContext context) {
     assert context != null;
-    handleAllowedValuesAtLocation(item, context);
-    return super.visitFlag(item, context);
+    DynamicContext subContext = handleLetStatements(item, context);
+    handleAllowedValuesAtLocation(item, subContext);
+    return super.visitFlag(item, subContext);
   }
 
   @Override
   public Void visitField(IFieldNodeItem item, DynamicContext context) {
     assert context != null;
-    handleAllowedValuesAtLocation(item, context);
-    return super.visitField(item, context);
+    DynamicContext subContext = handleLetStatements(item, context);
+    handleAllowedValuesAtLocation(item, subContext);
+    return super.visitField(item, subContext);
   }
 
   @Override
   public Void visitAssembly(IAssemblyNodeItem item, DynamicContext context) {
     assert context != null;
-    handleAllowedValuesAtLocation(item, context);
+    DynamicContext subContext = handleLetStatements(item, context);
+    handleAllowedValuesAtLocation(item, subContext);
+    return super.visitAssembly(item, subContext);
+  }
 
-    return super.visitAssembly(item, context);
+  private DynamicContext handleLetStatements(IDefinitionNodeItem<?, ?> item, DynamicContext context) {
+    assert context != null;
+    DynamicContext subContext = context;
+    for (ILet let : item.getDefinition().getLetExpressions().values()) {
+      ISequence<?> result = let.getValueExpression().evaluate(item,
+          subContext).reusable();
+      subContext = subContext.bindVariableValue(let.getName(), result);
+    }
+    return subContext;
   }
 
   @Override

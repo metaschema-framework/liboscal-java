@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<METASCHEMA xmlns="http://csrc.nist.gov/ns/oscal/metaschema/1.0">
+    <schema-name>Minimak Computer Model</schema-name>
+    <schema-version>0.0.5</schema-version>
+    <short-name>computer</short-name>
+    <namespace>http://example.com/ns/computer</namespace>
+    <json-base-uri>http://example.com/ns/computer</json-base-uri>
+    <define-assembly name="computer">
+        <formal-name>Computer Assembly</formal-name>
+        <description>A minimal computer model to test let var usage with external constraints.</description>
+        <root-name>computer</root-name>
+        <define-flag name="id" required="yes"/>
+    </define-assembly>
+</METASCHEMA>
