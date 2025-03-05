@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metaschema-meta-constraints xmlns="http://csrc.nist.gov/ns/oscal/metaschema/1.0">
+	<namespace-binding prefix="cmp" uri="http://example.com/ns/computer" />
+    <context>
+    	<metapath target="/cmp:computer"/>
+    	<constraints>
+            <let var="computer-id" expression="@id"/>
+            <allowed-values id="example-constraint-using-let-var" target="$computer-id">
+            	<enum value="model1"/>
+            	<enum value="model2"/>
+            	<enum value="model3"/>
+            </allowed-values>
+    	</constraints>
+    </context>
+</metaschema-meta-constraints>
