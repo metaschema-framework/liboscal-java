@@ -1,0 +1,19 @@
+{
+  "catalog" : {
+    "uuid" : "7661c744-1a8e-4151-beb3-3bd88e661a71",
+    "metadata" : {
+      "title" : "Sample Security Profile *for Demonstration* and Testing",
+      "last-modified" : "2023-04-10T17:36:52.221809216Z",
+      "version" : "1.0",
+      "oscal-version" : "1.04",
+      "props" : [ {
+        "name" : "resolution-tool",
+        "value" : "libOSCAL-Java"
+      } ],
+      "links" : [ {
+        "href" : "file:///WORKING/basic-profile%20copy.json",
+        "rel" : "source-profile"
+      } ]
+    }
+  }
+}

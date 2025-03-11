@@ -549,7 +549,7 @@
 						<configuration>
 							<metaschemaDir>
 								${project.basedir}/oscal/src/metaschema</metaschemaDir>
-								<outputDirectory>${project.build.directory}/generated-sources/metaschema</outputDirectory>
+							<outputDirectory>${project.build.directory}/generated-sources/metaschema</outputDirectory>
 							<configs>
 								<config>
 									${project.basedir}/src/main/metaschema-bindings/oscal-metaschema-bindings.xml</config>
@@ -557,6 +557,9 @@
 							<includes>
 								<include>oscal_complete_metaschema.xml</include>
 							</includes>
+							<constraints>
+								<constraint>${project.basedir}/src/main/metaschema-constraints/oscal-external-constraints.xml</constraint>
+							</constraints>
 						</configuration>
 					</execution>
 					<execution>

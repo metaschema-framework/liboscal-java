@@ -5,6 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.validation;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import gov.nist.secauto.metaschema.core.configuration.DefaultConfiguration;
@@ -28,6 +29,7 @@ import gov.nist.secauto.metaschema.databind.model.metaschema.IBindingModuleLoade
 import gov.nist.secauto.metaschema.schemagen.ISchemaGenerator;
 import gov.nist.secauto.metaschema.schemagen.ISchemaGenerator.SchemaFormat;
 import gov.nist.secauto.metaschema.schemagen.SchemaGenerationFeature;
+import gov.nist.secauto.oscal.lib.OscalBindingContext;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -89,6 +91,23 @@ class OscalValidationTest {
       new LoggingValidationHandler().handleResults(validationResult);
     }
     assertTrue(validationResult.isPassing());
+  }
+
+  @Test
+  void testValidateProfileWithMissingControls() throws MetaschemaException, IOException, URISyntaxException {
+    IBindingContext bindingContext = OscalBindingContext.newInstance();
+
+    IValidationResult validationResult = bindingContext.validateWithConstraints(
+        Paths.get("src/test/resources/content/issue-88/profile.json").toUri(),
+        null);
+
+    if (validationResult.isPassing()) {
+      LOGGER.info("The resource is valid.");
+    } else {
+      LOGGER.info("Validation identified the following issues:");
+      new LoggingValidationHandler().handleResults(validationResult);
+    }
+    assertFalse(validationResult.isPassing());
   }
 
   private static final class ValidationProvider implements ISchemaValidationProvider {
