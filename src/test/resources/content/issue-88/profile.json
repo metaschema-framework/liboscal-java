@@ -1,0 +1,25 @@
+{
+    "profile": {
+        "uuid": "c0dc468c-934e-4fe9-b5bf-9fc63f5a2915",
+        "metadata": {
+            "title": "Sample Security Profile *for Demonstration* and Testing",
+            "last-modified": "2023-04-10T10:31:28.355446-04:00",
+            "version": "1.0",
+            "oscal-version": "1.04",
+            "remarks": "The following document is used in the OSCAL Profile Tutorial and builds on the catalog created for the OSCAL Catalog Tutorial"
+        },
+        "imports": [
+            {
+                "href": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/examples/catalog/json/basic-catalog.json",
+                "include-controls": [
+                    {
+                        "with-ids": [
+                            "s1.1"
+                        ],
+                        "with-child-controls": "yes"
+                    }
+                ]
+            }
+        ]
+    }
+}
