@@ -11,8 +11,11 @@ import gov.nist.secauto.metaschema.core.metapath.MetapathException;
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
 import gov.nist.secauto.metaschema.core.metapath.function.IArgument;
 import gov.nist.secauto.metaschema.core.metapath.function.IFunction;
+import gov.nist.secauto.metaschema.core.metapath.function.library.FnDoc;
+import gov.nist.secauto.metaschema.core.metapath.function.library.FnResolveUri;
 import gov.nist.secauto.metaschema.core.metapath.item.IItem;
 import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
+import gov.nist.secauto.metaschema.core.metapath.item.atomic.IAnyUriItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
@@ -22,6 +25,7 @@ import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionException;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolver;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
@@ -128,8 +132,22 @@ public final class ResolveProfile {
 
   @NonNull
   public static IDocumentNodeItem resolveProfile(
-      @NonNull IDocumentNodeItem profile,
+      @NonNull IDocumentNodeItem document,
       @NonNull DynamicContext dynamicContext) {
+
+    // make this work with unresolved fragments
+    URI documentUri = document.getBaseUri();
+    String fragment = documentUri.getFragment();
+
+    IDocumentNodeItem profile;
+    if (fragment == null) {
+      profile = document;
+    } else {
+      IAnyUriItem referenceUri = ResolveReference.resolveReference(IAnyUriItem.valueOf(documentUri), null, document);
+      IAnyUriItem resolvedUri = FnResolveUri.fnResolveUri(referenceUri, null, dynamicContext);
+      profile = FnDoc.fnDoc(resolvedUri, dynamicContext);
+    }
+
     Object profileObject = INodeItem.toValue(profile);
 
     IDocumentNodeItem retval;

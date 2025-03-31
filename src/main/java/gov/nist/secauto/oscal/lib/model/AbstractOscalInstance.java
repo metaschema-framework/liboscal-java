@@ -24,5 +24,4 @@ public abstract class AbstractOscalInstance implements IOscalInstance {
     }
     return retval;
   }
-
 }

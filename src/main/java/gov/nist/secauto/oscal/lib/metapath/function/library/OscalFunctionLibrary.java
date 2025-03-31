@@ -15,6 +15,8 @@ public class OscalFunctionLibrary
     registerFunction(ResolveProfile.SIGNATURE_ONE_ARG);
     registerFunction(HasOscalNamespace.SIGNATURE_ONE_ARG);
     registerFunction(HasOscalNamespace.SIGNATURE_TWO_ARGS);
+    registerFunction(ResolveReference.SIGNATURE_ONE_ARG);
+    registerFunction(ResolveReference.SIGNATURE_TWO_ARGS);
 
     // for backwards compatibility with no function namespace
     registerFunction(ResolveProfile.SIGNATURE_NO_ARG_METAPATH);
