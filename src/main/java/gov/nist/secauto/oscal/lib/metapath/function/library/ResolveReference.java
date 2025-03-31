@@ -33,9 +33,6 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Supports resolving a link to a backmatter resource.
- * <p>
- *
- * <code>
  */
 public final class ResolveReference {
   private static final String NAME = "resolve-reference";
