@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metaschema-meta-constraints xmlns="http://csrc.nist.gov/ns/oscal/metaschema/1.0">
+	<namespace-binding prefix="oscal" uri="http://csrc.nist.gov/ns/oscal/1.0"/> 
     <!-- ================== -->
     <!-- OSCAL Enhancements -->
     <!-- ================== -->

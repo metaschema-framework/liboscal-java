@@ -10,6 +10,7 @@ import gov.nist.secauto.oscal.lib.model.BackMatter.Resource;
 import java.util.UUID;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public interface IOscalInstance {
   UUID getUuid();
@@ -18,5 +19,13 @@ public interface IOscalInstance {
 
   BackMatter getBackMatter();
 
+  /**
+   * Lookup a backmatter resource by its UUID value.
+   * 
+   * @param id
+   *          the uuid value
+   * @return the resource or {@code null} if no resource matched the UUID
+   */
+  @Nullable
   Resource getResourceByUuid(@NonNull UUID id);
 }
