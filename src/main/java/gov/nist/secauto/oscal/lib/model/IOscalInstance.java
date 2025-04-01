@@ -21,7 +21,7 @@ public interface IOscalInstance {
 
   /**
    * Lookup a backmatter resource by its UUID value.
-   * 
+   *
    * @param id
    *          the uuid value
    * @return the resource or {@code null} if no resource matched the UUID
