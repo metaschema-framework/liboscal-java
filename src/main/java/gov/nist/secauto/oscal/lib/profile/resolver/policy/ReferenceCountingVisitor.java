@@ -441,8 +441,8 @@ public final class ReferenceCountingVisitor
       @NonNull InsertAnchorExtension.InsertAnchorNode node,
       @NonNull Context context) {
     boolean retval = INSERT_POLICY.handleReference(contextItem, node, context);
-    if (LOGGER.isWarnEnabled() && !retval) {
-      LOGGER.atWarn().log("Unsupported insert type '{}' at '{}'",
+    if (LOGGER.isDebugEnabled() && !retval) {
+      LOGGER.atDebug().log("Unsupported insert type '{}' at '{}'",
           node.getType().toString(),
           contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));
     }
@@ -453,8 +453,8 @@ public final class ReferenceCountingVisitor
       @NonNull InlineLinkNode node,
       @NonNull Context context) {
     boolean result = ANCHOR_POLICY.handleReference(contextItem, node, context);
-    if (LOGGER.isWarnEnabled() && !result) {
-      LOGGER.atWarn().log("Unsupported anchor with href '{}' at '{}'",
+    if (LOGGER.isDebugEnabled() && !result) {
+      LOGGER.atDebug().log("Unsupported anchor with href '{}' at '{}'",
           node.getUrl().toString(),
           contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));
     }
@@ -469,8 +469,8 @@ public final class ReferenceCountingVisitor
     IReferencePolicy<Property> policy = PROPERTY_POLICIES.get(qname);
 
     boolean result = policy != null && policy.handleReference(item, property, context);
-    if (LOGGER.isWarnEnabled() && !result) {
-      LOGGER.atWarn().log("Unsupported property '{}' at '{}'",
+    if (LOGGER.isDebugEnabled() && !result) {
+      LOGGER.atDebug().log("Unsupported property '{}' at '{}'",
           property.getQName(),
           item.toPath(IPathFormatter.METAPATH_PATH_FORMATER));
     }
@@ -487,8 +487,8 @@ public final class ReferenceCountingVisitor
     }
 
     boolean result = policy != null && policy.handleReference(item, link, context);
-    if (LOGGER.isWarnEnabled() && !result) {
-      LOGGER.atWarn().log("unsupported link rel '{}' at '{}'",
+    if (LOGGER.isDebugEnabled() && !result) {
+      LOGGER.atDebug().log("unsupported link rel '{}' at '{}'",
           link.getRel(),
           item.toPath(IPathFormatter.METAPATH_PATH_FORMATER));
     }
