@@ -68,7 +68,7 @@ public final class ResolveReference {
           .type(IStringItem.type())
           .zeroOrOne()
           .build())
-      .focusDependent()
+      .focusIndependent()
       .contextDependent()
       .deterministic()
       .returnType(IAnyUriItem.type())
@@ -124,7 +124,7 @@ public final class ResolveReference {
 
   /**
    * Ensure the provided item is a node item.
-   * 
+   *
    * @param item
    *          the item to check
    * @return the item as a node item
