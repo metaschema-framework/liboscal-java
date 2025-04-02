@@ -89,7 +89,7 @@ public final class ResolveReference {
       @NonNull List<ISequence<?>> arguments,
       @NonNull DynamicContext dynamicContext,
       IItem focus) {
-    IAnyUriItem uri = FunctionUtils.asTypeOrNull(ObjectUtils.requireNonNull(arguments.get(0).getFirstItem(true)));
+    IAnyUriItem uri = FunctionUtils.asTypeOrNull(arguments.get(0).getFirstItem(true));
 
     if (uri == null) {
       return ISequence.empty();
@@ -151,14 +151,16 @@ public final class ResolveReference {
     INodeItem root = FnRoot.fnRoot(focusedItem);
     IOscalInstance oscalInstance = (IOscalInstance) INodeItem.toValue(root);
 
-    String fragment = reference.asUri().getFragment();
+    URI referenceUri = reference.asUri();
+    String fragment = referenceUri.getFragment();
 
-    return fragment == null
-        ? reference
-        : IAnyUriItem.valueOf(resolveReference(
-            fragment,
-            mediaType == null ? null : mediaType.asString(),
-            oscalInstance));
+    return fragment != null
+        && (referenceUri.getPath() == null || referenceUri.getPath().isEmpty())
+            ? IAnyUriItem.valueOf(resolveReference(
+                fragment,
+                mediaType == null ? null : mediaType.asString(),
+                oscalInstance))
+            : reference;
   }
 
   @NonNull

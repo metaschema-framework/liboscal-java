@@ -113,43 +113,19 @@
     </context>
     
     <context>
-        <metapath target="/profile"/>
+        <metapath target="/profile/import"/>
+		
         <constraints>
-            <let var="resolved-profile-imports" expression="resolve-profile(doc(resolve-uri(import/@href)))/catalog"/>
-            <index id="oscal-profile-metadata-index-scoped-role-id" name="index-imports-metadata-role-id" target="map:merge($resolved-profile-imports/metadata/role ! map:entry(@id,.))?*">
-            	<formal-name>In-Scope Role Identifiers</formal-name>
-            	<description>An index of role identifiers that are in-scope for the profile model. Roles are collected from imported catalogs and profiles. For a given role @id, a locally declared role takes precedence over a role that is imported, the role that was last imported.</description>
+            <let var="resolved-profile-import" expression=".[@href] ! resolve-profile(doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(@href))))/catalog"/>
+			<index id="oscal-profile-import-index-control-id" name="profile-import-index-control-id" target="$resolved-profile-import//control">
+            	<formal-name>In-Scope Control Identifiers</formal-name>
+            	<description>An index of control identifiers that are in-scope for selection in the profile import.</description>
                 <key-field target="@id"/>
             </index>
-            <index id="oscal-profile-index-imports-metadata-scoped-location-uuid" name="index-imports-metadata-location-uuid" target="map:merge($resolved-profile-imports/metadata/location ! map:entry(@uuid,.))?*">
-                <key-field target="@uuid"/>
-            </index>
-            <index id="oscal-profile-index-imports-metadata-scoped-party-uuid" name="index-imports-metadata-party-uuid" target="map:merge($resolved-profile-imports/metadata/party ! map:entry(@uuid,.))?*">
-                <key-field target="@uuid"/>
-            </index>
-            <index id="oscal-profile-index-imports-metadata-scoped-party-organization-uuid" name="index-imports-metadata-party-organization-uuid" target="map:merge($resolved-profile-imports/metadata/party[@type='organization'] ! map:entry(@uuid,.))?*">
-                <key-field target="@uuid"/>
-            </index>
-            <index id="oscal-profile-index-imports-metadata-scoped-property-uuid" name="index-imports-metadata-property-uuid" target="map:merge($resolved-profile-imports//prop[@uuid] ! map:entry(@uuid,.))?*">
-                <key-field target="@uuid"/>
-            </index>
+            <index-has-key id="oscal-profile-import-has-key-include-exclude-control-id" name="profile-import-index-control-id" target="(include-controls|exclude-controls)/with-id">
+                <key-field target="."/>
+            </index-has-key>
         </constraints>
-        
-        <context>
-			<metapath target="import"/>
-			
-	        <constraints>
-	            <let var="resolved-profile-import" expression="resolve-profile(doc(resolve-uri(@href)))/catalog"/>
-				<index id="oscal-profile-import-index-control-id" name="profile-import-index-control-id" target="$resolved-profile-import//control">
-	            	<formal-name>In-Scope Control Identifiers</formal-name>
-	            	<description>An index of control identifiers that are in-scope for selection in the profile import.</description>
-	                <key-field target="@id"/>
-	            </index>
-	            <index-has-key id="oscal-profile-import-has-key-include-exclude-control-id" name="profile-import-index-control-id" target="(include-controls|exclude-controls)/with-id">
-	                <key-field target="."/>
-	            </index-has-key>
-	        </constraints>
-        </context>
     </context>
     <context>
         <metapath target="/mapping-collection"/>
@@ -176,7 +152,7 @@
     <context>
         <metapath target="/component-definition"/>
         <constraints>
-            <let var="all-imports" expression="recurse-depth('doc(resolve-uri(import-component-definition/@href))/component-definition')"/>
+            <let var="all-imports" expression="import-component-definition ! recurse-depth('doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(@href)))/component-definition')"/>
             <index id="oscal-component-definition-index-metadata-scoped-role-id" name="index-imports-metadata-role-id" target="map:merge($all-imports/metadata/role ! map:entry(@id,.))?*">
             	<formal-name>In-Scope Role Identifiers</formal-name>
             	<description>An index of role identifiers that are in-scope for the component-definition model. Roles are collected from imported component-definition. For a given role @id, a locally declared role takes precedence over a role that is imported, the role that was last imported.</description>
@@ -199,7 +175,7 @@
     <context>
         <metapath target="/system-security-plan"/>
         <constraints>
-            <let var="all-imports" expression="recurse-depth('resolve-profile(doc(resolve-uri(import-profile/@href)))/catalog')"/>
+            <let var="all-imports" expression="resolve-profile(doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-profile/@href))))/catalog"/>
             <index id="oscal-ssp-index-metadata-scoped-role-id" name="index-imports-metadata-role-id" target="map:merge($all-imports/metadata/role ! map:entry(@id,.))?*">
             	<formal-name>In-Scope Role Identifiers</formal-name>
             	<description>An index of role identifiers that are in-scope for the system-securtity-plan model. Roles are collected from imported profiles and catalogs. For a given role @id, a locally declared role takes precedence over a role that is imported, the role that was last imported.</description>
@@ -222,7 +198,7 @@
     <context>
         <metapath target="/assessment-plan"/>
         <constraints>
-            <let var="all-imports" expression="recurse-depth('.[import-ssp]/doc(resolve-uri(import-ssp/@href))/system-security-plan|.[import-profile]/resolve-profile(doc(resolve-uri(import-profile/@href)))/catalog')"/>
+            <let var="all-imports" expression="recurse-depth('.[import-ssp]/doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-ssp/@href)))/system-security-plan|.[import-profile]/resolve-profile(doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-profile/@href))))/catalog')"/>
             <index id="oscal-ap-index-metadata-scoped-role-id" name="index-imports-metadata-role-id" target="map:merge($all-imports/metadata/role ! map:entry(@id,.))?*">
             	<formal-name>In-Scope Role Identifiers</formal-name>
             	<description>An index of role identifiers that are in-scope for the assessment-plan model. Roles are collected from imported system-securtity-plans, which in turn includes referenced profiles and catalogs. For a given role @id, a locally declared role takes precedence over a role that is imported, the role that was last imported.</description>
@@ -245,7 +221,7 @@
     <context>
         <metapath target="/assessment-results"/>
         <constraints>
-            <let var="all-imports" expression="recurse-depth('.[import-ap]/doc(resolve-uri(import-ap/@href))/assessment-plan|.[import-ssp]/doc(resolve-uri(import-ssp/@href))/system-security-plan|.[import-profile]/resolve-profile(doc(resolve-uri(import-profile/@href)))/catalog')"/>
+            <let var="all-imports" expression="recurse-depth('.[import-ap]/doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-ap/@href)))/assessment-plan|.[import-ssp]/doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-ssp/@href)))/system-security-plan|.[import-profile]/resolve-profile(doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-profile/@href))))/catalog')"/>
             <index id="oscal-ar-index-metadata-scoped-role-id" name="index-imports-metadata-role-id" target="map:merge($all-imports/metadata/role ! map:entry(@id,.))?*">
             	<formal-name>In-Scope Role Identifiers</formal-name>
             	<description>An index of role identifiers that are in-scope for the assessment-result model. Roles are collected from imported assessment-plans, which in turn includes referenced system-securtity-plans, which in turn includes referenced profiles and catalogs. For a given role @id, a locally declared role takes precedence over a role that is imported, the role that was last imported.</description>
@@ -268,7 +244,7 @@
     <context>
         <metapath target="/plan-of-action-and-milestones"/>
         <constraints>
-            <let var="all-imports" expression="recurse-depth('.[import-ap]/doc(resolve-uri(import-ap/@href))/assessment-plan|.[import-ssp]/doc(resolve-uri(import-ssp/@href))/system-security-plan|.[import-profile]/resolve-profile(doc(resolve-uri(import-profile/@href)))/catalog')"/>
+            <let var="all-imports" expression="recurse-depth('.[import-ap]/doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-ap/@href)))/assessment-plan|.[import-ssp]/doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-ssp/@href)))/system-security-plan|.[import-profile]/resolve-profile(doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-profile/@href))))/catalog')"/>
             <index id="oscal-poam-index-metadata-scoped-role-id" name="index-imports-metadata-role-id" target="map:merge($all-imports/metadata/role ! map:entry(@id,.))?*">
             	<formal-name>In-Scope Role Identifiers</formal-name>
             	<description>An index of role identifiers that are in-scope for the plan-of-action-and-milestones model. Roles are collected from imported system-securtity-plans, which in turn includes referenced profiles and catalogs. For a given role @id, a locally declared role takes precedence over a role that is imported, the role that was last imported.</description>
