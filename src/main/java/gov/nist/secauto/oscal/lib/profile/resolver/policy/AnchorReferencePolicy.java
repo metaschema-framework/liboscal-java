@@ -78,8 +78,8 @@ public class AnchorReferencePolicy
       @NonNull List<IEntityItem.ItemType> itemTypes,
       @NonNull String identifier,
       @NonNull ReferenceCountingVisitor.Context visitorContext) {
-    if (LOGGER.isErrorEnabled()) {
-      LOGGER.atError().log(
+    if (LOGGER.isWarnEnabled()) {
+      LOGGER.atWarn().log(
           "The anchor at '{}' should reference a {} identified by '{}', but the identifier was not found in the index.",
           contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),
           itemTypes.stream()
