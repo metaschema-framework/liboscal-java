@@ -23,16 +23,25 @@
 <span class="source-line-no">010</span><span id="line-10">import java.util.UUID;</span>
 <span class="source-line-no">011</span><span id="line-11"></span>
 <span class="source-line-no">012</span><span id="line-12">import edu.umd.cs.findbugs.annotations.NonNull;</span>
-<span class="source-line-no">013</span><span id="line-13"></span>
-<span class="source-line-no">014</span><span id="line-14">public interface IOscalInstance {</span>
-<span class="source-line-no">015</span><span id="line-15">  UUID getUuid();</span>
-<span class="source-line-no">016</span><span id="line-16"></span>
-<span class="source-line-no">017</span><span id="line-17">  Metadata getMetadata();</span>
-<span class="source-line-no">018</span><span id="line-18"></span>
-<span class="source-line-no">019</span><span id="line-19">  BackMatter getBackMatter();</span>
-<span class="source-line-no">020</span><span id="line-20"></span>
-<span class="source-line-no">021</span><span id="line-21">  Resource getResourceByUuid(@NonNull UUID id);</span>
-<span class="source-line-no">022</span><span id="line-22">}</span>
+<span class="source-line-no">013</span><span id="line-13">import edu.umd.cs.findbugs.annotations.Nullable;</span>
+<span class="source-line-no">014</span><span id="line-14"></span>
+<span class="source-line-no">015</span><span id="line-15">public interface IOscalInstance {</span>
+<span class="source-line-no">016</span><span id="line-16">  UUID getUuid();</span>
+<span class="source-line-no">017</span><span id="line-17"></span>
+<span class="source-line-no">018</span><span id="line-18">  Metadata getMetadata();</span>
+<span class="source-line-no">019</span><span id="line-19"></span>
+<span class="source-line-no">020</span><span id="line-20">  BackMatter getBackMatter();</span>
+<span class="source-line-no">021</span><span id="line-21"></span>
+<span class="source-line-no">022</span><span id="line-22">  /**</span>
+<span class="source-line-no">023</span><span id="line-23">   * Lookup a backmatter resource by its UUID value.</span>
+<span class="source-line-no">024</span><span id="line-24">   *</span>
+<span class="source-line-no">025</span><span id="line-25">   * @param id</span>
+<span class="source-line-no">026</span><span id="line-26">   *          the uuid value</span>
+<span class="source-line-no">027</span><span id="line-27">   * @return the resource or {@code null} if no resource matched the UUID</span>
+<span class="source-line-no">028</span><span id="line-28">   */</span>
+<span class="source-line-no">029</span><span id="line-29">  @Nullable</span>
+<span class="source-line-no">030</span><span id="line-30">  Resource getResourceByUuid(@NonNull UUID id);</span>
+<span class="source-line-no">031</span><span id="line-31">}</span>
 
 
 

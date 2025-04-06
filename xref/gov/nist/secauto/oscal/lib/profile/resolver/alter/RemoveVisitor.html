@@ -458,7 +458,7 @@
 <a class="jxr_linenumber" name="L450" href="#L450">450</a>           Property prop = (Property) obj;
 <a class="jxr_linenumber" name="L451" href="#L451">451</a>           actualName = prop.getName();
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>           actualClass = prop.getClazz();
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>           actualNamespace = prop.getNs() == <strong class="jxr_keyword">null</strong> ? IProperty.OSCAL_NAMESPACE.toString() : prop.getNs().toString();
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>           actualNamespace = IProperty.normalizeNamespace(prop.getNs()).toASCIIString();
 <a class="jxr_linenumber" name="L454" href="#L454">454</a>           <strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L455" href="#L455">455</a>         }
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">case</strong> PART: {
@@ -469,7 +469,7 @@
 <a class="jxr_linenumber" name="L461" href="#L461">461</a>           <strong class="jxr_keyword">if</strong> (partId != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L462" href="#L462">462</a>             actualId = partId;
 <a class="jxr_linenumber" name="L463" href="#L463">463</a>           }
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>           actualNamespace = part.getNs() == <strong class="jxr_keyword">null</strong> ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>           actualNamespace = IProperty.normalizeNamespace(part.getNs()).toASCIIString();
 <a class="jxr_linenumber" name="L465" href="#L465">465</a>           <strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L466" href="#L466">466</a>         }
 <a class="jxr_linenumber" name="L467" href="#L467">467</a>         <strong class="jxr_keyword">case</strong> LINK:
@@ -490,6 +490,6 @@
 <a class="jxr_linenumber" name="L482" href="#L482">482</a> }
 </pre>
 <hr/>
-<div id="footer">© 2024</div>
+<div id="footer">© 2025</div>
 </body>
 </html>

@@ -463,7 +463,7 @@
 <span class="source-line-no">450</span><span id="line-450">          Property prop = (Property) obj;</span>
 <span class="source-line-no">451</span><span id="line-451">          actualName = prop.getName();</span>
 <span class="source-line-no">452</span><span id="line-452">          actualClass = prop.getClazz();</span>
-<span class="source-line-no">453</span><span id="line-453">          actualNamespace = prop.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : prop.getNs().toString();</span>
+<span class="source-line-no">453</span><span id="line-453">          actualNamespace = IProperty.normalizeNamespace(prop.getNs()).toASCIIString();</span>
 <span class="source-line-no">454</span><span id="line-454">          break;</span>
 <span class="source-line-no">455</span><span id="line-455">        }</span>
 <span class="source-line-no">456</span><span id="line-456">        case PART: {</span>
@@ -474,7 +474,7 @@
 <span class="source-line-no">461</span><span id="line-461">          if (partId != null) {</span>
 <span class="source-line-no">462</span><span id="line-462">            actualId = partId;</span>
 <span class="source-line-no">463</span><span id="line-463">          }</span>
-<span class="source-line-no">464</span><span id="line-464">          actualNamespace = part.getNs() == null ? IProperty.OSCAL_NAMESPACE.toString() : part.getNs().toString();</span>
+<span class="source-line-no">464</span><span id="line-464">          actualNamespace = IProperty.normalizeNamespace(part.getNs()).toASCIIString();</span>
 <span class="source-line-no">465</span><span id="line-465">          break;</span>
 <span class="source-line-no">466</span><span id="line-466">        }</span>
 <span class="source-line-no">467</span><span id="line-467">        case LINK:</span>

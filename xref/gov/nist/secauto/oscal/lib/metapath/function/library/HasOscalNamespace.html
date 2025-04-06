@@ -14,14 +14,14 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">package</strong> gov.nist.secauto.oscal.lib.metapath.function.library;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.ISequence;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.MetapathException;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.IArgument;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.IFunction;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.InvalidTypeFunctionException;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.item.IItem;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.MetapathException;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.IArgument;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.IFunction;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.InvalidTypeFunctionException;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.item.IItem;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.item.ISequence;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.item.atomic.IAnyUriItem;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.item.atomic.IBooleanItem;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.item.atomic.IStringItem;
@@ -32,7 +32,7 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.qname.IEnhancedQName;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.util.ObjectUtils;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.oscal.lib.OscalModelConstants;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.oscal.lib.model.metadata.IProperty;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> java.net.URI;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> java.util.List;
@@ -209,7 +209,7 @@
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>       nodeNamespace = IAnyUriItem.<strong class="jxr_keyword">cast</strong>(ObjectUtils.notNull(ns.toAtomicItem())).asUri();
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>     }
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> 
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>     String nodeNamespaceString = AbstractProperty.normalizeNamespace(nodeNamespace).toString();
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>     String nodeNamespaceString = IProperty.normalizeNamespace(nodeNamespace).toString();
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>     <strong class="jxr_keyword">return</strong> IBooleanItem.valueOf(namespaces.stream()
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>         .map(node -&gt; nodeNamespaceString.equals(node.asString()))
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>         .anyMatch(bool -&gt; bool));
@@ -217,6 +217,6 @@
 <a class="jxr_linenumber" name="L209" href="#L209">209</a> }
 </pre>
 <hr/>
-<div id="footer">© 2024</div>
+<div id="footer">© 2025</div>
 </body>
 </html>

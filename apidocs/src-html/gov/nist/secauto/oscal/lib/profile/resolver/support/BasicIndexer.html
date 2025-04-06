@@ -19,8 +19,8 @@
 <span class="source-line-no">006</span><span id="line-6">package gov.nist.secauto.oscal.lib.profile.resolver.support;</span>
 <span class="source-line-no">007</span><span id="line-7"></span>
 <span class="source-line-no">008</span><span id="line-8">import gov.nist.secauto.metaschema.core.datatype.adapter.UuidAdapter;</span>
-<span class="source-line-no">009</span><span id="line-9">import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;</span>
-<span class="source-line-no">010</span><span id="line-10">import gov.nist.secauto.metaschema.core.metapath.MetapathExpression.ResultType;</span>
+<span class="source-line-no">009</span><span id="line-9">import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;</span>
+<span class="source-line-no">010</span><span id="line-10">import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression.ResultType;</span>
 <span class="source-line-no">011</span><span id="line-11">import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;</span>
 <span class="source-line-no">012</span><span id="line-12">import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;</span>
 <span class="source-line-no">013</span><span id="line-13">import gov.nist.secauto.metaschema.core.util.CollectionUtil;</span>
@@ -54,8 +54,8 @@
 <span class="source-line-no">041</span><span id="line-41"></span>
 <span class="source-line-no">042</span><span id="line-42">public class BasicIndexer implements IIndexer {</span>
 <span class="source-line-no">043</span><span id="line-43">  private static final Logger LOGGER = LogManager.getLogger(ProfileResolver.class);</span>
-<span class="source-line-no">044</span><span id="line-44">  private static final MetapathExpression CONTAINER_METAPATH</span>
-<span class="source-line-no">045</span><span id="line-45">      = MetapathExpression.compile("(ancestor::control|ancestor::group)[1]",</span>
+<span class="source-line-no">044</span><span id="line-44">  private static final IMetapathExpression CONTAINER_METAPATH</span>
+<span class="source-line-no">045</span><span id="line-45">      = IMetapathExpression.compile("(ancestor::control|ancestor::group)[1]",</span>
 <span class="source-line-no">046</span><span id="line-46">          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);</span>
 <span class="source-line-no">047</span><span id="line-47"></span>
 <span class="source-line-no">048</span><span id="line-48">  @NonNull</span>

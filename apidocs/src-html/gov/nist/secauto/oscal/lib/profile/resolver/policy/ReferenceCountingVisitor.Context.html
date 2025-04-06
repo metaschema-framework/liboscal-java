@@ -24,7 +24,7 @@
 <span class="source-line-no">011</span><span id="line-11">import gov.nist.secauto.metaschema.core.datatype.markup.IMarkupString;</span>
 <span class="source-line-no">012</span><span id="line-12">import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;</span>
 <span class="source-line-no">013</span><span id="line-13">import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;</span>
-<span class="source-line-no">014</span><span id="line-14">import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;</span>
+<span class="source-line-no">014</span><span id="line-14">import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;</span>
 <span class="source-line-no">015</span><span id="line-15">import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;</span>
 <span class="source-line-no">016</span><span id="line-16">import gov.nist.secauto.metaschema.core.metapath.item.atomic.IMarkupItem;</span>
 <span class="source-line-no">017</span><span id="line-17">import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;</span>
@@ -43,14 +43,14 @@
 <span class="source-line-no">030</span><span id="line-30">import gov.nist.secauto.oscal.lib.model.Property;</span>
 <span class="source-line-no">031</span><span id="line-31">import gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;</span>
 <span class="source-line-no">032</span><span id="line-32">import gov.nist.secauto.oscal.lib.model.metadata.IProperty;</span>
-<span class="source-line-no">033</span><span id="line-33">import gov.nist.secauto.oscal.lib.profile.resolver.support.AbstractCatalogEntityVisitor;</span>
-<span class="source-line-no">034</span><span id="line-34">import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;</span>
-<span class="source-line-no">035</span><span id="line-35">import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer;</span>
-<span class="source-line-no">036</span><span id="line-36"></span>
-<span class="source-line-no">037</span><span id="line-37">import org.apache.logging.log4j.LogManager;</span>
-<span class="source-line-no">038</span><span id="line-38">import org.apache.logging.log4j.Logger;</span>
-<span class="source-line-no">039</span><span id="line-39"></span>
-<span class="source-line-no">040</span><span id="line-40">import java.net.URI;</span>
+<span class="source-line-no">033</span><span id="line-33">import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolver.UriResolver;</span>
+<span class="source-line-no">034</span><span id="line-34">import gov.nist.secauto.oscal.lib.profile.resolver.support.AbstractCatalogEntityVisitor;</span>
+<span class="source-line-no">035</span><span id="line-35">import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;</span>
+<span class="source-line-no">036</span><span id="line-36">import gov.nist.secauto.oscal.lib.profile.resolver.support.IIndexer;</span>
+<span class="source-line-no">037</span><span id="line-37"></span>
+<span class="source-line-no">038</span><span id="line-38">import org.apache.logging.log4j.LogManager;</span>
+<span class="source-line-no">039</span><span id="line-39">import org.apache.logging.log4j.Logger;</span>
+<span class="source-line-no">040</span><span id="line-40"></span>
 <span class="source-line-no">041</span><span id="line-41">import java.util.EnumSet;</span>
 <span class="source-line-no">042</span><span id="line-42">import java.util.HashMap;</span>
 <span class="source-line-no">043</span><span id="line-43">import java.util.HashSet;</span>
@@ -72,26 +72,26 @@
 <span class="source-line-no">059</span><span id="line-59">  private static final ReferenceCountingVisitor SINGLETON = new ReferenceCountingVisitor();</span>
 <span class="source-line-no">060</span><span id="line-60"></span>
 <span class="source-line-no">061</span><span id="line-61">  @NonNull</span>
-<span class="source-line-no">062</span><span id="line-62">  private static final MetapathExpression PARAM_MARKUP_METAPATH</span>
-<span class="source-line-no">063</span><span id="line-63">      = MetapathExpression</span>
+<span class="source-line-no">062</span><span id="line-62">  private static final IMetapathExpression PARAM_MARKUP_METAPATH</span>
+<span class="source-line-no">063</span><span id="line-63">      = IMetapathExpression</span>
 <span class="source-line-no">064</span><span id="line-64">          .compile(</span>
 <span class="source-line-no">065</span><span id="line-65">              "label|usage|constraint/(description|tests/remarks)|guideline/prose|select/choice|remarks",</span>
 <span class="source-line-no">066</span><span id="line-66">              OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);</span>
 <span class="source-line-no">067</span><span id="line-67">  @NonNull</span>
-<span class="source-line-no">068</span><span id="line-68">  private static final MetapathExpression ROLE_MARKUP_METAPATH</span>
-<span class="source-line-no">069</span><span id="line-69">      = MetapathExpression.compile("title|description|remarks",</span>
+<span class="source-line-no">068</span><span id="line-68">  private static final IMetapathExpression ROLE_MARKUP_METAPATH</span>
+<span class="source-line-no">069</span><span id="line-69">      = IMetapathExpression.compile("title|description|remarks",</span>
 <span class="source-line-no">070</span><span id="line-70">          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);</span>
 <span class="source-line-no">071</span><span id="line-71">  @NonNull</span>
-<span class="source-line-no">072</span><span id="line-72">  private static final MetapathExpression LOCATION_MARKUP_METAPATH</span>
-<span class="source-line-no">073</span><span id="line-73">      = MetapathExpression.compile("title|remarks",</span>
+<span class="source-line-no">072</span><span id="line-72">  private static final IMetapathExpression LOCATION_MARKUP_METAPATH</span>
+<span class="source-line-no">073</span><span id="line-73">      = IMetapathExpression.compile("title|remarks",</span>
 <span class="source-line-no">074</span><span id="line-74">          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);</span>
 <span class="source-line-no">075</span><span id="line-75">  @NonNull</span>
-<span class="source-line-no">076</span><span id="line-76">  private static final MetapathExpression PARTY_MARKUP_METAPATH</span>
-<span class="source-line-no">077</span><span id="line-77">      = MetapathExpression.compile("title|remarks",</span>
+<span class="source-line-no">076</span><span id="line-76">  private static final IMetapathExpression PARTY_MARKUP_METAPATH</span>
+<span class="source-line-no">077</span><span id="line-77">      = IMetapathExpression.compile("title|remarks",</span>
 <span class="source-line-no">078</span><span id="line-78">          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);</span>
 <span class="source-line-no">079</span><span id="line-79">  @NonNull</span>
-<span class="source-line-no">080</span><span id="line-80">  private static final MetapathExpression RESOURCE_MARKUP_METAPATH</span>
-<span class="source-line-no">081</span><span id="line-81">      = MetapathExpression.compile("title|description|remarks",</span>
+<span class="source-line-no">080</span><span id="line-80">  private static final IMetapathExpression RESOURCE_MARKUP_METAPATH</span>
+<span class="source-line-no">081</span><span id="line-81">      = IMetapathExpression.compile("title|description|remarks",</span>
 <span class="source-line-no">082</span><span id="line-82">          OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);</span>
 <span class="source-line-no">083</span><span id="line-83"></span>
 <span class="source-line-no">084</span><span id="line-84">  @NonNull</span>
@@ -178,484 +178,486 @@
 <span class="source-line-no">165</span><span id="line-165">  // }</span>
 <span class="source-line-no">166</span><span id="line-166">  // }</span>
 <span class="source-line-no">167</span><span id="line-167"></span>
-<span class="source-line-no">168</span><span id="line-168">  public void visitCatalog(@NonNull IDocumentNodeItem catalogItem, @NonNull IIndexer indexer, @NonNull URI baseUri) {</span>
-<span class="source-line-no">169</span><span id="line-169">    Context context = new Context(indexer, baseUri);</span>
-<span class="source-line-no">170</span><span id="line-170">    visitCatalog(catalogItem, context);</span>
-<span class="source-line-no">171</span><span id="line-171"></span>
-<span class="source-line-no">172</span><span id="line-172">    IIndexer index = context.getIndexer();</span>
-<span class="source-line-no">173</span><span id="line-173">    // resolve the entities picked up by the original indexing operation</span>
-<span class="source-line-no">174</span><span id="line-174">    // FIXME: Is this necessary?</span>
-<span class="source-line-no">175</span><span id="line-175">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.ROLE))</span>
-<span class="source-line-no">176</span><span id="line-176">        .forEachOrdered(</span>
-<span class="source-line-no">177</span><span id="line-177">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context, ReferenceCountingVisitor::resolveRole));</span>
-<span class="source-line-no">178</span><span id="line-178">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.LOCATION))</span>
+<span class="source-line-no">168</span><span id="line-168">  public void visitCatalog(</span>
+<span class="source-line-no">169</span><span id="line-169">      @NonNull IDocumentNodeItem catalogItem,</span>
+<span class="source-line-no">170</span><span id="line-170">      @NonNull IIndexer indexer,</span>
+<span class="source-line-no">171</span><span id="line-171">      @NonNull UriResolver resolver) {</span>
+<span class="source-line-no">172</span><span id="line-172">    Context context = new Context(indexer, resolver);</span>
+<span class="source-line-no">173</span><span id="line-173">    visitCatalog(catalogItem, context);</span>
+<span class="source-line-no">174</span><span id="line-174"></span>
+<span class="source-line-no">175</span><span id="line-175">    IIndexer index = context.getIndexer();</span>
+<span class="source-line-no">176</span><span id="line-176">    // resolve the entities picked up by the original indexing operation</span>
+<span class="source-line-no">177</span><span id="line-177">    // FIXME: Is this necessary?</span>
+<span class="source-line-no">178</span><span id="line-178">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.ROLE))</span>
 <span class="source-line-no">179</span><span id="line-179">        .forEachOrdered(</span>
-<span class="source-line-no">180</span><span id="line-180">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context,</span>
-<span class="source-line-no">181</span><span id="line-181">                ReferenceCountingVisitor::resolveLocation));</span>
-<span class="source-line-no">182</span><span id="line-182">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.PARTY))</span>
-<span class="source-line-no">183</span><span id="line-183">        .forEachOrdered(</span>
-<span class="source-line-no">184</span><span id="line-184">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context,</span>
-<span class="source-line-no">185</span><span id="line-185">                ReferenceCountingVisitor::resolveParty));</span>
-<span class="source-line-no">186</span><span id="line-186">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.PARAMETER))</span>
-<span class="source-line-no">187</span><span id="line-187">        .forEachOrdered(</span>
-<span class="source-line-no">188</span><span id="line-188">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context,</span>
-<span class="source-line-no">189</span><span id="line-189">                ReferenceCountingVisitor::resolveParameter));</span>
-<span class="source-line-no">190</span><span id="line-190">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.RESOURCE))</span>
-<span class="source-line-no">191</span><span id="line-191">        .forEachOrdered(</span>
-<span class="source-line-no">192</span><span id="line-192">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context,</span>
-<span class="source-line-no">193</span><span id="line-193">                ReferenceCountingVisitor::resolveResource));</span>
-<span class="source-line-no">194</span><span id="line-194">  }</span>
-<span class="source-line-no">195</span><span id="line-195"></span>
-<span class="source-line-no">196</span><span id="line-196">  @Override</span>
-<span class="source-line-no">197</span><span id="line-197">  public Void visitGroup(</span>
-<span class="source-line-no">198</span><span id="line-198">      IAssemblyNodeItem item,</span>
-<span class="source-line-no">199</span><span id="line-199">      Void childResult,</span>
-<span class="source-line-no">200</span><span id="line-200">      Context context) {</span>
-<span class="source-line-no">201</span><span id="line-201">    IIndexer index = context.getIndexer();</span>
-<span class="source-line-no">202</span><span id="line-202">    // handle the group if it is selected</span>
-<span class="source-line-no">203</span><span id="line-203">    // a group will only be selected if it contains a descendant control that is</span>
-<span class="source-line-no">204</span><span id="line-204">    // selected</span>
-<span class="source-line-no">205</span><span id="line-205">    if (IIndexer.SelectionStatus.SELECTED.equals(index.getSelectionStatus(item))) {</span>
-<span class="source-line-no">206</span><span id="line-206">      CatalogGroup group = ObjectUtils.requireNonNull((CatalogGroup) item.getValue());</span>
-<span class="source-line-no">207</span><span id="line-207">      String id = group.getId();</span>
-<span class="source-line-no">208</span><span id="line-208"></span>
-<span class="source-line-no">209</span><span id="line-209">      boolean resolve;</span>
-<span class="source-line-no">210</span><span id="line-210">      if (id == null) {</span>
-<span class="source-line-no">211</span><span id="line-211">        // always resolve a group without an identifier</span>
-<span class="source-line-no">212</span><span id="line-212">        resolve = true;</span>
-<span class="source-line-no">213</span><span id="line-213">      } else {</span>
-<span class="source-line-no">214</span><span id="line-214">        IEntityItem entity = index.getEntity(IEntityItem.ItemType.GROUP, id, false);</span>
-<span class="source-line-no">215</span><span id="line-215">        if (entity != null &amp;&amp; !context.isResolved(entity)) {</span>
-<span class="source-line-no">216</span><span id="line-216">          // only resolve if not already resolved</span>
-<span class="source-line-no">217</span><span id="line-217">          context.markResolved(entity);</span>
-<span class="source-line-no">218</span><span id="line-218">          resolve = true;</span>
-<span class="source-line-no">219</span><span id="line-219">        } else {</span>
-<span class="source-line-no">220</span><span id="line-220">          resolve = false;</span>
-<span class="source-line-no">221</span><span id="line-221">        }</span>
-<span class="source-line-no">222</span><span id="line-222">      }</span>
-<span class="source-line-no">223</span><span id="line-223"></span>
-<span class="source-line-no">224</span><span id="line-224">      // resolve only if requested</span>
-<span class="source-line-no">225</span><span id="line-225">      if (resolve) {</span>
-<span class="source-line-no">226</span><span id="line-226">        resolveGroup(item, context);</span>
-<span class="source-line-no">227</span><span id="line-227">      }</span>
-<span class="source-line-no">228</span><span id="line-228">    }</span>
-<span class="source-line-no">229</span><span id="line-229">    return null;</span>
-<span class="source-line-no">230</span><span id="line-230">  }</span>
-<span class="source-line-no">231</span><span id="line-231"></span>
-<span class="source-line-no">232</span><span id="line-232">  @Override</span>
-<span class="source-line-no">233</span><span id="line-233">  public Void visitControl(</span>
-<span class="source-line-no">234</span><span id="line-234">      IAssemblyNodeItem item,</span>
-<span class="source-line-no">235</span><span id="line-235">      Void childResult,</span>
-<span class="source-line-no">236</span><span id="line-236">      Context context) {</span>
-<span class="source-line-no">237</span><span id="line-237">    IIndexer index = context.getIndexer();</span>
-<span class="source-line-no">238</span><span id="line-238">    // handle the control if it is selected</span>
-<span class="source-line-no">239</span><span id="line-239">    if (IIndexer.SelectionStatus.SELECTED.equals(index.getSelectionStatus(item))) {</span>
-<span class="source-line-no">240</span><span id="line-240">      Control control = ObjectUtils.requireNonNull((Control) item.getValue());</span>
-<span class="source-line-no">241</span><span id="line-241">      IEntityItem entity</span>
-<span class="source-line-no">242</span><span id="line-242">          = context.getIndexer().getEntity(IEntityItem.ItemType.CONTROL, ObjectUtils.notNull(control.getId()), false);</span>
-<span class="source-line-no">243</span><span id="line-243"></span>
-<span class="source-line-no">244</span><span id="line-244">      // the control must always appear in the index</span>
-<span class="source-line-no">245</span><span id="line-245">      assert entity != null;</span>
+<span class="source-line-no">180</span><span id="line-180">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context, ReferenceCountingVisitor::resolveRole));</span>
+<span class="source-line-no">181</span><span id="line-181">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.LOCATION))</span>
+<span class="source-line-no">182</span><span id="line-182">        .forEachOrdered(</span>
+<span class="source-line-no">183</span><span id="line-183">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context,</span>
+<span class="source-line-no">184</span><span id="line-184">                ReferenceCountingVisitor::resolveLocation));</span>
+<span class="source-line-no">185</span><span id="line-185">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.PARTY))</span>
+<span class="source-line-no">186</span><span id="line-186">        .forEachOrdered(</span>
+<span class="source-line-no">187</span><span id="line-187">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context,</span>
+<span class="source-line-no">188</span><span id="line-188">                ReferenceCountingVisitor::resolveParty));</span>
+<span class="source-line-no">189</span><span id="line-189">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.PARAMETER))</span>
+<span class="source-line-no">190</span><span id="line-190">        .forEachOrdered(</span>
+<span class="source-line-no">191</span><span id="line-191">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context,</span>
+<span class="source-line-no">192</span><span id="line-192">                ReferenceCountingVisitor::resolveParameter));</span>
+<span class="source-line-no">193</span><span id="line-193">    IIndexer.getReferencedEntitiesAsStream(index.getEntitiesByItemType(IEntityItem.ItemType.RESOURCE))</span>
+<span class="source-line-no">194</span><span id="line-194">        .forEachOrdered(</span>
+<span class="source-line-no">195</span><span id="line-195">            item -&gt; resolveEntity(ObjectUtils.notNull(item), context,</span>
+<span class="source-line-no">196</span><span id="line-196">                ReferenceCountingVisitor::resolveResource));</span>
+<span class="source-line-no">197</span><span id="line-197">  }</span>
+<span class="source-line-no">198</span><span id="line-198"></span>
+<span class="source-line-no">199</span><span id="line-199">  @Override</span>
+<span class="source-line-no">200</span><span id="line-200">  public Void visitGroup(</span>
+<span class="source-line-no">201</span><span id="line-201">      IAssemblyNodeItem item,</span>
+<span class="source-line-no">202</span><span id="line-202">      Void childResult,</span>
+<span class="source-line-no">203</span><span id="line-203">      Context context) {</span>
+<span class="source-line-no">204</span><span id="line-204">    IIndexer index = context.getIndexer();</span>
+<span class="source-line-no">205</span><span id="line-205">    // handle the group if it is selected</span>
+<span class="source-line-no">206</span><span id="line-206">    // a group will only be selected if it contains a descendant control that is</span>
+<span class="source-line-no">207</span><span id="line-207">    // selected</span>
+<span class="source-line-no">208</span><span id="line-208">    if (IIndexer.SelectionStatus.SELECTED.equals(index.getSelectionStatus(item))) {</span>
+<span class="source-line-no">209</span><span id="line-209">      CatalogGroup group = ObjectUtils.requireNonNull((CatalogGroup) item.getValue());</span>
+<span class="source-line-no">210</span><span id="line-210">      String id = group.getId();</span>
+<span class="source-line-no">211</span><span id="line-211"></span>
+<span class="source-line-no">212</span><span id="line-212">      boolean resolve;</span>
+<span class="source-line-no">213</span><span id="line-213">      if (id == null) {</span>
+<span class="source-line-no">214</span><span id="line-214">        // always resolve a group without an identifier</span>
+<span class="source-line-no">215</span><span id="line-215">        resolve = true;</span>
+<span class="source-line-no">216</span><span id="line-216">      } else {</span>
+<span class="source-line-no">217</span><span id="line-217">        IEntityItem entity = index.getEntity(IEntityItem.ItemType.GROUP, id, false);</span>
+<span class="source-line-no">218</span><span id="line-218">        if (entity != null &amp;&amp; !context.isResolved(entity)) {</span>
+<span class="source-line-no">219</span><span id="line-219">          // only resolve if not already resolved</span>
+<span class="source-line-no">220</span><span id="line-220">          context.markResolved(entity);</span>
+<span class="source-line-no">221</span><span id="line-221">          resolve = true;</span>
+<span class="source-line-no">222</span><span id="line-222">        } else {</span>
+<span class="source-line-no">223</span><span id="line-223">          resolve = false;</span>
+<span class="source-line-no">224</span><span id="line-224">        }</span>
+<span class="source-line-no">225</span><span id="line-225">      }</span>
+<span class="source-line-no">226</span><span id="line-226"></span>
+<span class="source-line-no">227</span><span id="line-227">      // resolve only if requested</span>
+<span class="source-line-no">228</span><span id="line-228">      if (resolve) {</span>
+<span class="source-line-no">229</span><span id="line-229">        resolveGroup(item, context);</span>
+<span class="source-line-no">230</span><span id="line-230">      }</span>
+<span class="source-line-no">231</span><span id="line-231">    }</span>
+<span class="source-line-no">232</span><span id="line-232">    return null;</span>
+<span class="source-line-no">233</span><span id="line-233">  }</span>
+<span class="source-line-no">234</span><span id="line-234"></span>
+<span class="source-line-no">235</span><span id="line-235">  @Override</span>
+<span class="source-line-no">236</span><span id="line-236">  public Void visitControl(</span>
+<span class="source-line-no">237</span><span id="line-237">      IAssemblyNodeItem item,</span>
+<span class="source-line-no">238</span><span id="line-238">      Void childResult,</span>
+<span class="source-line-no">239</span><span id="line-239">      Context context) {</span>
+<span class="source-line-no">240</span><span id="line-240">    IIndexer index = context.getIndexer();</span>
+<span class="source-line-no">241</span><span id="line-241">    // handle the control if it is selected</span>
+<span class="source-line-no">242</span><span id="line-242">    if (IIndexer.SelectionStatus.SELECTED.equals(index.getSelectionStatus(item))) {</span>
+<span class="source-line-no">243</span><span id="line-243">      Control control = ObjectUtils.requireNonNull((Control) item.getValue());</span>
+<span class="source-line-no">244</span><span id="line-244">      IEntityItem entity</span>
+<span class="source-line-no">245</span><span id="line-245">          = context.getIndexer().getEntity(IEntityItem.ItemType.CONTROL, ObjectUtils.notNull(control.getId()), false);</span>
 <span class="source-line-no">246</span><span id="line-246"></span>
-<span class="source-line-no">247</span><span id="line-247">      if (!context.isResolved(entity)) {</span>
-<span class="source-line-no">248</span><span id="line-248">        context.markResolved(entity);</span>
-<span class="source-line-no">249</span><span id="line-249">        if (IIndexer.SelectionStatus.SELECTED.equals(context.getIndexer().getSelectionStatus(item))) {</span>
-<span class="source-line-no">250</span><span id="line-250">          resolveControl(item, context);</span>
-<span class="source-line-no">251</span><span id="line-251">        }</span>
-<span class="source-line-no">252</span><span id="line-252">      }</span>
-<span class="source-line-no">253</span><span id="line-253">    }</span>
-<span class="source-line-no">254</span><span id="line-254">    return null;</span>
-<span class="source-line-no">255</span><span id="line-255">  }</span>
-<span class="source-line-no">256</span><span id="line-256"></span>
-<span class="source-line-no">257</span><span id="line-257">  @Override</span>
-<span class="source-line-no">258</span><span id="line-258">  protected void visitParts(</span>
-<span class="source-line-no">259</span><span id="line-259">      IAssemblyNodeItem groupOrControlItem,</span>
-<span class="source-line-no">260</span><span id="line-260">      Context context) {</span>
-<span class="source-line-no">261</span><span id="line-261">    // visits all descendant parts</span>
-<span class="source-line-no">262</span><span id="line-262">    CHILD_PART_METAPATH.evaluate(groupOrControlItem).stream()</span>
-<span class="source-line-no">263</span><span id="line-263">        .map(item -&gt; (IAssemblyNodeItem) item)</span>
-<span class="source-line-no">264</span><span id="line-264">        .forEachOrdered(partItem -&gt; {</span>
-<span class="source-line-no">265</span><span id="line-265">          visitPart(ObjectUtils.notNull(partItem), groupOrControlItem, context);</span>
-<span class="source-line-no">266</span><span id="line-266">        });</span>
-<span class="source-line-no">267</span><span id="line-267">  }</span>
-<span class="source-line-no">268</span><span id="line-268"></span>
-<span class="source-line-no">269</span><span id="line-269">  @Override</span>
-<span class="source-line-no">270</span><span id="line-270">  protected void visitPart(</span>
-<span class="source-line-no">271</span><span id="line-271">      IAssemblyNodeItem item,</span>
-<span class="source-line-no">272</span><span id="line-272">      IAssemblyNodeItem groupOrControlItem,</span>
-<span class="source-line-no">273</span><span id="line-273">      Context context) {</span>
-<span class="source-line-no">274</span><span id="line-274">    assert context != null;</span>
-<span class="source-line-no">275</span><span id="line-275"></span>
-<span class="source-line-no">276</span><span id="line-276">    ControlPart part = ObjectUtils.requireNonNull((ControlPart) item.getValue());</span>
-<span class="source-line-no">277</span><span id="line-277">    String id = part.getId();</span>
+<span class="source-line-no">247</span><span id="line-247">      // the control must always appear in the index</span>
+<span class="source-line-no">248</span><span id="line-248">      assert entity != null;</span>
+<span class="source-line-no">249</span><span id="line-249"></span>
+<span class="source-line-no">250</span><span id="line-250">      if (!context.isResolved(entity)) {</span>
+<span class="source-line-no">251</span><span id="line-251">        context.markResolved(entity);</span>
+<span class="source-line-no">252</span><span id="line-252">        if (IIndexer.SelectionStatus.SELECTED.equals(context.getIndexer().getSelectionStatus(item))) {</span>
+<span class="source-line-no">253</span><span id="line-253">          resolveControl(item, context);</span>
+<span class="source-line-no">254</span><span id="line-254">        }</span>
+<span class="source-line-no">255</span><span id="line-255">      }</span>
+<span class="source-line-no">256</span><span id="line-256">    }</span>
+<span class="source-line-no">257</span><span id="line-257">    return null;</span>
+<span class="source-line-no">258</span><span id="line-258">  }</span>
+<span class="source-line-no">259</span><span id="line-259"></span>
+<span class="source-line-no">260</span><span id="line-260">  @Override</span>
+<span class="source-line-no">261</span><span id="line-261">  protected void visitParts(</span>
+<span class="source-line-no">262</span><span id="line-262">      IAssemblyNodeItem groupOrControlItem,</span>
+<span class="source-line-no">263</span><span id="line-263">      Context context) {</span>
+<span class="source-line-no">264</span><span id="line-264">    // visits all descendant parts</span>
+<span class="source-line-no">265</span><span id="line-265">    CHILD_PART_METAPATH.evaluate(groupOrControlItem).stream()</span>
+<span class="source-line-no">266</span><span id="line-266">        .map(item -&gt; (IAssemblyNodeItem) item)</span>
+<span class="source-line-no">267</span><span id="line-267">        .forEachOrdered(partItem -&gt; {</span>
+<span class="source-line-no">268</span><span id="line-268">          visitPart(ObjectUtils.notNull(partItem), groupOrControlItem, context);</span>
+<span class="source-line-no">269</span><span id="line-269">        });</span>
+<span class="source-line-no">270</span><span id="line-270">  }</span>
+<span class="source-line-no">271</span><span id="line-271"></span>
+<span class="source-line-no">272</span><span id="line-272">  @Override</span>
+<span class="source-line-no">273</span><span id="line-273">  protected void visitPart(</span>
+<span class="source-line-no">274</span><span id="line-274">      IAssemblyNodeItem item,</span>
+<span class="source-line-no">275</span><span id="line-275">      IAssemblyNodeItem groupOrControlItem,</span>
+<span class="source-line-no">276</span><span id="line-276">      Context context) {</span>
+<span class="source-line-no">277</span><span id="line-277">    assert context != null;</span>
 <span class="source-line-no">278</span><span id="line-278"></span>
-<span class="source-line-no">279</span><span id="line-279">    boolean resolve;</span>
-<span class="source-line-no">280</span><span id="line-280">    if (id == null) {</span>
-<span class="source-line-no">281</span><span id="line-281">      // always resolve a part without an identifier</span>
-<span class="source-line-no">282</span><span id="line-282">      resolve = true;</span>
-<span class="source-line-no">283</span><span id="line-283">    } else {</span>
-<span class="source-line-no">284</span><span id="line-284">      IEntityItem entity = context.getIndexer().getEntity(IEntityItem.ItemType.PART, id, false);</span>
-<span class="source-line-no">285</span><span id="line-285">      if (entity != null &amp;&amp; !context.isResolved(entity)) {</span>
-<span class="source-line-no">286</span><span id="line-286">        // only resolve if not already resolved</span>
-<span class="source-line-no">287</span><span id="line-287">        context.markResolved(entity);</span>
-<span class="source-line-no">288</span><span id="line-288">        resolve = true;</span>
-<span class="source-line-no">289</span><span id="line-289">      } else {</span>
-<span class="source-line-no">290</span><span id="line-290">        resolve = false;</span>
-<span class="source-line-no">291</span><span id="line-291">      }</span>
-<span class="source-line-no">292</span><span id="line-292">    }</span>
-<span class="source-line-no">293</span><span id="line-293"></span>
-<span class="source-line-no">294</span><span id="line-294">    if (resolve) {</span>
-<span class="source-line-no">295</span><span id="line-295">      resolvePart(item, context);</span>
-<span class="source-line-no">296</span><span id="line-296">    }</span>
-<span class="source-line-no">297</span><span id="line-297">  }</span>
-<span class="source-line-no">298</span><span id="line-298"></span>
-<span class="source-line-no">299</span><span id="line-299">  protected void resolveGroup(</span>
-<span class="source-line-no">300</span><span id="line-300">      @NonNull IAssemblyNodeItem item,</span>
-<span class="source-line-no">301</span><span id="line-301">      @NonNull Context context) {</span>
-<span class="source-line-no">302</span><span id="line-302">    if (IIndexer.SelectionStatus.SELECTED.equals(context.getIndexer().getSelectionStatus(item))) {</span>
-<span class="source-line-no">303</span><span id="line-303"></span>
-<span class="source-line-no">304</span><span id="line-304">      // process children</span>
-<span class="source-line-no">305</span><span id="line-305">      item.getModelItemsByName(OscalModelConstants.QNAME_TITLE)</span>
-<span class="source-line-no">306</span><span id="line-306">          .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
-<span class="source-line-no">307</span><span id="line-307">      item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
-<span class="source-line-no">308</span><span id="line-308">          .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">309</span><span id="line-309">      item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
-<span class="source-line-no">310</span><span id="line-310">          .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">311</span><span id="line-311"></span>
-<span class="source-line-no">312</span><span id="line-312">      // always visit parts</span>
-<span class="source-line-no">313</span><span id="line-313">      visitParts(item, context);</span>
+<span class="source-line-no">279</span><span id="line-279">    ControlPart part = ObjectUtils.requireNonNull((ControlPart) item.getValue());</span>
+<span class="source-line-no">280</span><span id="line-280">    String id = part.getId();</span>
+<span class="source-line-no">281</span><span id="line-281"></span>
+<span class="source-line-no">282</span><span id="line-282">    boolean resolve;</span>
+<span class="source-line-no">283</span><span id="line-283">    if (id == null) {</span>
+<span class="source-line-no">284</span><span id="line-284">      // always resolve a part without an identifier</span>
+<span class="source-line-no">285</span><span id="line-285">      resolve = true;</span>
+<span class="source-line-no">286</span><span id="line-286">    } else {</span>
+<span class="source-line-no">287</span><span id="line-287">      IEntityItem entity = context.getIndexer().getEntity(IEntityItem.ItemType.PART, id, false);</span>
+<span class="source-line-no">288</span><span id="line-288">      if (entity != null &amp;&amp; !context.isResolved(entity)) {</span>
+<span class="source-line-no">289</span><span id="line-289">        // only resolve if not already resolved</span>
+<span class="source-line-no">290</span><span id="line-290">        context.markResolved(entity);</span>
+<span class="source-line-no">291</span><span id="line-291">        resolve = true;</span>
+<span class="source-line-no">292</span><span id="line-292">      } else {</span>
+<span class="source-line-no">293</span><span id="line-293">        resolve = false;</span>
+<span class="source-line-no">294</span><span id="line-294">      }</span>
+<span class="source-line-no">295</span><span id="line-295">    }</span>
+<span class="source-line-no">296</span><span id="line-296"></span>
+<span class="source-line-no">297</span><span id="line-297">    if (resolve) {</span>
+<span class="source-line-no">298</span><span id="line-298">      resolvePart(item, context);</span>
+<span class="source-line-no">299</span><span id="line-299">    }</span>
+<span class="source-line-no">300</span><span id="line-300">  }</span>
+<span class="source-line-no">301</span><span id="line-301"></span>
+<span class="source-line-no">302</span><span id="line-302">  protected void resolveGroup(</span>
+<span class="source-line-no">303</span><span id="line-303">      @NonNull IAssemblyNodeItem item,</span>
+<span class="source-line-no">304</span><span id="line-304">      @NonNull Context context) {</span>
+<span class="source-line-no">305</span><span id="line-305">    if (IIndexer.SelectionStatus.SELECTED.equals(context.getIndexer().getSelectionStatus(item))) {</span>
+<span class="source-line-no">306</span><span id="line-306"></span>
+<span class="source-line-no">307</span><span id="line-307">      // process children</span>
+<span class="source-line-no">308</span><span id="line-308">      item.getModelItemsByName(OscalModelConstants.QNAME_TITLE)</span>
+<span class="source-line-no">309</span><span id="line-309">          .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
+<span class="source-line-no">310</span><span id="line-310">      item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
+<span class="source-line-no">311</span><span id="line-311">          .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">312</span><span id="line-312">      item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
+<span class="source-line-no">313</span><span id="line-313">          .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
 <span class="source-line-no">314</span><span id="line-314"></span>
-<span class="source-line-no">315</span><span id="line-315">      // skip parameters for now. These will be processed by a separate pass.</span>
-<span class="source-line-no">316</span><span id="line-316">    }</span>
-<span class="source-line-no">317</span><span id="line-317">  }</span>
-<span class="source-line-no">318</span><span id="line-318"></span>
-<span class="source-line-no">319</span><span id="line-319">  protected void resolveControl(</span>
-<span class="source-line-no">320</span><span id="line-320">      @NonNull IAssemblyNodeItem item,</span>
-<span class="source-line-no">321</span><span id="line-321">      @NonNull Context context) {</span>
-<span class="source-line-no">322</span><span id="line-322">    // process non-control, non-param children</span>
-<span class="source-line-no">323</span><span id="line-323">    item.getModelItemsByName(OscalModelConstants.QNAME_TITLE)</span>
-<span class="source-line-no">324</span><span id="line-324">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
-<span class="source-line-no">325</span><span id="line-325">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
-<span class="source-line-no">326</span><span id="line-326">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">327</span><span id="line-327">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
-<span class="source-line-no">328</span><span id="line-328">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">329</span><span id="line-329"></span>
-<span class="source-line-no">330</span><span id="line-330">    // always visit parts</span>
-<span class="source-line-no">331</span><span id="line-331">    visitParts(item, context);</span>
+<span class="source-line-no">315</span><span id="line-315">      // always visit parts</span>
+<span class="source-line-no">316</span><span id="line-316">      visitParts(item, context);</span>
+<span class="source-line-no">317</span><span id="line-317"></span>
+<span class="source-line-no">318</span><span id="line-318">      // skip parameters for now. These will be processed by a separate pass.</span>
+<span class="source-line-no">319</span><span id="line-319">    }</span>
+<span class="source-line-no">320</span><span id="line-320">  }</span>
+<span class="source-line-no">321</span><span id="line-321"></span>
+<span class="source-line-no">322</span><span id="line-322">  protected void resolveControl(</span>
+<span class="source-line-no">323</span><span id="line-323">      @NonNull IAssemblyNodeItem item,</span>
+<span class="source-line-no">324</span><span id="line-324">      @NonNull Context context) {</span>
+<span class="source-line-no">325</span><span id="line-325">    // process non-control, non-param children</span>
+<span class="source-line-no">326</span><span id="line-326">    item.getModelItemsByName(OscalModelConstants.QNAME_TITLE)</span>
+<span class="source-line-no">327</span><span id="line-327">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
+<span class="source-line-no">328</span><span id="line-328">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
+<span class="source-line-no">329</span><span id="line-329">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">330</span><span id="line-330">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
+<span class="source-line-no">331</span><span id="line-331">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
 <span class="source-line-no">332</span><span id="line-332"></span>
-<span class="source-line-no">333</span><span id="line-333">    // skip parameters for now. These will be processed by a separate pass.</span>
-<span class="source-line-no">334</span><span id="line-334">  }</span>
+<span class="source-line-no">333</span><span id="line-333">    // always visit parts</span>
+<span class="source-line-no">334</span><span id="line-334">    visitParts(item, context);</span>
 <span class="source-line-no">335</span><span id="line-335"></span>
-<span class="source-line-no">336</span><span id="line-336">  private static void resolveRole(@NonNull IEntityItem entity, @NonNull Context context) {</span>
-<span class="source-line-no">337</span><span id="line-337">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
-<span class="source-line-no">338</span><span id="line-338">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
-<span class="source-line-no">339</span><span id="line-339">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">340</span><span id="line-340">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
-<span class="source-line-no">341</span><span id="line-341">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">342</span><span id="line-342">    ROLE_MARKUP_METAPATH.evaluate(item).getValue()</span>
-<span class="source-line-no">343</span><span id="line-343">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
-<span class="source-line-no">344</span><span id="line-344">  }</span>
-<span class="source-line-no">345</span><span id="line-345"></span>
-<span class="source-line-no">346</span><span id="line-346">  private static void resolveParty(@NonNull IEntityItem entity, @NonNull Context context) {</span>
-<span class="source-line-no">347</span><span id="line-347">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
-<span class="source-line-no">348</span><span id="line-348">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
-<span class="source-line-no">349</span><span id="line-349">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">350</span><span id="line-350">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
-<span class="source-line-no">351</span><span id="line-351">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">352</span><span id="line-352">    PARTY_MARKUP_METAPATH.evaluate(item).getValue()</span>
-<span class="source-line-no">353</span><span id="line-353">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
-<span class="source-line-no">354</span><span id="line-354">  }</span>
-<span class="source-line-no">355</span><span id="line-355"></span>
-<span class="source-line-no">356</span><span id="line-356">  public static void resolveLocation(@NonNull IEntityItem entity, @NonNull Context context) {</span>
-<span class="source-line-no">357</span><span id="line-357">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
-<span class="source-line-no">358</span><span id="line-358">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
-<span class="source-line-no">359</span><span id="line-359">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">360</span><span id="line-360">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
-<span class="source-line-no">361</span><span id="line-361">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">362</span><span id="line-362">    LOCATION_MARKUP_METAPATH.evaluate(item).getValue()</span>
-<span class="source-line-no">363</span><span id="line-363">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
-<span class="source-line-no">364</span><span id="line-364">  }</span>
-<span class="source-line-no">365</span><span id="line-365"></span>
-<span class="source-line-no">366</span><span id="line-366">  public static void resolveResource(@NonNull IEntityItem entity, @NonNull Context context) {</span>
-<span class="source-line-no">367</span><span id="line-367">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
+<span class="source-line-no">336</span><span id="line-336">    // skip parameters for now. These will be processed by a separate pass.</span>
+<span class="source-line-no">337</span><span id="line-337">  }</span>
+<span class="source-line-no">338</span><span id="line-338"></span>
+<span class="source-line-no">339</span><span id="line-339">  private static void resolveRole(@NonNull IEntityItem entity, @NonNull Context context) {</span>
+<span class="source-line-no">340</span><span id="line-340">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
+<span class="source-line-no">341</span><span id="line-341">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
+<span class="source-line-no">342</span><span id="line-342">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">343</span><span id="line-343">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
+<span class="source-line-no">344</span><span id="line-344">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">345</span><span id="line-345">    ROLE_MARKUP_METAPATH.evaluate(item)</span>
+<span class="source-line-no">346</span><span id="line-346">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
+<span class="source-line-no">347</span><span id="line-347">  }</span>
+<span class="source-line-no">348</span><span id="line-348"></span>
+<span class="source-line-no">349</span><span id="line-349">  private static void resolveParty(@NonNull IEntityItem entity, @NonNull Context context) {</span>
+<span class="source-line-no">350</span><span id="line-350">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
+<span class="source-line-no">351</span><span id="line-351">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
+<span class="source-line-no">352</span><span id="line-352">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">353</span><span id="line-353">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
+<span class="source-line-no">354</span><span id="line-354">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">355</span><span id="line-355">    PARTY_MARKUP_METAPATH.evaluate(item)</span>
+<span class="source-line-no">356</span><span id="line-356">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
+<span class="source-line-no">357</span><span id="line-357">  }</span>
+<span class="source-line-no">358</span><span id="line-358"></span>
+<span class="source-line-no">359</span><span id="line-359">  public static void resolveLocation(@NonNull IEntityItem entity, @NonNull Context context) {</span>
+<span class="source-line-no">360</span><span id="line-360">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
+<span class="source-line-no">361</span><span id="line-361">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
+<span class="source-line-no">362</span><span id="line-362">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">363</span><span id="line-363">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
+<span class="source-line-no">364</span><span id="line-364">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">365</span><span id="line-365">    LOCATION_MARKUP_METAPATH.evaluate(item)</span>
+<span class="source-line-no">366</span><span id="line-366">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
+<span class="source-line-no">367</span><span id="line-367">  }</span>
 <span class="source-line-no">368</span><span id="line-368"></span>
-<span class="source-line-no">369</span><span id="line-369">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
-<span class="source-line-no">370</span><span id="line-370">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">369</span><span id="line-369">  public static void resolveResource(@NonNull IEntityItem entity, @NonNull Context context) {</span>
+<span class="source-line-no">370</span><span id="line-370">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
 <span class="source-line-no">371</span><span id="line-371"></span>
-<span class="source-line-no">372</span><span id="line-372">    item.getModelItemsByName(OscalModelConstants.QNAME_CITATION).forEach(child -&gt; {</span>
-<span class="source-line-no">373</span><span id="line-373">      if (child != null) {</span>
-<span class="source-line-no">374</span><span id="line-374">        child.getModelItemsByName(OscalModelConstants.QNAME_TEXT)</span>
-<span class="source-line-no">375</span><span id="line-375">            .forEach(citationChild -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) citationChild), context));</span>
-<span class="source-line-no">376</span><span id="line-376">        child.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
-<span class="source-line-no">377</span><span id="line-377">            .forEach(citationChild -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) citationChild), context));</span>
-<span class="source-line-no">378</span><span id="line-378">        child.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
-<span class="source-line-no">379</span><span id="line-379">            .forEach(citationChild -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) citationChild), context));</span>
-<span class="source-line-no">380</span><span id="line-380">      }</span>
-<span class="source-line-no">381</span><span id="line-381">    });</span>
-<span class="source-line-no">382</span><span id="line-382"></span>
-<span class="source-line-no">383</span><span id="line-383">    RESOURCE_MARKUP_METAPATH.evaluate(item).getValue()</span>
-<span class="source-line-no">384</span><span id="line-384">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
-<span class="source-line-no">385</span><span id="line-385">  }</span>
-<span class="source-line-no">386</span><span id="line-386"></span>
-<span class="source-line-no">387</span><span id="line-387">  public static void resolveParameter(@NonNull IEntityItem entity, @NonNull Context context) {</span>
-<span class="source-line-no">388</span><span id="line-388">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
+<span class="source-line-no">372</span><span id="line-372">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
+<span class="source-line-no">373</span><span id="line-373">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">374</span><span id="line-374"></span>
+<span class="source-line-no">375</span><span id="line-375">    item.getModelItemsByName(OscalModelConstants.QNAME_CITATION).forEach(child -&gt; {</span>
+<span class="source-line-no">376</span><span id="line-376">      if (child != null) {</span>
+<span class="source-line-no">377</span><span id="line-377">        child.getModelItemsByName(OscalModelConstants.QNAME_TEXT)</span>
+<span class="source-line-no">378</span><span id="line-378">            .forEach(citationChild -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) citationChild), context));</span>
+<span class="source-line-no">379</span><span id="line-379">        child.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
+<span class="source-line-no">380</span><span id="line-380">            .forEach(citationChild -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) citationChild), context));</span>
+<span class="source-line-no">381</span><span id="line-381">        child.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
+<span class="source-line-no">382</span><span id="line-382">            .forEach(citationChild -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) citationChild), context));</span>
+<span class="source-line-no">383</span><span id="line-383">      }</span>
+<span class="source-line-no">384</span><span id="line-384">    });</span>
+<span class="source-line-no">385</span><span id="line-385"></span>
+<span class="source-line-no">386</span><span id="line-386">    RESOURCE_MARKUP_METAPATH.evaluate(item)</span>
+<span class="source-line-no">387</span><span id="line-387">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
+<span class="source-line-no">388</span><span id="line-388">  }</span>
 <span class="source-line-no">389</span><span id="line-389"></span>
-<span class="source-line-no">390</span><span id="line-390">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
-<span class="source-line-no">391</span><span id="line-391">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">392</span><span id="line-392">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
-<span class="source-line-no">393</span><span id="line-393">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">394</span><span id="line-394">    PARAM_MARKUP_METAPATH.evaluate(item).getValue()</span>
-<span class="source-line-no">395</span><span id="line-395">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
-<span class="source-line-no">396</span><span id="line-396">  }</span>
-<span class="source-line-no">397</span><span id="line-397"></span>
-<span class="source-line-no">398</span><span id="line-398">  private static void resolvePart(</span>
-<span class="source-line-no">399</span><span id="line-399">      @NonNull IAssemblyNodeItem item,</span>
-<span class="source-line-no">400</span><span id="line-400">      @NonNull Context context) {</span>
-<span class="source-line-no">401</span><span id="line-401">    item.getModelItemsByName(OscalModelConstants.QNAME_TITLE)</span>
-<span class="source-line-no">402</span><span id="line-402">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
-<span class="source-line-no">403</span><span id="line-403">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
-<span class="source-line-no">404</span><span id="line-404">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">405</span><span id="line-405">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
-<span class="source-line-no">406</span><span id="line-406">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
-<span class="source-line-no">407</span><span id="line-407">    item.getModelItemsByName(OscalModelConstants.QNAME_PROSE)</span>
-<span class="source-line-no">408</span><span id="line-408">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
-<span class="source-line-no">409</span><span id="line-409">    // item.getModelItemsByName("part").forEach(child -&gt;</span>
-<span class="source-line-no">410</span><span id="line-410">    // visitor.visitPart(ObjectUtils.notNull(child),</span>
-<span class="source-line-no">411</span><span id="line-411">    // context));</span>
-<span class="source-line-no">412</span><span id="line-412">  }</span>
-<span class="source-line-no">413</span><span id="line-413"></span>
-<span class="source-line-no">414</span><span id="line-414">  private static void handleMarkup(</span>
-<span class="source-line-no">415</span><span id="line-415">      @NonNull IFieldNodeItem item,</span>
-<span class="source-line-no">416</span><span id="line-416">      @NonNull Context context) {</span>
-<span class="source-line-no">417</span><span id="line-417">    IMarkupItem markupItem = (IMarkupItem) item.toAtomicItem();</span>
-<span class="source-line-no">418</span><span id="line-418">    IMarkupString&lt;?&gt; markup = markupItem.asMarkup();</span>
-<span class="source-line-no">419</span><span id="line-419">    handleMarkup(item, markup, context);</span>
-<span class="source-line-no">420</span><span id="line-420">  }</span>
-<span class="source-line-no">421</span><span id="line-421"></span>
-<span class="source-line-no">422</span><span id="line-422">  private static void handleMarkup(</span>
-<span class="source-line-no">423</span><span id="line-423">      @NonNull IFieldNodeItem contextItem,</span>
-<span class="source-line-no">424</span><span id="line-424">      @NonNull IMarkupString&lt;?&gt; text,</span>
-<span class="source-line-no">425</span><span id="line-425">      @NonNull Context context) {</span>
-<span class="source-line-no">426</span><span id="line-426">    for (Node node : CollectionUtil.toIterable(</span>
-<span class="source-line-no">427</span><span id="line-427">        ObjectUtils.notNull(text.getNodesAsStream().iterator()))) {</span>
-<span class="source-line-no">428</span><span id="line-428">      if (node instanceof InsertAnchorExtension.InsertAnchorNode) {</span>
-<span class="source-line-no">429</span><span id="line-429">        handleInsert(contextItem, (InsertAnchorNode) node, context);</span>
-<span class="source-line-no">430</span><span id="line-430">      } else if (node instanceof InlineLinkNode) {</span>
-<span class="source-line-no">431</span><span id="line-431">        handleAnchor(contextItem, (InlineLinkNode) node, context);</span>
-<span class="source-line-no">432</span><span id="line-432">      }</span>
-<span class="source-line-no">433</span><span id="line-433">    }</span>
-<span class="source-line-no">434</span><span id="line-434">  }</span>
-<span class="source-line-no">435</span><span id="line-435"></span>
-<span class="source-line-no">436</span><span id="line-436">  private static void handleInsert(</span>
-<span class="source-line-no">437</span><span id="line-437">      @NonNull IFieldNodeItem contextItem,</span>
-<span class="source-line-no">438</span><span id="line-438">      @NonNull InsertAnchorExtension.InsertAnchorNode node,</span>
-<span class="source-line-no">439</span><span id="line-439">      @NonNull Context context) {</span>
-<span class="source-line-no">440</span><span id="line-440">    boolean retval = INSERT_POLICY.handleReference(contextItem, node, context);</span>
-<span class="source-line-no">441</span><span id="line-441">    if (LOGGER.isWarnEnabled() &amp;&amp; !retval) {</span>
-<span class="source-line-no">442</span><span id="line-442">      LOGGER.atWarn().log("Unsupported insert type '{}' at '{}'",</span>
-<span class="source-line-no">443</span><span id="line-443">          node.getType().toString(),</span>
-<span class="source-line-no">444</span><span id="line-444">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
-<span class="source-line-no">445</span><span id="line-445">    }</span>
-<span class="source-line-no">446</span><span id="line-446">  }</span>
-<span class="source-line-no">447</span><span id="line-447"></span>
-<span class="source-line-no">448</span><span id="line-448">  private static void handleAnchor(</span>
-<span class="source-line-no">449</span><span id="line-449">      @NonNull IFieldNodeItem contextItem,</span>
-<span class="source-line-no">450</span><span id="line-450">      @NonNull InlineLinkNode node,</span>
-<span class="source-line-no">451</span><span id="line-451">      @NonNull Context context) {</span>
-<span class="source-line-no">452</span><span id="line-452">    boolean result = ANCHOR_POLICY.handleReference(contextItem, node, context);</span>
-<span class="source-line-no">453</span><span id="line-453">    if (LOGGER.isWarnEnabled() &amp;&amp; !result) {</span>
-<span class="source-line-no">454</span><span id="line-454">      LOGGER.atWarn().log("Unsupported anchor with href '{}' at '{}'",</span>
-<span class="source-line-no">455</span><span id="line-455">          node.getUrl().toString(),</span>
-<span class="source-line-no">456</span><span id="line-456">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
-<span class="source-line-no">457</span><span id="line-457">    }</span>
-<span class="source-line-no">458</span><span id="line-458">  }</span>
-<span class="source-line-no">459</span><span id="line-459"></span>
-<span class="source-line-no">460</span><span id="line-460">  private static void handleProperty(</span>
-<span class="source-line-no">461</span><span id="line-461">      @NonNull IAssemblyNodeItem item,</span>
-<span class="source-line-no">462</span><span id="line-462">      @NonNull Context context) {</span>
-<span class="source-line-no">463</span><span id="line-463">    Property property = ObjectUtils.requireNonNull((Property) item.getValue());</span>
-<span class="source-line-no">464</span><span id="line-464">    IEnhancedQName qname = property.getQName();</span>
-<span class="source-line-no">465</span><span id="line-465"></span>
-<span class="source-line-no">466</span><span id="line-466">    IReferencePolicy&lt;Property&gt; policy = PROPERTY_POLICIES.get(qname);</span>
-<span class="source-line-no">467</span><span id="line-467"></span>
-<span class="source-line-no">468</span><span id="line-468">    boolean result = policy != null &amp;&amp; policy.handleReference(item, property, context);</span>
-<span class="source-line-no">469</span><span id="line-469">    if (LOGGER.isWarnEnabled() &amp;&amp; !result) {</span>
-<span class="source-line-no">470</span><span id="line-470">      LOGGER.atWarn().log("Unsupported property '{}' at '{}'",</span>
-<span class="source-line-no">471</span><span id="line-471">          property.getQName(),</span>
-<span class="source-line-no">472</span><span id="line-472">          item.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
-<span class="source-line-no">473</span><span id="line-473">    }</span>
-<span class="source-line-no">474</span><span id="line-474">  }</span>
-<span class="source-line-no">475</span><span id="line-475"></span>
-<span class="source-line-no">476</span><span id="line-476">  private static void handleLink(</span>
-<span class="source-line-no">477</span><span id="line-477">      @NonNull IAssemblyNodeItem item,</span>
-<span class="source-line-no">478</span><span id="line-478">      @NonNull Context context) {</span>
-<span class="source-line-no">479</span><span id="line-479">    Link link = ObjectUtils.requireNonNull((Link) item.getValue());</span>
-<span class="source-line-no">480</span><span id="line-480">    IReferencePolicy&lt;Link&gt; policy = null;</span>
-<span class="source-line-no">481</span><span id="line-481">    String rel = link.getRel();</span>
-<span class="source-line-no">482</span><span id="line-482">    if (rel != null) {</span>
-<span class="source-line-no">483</span><span id="line-483">      policy = LINK_POLICIES.get(rel);</span>
-<span class="source-line-no">484</span><span id="line-484">    }</span>
-<span class="source-line-no">485</span><span id="line-485"></span>
-<span class="source-line-no">486</span><span id="line-486">    boolean result = policy != null &amp;&amp; policy.handleReference(item, link, context);</span>
-<span class="source-line-no">487</span><span id="line-487">    if (LOGGER.isWarnEnabled() &amp;&amp; !result) {</span>
-<span class="source-line-no">488</span><span id="line-488">      LOGGER.atWarn().log("unsupported link rel '{}' at '{}'",</span>
-<span class="source-line-no">489</span><span id="line-489">          link.getRel(),</span>
-<span class="source-line-no">490</span><span id="line-490">          item.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
-<span class="source-line-no">491</span><span id="line-491">    }</span>
-<span class="source-line-no">492</span><span id="line-492">  }</span>
-<span class="source-line-no">493</span><span id="line-493"></span>
-<span class="source-line-no">494</span><span id="line-494">  protected static void resolveEntity(</span>
-<span class="source-line-no">495</span><span id="line-495">      @NonNull IEntityItem entity,</span>
-<span class="source-line-no">496</span><span id="line-496">      @NonNull Context context,</span>
-<span class="source-line-no">497</span><span id="line-497">      @NonNull BiConsumer&lt;IEntityItem, Context&gt; handler) {</span>
-<span class="source-line-no">498</span><span id="line-498"></span>
-<span class="source-line-no">499</span><span id="line-499">    if (!context.isResolved(entity)) {</span>
-<span class="source-line-no">500</span><span id="line-500">      context.markResolved(entity);</span>
+<span class="source-line-no">390</span><span id="line-390">  public static void resolveParameter(@NonNull IEntityItem entity, @NonNull Context context) {</span>
+<span class="source-line-no">391</span><span id="line-391">    IModelNodeItem&lt;?, ?&gt; item = entity.getInstance();</span>
+<span class="source-line-no">392</span><span id="line-392"></span>
+<span class="source-line-no">393</span><span id="line-393">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
+<span class="source-line-no">394</span><span id="line-394">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">395</span><span id="line-395">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
+<span class="source-line-no">396</span><span id="line-396">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">397</span><span id="line-397">    PARAM_MARKUP_METAPATH.evaluate(item)</span>
+<span class="source-line-no">398</span><span id="line-398">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
+<span class="source-line-no">399</span><span id="line-399">  }</span>
+<span class="source-line-no">400</span><span id="line-400"></span>
+<span class="source-line-no">401</span><span id="line-401">  private static void resolvePart(</span>
+<span class="source-line-no">402</span><span id="line-402">      @NonNull IAssemblyNodeItem item,</span>
+<span class="source-line-no">403</span><span id="line-403">      @NonNull Context context) {</span>
+<span class="source-line-no">404</span><span id="line-404">    item.getModelItemsByName(OscalModelConstants.QNAME_TITLE)</span>
+<span class="source-line-no">405</span><span id="line-405">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
+<span class="source-line-no">406</span><span id="line-406">    item.getModelItemsByName(OscalModelConstants.QNAME_PROP)</span>
+<span class="source-line-no">407</span><span id="line-407">        .forEach(child -&gt; handleProperty(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">408</span><span id="line-408">    item.getModelItemsByName(OscalModelConstants.QNAME_LINK)</span>
+<span class="source-line-no">409</span><span id="line-409">        .forEach(child -&gt; handleLink(ObjectUtils.notNull((IAssemblyNodeItem) child), context));</span>
+<span class="source-line-no">410</span><span id="line-410">    item.getModelItemsByName(OscalModelConstants.QNAME_PROSE)</span>
+<span class="source-line-no">411</span><span id="line-411">        .forEach(child -&gt; handleMarkup(ObjectUtils.notNull((IFieldNodeItem) child), context));</span>
+<span class="source-line-no">412</span><span id="line-412">    // item.getModelItemsByName("part").forEach(child -&gt;</span>
+<span class="source-line-no">413</span><span id="line-413">    // visitor.visitPart(ObjectUtils.notNull(child),</span>
+<span class="source-line-no">414</span><span id="line-414">    // context));</span>
+<span class="source-line-no">415</span><span id="line-415">  }</span>
+<span class="source-line-no">416</span><span id="line-416"></span>
+<span class="source-line-no">417</span><span id="line-417">  private static void handleMarkup(</span>
+<span class="source-line-no">418</span><span id="line-418">      @NonNull IFieldNodeItem item,</span>
+<span class="source-line-no">419</span><span id="line-419">      @NonNull Context context) {</span>
+<span class="source-line-no">420</span><span id="line-420">    IMarkupItem markupItem = (IMarkupItem) item.toAtomicItem();</span>
+<span class="source-line-no">421</span><span id="line-421">    IMarkupString&lt;?&gt; markup = markupItem.asMarkup();</span>
+<span class="source-line-no">422</span><span id="line-422">    handleMarkup(item, markup, context);</span>
+<span class="source-line-no">423</span><span id="line-423">  }</span>
+<span class="source-line-no">424</span><span id="line-424"></span>
+<span class="source-line-no">425</span><span id="line-425">  private static void handleMarkup(</span>
+<span class="source-line-no">426</span><span id="line-426">      @NonNull IFieldNodeItem contextItem,</span>
+<span class="source-line-no">427</span><span id="line-427">      @NonNull IMarkupString&lt;?&gt; text,</span>
+<span class="source-line-no">428</span><span id="line-428">      @NonNull Context context) {</span>
+<span class="source-line-no">429</span><span id="line-429">    for (Node node : CollectionUtil.toIterable(</span>
+<span class="source-line-no">430</span><span id="line-430">        ObjectUtils.notNull(text.getNodesAsStream().iterator()))) {</span>
+<span class="source-line-no">431</span><span id="line-431">      if (node instanceof InsertAnchorExtension.InsertAnchorNode) {</span>
+<span class="source-line-no">432</span><span id="line-432">        handleInsert(contextItem, (InsertAnchorNode) node, context);</span>
+<span class="source-line-no">433</span><span id="line-433">      } else if (node instanceof InlineLinkNode) {</span>
+<span class="source-line-no">434</span><span id="line-434">        handleAnchor(contextItem, (InlineLinkNode) node, context);</span>
+<span class="source-line-no">435</span><span id="line-435">      }</span>
+<span class="source-line-no">436</span><span id="line-436">    }</span>
+<span class="source-line-no">437</span><span id="line-437">  }</span>
+<span class="source-line-no">438</span><span id="line-438"></span>
+<span class="source-line-no">439</span><span id="line-439">  private static void handleInsert(</span>
+<span class="source-line-no">440</span><span id="line-440">      @NonNull IFieldNodeItem contextItem,</span>
+<span class="source-line-no">441</span><span id="line-441">      @NonNull InsertAnchorExtension.InsertAnchorNode node,</span>
+<span class="source-line-no">442</span><span id="line-442">      @NonNull Context context) {</span>
+<span class="source-line-no">443</span><span id="line-443">    boolean retval = INSERT_POLICY.handleReference(contextItem, node, context);</span>
+<span class="source-line-no">444</span><span id="line-444">    if (LOGGER.isDebugEnabled() &amp;&amp; !retval) {</span>
+<span class="source-line-no">445</span><span id="line-445">      LOGGER.atDebug().log("Unsupported insert type '{}' at '{}'",</span>
+<span class="source-line-no">446</span><span id="line-446">          node.getType().toString(),</span>
+<span class="source-line-no">447</span><span id="line-447">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
+<span class="source-line-no">448</span><span id="line-448">    }</span>
+<span class="source-line-no">449</span><span id="line-449">  }</span>
+<span class="source-line-no">450</span><span id="line-450"></span>
+<span class="source-line-no">451</span><span id="line-451">  private static void handleAnchor(</span>
+<span class="source-line-no">452</span><span id="line-452">      @NonNull IFieldNodeItem contextItem,</span>
+<span class="source-line-no">453</span><span id="line-453">      @NonNull InlineLinkNode node,</span>
+<span class="source-line-no">454</span><span id="line-454">      @NonNull Context context) {</span>
+<span class="source-line-no">455</span><span id="line-455">    boolean result = ANCHOR_POLICY.handleReference(contextItem, node, context);</span>
+<span class="source-line-no">456</span><span id="line-456">    if (LOGGER.isDebugEnabled() &amp;&amp; !result) {</span>
+<span class="source-line-no">457</span><span id="line-457">      LOGGER.atDebug().log("Unsupported anchor with href '{}' at '{}'",</span>
+<span class="source-line-no">458</span><span id="line-458">          node.getUrl().toString(),</span>
+<span class="source-line-no">459</span><span id="line-459">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
+<span class="source-line-no">460</span><span id="line-460">    }</span>
+<span class="source-line-no">461</span><span id="line-461">  }</span>
+<span class="source-line-no">462</span><span id="line-462"></span>
+<span class="source-line-no">463</span><span id="line-463">  private static void handleProperty(</span>
+<span class="source-line-no">464</span><span id="line-464">      @NonNull IAssemblyNodeItem item,</span>
+<span class="source-line-no">465</span><span id="line-465">      @NonNull Context context) {</span>
+<span class="source-line-no">466</span><span id="line-466">    Property property = ObjectUtils.requireNonNull((Property) item.getValue());</span>
+<span class="source-line-no">467</span><span id="line-467">    IEnhancedQName qname = property.getQName();</span>
+<span class="source-line-no">468</span><span id="line-468"></span>
+<span class="source-line-no">469</span><span id="line-469">    IReferencePolicy&lt;Property&gt; policy = PROPERTY_POLICIES.get(qname);</span>
+<span class="source-line-no">470</span><span id="line-470"></span>
+<span class="source-line-no">471</span><span id="line-471">    boolean result = policy != null &amp;&amp; policy.handleReference(item, property, context);</span>
+<span class="source-line-no">472</span><span id="line-472">    if (LOGGER.isDebugEnabled() &amp;&amp; !result) {</span>
+<span class="source-line-no">473</span><span id="line-473">      LOGGER.atDebug().log("Unsupported property '{}' at '{}'",</span>
+<span class="source-line-no">474</span><span id="line-474">          property.getQName(),</span>
+<span class="source-line-no">475</span><span id="line-475">          item.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
+<span class="source-line-no">476</span><span id="line-476">    }</span>
+<span class="source-line-no">477</span><span id="line-477">  }</span>
+<span class="source-line-no">478</span><span id="line-478"></span>
+<span class="source-line-no">479</span><span id="line-479">  private static void handleLink(</span>
+<span class="source-line-no">480</span><span id="line-480">      @NonNull IAssemblyNodeItem item,</span>
+<span class="source-line-no">481</span><span id="line-481">      @NonNull Context context) {</span>
+<span class="source-line-no">482</span><span id="line-482">    Link link = ObjectUtils.requireNonNull((Link) item.getValue());</span>
+<span class="source-line-no">483</span><span id="line-483">    IReferencePolicy&lt;Link&gt; policy = null;</span>
+<span class="source-line-no">484</span><span id="line-484">    String rel = link.getRel();</span>
+<span class="source-line-no">485</span><span id="line-485">    if (rel != null) {</span>
+<span class="source-line-no">486</span><span id="line-486">      policy = LINK_POLICIES.get(rel);</span>
+<span class="source-line-no">487</span><span id="line-487">    }</span>
+<span class="source-line-no">488</span><span id="line-488"></span>
+<span class="source-line-no">489</span><span id="line-489">    boolean result = policy != null &amp;&amp; policy.handleReference(item, link, context);</span>
+<span class="source-line-no">490</span><span id="line-490">    if (LOGGER.isDebugEnabled() &amp;&amp; !result) {</span>
+<span class="source-line-no">491</span><span id="line-491">      LOGGER.atDebug().log("unsupported link rel '{}' at '{}'",</span>
+<span class="source-line-no">492</span><span id="line-492">          link.getRel(),</span>
+<span class="source-line-no">493</span><span id="line-493">          item.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
+<span class="source-line-no">494</span><span id="line-494">    }</span>
+<span class="source-line-no">495</span><span id="line-495">  }</span>
+<span class="source-line-no">496</span><span id="line-496"></span>
+<span class="source-line-no">497</span><span id="line-497">  protected static void resolveEntity(</span>
+<span class="source-line-no">498</span><span id="line-498">      @NonNull IEntityItem entity,</span>
+<span class="source-line-no">499</span><span id="line-499">      @NonNull Context context,</span>
+<span class="source-line-no">500</span><span id="line-500">      @NonNull BiConsumer&lt;IEntityItem, Context&gt; handler) {</span>
 <span class="source-line-no">501</span><span id="line-501"></span>
-<span class="source-line-no">502</span><span id="line-502">      if (LOGGER.isDebugEnabled()) {</span>
-<span class="source-line-no">503</span><span id="line-503">        LOGGER.atDebug().log("Resolving {} identified as '{}'",</span>
-<span class="source-line-no">504</span><span id="line-504">            entity.getItemType().name(),</span>
-<span class="source-line-no">505</span><span id="line-505">            entity.getIdentifier());</span>
-<span class="source-line-no">506</span><span id="line-506">      }</span>
-<span class="source-line-no">507</span><span id="line-507"></span>
-<span class="source-line-no">508</span><span id="line-508">      if (!IIndexer.SelectionStatus.UNSELECTED</span>
-<span class="source-line-no">509</span><span id="line-509">          .equals(context.getIndexer().getSelectionStatus(entity.getInstance()))) {</span>
-<span class="source-line-no">510</span><span id="line-510">        // only resolve selected and unknown entities</span>
-<span class="source-line-no">511</span><span id="line-511">        handler.accept(entity, context);</span>
-<span class="source-line-no">512</span><span id="line-512">      }</span>
-<span class="source-line-no">513</span><span id="line-513">    }</span>
-<span class="source-line-no">514</span><span id="line-514">  }</span>
-<span class="source-line-no">515</span><span id="line-515"></span>
-<span class="source-line-no">516</span><span id="line-516">  public void resolveEntity(</span>
-<span class="source-line-no">517</span><span id="line-517">      @NonNull IEntityItem entity,</span>
-<span class="source-line-no">518</span><span id="line-518">      @NonNull Context context) {</span>
-<span class="source-line-no">519</span><span id="line-519">    resolveEntity(entity, context, (theEntity, theContext) -&gt; entityDispatch(</span>
-<span class="source-line-no">520</span><span id="line-520">        ObjectUtils.notNull(theEntity),</span>
-<span class="source-line-no">521</span><span id="line-521">        ObjectUtils.notNull(theContext)));</span>
-<span class="source-line-no">522</span><span id="line-522">  }</span>
-<span class="source-line-no">523</span><span id="line-523"></span>
-<span class="source-line-no">524</span><span id="line-524">  protected void entityDispatch(@NonNull IEntityItem entity, @NonNull Context context) {</span>
-<span class="source-line-no">525</span><span id="line-525">    IAssemblyNodeItem item = (IAssemblyNodeItem) entity.getInstance();</span>
-<span class="source-line-no">526</span><span id="line-526">    switch (entity.getItemType()) {</span>
-<span class="source-line-no">527</span><span id="line-527">    case CONTROL:</span>
-<span class="source-line-no">528</span><span id="line-528">      resolveControl(item, context);</span>
-<span class="source-line-no">529</span><span id="line-529">      break;</span>
-<span class="source-line-no">530</span><span id="line-530">    case GROUP:</span>
-<span class="source-line-no">531</span><span id="line-531">      resolveGroup(item, context);</span>
+<span class="source-line-no">502</span><span id="line-502">    if (!context.isResolved(entity)) {</span>
+<span class="source-line-no">503</span><span id="line-503">      context.markResolved(entity);</span>
+<span class="source-line-no">504</span><span id="line-504"></span>
+<span class="source-line-no">505</span><span id="line-505">      if (LOGGER.isDebugEnabled()) {</span>
+<span class="source-line-no">506</span><span id="line-506">        LOGGER.atDebug().log("Resolving {} identified as '{}'",</span>
+<span class="source-line-no">507</span><span id="line-507">            entity.getItemType().name(),</span>
+<span class="source-line-no">508</span><span id="line-508">            entity.getIdentifier());</span>
+<span class="source-line-no">509</span><span id="line-509">      }</span>
+<span class="source-line-no">510</span><span id="line-510"></span>
+<span class="source-line-no">511</span><span id="line-511">      if (!IIndexer.SelectionStatus.UNSELECTED</span>
+<span class="source-line-no">512</span><span id="line-512">          .equals(context.getIndexer().getSelectionStatus(entity.getInstance()))) {</span>
+<span class="source-line-no">513</span><span id="line-513">        // only resolve selected and unknown entities</span>
+<span class="source-line-no">514</span><span id="line-514">        handler.accept(entity, context);</span>
+<span class="source-line-no">515</span><span id="line-515">      }</span>
+<span class="source-line-no">516</span><span id="line-516">    }</span>
+<span class="source-line-no">517</span><span id="line-517">  }</span>
+<span class="source-line-no">518</span><span id="line-518"></span>
+<span class="source-line-no">519</span><span id="line-519">  public void resolveEntity(</span>
+<span class="source-line-no">520</span><span id="line-520">      @NonNull IEntityItem entity,</span>
+<span class="source-line-no">521</span><span id="line-521">      @NonNull Context context) {</span>
+<span class="source-line-no">522</span><span id="line-522">    resolveEntity(entity, context, (theEntity, theContext) -&gt; entityDispatch(</span>
+<span class="source-line-no">523</span><span id="line-523">        ObjectUtils.notNull(theEntity),</span>
+<span class="source-line-no">524</span><span id="line-524">        ObjectUtils.notNull(theContext)));</span>
+<span class="source-line-no">525</span><span id="line-525">  }</span>
+<span class="source-line-no">526</span><span id="line-526"></span>
+<span class="source-line-no">527</span><span id="line-527">  protected void entityDispatch(@NonNull IEntityItem entity, @NonNull Context context) {</span>
+<span class="source-line-no">528</span><span id="line-528">    IAssemblyNodeItem item = (IAssemblyNodeItem) entity.getInstance();</span>
+<span class="source-line-no">529</span><span id="line-529">    switch (entity.getItemType()) {</span>
+<span class="source-line-no">530</span><span id="line-530">    case CONTROL:</span>
+<span class="source-line-no">531</span><span id="line-531">      resolveControl(item, context);</span>
 <span class="source-line-no">532</span><span id="line-532">      break;</span>
-<span class="source-line-no">533</span><span id="line-533">    case LOCATION:</span>
-<span class="source-line-no">534</span><span id="line-534">      resolveLocation(entity, context);</span>
+<span class="source-line-no">533</span><span id="line-533">    case GROUP:</span>
+<span class="source-line-no">534</span><span id="line-534">      resolveGroup(item, context);</span>
 <span class="source-line-no">535</span><span id="line-535">      break;</span>
-<span class="source-line-no">536</span><span id="line-536">    case PARAMETER:</span>
-<span class="source-line-no">537</span><span id="line-537">      resolveParameter(entity, context);</span>
+<span class="source-line-no">536</span><span id="line-536">    case LOCATION:</span>
+<span class="source-line-no">537</span><span id="line-537">      resolveLocation(entity, context);</span>
 <span class="source-line-no">538</span><span id="line-538">      break;</span>
-<span class="source-line-no">539</span><span id="line-539">    case PART:</span>
-<span class="source-line-no">540</span><span id="line-540">      resolvePart(item, context);</span>
+<span class="source-line-no">539</span><span id="line-539">    case PARAMETER:</span>
+<span class="source-line-no">540</span><span id="line-540">      resolveParameter(entity, context);</span>
 <span class="source-line-no">541</span><span id="line-541">      break;</span>
-<span class="source-line-no">542</span><span id="line-542">    case PARTY:</span>
-<span class="source-line-no">543</span><span id="line-543">      resolveParty(entity, context);</span>
+<span class="source-line-no">542</span><span id="line-542">    case PART:</span>
+<span class="source-line-no">543</span><span id="line-543">      resolvePart(item, context);</span>
 <span class="source-line-no">544</span><span id="line-544">      break;</span>
-<span class="source-line-no">545</span><span id="line-545">    case RESOURCE:</span>
-<span class="source-line-no">546</span><span id="line-546">      resolveResource(entity, context);</span>
+<span class="source-line-no">545</span><span id="line-545">    case PARTY:</span>
+<span class="source-line-no">546</span><span id="line-546">      resolveParty(entity, context);</span>
 <span class="source-line-no">547</span><span id="line-547">      break;</span>
-<span class="source-line-no">548</span><span id="line-548">    case ROLE:</span>
-<span class="source-line-no">549</span><span id="line-549">      resolveRole(entity, context);</span>
+<span class="source-line-no">548</span><span id="line-548">    case RESOURCE:</span>
+<span class="source-line-no">549</span><span id="line-549">      resolveResource(entity, context);</span>
 <span class="source-line-no">550</span><span id="line-550">      break;</span>
-<span class="source-line-no">551</span><span id="line-551">    default:</span>
-<span class="source-line-no">552</span><span id="line-552">      throw new UnsupportedOperationException(entity.getItemType().name());</span>
-<span class="source-line-no">553</span><span id="line-553">    }</span>
-<span class="source-line-no">554</span><span id="line-554">  }</span>
-<span class="source-line-no">555</span><span id="line-555">  //</span>
-<span class="source-line-no">556</span><span id="line-556">  // @Override</span>
-<span class="source-line-no">557</span><span id="line-557">  // protected Void newDefaultResult(Object context) {</span>
-<span class="source-line-no">558</span><span id="line-558">  // return null;</span>
-<span class="source-line-no">559</span><span id="line-559">  // }</span>
-<span class="source-line-no">560</span><span id="line-560">  //</span>
-<span class="source-line-no">561</span><span id="line-561">  // @Override</span>
-<span class="source-line-no">562</span><span id="line-562">  // protected Void aggregateResults(Object first, Object second, Object context)</span>
-<span class="source-line-no">563</span><span id="line-563">  // {</span>
-<span class="source-line-no">564</span><span id="line-564">  // return null;</span>
-<span class="source-line-no">565</span><span id="line-565">  // }</span>
-<span class="source-line-no">566</span><span id="line-566"></span>
-<span class="source-line-no">567</span><span id="line-567">  public static final class Context {</span>
-<span class="source-line-no">568</span><span id="line-568">    @NonNull</span>
-<span class="source-line-no">569</span><span id="line-569">    private final IIndexer indexer;</span>
-<span class="source-line-no">570</span><span id="line-570">    @NonNull</span>
-<span class="source-line-no">571</span><span id="line-571">    private final URI source;</span>
-<span class="source-line-no">572</span><span id="line-572">    @NonNull</span>
-<span class="source-line-no">573</span><span id="line-573">    private final Set&lt;IEntityItem&gt; resolvedEntities = new HashSet&lt;&gt;();</span>
-<span class="source-line-no">574</span><span id="line-574"></span>
-<span class="source-line-no">575</span><span id="line-575">    private Context(@NonNull IIndexer indexer, @NonNull URI source) {</span>
-<span class="source-line-no">576</span><span id="line-576">      this.indexer = indexer;</span>
-<span class="source-line-no">577</span><span id="line-577">      this.source = source;</span>
-<span class="source-line-no">578</span><span id="line-578">    }</span>
-<span class="source-line-no">579</span><span id="line-579"></span>
-<span class="source-line-no">580</span><span id="line-580">    @NonNull</span>
-<span class="source-line-no">581</span><span id="line-581">    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "intending to expose this field")</span>
-<span class="source-line-no">582</span><span id="line-582">    public IIndexer getIndexer() {</span>
-<span class="source-line-no">583</span><span id="line-583">      return indexer;</span>
-<span class="source-line-no">584</span><span id="line-584">    }</span>
-<span class="source-line-no">585</span><span id="line-585"></span>
-<span class="source-line-no">586</span><span id="line-586">    @Nullable</span>
-<span class="source-line-no">587</span><span id="line-587">    public IEntityItem getEntity(@NonNull IEntityItem.ItemType itemType, @NonNull String identifier) {</span>
-<span class="source-line-no">588</span><span id="line-588">      return getIndexer().getEntity(itemType, identifier);</span>
-<span class="source-line-no">589</span><span id="line-589">    }</span>
-<span class="source-line-no">590</span><span id="line-590"></span>
-<span class="source-line-no">591</span><span id="line-591">    @SuppressWarnings("unused")</span>
-<span class="source-line-no">592</span><span id="line-592">    @NonNull</span>
-<span class="source-line-no">593</span><span id="line-593">    private URI getSource() {</span>
-<span class="source-line-no">594</span><span id="line-594">      return source;</span>
-<span class="source-line-no">595</span><span id="line-595">    }</span>
-<span class="source-line-no">596</span><span id="line-596"></span>
-<span class="source-line-no">597</span><span id="line-597">    public void markResolved(@NonNull IEntityItem entity) {</span>
-<span class="source-line-no">598</span><span id="line-598">      resolvedEntities.add(entity);</span>
-<span class="source-line-no">599</span><span id="line-599">    }</span>
-<span class="source-line-no">600</span><span id="line-600"></span>
-<span class="source-line-no">601</span><span id="line-601">    public boolean isResolved(@NonNull IEntityItem entity) {</span>
-<span class="source-line-no">602</span><span id="line-602">      return resolvedEntities.contains(entity);</span>
-<span class="source-line-no">603</span><span id="line-603">    }</span>
-<span class="source-line-no">604</span><span id="line-604"></span>
-<span class="source-line-no">605</span><span id="line-605">    public void incrementReferenceCount(</span>
-<span class="source-line-no">606</span><span id="line-606">        @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
-<span class="source-line-no">607</span><span id="line-607">        @NonNull IEntityItem.ItemType type,</span>
-<span class="source-line-no">608</span><span id="line-608">        @NonNull UUID identifier) {</span>
-<span class="source-line-no">609</span><span id="line-609">      incrementReferenceCountInternal(</span>
-<span class="source-line-no">610</span><span id="line-610">          contextItem,</span>
-<span class="source-line-no">611</span><span id="line-611">          type,</span>
-<span class="source-line-no">612</span><span id="line-612">          ObjectUtils.notNull(identifier.toString()),</span>
-<span class="source-line-no">613</span><span id="line-613">          false);</span>
-<span class="source-line-no">614</span><span id="line-614">    }</span>
-<span class="source-line-no">615</span><span id="line-615"></span>
-<span class="source-line-no">616</span><span id="line-616">    public void incrementReferenceCount(</span>
-<span class="source-line-no">617</span><span id="line-617">        @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
-<span class="source-line-no">618</span><span id="line-618">        @NonNull IEntityItem.ItemType type,</span>
-<span class="source-line-no">619</span><span id="line-619">        @NonNull String identifier) {</span>
-<span class="source-line-no">620</span><span id="line-620">      incrementReferenceCountInternal(</span>
-<span class="source-line-no">621</span><span id="line-621">          contextItem,</span>
-<span class="source-line-no">622</span><span id="line-622">          type,</span>
-<span class="source-line-no">623</span><span id="line-623">          identifier,</span>
-<span class="source-line-no">624</span><span id="line-624">          type.isUuid());</span>
-<span class="source-line-no">625</span><span id="line-625">    }</span>
-<span class="source-line-no">626</span><span id="line-626"></span>
-<span class="source-line-no">627</span><span id="line-627">    private void incrementReferenceCountInternal(</span>
-<span class="source-line-no">628</span><span id="line-628">        @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
-<span class="source-line-no">629</span><span id="line-629">        @NonNull IEntityItem.ItemType type,</span>
-<span class="source-line-no">630</span><span id="line-630">        @NonNull String identifier,</span>
-<span class="source-line-no">631</span><span id="line-631">        boolean normalize) {</span>
-<span class="source-line-no">632</span><span id="line-632">      IEntityItem item = getIndexer().getEntity(type, identifier, normalize);</span>
-<span class="source-line-no">633</span><span id="line-633">      if (item == null) {</span>
-<span class="source-line-no">634</span><span id="line-634">        if (LOGGER.isErrorEnabled()) {</span>
-<span class="source-line-no">635</span><span id="line-635">          LOGGER.atError().log("Unknown reference to {} '{}' at '{}'",</span>
-<span class="source-line-no">636</span><span id="line-636">              type.toString().toLowerCase(Locale.ROOT),</span>
-<span class="source-line-no">637</span><span id="line-637">              identifier,</span>
-<span class="source-line-no">638</span><span id="line-638">              contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
-<span class="source-line-no">639</span><span id="line-639">        }</span>
-<span class="source-line-no">640</span><span id="line-640">      } else {</span>
-<span class="source-line-no">641</span><span id="line-641">        item.incrementReferenceCount();</span>
-<span class="source-line-no">642</span><span id="line-642">      }</span>
-<span class="source-line-no">643</span><span id="line-643">    }</span>
-<span class="source-line-no">644</span><span id="line-644">  }</span>
-<span class="source-line-no">645</span><span id="line-645">}</span>
+<span class="source-line-no">551</span><span id="line-551">    case ROLE:</span>
+<span class="source-line-no">552</span><span id="line-552">      resolveRole(entity, context);</span>
+<span class="source-line-no">553</span><span id="line-553">      break;</span>
+<span class="source-line-no">554</span><span id="line-554">    default:</span>
+<span class="source-line-no">555</span><span id="line-555">      throw new UnsupportedOperationException(entity.getItemType().name());</span>
+<span class="source-line-no">556</span><span id="line-556">    }</span>
+<span class="source-line-no">557</span><span id="line-557">  }</span>
+<span class="source-line-no">558</span><span id="line-558">  //</span>
+<span class="source-line-no">559</span><span id="line-559">  // @Override</span>
+<span class="source-line-no">560</span><span id="line-560">  // protected Void newDefaultResult(Object context) {</span>
+<span class="source-line-no">561</span><span id="line-561">  // return null;</span>
+<span class="source-line-no">562</span><span id="line-562">  // }</span>
+<span class="source-line-no">563</span><span id="line-563">  //</span>
+<span class="source-line-no">564</span><span id="line-564">  // @Override</span>
+<span class="source-line-no">565</span><span id="line-565">  // protected Void aggregateResults(Object first, Object second, Object context)</span>
+<span class="source-line-no">566</span><span id="line-566">  // {</span>
+<span class="source-line-no">567</span><span id="line-567">  // return null;</span>
+<span class="source-line-no">568</span><span id="line-568">  // }</span>
+<span class="source-line-no">569</span><span id="line-569"></span>
+<span class="source-line-no">570</span><span id="line-570">  public static final class Context {</span>
+<span class="source-line-no">571</span><span id="line-571">    @NonNull</span>
+<span class="source-line-no">572</span><span id="line-572">    private final IIndexer indexer;</span>
+<span class="source-line-no">573</span><span id="line-573">    @NonNull</span>
+<span class="source-line-no">574</span><span id="line-574">    private final UriResolver resolver;</span>
+<span class="source-line-no">575</span><span id="line-575">    @NonNull</span>
+<span class="source-line-no">576</span><span id="line-576">    private final Set&lt;IEntityItem&gt; resolvedEntities = new HashSet&lt;&gt;();</span>
+<span class="source-line-no">577</span><span id="line-577"></span>
+<span class="source-line-no">578</span><span id="line-578">    private Context(@NonNull IIndexer indexer, @NonNull UriResolver resolver) {</span>
+<span class="source-line-no">579</span><span id="line-579">      this.indexer = indexer;</span>
+<span class="source-line-no">580</span><span id="line-580">      this.resolver = resolver;</span>
+<span class="source-line-no">581</span><span id="line-581">    }</span>
+<span class="source-line-no">582</span><span id="line-582"></span>
+<span class="source-line-no">583</span><span id="line-583">    @NonNull</span>
+<span class="source-line-no">584</span><span id="line-584">    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "intending to expose this field")</span>
+<span class="source-line-no">585</span><span id="line-585">    public IIndexer getIndexer() {</span>
+<span class="source-line-no">586</span><span id="line-586">      return indexer;</span>
+<span class="source-line-no">587</span><span id="line-587">    }</span>
+<span class="source-line-no">588</span><span id="line-588"></span>
+<span class="source-line-no">589</span><span id="line-589">    @NonNull</span>
+<span class="source-line-no">590</span><span id="line-590">    public UriResolver getUriResolver() {</span>
+<span class="source-line-no">591</span><span id="line-591">      return resolver;</span>
+<span class="source-line-no">592</span><span id="line-592">    }</span>
+<span class="source-line-no">593</span><span id="line-593"></span>
+<span class="source-line-no">594</span><span id="line-594">    @Nullable</span>
+<span class="source-line-no">595</span><span id="line-595">    public IEntityItem getEntity(@NonNull IEntityItem.ItemType itemType, @NonNull String identifier) {</span>
+<span class="source-line-no">596</span><span id="line-596">      return getIndexer().getEntity(itemType, identifier);</span>
+<span class="source-line-no">597</span><span id="line-597">    }</span>
+<span class="source-line-no">598</span><span id="line-598"></span>
+<span class="source-line-no">599</span><span id="line-599">    public void markResolved(@NonNull IEntityItem entity) {</span>
+<span class="source-line-no">600</span><span id="line-600">      resolvedEntities.add(entity);</span>
+<span class="source-line-no">601</span><span id="line-601">    }</span>
+<span class="source-line-no">602</span><span id="line-602"></span>
+<span class="source-line-no">603</span><span id="line-603">    public boolean isResolved(@NonNull IEntityItem entity) {</span>
+<span class="source-line-no">604</span><span id="line-604">      return resolvedEntities.contains(entity);</span>
+<span class="source-line-no">605</span><span id="line-605">    }</span>
+<span class="source-line-no">606</span><span id="line-606"></span>
+<span class="source-line-no">607</span><span id="line-607">    public void incrementReferenceCount(</span>
+<span class="source-line-no">608</span><span id="line-608">        @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
+<span class="source-line-no">609</span><span id="line-609">        @NonNull IEntityItem.ItemType type,</span>
+<span class="source-line-no">610</span><span id="line-610">        @NonNull UUID identifier) {</span>
+<span class="source-line-no">611</span><span id="line-611">      incrementReferenceCountInternal(</span>
+<span class="source-line-no">612</span><span id="line-612">          contextItem,</span>
+<span class="source-line-no">613</span><span id="line-613">          type,</span>
+<span class="source-line-no">614</span><span id="line-614">          ObjectUtils.notNull(identifier.toString()),</span>
+<span class="source-line-no">615</span><span id="line-615">          false);</span>
+<span class="source-line-no">616</span><span id="line-616">    }</span>
+<span class="source-line-no">617</span><span id="line-617"></span>
+<span class="source-line-no">618</span><span id="line-618">    public void incrementReferenceCount(</span>
+<span class="source-line-no">619</span><span id="line-619">        @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
+<span class="source-line-no">620</span><span id="line-620">        @NonNull IEntityItem.ItemType type,</span>
+<span class="source-line-no">621</span><span id="line-621">        @NonNull String identifier) {</span>
+<span class="source-line-no">622</span><span id="line-622">      incrementReferenceCountInternal(</span>
+<span class="source-line-no">623</span><span id="line-623">          contextItem,</span>
+<span class="source-line-no">624</span><span id="line-624">          type,</span>
+<span class="source-line-no">625</span><span id="line-625">          identifier,</span>
+<span class="source-line-no">626</span><span id="line-626">          type.isUuid());</span>
+<span class="source-line-no">627</span><span id="line-627">    }</span>
+<span class="source-line-no">628</span><span id="line-628"></span>
+<span class="source-line-no">629</span><span id="line-629">    private void incrementReferenceCountInternal(</span>
+<span class="source-line-no">630</span><span id="line-630">        @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
+<span class="source-line-no">631</span><span id="line-631">        @NonNull IEntityItem.ItemType type,</span>
+<span class="source-line-no">632</span><span id="line-632">        @NonNull String identifier,</span>
+<span class="source-line-no">633</span><span id="line-633">        boolean normalize) {</span>
+<span class="source-line-no">634</span><span id="line-634">      IEntityItem item = getIndexer().getEntity(type, identifier, normalize);</span>
+<span class="source-line-no">635</span><span id="line-635">      if (item == null) {</span>
+<span class="source-line-no">636</span><span id="line-636">        if (LOGGER.isErrorEnabled()) {</span>
+<span class="source-line-no">637</span><span id="line-637">          LOGGER.atError().log("Unknown reference to {} '{}' at '{}'",</span>
+<span class="source-line-no">638</span><span id="line-638">              type.toString().toLowerCase(Locale.ROOT),</span>
+<span class="source-line-no">639</span><span id="line-639">              identifier,</span>
+<span class="source-line-no">640</span><span id="line-640">              contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
+<span class="source-line-no">641</span><span id="line-641">        }</span>
+<span class="source-line-no">642</span><span id="line-642">      } else {</span>
+<span class="source-line-no">643</span><span id="line-643">        item.incrementReferenceCount();</span>
+<span class="source-line-no">644</span><span id="line-644">      }</span>
+<span class="source-line-no">645</span><span id="line-645">    }</span>
+<span class="source-line-no">646</span><span id="line-646">  }</span>
+<span class="source-line-no">647</span><span id="line-647">}</span>
 
 
 

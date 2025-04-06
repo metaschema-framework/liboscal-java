@@ -19,14 +19,14 @@
 <span class="source-line-no">006</span><span id="line-6">package gov.nist.secauto.oscal.lib.metapath.function.library;</span>
 <span class="source-line-no">007</span><span id="line-7"></span>
 <span class="source-line-no">008</span><span id="line-8">import gov.nist.secauto.metaschema.core.metapath.DynamicContext;</span>
-<span class="source-line-no">009</span><span id="line-9">import gov.nist.secauto.metaschema.core.metapath.ISequence;</span>
-<span class="source-line-no">010</span><span id="line-10">import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;</span>
-<span class="source-line-no">011</span><span id="line-11">import gov.nist.secauto.metaschema.core.metapath.MetapathException;</span>
-<span class="source-line-no">012</span><span id="line-12">import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;</span>
-<span class="source-line-no">013</span><span id="line-13">import gov.nist.secauto.metaschema.core.metapath.function.IArgument;</span>
-<span class="source-line-no">014</span><span id="line-14">import gov.nist.secauto.metaschema.core.metapath.function.IFunction;</span>
-<span class="source-line-no">015</span><span id="line-15">import gov.nist.secauto.metaschema.core.metapath.function.InvalidTypeFunctionException;</span>
-<span class="source-line-no">016</span><span id="line-16">import gov.nist.secauto.metaschema.core.metapath.item.IItem;</span>
+<span class="source-line-no">009</span><span id="line-9">import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;</span>
+<span class="source-line-no">010</span><span id="line-10">import gov.nist.secauto.metaschema.core.metapath.MetapathException;</span>
+<span class="source-line-no">011</span><span id="line-11">import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;</span>
+<span class="source-line-no">012</span><span id="line-12">import gov.nist.secauto.metaschema.core.metapath.function.IArgument;</span>
+<span class="source-line-no">013</span><span id="line-13">import gov.nist.secauto.metaschema.core.metapath.function.IFunction;</span>
+<span class="source-line-no">014</span><span id="line-14">import gov.nist.secauto.metaschema.core.metapath.function.InvalidTypeFunctionException;</span>
+<span class="source-line-no">015</span><span id="line-15">import gov.nist.secauto.metaschema.core.metapath.item.IItem;</span>
+<span class="source-line-no">016</span><span id="line-16">import gov.nist.secauto.metaschema.core.metapath.item.ISequence;</span>
 <span class="source-line-no">017</span><span id="line-17">import gov.nist.secauto.metaschema.core.metapath.item.atomic.IAnyUriItem;</span>
 <span class="source-line-no">018</span><span id="line-18">import gov.nist.secauto.metaschema.core.metapath.item.atomic.IBooleanItem;</span>
 <span class="source-line-no">019</span><span id="line-19">import gov.nist.secauto.metaschema.core.metapath.item.atomic.IStringItem;</span>
@@ -37,7 +37,7 @@
 <span class="source-line-no">024</span><span id="line-24">import gov.nist.secauto.metaschema.core.qname.IEnhancedQName;</span>
 <span class="source-line-no">025</span><span id="line-25">import gov.nist.secauto.metaschema.core.util.ObjectUtils;</span>
 <span class="source-line-no">026</span><span id="line-26">import gov.nist.secauto.oscal.lib.OscalModelConstants;</span>
-<span class="source-line-no">027</span><span id="line-27">import gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty;</span>
+<span class="source-line-no">027</span><span id="line-27">import gov.nist.secauto.oscal.lib.model.metadata.IProperty;</span>
 <span class="source-line-no">028</span><span id="line-28"></span>
 <span class="source-line-no">029</span><span id="line-29">import java.net.URI;</span>
 <span class="source-line-no">030</span><span id="line-30">import java.util.List;</span>
@@ -214,7 +214,7 @@
 <span class="source-line-no">201</span><span id="line-201">      nodeNamespace = IAnyUriItem.cast(ObjectUtils.notNull(ns.toAtomicItem())).asUri();</span>
 <span class="source-line-no">202</span><span id="line-202">    }</span>
 <span class="source-line-no">203</span><span id="line-203"></span>
-<span class="source-line-no">204</span><span id="line-204">    String nodeNamespaceString = AbstractProperty.normalizeNamespace(nodeNamespace).toString();</span>
+<span class="source-line-no">204</span><span id="line-204">    String nodeNamespaceString = IProperty.normalizeNamespace(nodeNamespace).toString();</span>
 <span class="source-line-no">205</span><span id="line-205">    return IBooleanItem.valueOf(namespaces.stream()</span>
 <span class="source-line-no">206</span><span id="line-206">        .map(node -&gt; nodeNamespaceString.equals(node.asString()))</span>
 <span class="source-line-no">207</span><span id="line-207">        .anyMatch(bool -&gt; bool));</span>

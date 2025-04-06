@@ -18,7 +18,7 @@
 <span class="source-line-no">005</span><span id="line-5"></span>
 <span class="source-line-no">006</span><span id="line-6">package gov.nist.secauto.oscal.lib.profile.resolver.selection;</span>
 <span class="source-line-no">007</span><span id="line-7"></span>
-<span class="source-line-no">008</span><span id="line-8">import gov.nist.secauto.metaschema.core.metapath.MetapathExpression;</span>
+<span class="source-line-no">008</span><span id="line-8">import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;</span>
 <span class="source-line-no">009</span><span id="line-9">import gov.nist.secauto.metaschema.core.metapath.format.IPathFormatter;</span>
 <span class="source-line-no">010</span><span id="line-10">import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;</span>
 <span class="source-line-no">011</span><span id="line-11">import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;</span>
@@ -37,7 +37,7 @@
 <span class="source-line-no">024</span><span id="line-24">import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;</span>
 <span class="source-line-no">025</span><span id="line-25"></span>
 <span class="source-line-no">026</span><span id="line-26">public class ControlSelectionState implements IControlSelectionState {</span>
-<span class="source-line-no">027</span><span id="line-27">  private static final MetapathExpression GROUP_CHILDREN = MetapathExpression.compile(</span>
+<span class="source-line-no">027</span><span id="line-27">  private static final IMetapathExpression GROUP_CHILDREN = IMetapathExpression.compile(</span>
 <span class="source-line-no">028</span><span id="line-28">      "group|descendant::control",</span>
 <span class="source-line-no">029</span><span id="line-29">      OscalBindingContext.OSCAL_STATIC_METAPATH_CONTEXT);</span>
 <span class="source-line-no">030</span><span id="line-30"></span>
@@ -99,41 +99,39 @@
 <span class="source-line-no">086</span><span id="line-86">      } else if (itemValue instanceof CatalogGroup) {</span>
 <span class="source-line-no">087</span><span id="line-87">        // get control selection status</span>
 <span class="source-line-no">088</span><span id="line-88">        boolean selected = GROUP_CHILDREN.evaluate(item).stream()</span>
-<span class="source-line-no">089</span><span id="line-89">            .map(child -&gt; {</span>
-<span class="source-line-no">090</span><span id="line-90">              return getSelectionState((IModelNodeItem&lt;?, ?&gt;) ObjectUtils.requireNonNull(child)).isSelected();</span>
-<span class="source-line-no">091</span><span id="line-91">            })</span>
-<span class="source-line-no">092</span><span id="line-92">            .reduce(false, (first, second) -&gt; first || second);</span>
-<span class="source-line-no">093</span><span id="line-93"></span>
-<span class="source-line-no">094</span><span id="line-94">        retval = new SelectionState(selected, false);</span>
-<span class="source-line-no">095</span><span id="line-95">      } else {</span>
-<span class="source-line-no">096</span><span id="line-96">        throw new IllegalStateException(</span>
-<span class="source-line-no">097</span><span id="line-97">            String.format("Selection not supported for type '%s' at path '%s'",</span>
-<span class="source-line-no">098</span><span id="line-98">                itemValue.getClass().getName(),</span>
-<span class="source-line-no">099</span><span id="line-99">                item.toPath(IPathFormatter.METAPATH_PATH_FORMATER)));</span>
-<span class="source-line-no">100</span><span id="line-100">      }</span>
-<span class="source-line-no">101</span><span id="line-101">      itemSelectionState.put(item, retval);</span>
-<span class="source-line-no">102</span><span id="line-102">    }</span>
-<span class="source-line-no">103</span><span id="line-103">    return retval;</span>
-<span class="source-line-no">104</span><span id="line-104">  }</span>
-<span class="source-line-no">105</span><span id="line-105"></span>
-<span class="source-line-no">106</span><span id="line-106">  private static final class SelectionState {</span>
-<span class="source-line-no">107</span><span id="line-107">    private final boolean selected;</span>
-<span class="source-line-no">108</span><span id="line-108">    private final boolean withChildren;</span>
-<span class="source-line-no">109</span><span id="line-109"></span>
-<span class="source-line-no">110</span><span id="line-110">    private SelectionState(boolean selected, boolean withChildren) {</span>
-<span class="source-line-no">111</span><span id="line-111">      this.selected = selected;</span>
-<span class="source-line-no">112</span><span id="line-112">      this.withChildren = withChildren;</span>
-<span class="source-line-no">113</span><span id="line-113">    }</span>
-<span class="source-line-no">114</span><span id="line-114"></span>
-<span class="source-line-no">115</span><span id="line-115">    public boolean isSelected() {</span>
-<span class="source-line-no">116</span><span id="line-116">      return selected;</span>
-<span class="source-line-no">117</span><span id="line-117">    }</span>
-<span class="source-line-no">118</span><span id="line-118"></span>
-<span class="source-line-no">119</span><span id="line-119">    public boolean isWithChildren() {</span>
-<span class="source-line-no">120</span><span id="line-120">      return selected &amp;&amp; withChildren;</span>
-<span class="source-line-no">121</span><span id="line-121">    }</span>
-<span class="source-line-no">122</span><span id="line-122">  }</span>
-<span class="source-line-no">123</span><span id="line-123">}</span>
+<span class="source-line-no">089</span><span id="line-89">            .map(child -&gt; getSelectionState((IModelNodeItem&lt;?, ?&gt;) ObjectUtils.requireNonNull(child)).isSelected())</span>
+<span class="source-line-no">090</span><span id="line-90">            .reduce(false, (first, second) -&gt; first || second);</span>
+<span class="source-line-no">091</span><span id="line-91"></span>
+<span class="source-line-no">092</span><span id="line-92">        retval = new SelectionState(selected, false);</span>
+<span class="source-line-no">093</span><span id="line-93">      } else {</span>
+<span class="source-line-no">094</span><span id="line-94">        throw new IllegalStateException(</span>
+<span class="source-line-no">095</span><span id="line-95">            String.format("Selection not supported for type '%s' at path '%s'",</span>
+<span class="source-line-no">096</span><span id="line-96">                itemValue.getClass().getName(),</span>
+<span class="source-line-no">097</span><span id="line-97">                item.toPath(IPathFormatter.METAPATH_PATH_FORMATER)));</span>
+<span class="source-line-no">098</span><span id="line-98">      }</span>
+<span class="source-line-no">099</span><span id="line-99">      itemSelectionState.put(item, retval);</span>
+<span class="source-line-no">100</span><span id="line-100">    }</span>
+<span class="source-line-no">101</span><span id="line-101">    return retval;</span>
+<span class="source-line-no">102</span><span id="line-102">  }</span>
+<span class="source-line-no">103</span><span id="line-103"></span>
+<span class="source-line-no">104</span><span id="line-104">  private static final class SelectionState {</span>
+<span class="source-line-no">105</span><span id="line-105">    private final boolean selected;</span>
+<span class="source-line-no">106</span><span id="line-106">    private final boolean withChildren;</span>
+<span class="source-line-no">107</span><span id="line-107"></span>
+<span class="source-line-no">108</span><span id="line-108">    private SelectionState(boolean selected, boolean withChildren) {</span>
+<span class="source-line-no">109</span><span id="line-109">      this.selected = selected;</span>
+<span class="source-line-no">110</span><span id="line-110">      this.withChildren = withChildren;</span>
+<span class="source-line-no">111</span><span id="line-111">    }</span>
+<span class="source-line-no">112</span><span id="line-112"></span>
+<span class="source-line-no">113</span><span id="line-113">    public boolean isSelected() {</span>
+<span class="source-line-no">114</span><span id="line-114">      return selected;</span>
+<span class="source-line-no">115</span><span id="line-115">    }</span>
+<span class="source-line-no">116</span><span id="line-116"></span>
+<span class="source-line-no">117</span><span id="line-117">    public boolean isWithChildren() {</span>
+<span class="source-line-no">118</span><span id="line-118">      return selected &amp;&amp; withChildren;</span>
+<span class="source-line-no">119</span><span id="line-119">    }</span>
+<span class="source-line-no">120</span><span id="line-120">  }</span>
+<span class="source-line-no">121</span><span id="line-121">}</span>
 
 
 

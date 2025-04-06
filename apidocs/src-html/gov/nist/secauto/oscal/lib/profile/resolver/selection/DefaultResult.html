@@ -94,112 +94,114 @@
 <span class="source-line-no">081</span><span id="line-81">    if (LOGGER.isDebugEnabled()) {</span>
 <span class="source-line-no">082</span><span id="line-82">      LOGGER.atDebug().log("promoting control '{}'", control.getId());</span>
 <span class="source-line-no">083</span><span id="line-83">    }</span>
-<span class="source-line-no">084</span><span id="line-84">    promotedControls.get().add(control);</span>
-<span class="source-line-no">085</span><span id="line-85">  }</span>
-<span class="source-line-no">086</span><span id="line-86"></span>
-<span class="source-line-no">087</span><span id="line-87">  @Override</span>
-<span class="source-line-no">088</span><span id="line-88">  public void applyTo(@NonNull Catalog parent) {</span>
-<span class="source-line-no">089</span><span id="line-89">    applyRemovesTo(parent);</span>
-<span class="source-line-no">090</span><span id="line-90">    getPromotedParameters().forEach(param -&gt; parent.addParam(ObjectUtils.notNull(param)));</span>
-<span class="source-line-no">091</span><span id="line-91">    getPromotedControls().forEach(control -&gt; {</span>
-<span class="source-line-no">092</span><span id="line-92">      assert control != null;</span>
-<span class="source-line-no">093</span><span id="line-93">      parent.addControl(control);</span>
-<span class="source-line-no">094</span><span id="line-94">      control.setParentControl(null);</span>
-<span class="source-line-no">095</span><span id="line-95">    });</span>
-<span class="source-line-no">096</span><span id="line-96">  }</span>
-<span class="source-line-no">097</span><span id="line-97"></span>
-<span class="source-line-no">098</span><span id="line-98">  @Override</span>
-<span class="source-line-no">099</span><span id="line-99">  public void applyTo(@NonNull CatalogGroup parent) {</span>
-<span class="source-line-no">100</span><span id="line-100">    applyRemovesTo(parent);</span>
-<span class="source-line-no">101</span><span id="line-101">    getPromotedControls().forEach(control -&gt; {</span>
-<span class="source-line-no">102</span><span id="line-102">      assert control != null;</span>
-<span class="source-line-no">103</span><span id="line-103">      parent.addControl(control);</span>
-<span class="source-line-no">104</span><span id="line-104">      control.setParentControl(null);</span>
-<span class="source-line-no">105</span><span id="line-105">    });</span>
-<span class="source-line-no">106</span><span id="line-106">    getPromotedParameters().forEach(param -&gt; parent.addParam(ObjectUtils.notNull(param)));</span>
-<span class="source-line-no">107</span><span id="line-107">  }</span>
-<span class="source-line-no">108</span><span id="line-108"></span>
-<span class="source-line-no">109</span><span id="line-109">  @Override</span>
-<span class="source-line-no">110</span><span id="line-110">  public void applyTo(@NonNull Control parent) {</span>
-<span class="source-line-no">111</span><span id="line-111">    applyRemovesTo(parent);</span>
-<span class="source-line-no">112</span><span id="line-112">    getPromotedControls().forEach(control -&gt; {</span>
-<span class="source-line-no">113</span><span id="line-113">      assert control != null;</span>
-<span class="source-line-no">114</span><span id="line-114">      parent.addControl(control);</span>
-<span class="source-line-no">115</span><span id="line-115">      control.setParentControl(null);</span>
-<span class="source-line-no">116</span><span id="line-116">    });</span>
-<span class="source-line-no">117</span><span id="line-117">    getPromotedParameters().forEach(param -&gt; parent.addParam(ObjectUtils.notNull(param)));</span>
-<span class="source-line-no">118</span><span id="line-118">  }</span>
-<span class="source-line-no">119</span><span id="line-119"></span>
-<span class="source-line-no">120</span><span id="line-120">  public void applyRemovesTo(Catalog parent) {</span>
-<span class="source-line-no">121</span><span id="line-121">    removeItems(parent.getGroups(), getRemovedGroups());</span>
-<span class="source-line-no">122</span><span id="line-122">    removeItems(parent.getControls(), getRemovedControls());</span>
-<span class="source-line-no">123</span><span id="line-123">    removeItems(parent.getParams(), getRemovedParameters());</span>
-<span class="source-line-no">124</span><span id="line-124">  }</span>
-<span class="source-line-no">125</span><span id="line-125"></span>
-<span class="source-line-no">126</span><span id="line-126">  public void applyRemovesTo(CatalogGroup parent) {</span>
-<span class="source-line-no">127</span><span id="line-127">    removeItems(parent.getGroups(), getRemovedGroups());</span>
-<span class="source-line-no">128</span><span id="line-128">    removeItems(parent.getControls(), getRemovedControls());</span>
-<span class="source-line-no">129</span><span id="line-129">    removeItems(parent.getParams(), getRemovedParameters());</span>
-<span class="source-line-no">130</span><span id="line-130">  }</span>
-<span class="source-line-no">131</span><span id="line-131"></span>
-<span class="source-line-no">132</span><span id="line-132">  public void applyRemovesTo(Control parent) {</span>
-<span class="source-line-no">133</span><span id="line-133">    removeItems(parent.getControls(), getRemovedControls());</span>
-<span class="source-line-no">134</span><span id="line-134">    removeItems(parent.getParams(), getRemovedParameters());</span>
-<span class="source-line-no">135</span><span id="line-135">  }</span>
-<span class="source-line-no">136</span><span id="line-136"></span>
-<span class="source-line-no">137</span><span id="line-137">  public DefaultResult append(@NonNull DefaultResult that) {</span>
-<span class="source-line-no">138</span><span id="line-138">    lazyAppend(promotedControls, that.promotedControls);</span>
-<span class="source-line-no">139</span><span id="line-139">    lazyAppend(promotedParameters, that.promotedParameters);</span>
-<span class="source-line-no">140</span><span id="line-140">    lazyAppend(removedGroups, that.removedGroups);</span>
-<span class="source-line-no">141</span><span id="line-141">    lazyAppend(removedControls, that.removedControls);</span>
-<span class="source-line-no">142</span><span id="line-142">    lazyAppend(removedParameters, that.removedParameters);</span>
-<span class="source-line-no">143</span><span id="line-143">    return this;</span>
-<span class="source-line-no">144</span><span id="line-144">  }</span>
-<span class="source-line-no">145</span><span id="line-145"></span>
-<span class="source-line-no">146</span><span id="line-146">  public DefaultResult appendPromoted(@NonNull DefaultResult that) {</span>
-<span class="source-line-no">147</span><span id="line-147">    lazyAppend(promotedControls, that.promotedControls);</span>
-<span class="source-line-no">148</span><span id="line-148">    lazyAppend(promotedParameters, that.promotedParameters);</span>
-<span class="source-line-no">149</span><span id="line-149">    return this;</span>
-<span class="source-line-no">150</span><span id="line-150">  }</span>
-<span class="source-line-no">151</span><span id="line-151"></span>
-<span class="source-line-no">152</span><span id="line-152">  protected static &lt;T&gt; void lazyAppend(@NonNull Lazy&lt;Set&lt;T&gt;&gt; self, @NonNull Lazy&lt;Set&lt;T&gt;&gt; other) {</span>
-<span class="source-line-no">153</span><span id="line-153">    if (other.isAvailable()) {</span>
-<span class="source-line-no">154</span><span id="line-154">      Set&lt;T&gt; otherSet = other.get();</span>
-<span class="source-line-no">155</span><span id="line-155">      if (!otherSet.isEmpty()) {</span>
-<span class="source-line-no">156</span><span id="line-156">        self.get().addAll(otherSet);</span>
-<span class="source-line-no">157</span><span id="line-157">      }</span>
-<span class="source-line-no">158</span><span id="line-158">    }</span>
-<span class="source-line-no">159</span><span id="line-159">  }</span>
-<span class="source-line-no">160</span><span id="line-160"></span>
-<span class="source-line-no">161</span><span id="line-161">  protected static &lt;T&gt; void removeItems(List&lt;T&gt; list, @NonNull Collection&lt;T&gt; itemsToDelete) {</span>
-<span class="source-line-no">162</span><span id="line-162">    itemsToDelete.forEach(item -&gt; {</span>
-<span class="source-line-no">163</span><span id="line-163">      if (!list.remove(item)) {</span>
-<span class="source-line-no">164</span><span id="line-164">        LOGGER.atError().log("item didn't exist in list");</span>
-<span class="source-line-no">165</span><span id="line-165">      }</span>
-<span class="source-line-no">166</span><span id="line-166">    });</span>
-<span class="source-line-no">167</span><span id="line-167">  }</span>
-<span class="source-line-no">168</span><span id="line-168"></span>
-<span class="source-line-no">169</span><span id="line-169">  public void removeGroup(CatalogGroup group) {</span>
-<span class="source-line-no">170</span><span id="line-170">    if (LOGGER.isDebugEnabled()) {</span>
-<span class="source-line-no">171</span><span id="line-171">      LOGGER.atDebug().log("Requesting removal of group '{}'.", group.getId());</span>
-<span class="source-line-no">172</span><span id="line-172">    }</span>
-<span class="source-line-no">173</span><span id="line-173">    removedGroups.get().add(group);</span>
-<span class="source-line-no">174</span><span id="line-174">  }</span>
-<span class="source-line-no">175</span><span id="line-175"></span>
-<span class="source-line-no">176</span><span id="line-176">  public void removeControl(Control control) {</span>
-<span class="source-line-no">177</span><span id="line-177">    if (LOGGER.isDebugEnabled()) {</span>
-<span class="source-line-no">178</span><span id="line-178">      LOGGER.atDebug().log("Requesting removal of control '{}'.", control.getId());</span>
-<span class="source-line-no">179</span><span id="line-179">    }</span>
-<span class="source-line-no">180</span><span id="line-180">    removedControls.get().add(control);</span>
-<span class="source-line-no">181</span><span id="line-181">  }</span>
-<span class="source-line-no">182</span><span id="line-182"></span>
-<span class="source-line-no">183</span><span id="line-183">  public void removeParameter(Parameter parameter) {</span>
-<span class="source-line-no">184</span><span id="line-184">    if (LOGGER.isDebugEnabled()) {</span>
-<span class="source-line-no">185</span><span id="line-185">      LOGGER.atDebug().log("Requesting removal of parameter '{}'.", parameter.getId());</span>
-<span class="source-line-no">186</span><span id="line-186">    }</span>
-<span class="source-line-no">187</span><span id="line-187">    removedParameters.get().add(parameter);</span>
-<span class="source-line-no">188</span><span id="line-188">  }</span>
-<span class="source-line-no">189</span><span id="line-189">}</span>
+<span class="source-line-no">084</span><span id="line-84">    // promote</span>
+<span class="source-line-no">085</span><span id="line-85">    promotedControls.get().add(control);</span>
+<span class="source-line-no">086</span><span id="line-86">  }</span>
+<span class="source-line-no">087</span><span id="line-87"></span>
+<span class="source-line-no">088</span><span id="line-88">  @Override</span>
+<span class="source-line-no">089</span><span id="line-89">  public void applyTo(@NonNull Catalog parent) {</span>
+<span class="source-line-no">090</span><span id="line-90">    applyRemovesTo(parent);</span>
+<span class="source-line-no">091</span><span id="line-91">    getPromotedParameters().forEach(param -&gt; parent.addParam(ObjectUtils.notNull(param)));</span>
+<span class="source-line-no">092</span><span id="line-92">    getPromotedControls().forEach(control -&gt; {</span>
+<span class="source-line-no">093</span><span id="line-93">      assert control != null;</span>
+<span class="source-line-no">094</span><span id="line-94">      // add promoted control</span>
+<span class="source-line-no">095</span><span id="line-95">      parent.addControl(control);</span>
+<span class="source-line-no">096</span><span id="line-96">      control.setParentControl(null);</span>
+<span class="source-line-no">097</span><span id="line-97">    });</span>
+<span class="source-line-no">098</span><span id="line-98">  }</span>
+<span class="source-line-no">099</span><span id="line-99"></span>
+<span class="source-line-no">100</span><span id="line-100">  @Override</span>
+<span class="source-line-no">101</span><span id="line-101">  public void applyTo(@NonNull CatalogGroup parent) {</span>
+<span class="source-line-no">102</span><span id="line-102">    applyRemovesTo(parent);</span>
+<span class="source-line-no">103</span><span id="line-103">    getPromotedControls().forEach(control -&gt; {</span>
+<span class="source-line-no">104</span><span id="line-104">      assert control != null;</span>
+<span class="source-line-no">105</span><span id="line-105">      parent.addControl(control);</span>
+<span class="source-line-no">106</span><span id="line-106">      control.setParentControl(null);</span>
+<span class="source-line-no">107</span><span id="line-107">    });</span>
+<span class="source-line-no">108</span><span id="line-108">    getPromotedParameters().forEach(param -&gt; parent.addParam(ObjectUtils.notNull(param)));</span>
+<span class="source-line-no">109</span><span id="line-109">  }</span>
+<span class="source-line-no">110</span><span id="line-110"></span>
+<span class="source-line-no">111</span><span id="line-111">  @Override</span>
+<span class="source-line-no">112</span><span id="line-112">  public void applyTo(@NonNull Control parent) {</span>
+<span class="source-line-no">113</span><span id="line-113">    applyRemovesTo(parent);</span>
+<span class="source-line-no">114</span><span id="line-114">    getPromotedControls().forEach(control -&gt; {</span>
+<span class="source-line-no">115</span><span id="line-115">      assert control != null;</span>
+<span class="source-line-no">116</span><span id="line-116">      parent.addControl(control);</span>
+<span class="source-line-no">117</span><span id="line-117">      control.setParentControl(null);</span>
+<span class="source-line-no">118</span><span id="line-118">    });</span>
+<span class="source-line-no">119</span><span id="line-119">    getPromotedParameters().forEach(param -&gt; parent.addParam(ObjectUtils.notNull(param)));</span>
+<span class="source-line-no">120</span><span id="line-120">  }</span>
+<span class="source-line-no">121</span><span id="line-121"></span>
+<span class="source-line-no">122</span><span id="line-122">  public void applyRemovesTo(Catalog parent) {</span>
+<span class="source-line-no">123</span><span id="line-123">    removeItems(parent.getGroups(), getRemovedGroups());</span>
+<span class="source-line-no">124</span><span id="line-124">    removeItems(parent.getControls(), getRemovedControls());</span>
+<span class="source-line-no">125</span><span id="line-125">    removeItems(parent.getParams(), getRemovedParameters());</span>
+<span class="source-line-no">126</span><span id="line-126">  }</span>
+<span class="source-line-no">127</span><span id="line-127"></span>
+<span class="source-line-no">128</span><span id="line-128">  public void applyRemovesTo(CatalogGroup parent) {</span>
+<span class="source-line-no">129</span><span id="line-129">    removeItems(parent.getGroups(), getRemovedGroups());</span>
+<span class="source-line-no">130</span><span id="line-130">    removeItems(parent.getControls(), getRemovedControls());</span>
+<span class="source-line-no">131</span><span id="line-131">    removeItems(parent.getParams(), getRemovedParameters());</span>
+<span class="source-line-no">132</span><span id="line-132">  }</span>
+<span class="source-line-no">133</span><span id="line-133"></span>
+<span class="source-line-no">134</span><span id="line-134">  public void applyRemovesTo(Control parent) {</span>
+<span class="source-line-no">135</span><span id="line-135">    removeItems(parent.getControls(), getRemovedControls());</span>
+<span class="source-line-no">136</span><span id="line-136">    removeItems(parent.getParams(), getRemovedParameters());</span>
+<span class="source-line-no">137</span><span id="line-137">  }</span>
+<span class="source-line-no">138</span><span id="line-138"></span>
+<span class="source-line-no">139</span><span id="line-139">  public DefaultResult append(@NonNull DefaultResult that) {</span>
+<span class="source-line-no">140</span><span id="line-140">    lazyAppend(promotedControls, that.promotedControls);</span>
+<span class="source-line-no">141</span><span id="line-141">    lazyAppend(promotedParameters, that.promotedParameters);</span>
+<span class="source-line-no">142</span><span id="line-142">    lazyAppend(removedGroups, that.removedGroups);</span>
+<span class="source-line-no">143</span><span id="line-143">    lazyAppend(removedControls, that.removedControls);</span>
+<span class="source-line-no">144</span><span id="line-144">    lazyAppend(removedParameters, that.removedParameters);</span>
+<span class="source-line-no">145</span><span id="line-145">    return this;</span>
+<span class="source-line-no">146</span><span id="line-146">  }</span>
+<span class="source-line-no">147</span><span id="line-147"></span>
+<span class="source-line-no">148</span><span id="line-148">  public DefaultResult appendPromoted(@NonNull DefaultResult that) {</span>
+<span class="source-line-no">149</span><span id="line-149">    lazyAppend(promotedControls, that.promotedControls);</span>
+<span class="source-line-no">150</span><span id="line-150">    lazyAppend(promotedParameters, that.promotedParameters);</span>
+<span class="source-line-no">151</span><span id="line-151">    return this;</span>
+<span class="source-line-no">152</span><span id="line-152">  }</span>
+<span class="source-line-no">153</span><span id="line-153"></span>
+<span class="source-line-no">154</span><span id="line-154">  protected static &lt;T&gt; void lazyAppend(@NonNull Lazy&lt;Set&lt;T&gt;&gt; self, @NonNull Lazy&lt;Set&lt;T&gt;&gt; other) {</span>
+<span class="source-line-no">155</span><span id="line-155">    if (other.isAvailable()) {</span>
+<span class="source-line-no">156</span><span id="line-156">      Set&lt;T&gt; otherSet = other.get();</span>
+<span class="source-line-no">157</span><span id="line-157">      if (!otherSet.isEmpty()) {</span>
+<span class="source-line-no">158</span><span id="line-158">        self.get().addAll(otherSet);</span>
+<span class="source-line-no">159</span><span id="line-159">      }</span>
+<span class="source-line-no">160</span><span id="line-160">    }</span>
+<span class="source-line-no">161</span><span id="line-161">  }</span>
+<span class="source-line-no">162</span><span id="line-162"></span>
+<span class="source-line-no">163</span><span id="line-163">  protected static &lt;T&gt; void removeItems(List&lt;T&gt; list, @NonNull Collection&lt;T&gt; itemsToDelete) {</span>
+<span class="source-line-no">164</span><span id="line-164">    itemsToDelete.forEach(item -&gt; {</span>
+<span class="source-line-no">165</span><span id="line-165">      if (!list.remove(item)) {</span>
+<span class="source-line-no">166</span><span id="line-166">        LOGGER.atError().log("item didn't exist in list");</span>
+<span class="source-line-no">167</span><span id="line-167">      }</span>
+<span class="source-line-no">168</span><span id="line-168">    });</span>
+<span class="source-line-no">169</span><span id="line-169">  }</span>
+<span class="source-line-no">170</span><span id="line-170"></span>
+<span class="source-line-no">171</span><span id="line-171">  public void removeGroup(CatalogGroup group) {</span>
+<span class="source-line-no">172</span><span id="line-172">    if (LOGGER.isDebugEnabled()) {</span>
+<span class="source-line-no">173</span><span id="line-173">      LOGGER.atDebug().log("Requesting removal of group '{}'.", group.getId());</span>
+<span class="source-line-no">174</span><span id="line-174">    }</span>
+<span class="source-line-no">175</span><span id="line-175">    removedGroups.get().add(group);</span>
+<span class="source-line-no">176</span><span id="line-176">  }</span>
+<span class="source-line-no">177</span><span id="line-177"></span>
+<span class="source-line-no">178</span><span id="line-178">  public void removeControl(Control control) {</span>
+<span class="source-line-no">179</span><span id="line-179">    if (LOGGER.isDebugEnabled()) {</span>
+<span class="source-line-no">180</span><span id="line-180">      LOGGER.atDebug().log("Requesting removal of control '{}'.", control.getId());</span>
+<span class="source-line-no">181</span><span id="line-181">    }</span>
+<span class="source-line-no">182</span><span id="line-182">    removedControls.get().add(control);</span>
+<span class="source-line-no">183</span><span id="line-183">  }</span>
+<span class="source-line-no">184</span><span id="line-184"></span>
+<span class="source-line-no">185</span><span id="line-185">  public void removeParameter(Parameter parameter) {</span>
+<span class="source-line-no">186</span><span id="line-186">    if (LOGGER.isDebugEnabled()) {</span>
+<span class="source-line-no">187</span><span id="line-187">      LOGGER.atDebug().log("Requesting removal of parameter '{}'.", parameter.getId());</span>
+<span class="source-line-no">188</span><span id="line-188">    }</span>
+<span class="source-line-no">189</span><span id="line-189">    removedParameters.get().add(parameter);</span>
+<span class="source-line-no">190</span><span id="line-190">  }</span>
+<span class="source-line-no">191</span><span id="line-191">}</span>
 
 
 

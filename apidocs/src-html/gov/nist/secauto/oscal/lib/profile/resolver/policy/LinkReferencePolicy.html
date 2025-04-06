@@ -22,101 +22,102 @@
 <span class="source-line-no">009</span><span id="line-9">import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;</span>
 <span class="source-line-no">010</span><span id="line-10">import gov.nist.secauto.metaschema.core.util.CollectionUtil;</span>
 <span class="source-line-no">011</span><span id="line-11">import gov.nist.secauto.metaschema.core.util.CustomCollectors;</span>
-<span class="source-line-no">012</span><span id="line-12">import gov.nist.secauto.oscal.lib.model.Link;</span>
-<span class="source-line-no">013</span><span id="line-13">import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;</span>
-<span class="source-line-no">014</span><span id="line-14"></span>
-<span class="source-line-no">015</span><span id="line-15">import org.apache.logging.log4j.LogManager;</span>
-<span class="source-line-no">016</span><span id="line-16">import org.apache.logging.log4j.Logger;</span>
-<span class="source-line-no">017</span><span id="line-17"></span>
-<span class="source-line-no">018</span><span id="line-18">import java.net.URI;</span>
-<span class="source-line-no">019</span><span id="line-19">import java.util.List;</span>
-<span class="source-line-no">020</span><span id="line-20">import java.util.Locale;</span>
-<span class="source-line-no">021</span><span id="line-21"></span>
-<span class="source-line-no">022</span><span id="line-22">import edu.umd.cs.findbugs.annotations.NonNull;</span>
-<span class="source-line-no">023</span><span id="line-23"></span>
-<span class="source-line-no">024</span><span id="line-24">public class LinkReferencePolicy</span>
-<span class="source-line-no">025</span><span id="line-25">    extends AbstractMultiItemTypeReferencePolicy&lt;Link&gt; {</span>
-<span class="source-line-no">026</span><span id="line-26">  private static final Logger LOGGER = LogManager.getLogger(LinkReferencePolicy.class);</span>
-<span class="source-line-no">027</span><span id="line-27"></span>
-<span class="source-line-no">028</span><span id="line-28">  @SuppressWarnings("null")</span>
-<span class="source-line-no">029</span><span id="line-29">  @NonNull</span>
-<span class="source-line-no">030</span><span id="line-30">  public static LinkReferencePolicy create(@NonNull IEntityItem.ItemType itemType) {</span>
-<span class="source-line-no">031</span><span id="line-31">    return create(List.of(itemType));</span>
-<span class="source-line-no">032</span><span id="line-32">  }</span>
-<span class="source-line-no">033</span><span id="line-33"></span>
-<span class="source-line-no">034</span><span id="line-34">  @NonNull</span>
-<span class="source-line-no">035</span><span id="line-35">  public static LinkReferencePolicy create(@NonNull List&lt;IEntityItem.ItemType&gt; itemTypes) {</span>
-<span class="source-line-no">036</span><span id="line-36">    return new LinkReferencePolicy(CollectionUtil.requireNonEmpty(itemTypes, "itemTypes"));</span>
-<span class="source-line-no">037</span><span id="line-37">  }</span>
-<span class="source-line-no">038</span><span id="line-38"></span>
-<span class="source-line-no">039</span><span id="line-39">  public LinkReferencePolicy(@NonNull List&lt;IEntityItem.ItemType&gt; itemTypes) {</span>
-<span class="source-line-no">040</span><span id="line-40">    super(IIdentifierParser.FRAGMENT_PARSER, itemTypes);</span>
-<span class="source-line-no">041</span><span id="line-41">  }</span>
-<span class="source-line-no">042</span><span id="line-42"></span>
-<span class="source-line-no">043</span><span id="line-43">  @Override</span>
-<span class="source-line-no">044</span><span id="line-44">  public String getReferenceText(@NonNull Link link) {</span>
-<span class="source-line-no">045</span><span id="line-45">    return link.getHref().toString();</span>
-<span class="source-line-no">046</span><span id="line-46">  }</span>
-<span class="source-line-no">047</span><span id="line-47"></span>
-<span class="source-line-no">048</span><span id="line-48">  @Override</span>
-<span class="source-line-no">049</span><span id="line-49">  public void setReferenceText(@NonNull Link link, @NonNull String newValue) {</span>
-<span class="source-line-no">050</span><span id="line-50">    link.setHref(URI.create(newValue));</span>
-<span class="source-line-no">051</span><span id="line-51">  }</span>
-<span class="source-line-no">052</span><span id="line-52"></span>
-<span class="source-line-no">053</span><span id="line-53">  @Override</span>
-<span class="source-line-no">054</span><span id="line-54">  protected void handleUnselected(</span>
-<span class="source-line-no">055</span><span id="line-55">      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
-<span class="source-line-no">056</span><span id="line-56">      @NonNull Link link,</span>
-<span class="source-line-no">057</span><span id="line-57">      @NonNull IEntityItem item,</span>
-<span class="source-line-no">058</span><span id="line-58">      @NonNull ReferenceCountingVisitor.Context visitorContext) {</span>
-<span class="source-line-no">059</span><span id="line-59">    URI linkHref = link.getHref();</span>
-<span class="source-line-no">060</span><span id="line-60">    URI sourceUri = item.getSource();</span>
-<span class="source-line-no">061</span><span id="line-61"></span>
-<span class="source-line-no">062</span><span id="line-62">    URI resolved = sourceUri.resolve(linkHref);</span>
-<span class="source-line-no">063</span><span id="line-63">    if (LOGGER.isTraceEnabled()) {</span>
-<span class="source-line-no">064</span><span id="line-64">      LOGGER.atTrace().log("At path '{}', remapping orphaned URI '{}' to '{}'",</span>
-<span class="source-line-no">065</span><span id="line-65">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),</span>
-<span class="source-line-no">066</span><span id="line-66">          linkHref.toString(),</span>
-<span class="source-line-no">067</span><span id="line-67">          resolved.toString());</span>
-<span class="source-line-no">068</span><span id="line-68">    }</span>
-<span class="source-line-no">069</span><span id="line-69">    link.setHref(resolved);</span>
-<span class="source-line-no">070</span><span id="line-70">  }</span>
-<span class="source-line-no">071</span><span id="line-71"></span>
-<span class="source-line-no">072</span><span id="line-72">  @Override</span>
-<span class="source-line-no">073</span><span id="line-73">  protected boolean handleIndexMiss(</span>
-<span class="source-line-no">074</span><span id="line-74">      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
-<span class="source-line-no">075</span><span id="line-75">      @NonNull Link link,</span>
-<span class="source-line-no">076</span><span id="line-76">      @NonNull List&lt;IEntityItem.ItemType&gt; itemTypes,</span>
-<span class="source-line-no">077</span><span id="line-77">      @NonNull String identifier,</span>
-<span class="source-line-no">078</span><span id="line-78">      @NonNull ReferenceCountingVisitor.Context visitorContext) {</span>
-<span class="source-line-no">079</span><span id="line-79">    if (LOGGER.isWarnEnabled()) {</span>
-<span class="source-line-no">080</span><span id="line-80">      LOGGER.atWarn().log(</span>
-<span class="source-line-no">081</span><span id="line-81">          "The link at '{}' with rel '{}' should reference a {} identified by '{}'."</span>
-<span class="source-line-no">082</span><span id="line-82">              + " The index did not contain the identifier.",</span>
-<span class="source-line-no">083</span><span id="line-83">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),</span>
-<span class="source-line-no">084</span><span id="line-84">          link.getRel(),</span>
-<span class="source-line-no">085</span><span id="line-85">          itemTypes.stream()</span>
-<span class="source-line-no">086</span><span id="line-86">              .map(en -&gt; en.name().toLowerCase(Locale.ROOT))</span>
-<span class="source-line-no">087</span><span id="line-87">              .collect(CustomCollectors.joiningWithOxfordComma("or")),</span>
-<span class="source-line-no">088</span><span id="line-88">          identifier);</span>
-<span class="source-line-no">089</span><span id="line-89">    }</span>
-<span class="source-line-no">090</span><span id="line-90">    return true;</span>
-<span class="source-line-no">091</span><span id="line-91">  }</span>
-<span class="source-line-no">092</span><span id="line-92"></span>
-<span class="source-line-no">093</span><span id="line-93">  @Override</span>
-<span class="source-line-no">094</span><span id="line-94">  protected boolean handleIdentifierNonMatch(</span>
-<span class="source-line-no">095</span><span id="line-95">      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
-<span class="source-line-no">096</span><span id="line-96">      @NonNull Link reference,</span>
-<span class="source-line-no">097</span><span id="line-97">      @NonNull ReferenceCountingVisitor.Context visitorContext) {</span>
-<span class="source-line-no">098</span><span id="line-98">    if (LOGGER.isDebugEnabled()) {</span>
-<span class="source-line-no">099</span><span id="line-99">      LOGGER.atDebug().log("Ignoring URI '{}' at '{}'",</span>
-<span class="source-line-no">100</span><span id="line-100">          reference.getHref().toString(),</span>
-<span class="source-line-no">101</span><span id="line-101">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
-<span class="source-line-no">102</span><span id="line-102">    }</span>
-<span class="source-line-no">103</span><span id="line-103"></span>
-<span class="source-line-no">104</span><span id="line-104">    return true;</span>
-<span class="source-line-no">105</span><span id="line-105">  }</span>
-<span class="source-line-no">106</span><span id="line-106">}</span>
+<span class="source-line-no">012</span><span id="line-12">import gov.nist.secauto.metaschema.core.util.ObjectUtils;</span>
+<span class="source-line-no">013</span><span id="line-13">import gov.nist.secauto.oscal.lib.model.Link;</span>
+<span class="source-line-no">014</span><span id="line-14">import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;</span>
+<span class="source-line-no">015</span><span id="line-15"></span>
+<span class="source-line-no">016</span><span id="line-16">import org.apache.logging.log4j.LogManager;</span>
+<span class="source-line-no">017</span><span id="line-17">import org.apache.logging.log4j.Logger;</span>
+<span class="source-line-no">018</span><span id="line-18"></span>
+<span class="source-line-no">019</span><span id="line-19">import java.net.URI;</span>
+<span class="source-line-no">020</span><span id="line-20">import java.util.List;</span>
+<span class="source-line-no">021</span><span id="line-21">import java.util.Locale;</span>
+<span class="source-line-no">022</span><span id="line-22"></span>
+<span class="source-line-no">023</span><span id="line-23">import edu.umd.cs.findbugs.annotations.NonNull;</span>
+<span class="source-line-no">024</span><span id="line-24"></span>
+<span class="source-line-no">025</span><span id="line-25">public class LinkReferencePolicy</span>
+<span class="source-line-no">026</span><span id="line-26">    extends AbstractMultiItemTypeReferencePolicy&lt;Link&gt; {</span>
+<span class="source-line-no">027</span><span id="line-27">  private static final Logger LOGGER = LogManager.getLogger(LinkReferencePolicy.class);</span>
+<span class="source-line-no">028</span><span id="line-28"></span>
+<span class="source-line-no">029</span><span id="line-29">  @SuppressWarnings("null")</span>
+<span class="source-line-no">030</span><span id="line-30">  @NonNull</span>
+<span class="source-line-no">031</span><span id="line-31">  public static LinkReferencePolicy create(@NonNull IEntityItem.ItemType itemType) {</span>
+<span class="source-line-no">032</span><span id="line-32">    return create(List.of(itemType));</span>
+<span class="source-line-no">033</span><span id="line-33">  }</span>
+<span class="source-line-no">034</span><span id="line-34"></span>
+<span class="source-line-no">035</span><span id="line-35">  @NonNull</span>
+<span class="source-line-no">036</span><span id="line-36">  public static LinkReferencePolicy create(@NonNull List&lt;IEntityItem.ItemType&gt; itemTypes) {</span>
+<span class="source-line-no">037</span><span id="line-37">    return new LinkReferencePolicy(CollectionUtil.requireNonEmpty(itemTypes, "itemTypes"));</span>
+<span class="source-line-no">038</span><span id="line-38">  }</span>
+<span class="source-line-no">039</span><span id="line-39"></span>
+<span class="source-line-no">040</span><span id="line-40">  public LinkReferencePolicy(@NonNull List&lt;IEntityItem.ItemType&gt; itemTypes) {</span>
+<span class="source-line-no">041</span><span id="line-41">    super(IIdentifierParser.FRAGMENT_PARSER, itemTypes);</span>
+<span class="source-line-no">042</span><span id="line-42">  }</span>
+<span class="source-line-no">043</span><span id="line-43"></span>
+<span class="source-line-no">044</span><span id="line-44">  @Override</span>
+<span class="source-line-no">045</span><span id="line-45">  public String getReferenceText(@NonNull Link link) {</span>
+<span class="source-line-no">046</span><span id="line-46">    return link.getHref().toString();</span>
+<span class="source-line-no">047</span><span id="line-47">  }</span>
+<span class="source-line-no">048</span><span id="line-48"></span>
+<span class="source-line-no">049</span><span id="line-49">  @Override</span>
+<span class="source-line-no">050</span><span id="line-50">  public void setReferenceText(@NonNull Link link, @NonNull String newValue) {</span>
+<span class="source-line-no">051</span><span id="line-51">    link.setHref(URI.create(newValue));</span>
+<span class="source-line-no">052</span><span id="line-52">  }</span>
+<span class="source-line-no">053</span><span id="line-53"></span>
+<span class="source-line-no">054</span><span id="line-54">  @Override</span>
+<span class="source-line-no">055</span><span id="line-55">  protected void handleUnselected(</span>
+<span class="source-line-no">056</span><span id="line-56">      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
+<span class="source-line-no">057</span><span id="line-57">      @NonNull Link link,</span>
+<span class="source-line-no">058</span><span id="line-58">      @NonNull IEntityItem item,</span>
+<span class="source-line-no">059</span><span id="line-59">      @NonNull ReferenceCountingVisitor.Context visitorContext) {</span>
+<span class="source-line-no">060</span><span id="line-60">    URI linkHref = link.getHref();</span>
+<span class="source-line-no">061</span><span id="line-61">    URI sourceUri = item.getSource();</span>
+<span class="source-line-no">062</span><span id="line-62"></span>
+<span class="source-line-no">063</span><span id="line-63">    URI resolved = visitorContext.getUriResolver().resolve(ObjectUtils.requireNonNull(linkHref), sourceUri);</span>
+<span class="source-line-no">064</span><span id="line-64">    if (LOGGER.isTraceEnabled()) {</span>
+<span class="source-line-no">065</span><span id="line-65">      LOGGER.atTrace().log("At path '{}', remapping orphaned URI '{}' to '{}'",</span>
+<span class="source-line-no">066</span><span id="line-66">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),</span>
+<span class="source-line-no">067</span><span id="line-67">          linkHref.toString(),</span>
+<span class="source-line-no">068</span><span id="line-68">          resolved.toString());</span>
+<span class="source-line-no">069</span><span id="line-69">    }</span>
+<span class="source-line-no">070</span><span id="line-70">    link.setHref(resolved);</span>
+<span class="source-line-no">071</span><span id="line-71">  }</span>
+<span class="source-line-no">072</span><span id="line-72"></span>
+<span class="source-line-no">073</span><span id="line-73">  @Override</span>
+<span class="source-line-no">074</span><span id="line-74">  protected boolean handleIndexMiss(</span>
+<span class="source-line-no">075</span><span id="line-75">      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
+<span class="source-line-no">076</span><span id="line-76">      @NonNull Link link,</span>
+<span class="source-line-no">077</span><span id="line-77">      @NonNull List&lt;IEntityItem.ItemType&gt; itemTypes,</span>
+<span class="source-line-no">078</span><span id="line-78">      @NonNull String identifier,</span>
+<span class="source-line-no">079</span><span id="line-79">      @NonNull ReferenceCountingVisitor.Context visitorContext) {</span>
+<span class="source-line-no">080</span><span id="line-80">    if (LOGGER.isWarnEnabled()) {</span>
+<span class="source-line-no">081</span><span id="line-81">      LOGGER.atWarn().log(</span>
+<span class="source-line-no">082</span><span id="line-82">          "The link at '{}' with rel '{}' should reference a {} identified by '{}'."</span>
+<span class="source-line-no">083</span><span id="line-83">              + " The index did not contain the identifier.",</span>
+<span class="source-line-no">084</span><span id="line-84">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER),</span>
+<span class="source-line-no">085</span><span id="line-85">          link.getRel(),</span>
+<span class="source-line-no">086</span><span id="line-86">          itemTypes.stream()</span>
+<span class="source-line-no">087</span><span id="line-87">              .map(en -&gt; en.name().toLowerCase(Locale.ROOT))</span>
+<span class="source-line-no">088</span><span id="line-88">              .collect(CustomCollectors.joiningWithOxfordComma("or")),</span>
+<span class="source-line-no">089</span><span id="line-89">          identifier);</span>
+<span class="source-line-no">090</span><span id="line-90">    }</span>
+<span class="source-line-no">091</span><span id="line-91">    return true;</span>
+<span class="source-line-no">092</span><span id="line-92">  }</span>
+<span class="source-line-no">093</span><span id="line-93"></span>
+<span class="source-line-no">094</span><span id="line-94">  @Override</span>
+<span class="source-line-no">095</span><span id="line-95">  protected boolean handleIdentifierNonMatch(</span>
+<span class="source-line-no">096</span><span id="line-96">      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
+<span class="source-line-no">097</span><span id="line-97">      @NonNull Link reference,</span>
+<span class="source-line-no">098</span><span id="line-98">      @NonNull ReferenceCountingVisitor.Context visitorContext) {</span>
+<span class="source-line-no">099</span><span id="line-99">    if (LOGGER.isDebugEnabled()) {</span>
+<span class="source-line-no">100</span><span id="line-100">      LOGGER.atDebug().log("Ignoring URI '{}' at '{}'",</span>
+<span class="source-line-no">101</span><span id="line-101">          reference.getHref().toString(),</span>
+<span class="source-line-no">102</span><span id="line-102">          contextItem.toPath(IPathFormatter.METAPATH_PATH_FORMATER));</span>
+<span class="source-line-no">103</span><span id="line-103">    }</span>
+<span class="source-line-no">104</span><span id="line-104"></span>
+<span class="source-line-no">105</span><span id="line-105">    return true;</span>
+<span class="source-line-no">106</span><span id="line-106">  }</span>
+<span class="source-line-no">107</span><span id="line-107">}</span>
 
 
 
