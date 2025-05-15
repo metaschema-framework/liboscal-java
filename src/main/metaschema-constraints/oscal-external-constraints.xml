@@ -39,6 +39,7 @@
                 <key-field target="@href"/>
                 <key-field target="@rel"/>
                 <key-field target="@media-type"/>
+		<key-field target="@resource-fragment"/>
             </is-unique>
             <is-unique id="oscal-unique-responsibility-in-context-location" target=".//(responsible-party|responsible-role)">
             	<formal-name>Unique Responsibilities</formal-name>
