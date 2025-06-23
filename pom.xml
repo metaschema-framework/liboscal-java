@@ -98,7 +98,7 @@
 		<dependency.commons-lang3.version>3.17.0</dependency.commons-lang3.version>
 		<dependency.jmock-junit5.version>2.13.1</dependency.jmock-junit5.version>
 		<dependency.lazy4j.version>2.0.1</dependency.lazy4j.version>
-		<dependency.log4j2.version>2.24.3</dependency.log4j2.version>
+		<dependency.log4j2.version>2.25.0</dependency.log4j2.version>
 		<dependency.saxon.version>12.5</dependency.saxon.version>
 		<dependency.xmlbeans.version>5.3.0</dependency.xmlbeans.version>
 		<dependency.xmlresolver.version>6.0.14</dependency.xmlresolver.version>
