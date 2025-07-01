@@ -101,7 +101,7 @@
 		<dependency.log4j2.version>2.25.0</dependency.log4j2.version>
 		<dependency.saxon.version>12.7</dependency.saxon.version>
 		<dependency.xmlbeans.version>5.3.0</dependency.xmlbeans.version>
-		<dependency.xmlresolver.version>6.0.17</dependency.xmlresolver.version>
+		<dependency.xmlresolver.version>6.0.18</dependency.xmlresolver.version>
 		<dependency.xmlunit.version>2.10.3</dependency.xmlunit.version>
 
 		<plugin.cyclonedx.version>2.9.1</plugin.cyclonedx.version>
