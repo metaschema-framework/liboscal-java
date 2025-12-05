@@ -93,7 +93,7 @@
 		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<dependency.metaschema-framework.version>2.2.0</dependency.metaschema-framework.version>
+		<dependency.metaschema-framework.version>3.0.0.M1-SNAPSHOT</dependency.metaschema-framework.version>
 
 		<dependency.commons-lang3.version>3.20.0</dependency.commons-lang3.version>
 		<dependency.jmock-junit5.version>2.13.1</dependency.jmock-junit5.version>

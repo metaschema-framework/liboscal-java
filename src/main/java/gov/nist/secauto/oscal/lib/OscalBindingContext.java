@@ -6,6 +6,7 @@
 package gov.nist.secauto.oscal.lib;
 
 import gov.nist.secauto.metaschema.core.metapath.StaticContext;
+import gov.nist.secauto.metaschema.core.model.MetaschemaException;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.metaschema.databind.DefaultBindingContext;
 import gov.nist.secauto.metaschema.databind.IBindingContext;
@@ -96,7 +97,11 @@ public class OscalBindingContext
   @SuppressWarnings("PMD.ConstructorCallsOverridableMethod") // false positive
   public OscalBindingContext(@NonNull IBindingContext.IModuleLoaderStrategy strategy) {
     super(strategy);
-    registerModule(OscalCompleteModule.class);
+    try {
+      registerModule(OscalCompleteModule.class);
+    } catch (MetaschemaException ex) {
+      throw new IllegalStateException("Failed to register OSCAL module", ex);
+    }
   }
 
   @NonNull

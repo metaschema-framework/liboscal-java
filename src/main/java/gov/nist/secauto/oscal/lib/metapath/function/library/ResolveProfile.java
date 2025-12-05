@@ -7,7 +7,7 @@ package gov.nist.secauto.oscal.lib.metapath.function.library;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
 import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
-import gov.nist.secauto.metaschema.core.metapath.MetapathException;
+import gov.nist.secauto.metaschema.core.metapath.function.DocumentFunctionException;
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
 import gov.nist.secauto.metaschema.core.metapath.function.IArgument;
 import gov.nist.secauto.metaschema.core.metapath.function.IFunction;
@@ -160,7 +160,8 @@ public final class ResolveProfile {
       try {
         retval = resolver.resolve(profile);
       } catch (IOException | ProfileResolutionException ex) {
-        throw new MetapathException(
+        throw new DocumentFunctionException(
+            DocumentFunctionException.ERROR_RETRIEVING_RESOURCE,
             String.format("Unable to resolve profile '%s'. %s",
                 profile.getBaseUri(),
                 ex.getLocalizedMessage()),
