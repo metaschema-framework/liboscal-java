@@ -36,7 +36,7 @@ public class OscalBindingContext
   public static final StaticContext OSCAL_STATIC_METAPATH_CONTEXT = StaticContext.builder()
       .defaultModelNamespace(OscalModelConstants.NS_OSCAL)
       .build();
-  private static final Lazy<OscalBindingContext> SINGLETON = Lazy.lazy(OscalBindingContext::new);
+  private static final Lazy<OscalBindingContext> SINGLETON = Lazy.of(OscalBindingContext::new);
 
   @NonNull
   public static OscalBindingContext instance() {
