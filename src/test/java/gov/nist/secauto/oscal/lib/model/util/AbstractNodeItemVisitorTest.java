@@ -6,6 +6,7 @@
 package gov.nist.secauto.oscal.lib.model.util;
 
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDefinitionNodeItem;
+import gov.nist.secauto.metaschema.core.model.MetaschemaException;
 import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValue;
 import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValuesConstraint;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
@@ -32,7 +33,7 @@ class AbstractNodeItemVisitorTest {
 
   @Test
   @Disabled
-  void testAllowedValues() {
+  void testAllowedValues() throws MetaschemaException {
     IBoundModule module = OscalBindingContext.instance().registerModule(OscalCompleteModule.class);
     AllowedValueCollectingNodeItemVisitor walker = new AllowedValueCollectingNodeItemVisitor();
     walker.visit(module);

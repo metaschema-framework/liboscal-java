@@ -7,6 +7,7 @@ package gov.nist.secauto.oscal.java;
 
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
 import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
+import gov.nist.secauto.metaschema.core.model.constraint.ConstraintValidationException;
 import gov.nist.secauto.metaschema.core.metapath.StaticContext;
 import gov.nist.secauto.metaschema.core.metapath.item.IItem;
 import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
@@ -33,7 +34,7 @@ class MetaschemaVisitorTest {
 
   @Disabled
   @Test
-  void test() throws FileNotFoundException, IOException, URISyntaxException {
+  void test() throws FileNotFoundException, IOException, URISyntaxException, ConstraintValidationException {
     OscalBindingContext bindingContext = OscalBindingContext.instance();
     IBoundLoader loader = bindingContext.newBoundLoader();
 
