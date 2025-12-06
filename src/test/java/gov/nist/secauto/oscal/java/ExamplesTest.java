@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
 import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
+import gov.nist.secauto.metaschema.core.model.constraint.ConstraintValidationException;
 import gov.nist.secauto.metaschema.core.model.constraint.DefaultConstraintValidator;
 import gov.nist.secauto.metaschema.core.model.constraint.FindingCollectingConstraintValidationHandler;
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
@@ -62,7 +63,8 @@ class ExamplesTest {
   @Disabled
   @Test
   void testConstraintValidation()
-      throws MalformedURLException, IOException, URISyntaxException, ProfileResolutionException {
+      throws MalformedURLException, IOException, URISyntaxException, ProfileResolutionException,
+      ConstraintValidationException {
     // Initialize the Module framework
     OscalBindingContext bindingContext = OscalBindingContext.instance(); // manages the Module model
     IBoundLoader loader = bindingContext.newBoundLoader(); // supports loading OSCAL documents

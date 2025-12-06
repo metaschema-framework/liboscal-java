@@ -13,6 +13,7 @@ import gov.nist.secauto.metaschema.core.configuration.IMutableConfiguration;
 import gov.nist.secauto.metaschema.core.model.IModule;
 import gov.nist.secauto.metaschema.core.model.IResourceLocation;
 import gov.nist.secauto.metaschema.core.model.MetaschemaException;
+import gov.nist.secauto.metaschema.core.model.constraint.ConstraintValidationException;
 import gov.nist.secauto.metaschema.core.model.constraint.ConstraintValidationFinding;
 import gov.nist.secauto.metaschema.core.model.validation.AbstractValidationResultProcessor;
 import gov.nist.secauto.metaschema.core.model.validation.IValidationFinding;
@@ -60,7 +61,8 @@ class OscalValidationTest {
   private static final Logger LOGGER = LogManager.getLogger(OscalValidationTest.class);
 
   @Test
-  void testValidateOscalProfileXml() throws MetaschemaException, IOException, URISyntaxException {
+  void testValidateOscalProfileXml()
+      throws MetaschemaException, IOException, URISyntaxException, ConstraintValidationException {
     Path generationDir = Paths.get("target/generated-modules");
     Files.createDirectories(generationDir);
 
@@ -94,7 +96,8 @@ class OscalValidationTest {
   }
 
   @Test
-  void testValidateProfileWithMissingControls() throws MetaschemaException, IOException, URISyntaxException {
+  void testValidateProfileWithMissingControls()
+      throws MetaschemaException, IOException, URISyntaxException, ConstraintValidationException {
     IBindingContext bindingContext = OscalBindingContext.newInstance();
 
     IValidationResult validationResult = bindingContext.validateWithConstraints(

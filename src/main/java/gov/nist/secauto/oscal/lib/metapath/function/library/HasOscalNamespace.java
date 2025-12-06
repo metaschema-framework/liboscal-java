@@ -5,9 +5,9 @@
 
 package gov.nist.secauto.oscal.lib.metapath.function.library;
 
+import gov.nist.secauto.metaschema.core.metapath.ContextAbsentDynamicMetapathException;
 import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
 import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
-import gov.nist.secauto.metaschema.core.metapath.MetapathException;
 import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
 import gov.nist.secauto.metaschema.core.metapath.function.IArgument;
 import gov.nist.secauto.metaschema.core.metapath.function.IFunction;
@@ -184,13 +184,12 @@ public final class HasOscalNamespace {
       IAssemblyDefinition definition = propOrPart.getDefinition();
       IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_QNAME.getIndexPosition());
       if (flag == null) {
-        throw new MetapathException(
+        throw new ContextAbsentDynamicMetapathException(
             String.format(
                 "Node at path '%s' bound to '%s' based on the assembly definition '%s' has no OSCAL namespace",
                 propOrPart.getMetapath(),
                 propOrPart.getClass().getName(),
                 propOrPart.getDefinition().getName()));
-
       }
 
       Object defaultValue = flag.getDefinition().getDefaultValue();
