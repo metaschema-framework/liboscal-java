@@ -28,15 +28,15 @@ public class DefaultResult implements IResult {
   private static final Logger LOGGER = LogManager.getLogger(DefaultResult.class);
 
   @NonNull
-  private final Lazy<Set<Control>> promotedControls = ObjectUtils.notNull(Lazy.lazy(LinkedHashSet::new));
+  private final Lazy<Set<Control>> promotedControls = ObjectUtils.notNull(Lazy.of(LinkedHashSet::new));
   @NonNull
-  private final Lazy<Set<Parameter>> promotedParameters = ObjectUtils.notNull(Lazy.lazy(LinkedHashSet::new));
+  private final Lazy<Set<Parameter>> promotedParameters = ObjectUtils.notNull(Lazy.of(LinkedHashSet::new));
   @NonNull
-  private final Lazy<Set<CatalogGroup>> removedGroups = ObjectUtils.notNull(Lazy.lazy(HashSet::new));
+  private final Lazy<Set<CatalogGroup>> removedGroups = ObjectUtils.notNull(Lazy.of(HashSet::new));
   @NonNull
-  private final Lazy<Set<Control>> removedControls = ObjectUtils.notNull(Lazy.lazy(HashSet::new));
+  private final Lazy<Set<Control>> removedControls = ObjectUtils.notNull(Lazy.of(HashSet::new));
   @NonNull
-  private final Lazy<Set<Parameter>> removedParameters = ObjectUtils.notNull(Lazy.lazy(HashSet::new));
+  private final Lazy<Set<Parameter>> removedParameters = ObjectUtils.notNull(Lazy.of(HashSet::new));
 
   @SuppressWarnings("null")
   @NonNull
