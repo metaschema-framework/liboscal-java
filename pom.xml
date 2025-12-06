@@ -95,7 +95,7 @@
 
 		<dependency.metaschema-framework.version>2.2.0</dependency.metaschema-framework.version>
 
-		<dependency.commons-lang3.version>3.18.0</dependency.commons-lang3.version>
+		<dependency.commons-lang3.version>3.20.0</dependency.commons-lang3.version>
 		<dependency.jmock-junit5.version>2.13.1</dependency.jmock-junit5.version>
 		<dependency.lazy4j.version>2.0.1</dependency.lazy4j.version>
 		<dependency.log4j2.version>2.25.0</dependency.log4j2.version>
