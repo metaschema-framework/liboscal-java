@@ -37,6 +37,11 @@
 				<use-class-name>MappingEntry</use-class-name>
 			</java>
 		</define-assembly-binding>
+		<define-assembly-binding name="matching">
+			<java>
+				<use-class-name>MappedControlMatching</use-class-name>
+			</java>
+		</define-assembly-binding>
 	</metaschema-binding>
 	<metaschema-binding
 		href="../../../oscal/src/metaschema/oscal_control-common_metaschema.xml">
@@ -98,6 +103,11 @@
 		<define-assembly-binding name="set-parameter">
 			<java>
 				<use-class-name>ProfileSetParameter</use-class-name>
+			</java>
+		</define-assembly-binding>
+		<define-assembly-binding name="matching">
+			<java>
+				<use-class-name>ProfileMatching</use-class-name>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
