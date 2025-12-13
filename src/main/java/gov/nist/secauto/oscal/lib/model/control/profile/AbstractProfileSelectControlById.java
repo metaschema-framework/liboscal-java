@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.model.control.profile;
 
-import gov.nist.secauto.oscal.lib.model.Matching;
+import gov.nist.secauto.oscal.lib.model.ProfileMatching;
 import gov.nist.secauto.oscal.lib.model.ProfileSelectControlById;
 
 import java.util.Collection;
@@ -60,7 +60,7 @@ public abstract class AbstractProfileSelectControlById implements IProfileSelect
       retval.setWithIds(withIds);
       retval.setMatching(matching.stream()
           .map(pattern -> {
-            Matching matching = new Matching();
+            ProfileMatching matching = new ProfileMatching();
             matching.setPattern(pattern.pattern());
             return matching;
           })

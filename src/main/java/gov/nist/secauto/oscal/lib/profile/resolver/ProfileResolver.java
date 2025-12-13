@@ -645,13 +645,15 @@ public class ProfileResolver {
           INodeItem removeItem = (INodeItem) nodeItem;
           Modify.Alter.Remove remove = ObjectUtils.notNull((Modify.Alter.Remove) removeItem.getValue());
 
+          String removeNS = remove.getByNs() == null ? null : remove.getByNs().toASCIIString();
+
           try {
             if (!RemoveVisitor.remove(
                 control,
                 remove.getByName(),
                 remove.getByClass(),
                 remove.getById(),
-                remove.getByNs(),
+                removeNS,
                 RemoveVisitor.TargetType.forFieldName(remove.getByItemName()))) {
               throw new ProfileResolutionEvaluationException(
                   String.format("The remove did not match a valid target"));
