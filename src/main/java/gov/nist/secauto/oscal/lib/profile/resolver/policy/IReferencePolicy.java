@@ -10,6 +10,7 @@ import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationEx
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
+@FunctionalInterface
 public interface IReferencePolicy<T> {
   @NonNull
   IReferencePolicy<Object> IGNORE_POLICY = new IReferencePolicy<>() {
