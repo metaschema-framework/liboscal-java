@@ -18,7 +18,6 @@ import gov.nist.secauto.oscal.lib.model.control.catalog.ICatalogVisitor;
 import gov.nist.secauto.oscal.lib.model.metadata.IProperty;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
