@@ -21,20 +21,20 @@ public interface IControlFilter {
   @NonNull
   IControlFilter ALWAYS_MATCH = new IControlFilter() {
     @Override
-    public @NonNull
-    Pair<Boolean, Boolean> match(@NonNull IControl control, boolean defaultMatch) {
+    @NonNull
+    public Pair<Boolean, Boolean> match(@NonNull IControl control, boolean defaultMatch) {
       return IControlSelectionFilter.MATCH;
     }
 
     @Override
-    public @NonNull
-    IControlSelectionFilter getInclusionFilter() {
+    @NonNull
+    public IControlSelectionFilter getInclusionFilter() {
       return IControlSelectionFilter.ALL_MATCH;
     }
 
     @Override
-    public @NonNull
-    IControlSelectionFilter getExclusionFilter() {
+    @NonNull
+    public IControlSelectionFilter getExclusionFilter() {
       return IControlSelectionFilter.NONE_MATCH;
     }
   };
@@ -43,20 +43,20 @@ public interface IControlFilter {
   IControlFilter NONE_MATCH = new IControlFilter() {
 
     @Override
-    public @NonNull
-    Pair<Boolean, Boolean> match(@NonNull IControl control, boolean defaultMatch) {
+    @NonNull
+    public Pair<Boolean, Boolean> match(@NonNull IControl control, boolean defaultMatch) {
       return IControlSelectionFilter.NON_MATCH;
     }
 
     @Override
-    public @NonNull
-    IControlSelectionFilter getInclusionFilter() {
+    @NonNull
+    public IControlSelectionFilter getInclusionFilter() {
       return IControlSelectionFilter.NONE_MATCH;
     }
 
     @Override
-    public @NonNull
-    IControlSelectionFilter getExclusionFilter() {
+    @NonNull
+    public IControlSelectionFilter getExclusionFilter() {
       return IControlSelectionFilter.NONE_MATCH;
     }
   };

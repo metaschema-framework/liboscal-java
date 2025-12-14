@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
+@FunctionalInterface
 public interface IControlSelectionFilter extends Function<IControl, Pair<Boolean, Boolean>> {
 
   @NonNull
@@ -36,8 +37,8 @@ public interface IControlSelectionFilter extends Function<IControl, Pair<Boolean
       private final Set<String> keys = Arrays.stream(identifiers).collect(Collectors.toUnmodifiableSet());
 
       @Override
-      public @NonNull
-      Pair<Boolean, Boolean> apply(IControl control) {
+      @NonNull
+      public Pair<Boolean, Boolean> apply(IControl control) {
         return ObjectUtils.notNull(Pair.of(keys.contains(control.getId()), false));
       }
 
