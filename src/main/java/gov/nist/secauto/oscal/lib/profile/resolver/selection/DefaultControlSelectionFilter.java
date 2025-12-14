@@ -6,7 +6,7 @@
 package gov.nist.secauto.oscal.lib.profile.resolver.selection;
 
 import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.oscal.lib.model.Matching;
+import gov.nist.secauto.oscal.lib.model.ProfileMatching;
 import gov.nist.secauto.oscal.lib.model.control.catalog.IControl;
 import gov.nist.secauto.oscal.lib.model.control.profile.IProfileSelectControlById;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
@@ -90,7 +90,7 @@ public class DefaultControlSelectionFilter implements IControlSelectionFilter {
   }
 
   @SuppressWarnings("PMD.ImplicitSwitchFallThrough")
-  private static Pattern toPattern(@NonNull Matching matching) {
+  private static Pattern toPattern(@NonNull ProfileMatching matching) {
     String pattern = ObjectUtils.requireNonNull(matching.getPattern());
     String regex = pattern.chars().boxed().map(ch -> (char) ch.intValue()).map(ch -> {
 
@@ -148,7 +148,7 @@ public class DefaultControlSelectionFilter implements IControlSelectionFilter {
           .collect(Collectors.toUnmodifiableSet());
 
       // process with-ids
-      List<Matching> matching = selection.getMatching();
+      List<ProfileMatching> matching = selection.getMatching();
       if (matching == null) {
         matching = Collections.emptyList();
       }
