@@ -56,7 +56,7 @@
 <span class="source-line-no">043</span><span id="line-43">      description = "Describes the number of selections that must occur. Without this setting, only one value should be assumed to be permitted.",</span>
 <span class="source-line-no">044</span><span id="line-44">      name = "how-many",</span>
 <span class="source-line-no">045</span><span id="line-45">      typeAdapter = TokenAdapter.class,</span>
-<span class="source-line-no">046</span><span id="line-46">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "one", description = "Only one value is permitted."), @AllowedValue(value = "one-or-more", description = "One or more values are permitted.")}))</span>
+<span class="source-line-no">046</span><span id="line-46">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-parameter-how-many-type", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "one", description = "Only one value is permitted."), @AllowedValue(value = "one-or-more", description = "One or more values are permitted.")}))</span>
 <span class="source-line-no">047</span><span id="line-47">  )</span>
 <span class="source-line-no">048</span><span id="line-48">  private String _howMany;</span>
 <span class="source-line-no">049</span><span id="line-49"></span>

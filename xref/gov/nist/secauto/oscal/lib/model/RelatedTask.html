@@ -40,7 +40,7 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      description = <span class="jxr_string">"Identifies an individual task for which the containing object is a consequence of."</span>,
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      name = <span class="jxr_string">"related-task"</span>,
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      moduleClass = OscalAssessmentCommonModule.<strong class="jxr_keyword">class</strong>,
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = <span class="jxr_string">"unique-ssp-related-task-responsible-party"</span>, level = IConstraint.Level.ERROR, target = <span class="jxr_string">"responsible-party"</span>, keyFields = @KeyField(target = <span class="jxr_string">"@role-id"</span>), remarks = <span class="jxr_string">"Since `responsible-party` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."</span>))
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = <span class="jxr_string">"oscal-unique-ssp-related-task-responsible-party"</span>, level = IConstraint.Level.ERROR, target = <span class="jxr_string">"responsible-party"</span>, keyFields = @KeyField(target = <span class="jxr_string">"@role-id"</span>), remarks = <span class="jxr_string">"Since `responsible-party` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."</span>))
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  )
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="RelatedTask" href="../../../../../../gov/nist/secauto/oscal/lib/model/RelatedTask.html#RelatedTask">RelatedTask</a> <strong class="jxr_keyword">implements</strong> IBoundObject {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> IMetaschemaData __metaschemaData;
@@ -97,7 +97,7 @@
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>    @BoundAssembly(
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>        formalName = <span class="jxr_string">"Identified Subject"</span>,
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>        description = <span class="jxr_string">"Used to detail assessment subjects that were identfied by this task."</span>,
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>        description = <span class="jxr_string">"Used to detail assessment subjects that were identified by this task."</span>,
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>        useName = <span class="jxr_string">"identified-subject"</span>
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>    )
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>    <strong class="jxr_keyword">private</strong> IdentifiedSubject _identifiedSubject;
@@ -277,11 +277,11 @@
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>   }
 <a class="jxr_linenumber" name="L270" href="#L270">270</a> 
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L272" href="#L272">272</a> <em class="jxr_javadoccomment">   * Used to detail assessment subjects that were identfied by this task.</em>
+<a class="jxr_linenumber" name="L272" href="#L272">272</a> <em class="jxr_javadoccomment">   * Used to detail assessment subjects that were identified by this task.</em>
 <a class="jxr_linenumber" name="L273" href="#L273">273</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>   @MetaschemaAssembly(
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>       formalName = <span class="jxr_string">"Identified Subject"</span>,
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>       description = <span class="jxr_string">"Used to detail assessment subjects that were identfied by this task."</span>,
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>       description = <span class="jxr_string">"Used to detail assessment subjects that were identified by this task."</span>,
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>       name = <span class="jxr_string">"identified-subject"</span>,
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>       moduleClass = OscalAssessmentCommonModule.<strong class="jxr_keyword">class</strong>
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>   )

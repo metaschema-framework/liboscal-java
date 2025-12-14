@@ -61,7 +61,7 @@
 <span class="source-line-no">048</span><span id="line-48">      required = true,</span>
 <span class="source-line-no">049</span><span id="line-49">      typeAdapter = StringAdapter.class,</span>
 <span class="source-line-no">050</span><span id="line-50">      remarks = "The target will always be a reference to: 1) a control statement, or 2) a control objective. In the former case, there is always a single top-level statement within a control. Thus, if the entire control is targeted, this statement identifier can be used.",</span>
-<span class="source-line-no">051</span><span id="line-51">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "statement-id", description = "A reference to a control statement identifier within a control."), @AllowedValue(value = "objective-id", description = "A reference to a control objective identifier within a control.")}))</span>
+<span class="source-line-no">051</span><span id="line-51">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-finding-target-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "statement-id", description = "A reference to a control statement identifier within a control."), @AllowedValue(value = "objective-id", description = "A reference to a control objective identifier within a control.")}))</span>
 <span class="source-line-no">052</span><span id="line-52">  )</span>
 <span class="source-line-no">053</span><span id="line-53">  private String _type;</span>
 <span class="source-line-no">054</span><span id="line-54"></span>
@@ -292,7 +292,7 @@
 <span class="source-line-no">279</span><span id="line-279">        name = "state",</span>
 <span class="source-line-no">280</span><span id="line-280">        required = true,</span>
 <span class="source-line-no">281</span><span id="line-281">        typeAdapter = TokenAdapter.class,</span>
-<span class="source-line-no">282</span><span id="line-282">        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "satisfied", description = "The objective has been completely satisfied."), @AllowedValue(value = "not-satisfied", description = "The objective has not been completely satisfied, but may be partially satisfied.")}))</span>
+<span class="source-line-no">282</span><span id="line-282">        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-finding-target-status-state-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "satisfied", description = "The objective has been completely satisfied."), @AllowedValue(value = "not-satisfied", description = "The objective has not been completely satisfied, but may be partially satisfied.")}))</span>
 <span class="source-line-no">283</span><span id="line-283">    )</span>
 <span class="source-line-no">284</span><span id="line-284">    private String _state;</span>
 <span class="source-line-no">285</span><span id="line-285"></span>
@@ -305,7 +305,7 @@
 <span class="source-line-no">292</span><span id="line-292">        name = "reason",</span>
 <span class="source-line-no">293</span><span id="line-293">        typeAdapter = TokenAdapter.class,</span>
 <span class="source-line-no">294</span><span id="line-294">        remarks = "Reason may contain any value, and should be used to communicate additional information regarding the status.",</span>
-<span class="source-line-no">295</span><span id="line-295">        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, allowOthers = true, values = {@AllowedValue(value = "pass", description = "The target system or system component satisfied all the conditions."), @AllowedValue(value = "fail", description = "The target system or system component did not satisfy all the conditions."), @AllowedValue(value = "other", description = "Some other event took place that is not a pass or a fail.")}))</span>
+<span class="source-line-no">295</span><span id="line-295">        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-finding-target-reason-values", level = IConstraint.Level.ERROR, allowOthers = true, values = {@AllowedValue(value = "pass", description = "The target system or system component satisfied all the conditions."), @AllowedValue(value = "fail", description = "The target system or system component did not satisfy all the conditions."), @AllowedValue(value = "other", description = "Some other event took place that is not a pass or a fail.")}))</span>
 <span class="source-line-no">296</span><span id="line-296">    )</span>
 <span class="source-line-no">297</span><span id="line-297">    private String _reason;</span>
 <span class="source-line-no">298</span><span id="line-298"></span>

@@ -13,7 +13,7 @@
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">package</strong> gov.nist.secauto.oscal.lib.model.control.profile;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.oscal.lib.model.Matching;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.oscal.lib.model.ProfileMatching;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.oscal.lib.model.ProfileSelectControlById;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.Collection;
@@ -68,7 +68,7 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>        retval.setWithIds(withIds);
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>        retval.setMatching(matching.stream()
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>            .map(pattern -&gt; {
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>              Matching matching = <strong class="jxr_keyword">new</strong> Matching();
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>              ProfileMatching matching = <strong class="jxr_keyword">new</strong> ProfileMatching();
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>              matching.setPattern(pattern.pattern());
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>              <strong class="jxr_keyword">return</strong> matching;
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>            })

@@ -51,7 +51,7 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>        description = <span class="jxr_string">"When a control is included, whether its child (dependent) controls are also included."</span>,
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>        name = <span class="jxr_string">"with-child-controls"</span>,
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>        typeAdapter = TokenAdapter.<strong class="jxr_keyword">class</strong>,
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = <span class="jxr_string">"yes"</span>, description = <span class="jxr_string">"Include child controls with an included control."</span>), @AllowedValue(value = <span class="jxr_string">"no"</span>, description = <span class="jxr_string">"When importing a control, only include child controls that are also explicitly called."</span>)}))
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = <span class="jxr_string">"oscal-profile-with-child-controls-values"</span>, level = IConstraint.Level.ERROR, values = {@AllowedValue(value = <span class="jxr_string">"yes"</span>, description = <span class="jxr_string">"Include child controls with an included control."</span>), @AllowedValue(value = <span class="jxr_string">"no"</span>, description = <span class="jxr_string">"When importing a control, only include child controls that are also explicitly called."</span>)}))
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>    )
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>    <strong class="jxr_keyword">private</strong> String _withChildControls;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
@@ -72,7 +72,7 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>        maxOccurs = -1,
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>        groupAs = @GroupAs(name = <span class="jxr_string">"matching"</span>, inJson = JsonGroupAsBehavior.LIST)
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>    )
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>    <strong class="jxr_keyword">private</strong> List&lt;Matching&gt; _matching;
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>    <strong class="jxr_keyword">private</strong> List&lt;ProfileMatching&gt; _matching;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>    <strong class="jxr_keyword">public</strong> <a name="ProfileSelectControlById" href="../../../../../../gov/nist/secauto/oscal/lib/model/ProfileSelectControlById.html#ProfileSelectControlById">ProfileSelectControlById</a>() {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">this</strong>(<strong class="jxr_keyword">null</strong>);
@@ -126,21 +126,21 @@
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>     <strong class="jxr_keyword">return</strong> _withIds != <strong class="jxr_keyword">null</strong> &amp;&amp; _withIds.remove(value);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>   }
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> 
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>   <strong class="jxr_keyword">public</strong> List&lt;Matching&gt; getMatching() {
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>   <strong class="jxr_keyword">public</strong> List&lt;ProfileMatching&gt; getMatching() {
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>     <strong class="jxr_keyword">return</strong> _matching;
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>   }
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> 
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setMatching(List&lt;Matching&gt; value) {
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setMatching(List&lt;ProfileMatching&gt; value) {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>     _matching = value;
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>   }
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">   * Add a new {@link Matching} item to the underlying collection.</em>
+<a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">   * Add a new {@link ProfileMatching} item to the underlying collection.</em>
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">   * @param item the item to add</em>
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">   * @return {@code true}</em>
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addMatching(<a name="Matching" href="../../../../../../gov/nist/secauto/oscal/lib/model/Matching.html#Matching">Matching</a> item) {
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <a name="Matching" href="../../../../../../gov/nist/secauto/oscal/lib/model/Matching.html#Matching">Matching</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addMatching(<a name="ProfileMatching" href="../../../../../../gov/nist/secauto/oscal/lib/model/ProfileMatching.html#ProfileMatching">ProfileMatching</a> item) {
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <a name="ProfileMatching" href="../../../../../../gov/nist/secauto/oscal/lib/model/ProfileMatching.html#ProfileMatching">ProfileMatching</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>     <strong class="jxr_keyword">if</strong> (_matching == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>       _matching = <strong class="jxr_keyword">new</strong> LinkedList&lt;&gt;();
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     }
@@ -148,12 +148,12 @@
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>   }
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">   * Remove the first matching {@link Matching} item from the underlying collection.</em>
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">   * Remove the first matching {@link ProfileMatching} item from the underlying collection.</em>
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">   * @param item the item to remove</em>
 <a class="jxr_linenumber" name="L145" href="#L145">145</a> <em class="jxr_javadoccomment">   * @return {@code true} if the item was removed or {@code false} otherwise</em>
 <a class="jxr_linenumber" name="L146" href="#L146">146</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeMatching(<a name="Matching" href="../../../../../../gov/nist/secauto/oscal/lib/model/Matching.html#Matching">Matching</a> item) {
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>     <a name="Matching" href="../../../../../../gov/nist/secauto/oscal/lib/model/Matching.html#Matching">Matching</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeMatching(<a name="ProfileMatching" href="../../../../../../gov/nist/secauto/oscal/lib/model/ProfileMatching.html#ProfileMatching">ProfileMatching</a> item) {
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>     <a name="ProfileMatching" href="../../../../../../gov/nist/secauto/oscal/lib/model/ProfileMatching.html#ProfileMatching">ProfileMatching</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     <strong class="jxr_keyword">return</strong> _matching != <strong class="jxr_keyword">null</strong> &amp;&amp; _matching.remove(value);
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>   }
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> 

@@ -42,7 +42,7 @@
 <span class="source-line-no">029</span><span id="line-29">    description = "Allows components, and inventory-items to be defined within the POA\\&amp;M for circumstances where no OSCAL-based SSP exists, or is not delivered with the POA\\&amp;M.",</span>
 <span class="source-line-no">030</span><span id="line-30">    name = "local-definitions",</span>
 <span class="source-line-no">031</span><span id="line-31">    moduleClass = OscalPoamModule.class,</span>
-<span class="source-line-no">032</span><span id="line-32">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "unique-poam-local-definitions-component", level = IConstraint.Level.ERROR, target = "component", keyFields = @KeyField(target = "@uuid"), remarks = "Since multiple `component` entries can be provided, each component must have a unique `uuid`."))</span>
+<span class="source-line-no">032</span><span id="line-32">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-poam-local-definitions-component", level = IConstraint.Level.ERROR, target = "component", keyFields = @KeyField(target = "@uuid"), remarks = "Since multiple `component` entries can be provided, each component must have a unique `uuid`."))</span>
 <span class="source-line-no">033</span><span id="line-33">)</span>
 <span class="source-line-no">034</span><span id="line-34">public class LocalDefinitions implements IBoundObject {</span>
 <span class="source-line-no">035</span><span id="line-35">  private final IMetaschemaData __metaschemaData;</span>

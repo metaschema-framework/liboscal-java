@@ -18,7 +18,7 @@
 <span class="source-line-no">005</span><span id="line-5"></span>
 <span class="source-line-no">006</span><span id="line-6">package gov.nist.secauto.oscal.lib.model.control.profile;</span>
 <span class="source-line-no">007</span><span id="line-7"></span>
-<span class="source-line-no">008</span><span id="line-8">import gov.nist.secauto.oscal.lib.model.Matching;</span>
+<span class="source-line-no">008</span><span id="line-8">import gov.nist.secauto.oscal.lib.model.ProfileMatching;</span>
 <span class="source-line-no">009</span><span id="line-9">import gov.nist.secauto.oscal.lib.model.ProfileSelectControlById;</span>
 <span class="source-line-no">010</span><span id="line-10"></span>
 <span class="source-line-no">011</span><span id="line-11">import java.util.Collection;</span>
@@ -73,7 +73,7 @@
 <span class="source-line-no">060</span><span id="line-60">      retval.setWithIds(withIds);</span>
 <span class="source-line-no">061</span><span id="line-61">      retval.setMatching(matching.stream()</span>
 <span class="source-line-no">062</span><span id="line-62">          .map(pattern -&gt; {</span>
-<span class="source-line-no">063</span><span id="line-63">            Matching matching = new Matching();</span>
+<span class="source-line-no">063</span><span id="line-63">            ProfileMatching matching = new ProfileMatching();</span>
 <span class="source-line-no">064</span><span id="line-64">            matching.setPattern(pattern.pattern());</span>
 <span class="source-line-no">065</span><span id="line-65">            return matching;</span>
 <span class="source-line-no">066</span><span id="line-66">          })</span>

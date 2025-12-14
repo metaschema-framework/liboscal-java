@@ -140,7 +140,7 @@
 <span class="source-line-no">127</span><span id="line-127">      description = "A Combine element defines how to resolve duplicate instances of the same control (e.g., controls with the same ID).",</span>
 <span class="source-line-no">128</span><span id="line-128">      name = "combine",</span>
 <span class="source-line-no">129</span><span id="line-129">      moduleClass = OscalProfileModule.class,</span>
-<span class="source-line-no">130</span><span id="line-130">      valueConstraints = @ValueConstraints(expect = @Expect(id = "req-merge-combine", level = IConstraint.Level.ERROR, test = "not(@method='merge')"))</span>
+<span class="source-line-no">130</span><span id="line-130">      valueConstraints = @ValueConstraints(expect = @Expect(id = "oscal-profile-req-merge-combine", level = IConstraint.Level.ERROR, test = "not(@method='merge')"))</span>
 <span class="source-line-no">131</span><span id="line-131">  )</span>
 <span class="source-line-no">132</span><span id="line-132">  public static class Combine implements IBoundObject {</span>
 <span class="source-line-no">133</span><span id="line-133">    private final IMetaschemaData __metaschemaData;</span>
@@ -153,7 +153,7 @@
 <span class="source-line-no">140</span><span id="line-140">        description = "Declare how clashing controls should be handled.",</span>
 <span class="source-line-no">141</span><span id="line-141">        name = "method",</span>
 <span class="source-line-no">142</span><span id="line-142">        typeAdapter = StringAdapter.class,</span>
-<span class="source-line-no">143</span><span id="line-143">        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "use-first", description = "Use the first definition - the first control with a given ID is used; subsequent ones are discarded"), @AllowedValue(value = "merge", description = "\\*\\*(*deprecated* )\\*\\* \\*\\*(*unspecified*)\\*\\* Merge - controls with the same ID are combined", deprecatedVersion = "1.0.1"), @AllowedValue(value = "keep", description = "Keep - controls with the same ID are kept, retaining the clash")}))</span>
+<span class="source-line-no">143</span><span id="line-143">        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-profile-merge-combine-method-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "use-first", description = "Use the first definition - the first control with a given ID is used; subsequent ones are discarded"), @AllowedValue(value = "merge", description = "\\*\\*(*deprecated* )\\*\\* \\*\\*(*unspecified*)\\*\\* Merge - controls with the same ID are combined", deprecatedVersion = "1.0.1"), @AllowedValue(value = "keep", description = "Keep - controls with the same ID are kept, retaining the clash")}))</span>
 <span class="source-line-no">144</span><span id="line-144">    )</span>
 <span class="source-line-no">145</span><span id="line-145">    private String _method;</span>
 <span class="source-line-no">146</span><span id="line-146"></span>

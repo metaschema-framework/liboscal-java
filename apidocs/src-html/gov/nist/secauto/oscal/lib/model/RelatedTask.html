@@ -45,7 +45,7 @@
 <span class="source-line-no">032</span><span id="line-32">    description = "Identifies an individual task for which the containing object is a consequence of.",</span>
 <span class="source-line-no">033</span><span id="line-33">    name = "related-task",</span>
 <span class="source-line-no">034</span><span id="line-34">    moduleClass = OscalAssessmentCommonModule.class,</span>
-<span class="source-line-no">035</span><span id="line-35">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "unique-ssp-related-task-responsible-party", level = IConstraint.Level.ERROR, target = "responsible-party", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-party` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
+<span class="source-line-no">035</span><span id="line-35">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-ssp-related-task-responsible-party", level = IConstraint.Level.ERROR, target = "responsible-party", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-party` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
 <span class="source-line-no">036</span><span id="line-36">)</span>
 <span class="source-line-no">037</span><span id="line-37">public class RelatedTask implements IBoundObject {</span>
 <span class="source-line-no">038</span><span id="line-38">  private final IMetaschemaData __metaschemaData;</span>
@@ -102,7 +102,7 @@
 <span class="source-line-no">089</span><span id="line-89"></span>
 <span class="source-line-no">090</span><span id="line-90">  @BoundAssembly(</span>
 <span class="source-line-no">091</span><span id="line-91">      formalName = "Identified Subject",</span>
-<span class="source-line-no">092</span><span id="line-92">      description = "Used to detail assessment subjects that were identfied by this task.",</span>
+<span class="source-line-no">092</span><span id="line-92">      description = "Used to detail assessment subjects that were identified by this task.",</span>
 <span class="source-line-no">093</span><span id="line-93">      useName = "identified-subject"</span>
 <span class="source-line-no">094</span><span id="line-94">  )</span>
 <span class="source-line-no">095</span><span id="line-95">  private IdentifiedSubject _identifiedSubject;</span>
@@ -282,11 +282,11 @@
 <span class="source-line-no">269</span><span id="line-269">  }</span>
 <span class="source-line-no">270</span><span id="line-270"></span>
 <span class="source-line-no">271</span><span id="line-271">  /**</span>
-<span class="source-line-no">272</span><span id="line-272">   * Used to detail assessment subjects that were identfied by this task.</span>
+<span class="source-line-no">272</span><span id="line-272">   * Used to detail assessment subjects that were identified by this task.</span>
 <span class="source-line-no">273</span><span id="line-273">   */</span>
 <span class="source-line-no">274</span><span id="line-274">  @MetaschemaAssembly(</span>
 <span class="source-line-no">275</span><span id="line-275">      formalName = "Identified Subject",</span>
-<span class="source-line-no">276</span><span id="line-276">      description = "Used to detail assessment subjects that were identfied by this task.",</span>
+<span class="source-line-no">276</span><span id="line-276">      description = "Used to detail assessment subjects that were identified by this task.",</span>
 <span class="source-line-no">277</span><span id="line-277">      name = "identified-subject",</span>
 <span class="source-line-no">278</span><span id="line-278">      moduleClass = OscalAssessmentCommonModule.class</span>
 <span class="source-line-no">279</span><span id="line-279">  )</span>

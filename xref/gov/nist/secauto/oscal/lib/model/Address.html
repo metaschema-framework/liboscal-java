@@ -49,7 +49,7 @@
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>        description = <span class="jxr_string">"Indicates the type of address."</span>,
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>        name = <span class="jxr_string">"type"</span>,
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>        typeAdapter = TokenAdapter.<strong class="jxr_keyword">class</strong>,
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, allowOthers = <strong class="jxr_keyword">true</strong>, values = {@AllowedValue(value = <span class="jxr_string">"home"</span>, description = <span class="jxr_string">"A home address."</span>), @AllowedValue(value = <span class="jxr_string">"work"</span>, description = <span class="jxr_string">"A work address."</span>)}))
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = <span class="jxr_string">"oscal-metadata-address-location-type-values"</span>, level = IConstraint.Level.ERROR, allowOthers = <strong class="jxr_keyword">true</strong>, values = {@AllowedValue(value = <span class="jxr_string">"home"</span>, description = <span class="jxr_string">"A home address."</span>), @AllowedValue(value = <span class="jxr_string">"work"</span>, description = <span class="jxr_string">"A work address."</span>)}))
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>    )
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>    <strong class="jxr_keyword">private</strong> String _type;
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
@@ -87,7 +87,7 @@
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>        formalName = <span class="jxr_string">"Country Code"</span>,
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>        description = <span class="jxr_string">"The ISO 3166-1 alpha-2 country code for the mailing address."</span>,
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>        useName = <span class="jxr_string">"country"</span>,
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>        valueConstraints = @ValueConstraints(matches = @Matches(level = IConstraint.Level.ERROR, pattern = <span class="jxr_string">"[A-Z]{2}"</span>))
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>        valueConstraints = @ValueConstraints(matches = @Matches(id = <span class="jxr_string">"oscal-metadata-location-address-country-regex"</span>, level = IConstraint.Level.ERROR, pattern = <span class="jxr_string">"[A-Z]{2}"</span>))
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>    )
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>    <strong class="jxr_keyword">private</strong> String _country;
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  

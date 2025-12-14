@@ -23,50 +23,51 @@
 <span class="source-line-no">010</span><span id="line-10"></span>
 <span class="source-line-no">011</span><span id="line-11">import edu.umd.cs.findbugs.annotations.NonNull;</span>
 <span class="source-line-no">012</span><span id="line-12"></span>
-<span class="source-line-no">013</span><span id="line-13">public interface IReferencePolicy&lt;T&gt; {</span>
-<span class="source-line-no">014</span><span id="line-14">  @NonNull</span>
-<span class="source-line-no">015</span><span id="line-15">  IReferencePolicy&lt;Object&gt; IGNORE_POLICY = new IReferencePolicy&lt;&gt;() {</span>
-<span class="source-line-no">016</span><span id="line-16"></span>
-<span class="source-line-no">017</span><span id="line-17">    @Override</span>
-<span class="source-line-no">018</span><span id="line-18">    public boolean handleReference(</span>
-<span class="source-line-no">019</span><span id="line-19">        @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
-<span class="source-line-no">020</span><span id="line-20">        @NonNull Object reference,</span>
-<span class="source-line-no">021</span><span id="line-21">        @NonNull ReferenceCountingVisitor.Context referenceVisitorContext) {</span>
-<span class="source-line-no">022</span><span id="line-22">      return true;</span>
-<span class="source-line-no">023</span><span id="line-23">    }</span>
-<span class="source-line-no">024</span><span id="line-24">  };</span>
-<span class="source-line-no">025</span><span id="line-25"></span>
-<span class="source-line-no">026</span><span id="line-26">  /**</span>
-<span class="source-line-no">027</span><span id="line-27">   * Get a reference policy that will ignore processing the reference.</span>
-<span class="source-line-no">028</span><span id="line-28">   *</span>
-<span class="source-line-no">029</span><span id="line-29">   * @param &lt;T&gt;</span>
-<span class="source-line-no">030</span><span id="line-30">   *          the type of the reference object</span>
-<span class="source-line-no">031</span><span id="line-31">   * @return the policy</span>
-<span class="source-line-no">032</span><span id="line-32">   */</span>
-<span class="source-line-no">033</span><span id="line-33">  @SuppressWarnings("unchecked")</span>
-<span class="source-line-no">034</span><span id="line-34">  @NonNull</span>
-<span class="source-line-no">035</span><span id="line-35">  static &lt;T&gt; IReferencePolicy&lt;T&gt; ignore() {</span>
-<span class="source-line-no">036</span><span id="line-36">    return (IReferencePolicy&lt;T&gt;) IGNORE_POLICY;</span>
-<span class="source-line-no">037</span><span id="line-37">  }</span>
-<span class="source-line-no">038</span><span id="line-38"></span>
-<span class="source-line-no">039</span><span id="line-39">  /**</span>
-<span class="source-line-no">040</span><span id="line-40">   * Handle the provided {@code reference}.</span>
-<span class="source-line-no">041</span><span id="line-41">   *</span>
-<span class="source-line-no">042</span><span id="line-42">   * @param contextItem</span>
-<span class="source-line-no">043</span><span id="line-43">   *          the nodes containing the reference</span>
-<span class="source-line-no">044</span><span id="line-44">   * @param reference</span>
-<span class="source-line-no">045</span><span id="line-45">   *          the reference object to process</span>
-<span class="source-line-no">046</span><span id="line-46">   * @param referenceVisitorContext</span>
-<span class="source-line-no">047</span><span id="line-47">   *          used to lookup and resolve items</span>
-<span class="source-line-no">048</span><span id="line-48">   * @return {@code true} if the reference was handled, or {@code false} otherwise</span>
-<span class="source-line-no">049</span><span id="line-49">   * @throws ProfileResolutionEvaluationException</span>
-<span class="source-line-no">050</span><span id="line-50">   *           if there was an error handing the reference</span>
-<span class="source-line-no">051</span><span id="line-51">   */</span>
-<span class="source-line-no">052</span><span id="line-52">  boolean handleReference(</span>
-<span class="source-line-no">053</span><span id="line-53">      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
-<span class="source-line-no">054</span><span id="line-54">      @NonNull T reference,</span>
-<span class="source-line-no">055</span><span id="line-55">      @NonNull ReferenceCountingVisitor.Context referenceVisitorContext);</span>
-<span class="source-line-no">056</span><span id="line-56">}</span>
+<span class="source-line-no">013</span><span id="line-13">@FunctionalInterface</span>
+<span class="source-line-no">014</span><span id="line-14">public interface IReferencePolicy&lt;T&gt; {</span>
+<span class="source-line-no">015</span><span id="line-15">  @NonNull</span>
+<span class="source-line-no">016</span><span id="line-16">  IReferencePolicy&lt;Object&gt; IGNORE_POLICY = new IReferencePolicy&lt;&gt;() {</span>
+<span class="source-line-no">017</span><span id="line-17"></span>
+<span class="source-line-no">018</span><span id="line-18">    @Override</span>
+<span class="source-line-no">019</span><span id="line-19">    public boolean handleReference(</span>
+<span class="source-line-no">020</span><span id="line-20">        @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
+<span class="source-line-no">021</span><span id="line-21">        @NonNull Object reference,</span>
+<span class="source-line-no">022</span><span id="line-22">        @NonNull ReferenceCountingVisitor.Context referenceVisitorContext) {</span>
+<span class="source-line-no">023</span><span id="line-23">      return true;</span>
+<span class="source-line-no">024</span><span id="line-24">    }</span>
+<span class="source-line-no">025</span><span id="line-25">  };</span>
+<span class="source-line-no">026</span><span id="line-26"></span>
+<span class="source-line-no">027</span><span id="line-27">  /**</span>
+<span class="source-line-no">028</span><span id="line-28">   * Get a reference policy that will ignore processing the reference.</span>
+<span class="source-line-no">029</span><span id="line-29">   *</span>
+<span class="source-line-no">030</span><span id="line-30">   * @param &lt;T&gt;</span>
+<span class="source-line-no">031</span><span id="line-31">   *          the type of the reference object</span>
+<span class="source-line-no">032</span><span id="line-32">   * @return the policy</span>
+<span class="source-line-no">033</span><span id="line-33">   */</span>
+<span class="source-line-no">034</span><span id="line-34">  @SuppressWarnings("unchecked")</span>
+<span class="source-line-no">035</span><span id="line-35">  @NonNull</span>
+<span class="source-line-no">036</span><span id="line-36">  static &lt;T&gt; IReferencePolicy&lt;T&gt; ignore() {</span>
+<span class="source-line-no">037</span><span id="line-37">    return (IReferencePolicy&lt;T&gt;) IGNORE_POLICY;</span>
+<span class="source-line-no">038</span><span id="line-38">  }</span>
+<span class="source-line-no">039</span><span id="line-39"></span>
+<span class="source-line-no">040</span><span id="line-40">  /**</span>
+<span class="source-line-no">041</span><span id="line-41">   * Handle the provided {@code reference}.</span>
+<span class="source-line-no">042</span><span id="line-42">   *</span>
+<span class="source-line-no">043</span><span id="line-43">   * @param contextItem</span>
+<span class="source-line-no">044</span><span id="line-44">   *          the nodes containing the reference</span>
+<span class="source-line-no">045</span><span id="line-45">   * @param reference</span>
+<span class="source-line-no">046</span><span id="line-46">   *          the reference object to process</span>
+<span class="source-line-no">047</span><span id="line-47">   * @param referenceVisitorContext</span>
+<span class="source-line-no">048</span><span id="line-48">   *          used to lookup and resolve items</span>
+<span class="source-line-no">049</span><span id="line-49">   * @return {@code true} if the reference was handled, or {@code false} otherwise</span>
+<span class="source-line-no">050</span><span id="line-50">   * @throws ProfileResolutionEvaluationException</span>
+<span class="source-line-no">051</span><span id="line-51">   *           if there was an error handing the reference</span>
+<span class="source-line-no">052</span><span id="line-52">   */</span>
+<span class="source-line-no">053</span><span id="line-53">  boolean handleReference(</span>
+<span class="source-line-no">054</span><span id="line-54">      @NonNull IModelNodeItem&lt;?, ?&gt; contextItem,</span>
+<span class="source-line-no">055</span><span id="line-55">      @NonNull T reference,</span>
+<span class="source-line-no">056</span><span id="line-56">      @NonNull ReferenceCountingVisitor.Context referenceVisitorContext);</span>
+<span class="source-line-no">057</span><span id="line-57">}</span>
 
 
 

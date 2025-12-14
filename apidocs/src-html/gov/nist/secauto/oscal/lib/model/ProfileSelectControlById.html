@@ -56,7 +56,7 @@
 <span class="source-line-no">043</span><span id="line-43">      description = "When a control is included, whether its child (dependent) controls are also included.",</span>
 <span class="source-line-no">044</span><span id="line-44">      name = "with-child-controls",</span>
 <span class="source-line-no">045</span><span id="line-45">      typeAdapter = TokenAdapter.class,</span>
-<span class="source-line-no">046</span><span id="line-46">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "yes", description = "Include child controls with an included control."), @AllowedValue(value = "no", description = "When importing a control, only include child controls that are also explicitly called.")}))</span>
+<span class="source-line-no">046</span><span id="line-46">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-profile-with-child-controls-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "yes", description = "Include child controls with an included control."), @AllowedValue(value = "no", description = "When importing a control, only include child controls that are also explicitly called.")}))</span>
 <span class="source-line-no">047</span><span id="line-47">  )</span>
 <span class="source-line-no">048</span><span id="line-48">  private String _withChildControls;</span>
 <span class="source-line-no">049</span><span id="line-49"></span>
@@ -77,7 +77,7 @@
 <span class="source-line-no">064</span><span id="line-64">      maxOccurs = -1,</span>
 <span class="source-line-no">065</span><span id="line-65">      groupAs = @GroupAs(name = "matching", inJson = JsonGroupAsBehavior.LIST)</span>
 <span class="source-line-no">066</span><span id="line-66">  )</span>
-<span class="source-line-no">067</span><span id="line-67">  private List&lt;Matching&gt; _matching;</span>
+<span class="source-line-no">067</span><span id="line-67">  private List&lt;ProfileMatching&gt; _matching;</span>
 <span class="source-line-no">068</span><span id="line-68"></span>
 <span class="source-line-no">069</span><span id="line-69">  public ProfileSelectControlById() {</span>
 <span class="source-line-no">070</span><span id="line-70">    this(null);</span>
@@ -131,21 +131,21 @@
 <span class="source-line-no">118</span><span id="line-118">    return _withIds != null &amp;&amp; _withIds.remove(value);</span>
 <span class="source-line-no">119</span><span id="line-119">  }</span>
 <span class="source-line-no">120</span><span id="line-120"></span>
-<span class="source-line-no">121</span><span id="line-121">  public List&lt;Matching&gt; getMatching() {</span>
+<span class="source-line-no">121</span><span id="line-121">  public List&lt;ProfileMatching&gt; getMatching() {</span>
 <span class="source-line-no">122</span><span id="line-122">    return _matching;</span>
 <span class="source-line-no">123</span><span id="line-123">  }</span>
 <span class="source-line-no">124</span><span id="line-124"></span>
-<span class="source-line-no">125</span><span id="line-125">  public void setMatching(List&lt;Matching&gt; value) {</span>
+<span class="source-line-no">125</span><span id="line-125">  public void setMatching(List&lt;ProfileMatching&gt; value) {</span>
 <span class="source-line-no">126</span><span id="line-126">    _matching = value;</span>
 <span class="source-line-no">127</span><span id="line-127">  }</span>
 <span class="source-line-no">128</span><span id="line-128"></span>
 <span class="source-line-no">129</span><span id="line-129">  /**</span>
-<span class="source-line-no">130</span><span id="line-130">   * Add a new {@link Matching} item to the underlying collection.</span>
+<span class="source-line-no">130</span><span id="line-130">   * Add a new {@link ProfileMatching} item to the underlying collection.</span>
 <span class="source-line-no">131</span><span id="line-131">   * @param item the item to add</span>
 <span class="source-line-no">132</span><span id="line-132">   * @return {@code true}</span>
 <span class="source-line-no">133</span><span id="line-133">   */</span>
-<span class="source-line-no">134</span><span id="line-134">  public boolean addMatching(Matching item) {</span>
-<span class="source-line-no">135</span><span id="line-135">    Matching value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">134</span><span id="line-134">  public boolean addMatching(ProfileMatching item) {</span>
+<span class="source-line-no">135</span><span id="line-135">    ProfileMatching value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
 <span class="source-line-no">136</span><span id="line-136">    if (_matching == null) {</span>
 <span class="source-line-no">137</span><span id="line-137">      _matching = new LinkedList&lt;&gt;();</span>
 <span class="source-line-no">138</span><span id="line-138">    }</span>
@@ -153,12 +153,12 @@
 <span class="source-line-no">140</span><span id="line-140">  }</span>
 <span class="source-line-no">141</span><span id="line-141"></span>
 <span class="source-line-no">142</span><span id="line-142">  /**</span>
-<span class="source-line-no">143</span><span id="line-143">   * Remove the first matching {@link Matching} item from the underlying collection.</span>
+<span class="source-line-no">143</span><span id="line-143">   * Remove the first matching {@link ProfileMatching} item from the underlying collection.</span>
 <span class="source-line-no">144</span><span id="line-144">   * @param item the item to remove</span>
 <span class="source-line-no">145</span><span id="line-145">   * @return {@code true} if the item was removed or {@code false} otherwise</span>
 <span class="source-line-no">146</span><span id="line-146">   */</span>
-<span class="source-line-no">147</span><span id="line-147">  public boolean removeMatching(Matching item) {</span>
-<span class="source-line-no">148</span><span id="line-148">    Matching value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">147</span><span id="line-147">  public boolean removeMatching(ProfileMatching item) {</span>
+<span class="source-line-no">148</span><span id="line-148">    ProfileMatching value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
 <span class="source-line-no">149</span><span id="line-149">    return _matching != null &amp;&amp; _matching.remove(value);</span>
 <span class="source-line-no">150</span><span id="line-150">  }</span>
 <span class="source-line-no">151</span><span id="line-151"></span>

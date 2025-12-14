@@ -473,7 +473,7 @@
 <span class="source-line-no">460</span><span id="line-460">      description = "Used to define data objects that are used in the assessment plan, that do not appear in the referenced SSP.",</span>
 <span class="source-line-no">461</span><span id="line-461">      name = "local-definitions",</span>
 <span class="source-line-no">462</span><span id="line-462">      moduleClass = OscalArModule.class,</span>
-<span class="source-line-no">463</span><span id="line-463">      modelConstraints = @AssemblyConstraints(unique = {@IsUnique(id = "unique-ar-local-definitions-component", level = IConstraint.Level.ERROR, target = "component", keyFields = @KeyField(target = "@uuid"), remarks = "Since multiple `component` entries can be provided, each component must have a unique `uuid`."), @IsUnique(id = "unique-ar-local-definitions-user", level = IConstraint.Level.ERROR, target = "user", keyFields = @KeyField(target = "@uuid"), remarks = "A given `uuid` must be assigned only once to a user.")})</span>
+<span class="source-line-no">463</span><span id="line-463">      modelConstraints = @AssemblyConstraints(unique = {@IsUnique(id = "oscal-unique-ar-local-definitions-component", level = IConstraint.Level.ERROR, target = "component", keyFields = @KeyField(target = "@uuid"), remarks = "Since multiple `component` entries can be provided, each component must have a unique `uuid`."), @IsUnique(id = "oscal-unique-ar-local-definitions-user", level = IConstraint.Level.ERROR, target = "user", keyFields = @KeyField(target = "@uuid"), remarks = "A given `uuid` must be assigned only once to a user.")})</span>
 <span class="source-line-no">464</span><span id="line-464">  )</span>
 <span class="source-line-no">465</span><span id="line-465">  public static class LocalDefinitions implements IBoundObject {</span>
 <span class="source-line-no">466</span><span id="line-466">    private final IMetaschemaData __metaschemaData;</span>
@@ -684,7 +684,7 @@
 <span class="source-line-no">671</span><span id="line-671">      description = "A set of textual statements, typically written by the assessor.",</span>
 <span class="source-line-no">672</span><span id="line-672">      name = "attestation",</span>
 <span class="source-line-no">673</span><span id="line-673">      moduleClass = OscalArModule.class,</span>
-<span class="source-line-no">674</span><span id="line-674">      modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "unique-ar-attestation-responsible-party", level = IConstraint.Level.ERROR, target = "responsible-party", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-party` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
+<span class="source-line-no">674</span><span id="line-674">      modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-ar-attestation-responsible-party", level = IConstraint.Level.ERROR, target = "responsible-party", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-party` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
 <span class="source-line-no">675</span><span id="line-675">  )</span>
 <span class="source-line-no">676</span><span id="line-676">  public static class Attestation implements IBoundObject {</span>
 <span class="source-line-no">677</span><span id="line-677">    private final IMetaschemaData __metaschemaData;</span>

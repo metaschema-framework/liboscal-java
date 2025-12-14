@@ -81,7 +81,7 @@
 <span class="source-line-no">068</span><span id="line-68">      name = "type",</span>
 <span class="source-line-no">069</span><span id="line-69">      required = true,</span>
 <span class="source-line-no">070</span><span id="line-70">      typeAdapter = TokenAdapter.class,</span>
-<span class="source-line-no">071</span><span id="line-71">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, allowOthers = true, values = {@AllowedValue(value = "milestone", description = "The task represents a planned milestone."), @AllowedValue(value = "action", description = "The task represents a specific assessment action to be performed.")}))</span>
+<span class="source-line-no">071</span><span id="line-71">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-task-values", level = IConstraint.Level.ERROR, allowOthers = true, values = {@AllowedValue(value = "milestone", description = "The task represents a planned milestone."), @AllowedValue(value = "action", description = "The task represents a specific assessment action to be performed.")}))</span>
 <span class="source-line-no">072</span><span id="line-72">  )</span>
 <span class="source-line-no">073</span><span id="line-73">  private String _type;</span>
 <span class="source-line-no">074</span><span id="line-74"></span>
@@ -698,7 +698,7 @@
 <span class="source-line-no">685</span><span id="line-685">          name = "unit",</span>
 <span class="source-line-no">686</span><span id="line-686">          required = true,</span>
 <span class="source-line-no">687</span><span id="line-687">          typeAdapter = StringAdapter.class,</span>
-<span class="source-line-no">688</span><span id="line-688">          valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "seconds", description = "The period is specified in seconds."), @AllowedValue(value = "minutes", description = "The period is specified in minutes."), @AllowedValue(value = "hours", description = "The period is specified in hours."), @AllowedValue(value = "days", description = "The period is specified in days."), @AllowedValue(value = "months", description = "The period is specified in calendar months."), @AllowedValue(value = "years", description = "The period is specified in calendar years.")}))</span>
+<span class="source-line-no">688</span><span id="line-688">          valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-timing-unit-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "seconds", description = "The period is specified in seconds."), @AllowedValue(value = "minutes", description = "The period is specified in minutes."), @AllowedValue(value = "hours", description = "The period is specified in hours."), @AllowedValue(value = "days", description = "The period is specified in days."), @AllowedValue(value = "months", description = "The period is specified in calendar months."), @AllowedValue(value = "years", description = "The period is specified in calendar years.")}))</span>
 <span class="source-line-no">689</span><span id="line-689">      )</span>
 <span class="source-line-no">690</span><span id="line-690">      private String _unit;</span>
 <span class="source-line-no">691</span><span id="line-691"></span>
@@ -813,7 +813,7 @@
 <span class="source-line-no">800</span><span id="line-800">      description = "Identifies an individual activity to be performed as part of a task.",</span>
 <span class="source-line-no">801</span><span id="line-801">      name = "associated-activity",</span>
 <span class="source-line-no">802</span><span id="line-802">      moduleClass = OscalAssessmentCommonModule.class,</span>
-<span class="source-line-no">803</span><span id="line-803">      modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "unique-associated-activity-responsible-role", level = IConstraint.Level.ERROR, target = "responsible-role", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-role` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
+<span class="source-line-no">803</span><span id="line-803">      modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-associated-activity-responsible-role", level = IConstraint.Level.ERROR, target = "responsible-role", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-role` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
 <span class="source-line-no">804</span><span id="line-804">  )</span>
 <span class="source-line-no">805</span><span id="line-805">  public static class AssociatedActivity implements IBoundObject {</span>
 <span class="source-line-no">806</span><span id="line-806">    private final IMetaschemaData __metaschemaData;</span>

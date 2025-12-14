@@ -18,9 +18,9 @@
 <span class="source-line-no">005</span><span id="line-5"></span>
 <span class="source-line-no">006</span><span id="line-6">package gov.nist.secauto.oscal.lib.metapath.function.library;</span>
 <span class="source-line-no">007</span><span id="line-7"></span>
-<span class="source-line-no">008</span><span id="line-8">import gov.nist.secauto.metaschema.core.metapath.DynamicContext;</span>
-<span class="source-line-no">009</span><span id="line-9">import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;</span>
-<span class="source-line-no">010</span><span id="line-10">import gov.nist.secauto.metaschema.core.metapath.MetapathException;</span>
+<span class="source-line-no">008</span><span id="line-8">import gov.nist.secauto.metaschema.core.metapath.ContextAbsentDynamicMetapathException;</span>
+<span class="source-line-no">009</span><span id="line-9">import gov.nist.secauto.metaschema.core.metapath.DynamicContext;</span>
+<span class="source-line-no">010</span><span id="line-10">import gov.nist.secauto.metaschema.core.metapath.MetapathConstants;</span>
 <span class="source-line-no">011</span><span id="line-11">import gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;</span>
 <span class="source-line-no">012</span><span id="line-12">import gov.nist.secauto.metaschema.core.metapath.function.IArgument;</span>
 <span class="source-line-no">013</span><span id="line-13">import gov.nist.secauto.metaschema.core.metapath.function.IFunction;</span>
@@ -197,29 +197,28 @@
 <span class="source-line-no">184</span><span id="line-184">      IAssemblyDefinition definition = propOrPart.getDefinition();</span>
 <span class="source-line-no">185</span><span id="line-185">      IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_QNAME.getIndexPosition());</span>
 <span class="source-line-no">186</span><span id="line-186">      if (flag == null) {</span>
-<span class="source-line-no">187</span><span id="line-187">        throw new MetapathException(</span>
+<span class="source-line-no">187</span><span id="line-187">        throw new ContextAbsentDynamicMetapathException(</span>
 <span class="source-line-no">188</span><span id="line-188">            String.format(</span>
 <span class="source-line-no">189</span><span id="line-189">                "Node at path '%s' bound to '%s' based on the assembly definition '%s' has no OSCAL namespace",</span>
 <span class="source-line-no">190</span><span id="line-190">                propOrPart.getMetapath(),</span>
 <span class="source-line-no">191</span><span id="line-191">                propOrPart.getClass().getName(),</span>
 <span class="source-line-no">192</span><span id="line-192">                propOrPart.getDefinition().getName()));</span>
-<span class="source-line-no">193</span><span id="line-193"></span>
-<span class="source-line-no">194</span><span id="line-194">      }</span>
-<span class="source-line-no">195</span><span id="line-195"></span>
-<span class="source-line-no">196</span><span id="line-196">      Object defaultValue = flag.getDefinition().getDefaultValue();</span>
-<span class="source-line-no">197</span><span id="line-197">      if (defaultValue != null) {</span>
-<span class="source-line-no">198</span><span id="line-198">        nodeNamespace = IAnyUriItem.valueOf(ObjectUtils.notNull(defaultValue.toString())).asUri();</span>
-<span class="source-line-no">199</span><span id="line-199">      }</span>
-<span class="source-line-no">200</span><span id="line-200">    } else {</span>
-<span class="source-line-no">201</span><span id="line-201">      nodeNamespace = IAnyUriItem.cast(ObjectUtils.notNull(ns.toAtomicItem())).asUri();</span>
-<span class="source-line-no">202</span><span id="line-202">    }</span>
-<span class="source-line-no">203</span><span id="line-203"></span>
-<span class="source-line-no">204</span><span id="line-204">    String nodeNamespaceString = IProperty.normalizeNamespace(nodeNamespace).toString();</span>
-<span class="source-line-no">205</span><span id="line-205">    return IBooleanItem.valueOf(namespaces.stream()</span>
-<span class="source-line-no">206</span><span id="line-206">        .map(node -&gt; nodeNamespaceString.equals(node.asString()))</span>
-<span class="source-line-no">207</span><span id="line-207">        .anyMatch(bool -&gt; bool));</span>
-<span class="source-line-no">208</span><span id="line-208">  }</span>
-<span class="source-line-no">209</span><span id="line-209">}</span>
+<span class="source-line-no">193</span><span id="line-193">      }</span>
+<span class="source-line-no">194</span><span id="line-194"></span>
+<span class="source-line-no">195</span><span id="line-195">      Object defaultValue = flag.getDefinition().getDefaultValue();</span>
+<span class="source-line-no">196</span><span id="line-196">      if (defaultValue != null) {</span>
+<span class="source-line-no">197</span><span id="line-197">        nodeNamespace = IAnyUriItem.valueOf(ObjectUtils.notNull(defaultValue.toString())).asUri();</span>
+<span class="source-line-no">198</span><span id="line-198">      }</span>
+<span class="source-line-no">199</span><span id="line-199">    } else {</span>
+<span class="source-line-no">200</span><span id="line-200">      nodeNamespace = IAnyUriItem.cast(ObjectUtils.notNull(ns.toAtomicItem())).asUri();</span>
+<span class="source-line-no">201</span><span id="line-201">    }</span>
+<span class="source-line-no">202</span><span id="line-202"></span>
+<span class="source-line-no">203</span><span id="line-203">    String nodeNamespaceString = IProperty.normalizeNamespace(nodeNamespace).toString();</span>
+<span class="source-line-no">204</span><span id="line-204">    return IBooleanItem.valueOf(namespaces.stream()</span>
+<span class="source-line-no">205</span><span id="line-205">        .map(node -&gt; nodeNamespaceString.equals(node.asString()))</span>
+<span class="source-line-no">206</span><span id="line-206">        .anyMatch(bool -&gt; bool));</span>
+<span class="source-line-no">207</span><span id="line-207">  }</span>
+<span class="source-line-no">208</span><span id="line-208">}</span>
 
 
 

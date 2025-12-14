@@ -13,9 +13,9 @@
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">package</strong> gov.nist.secauto.oscal.lib.metapath.function.library;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.MetapathException;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.ContextAbsentDynamicMetapathException;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.DynamicContext;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.MetapathConstants;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.FunctionUtils;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.IArgument;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> gov.nist.secauto.metaschema.core.metapath.function.IFunction;
@@ -192,29 +192,28 @@
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>       IAssemblyDefinition definition = propOrPart.getDefinition();
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>       IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_QNAME.getIndexPosition());
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>       <strong class="jxr_keyword">if</strong> (flag == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MetapathException(
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ContextAbsentDynamicMetapathException(
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>             String.format(
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>                 <span class="jxr_string">"Node at path '%s' bound to '%s' based on the assembly definition '%s' has no OSCAL namespace"</span>,
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>                 propOrPart.getMetapath(),
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>                 propOrPart.getClass().getName(),
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>                 propOrPart.getDefinition().getName()));
-<a class="jxr_linenumber" name="L193" href="#L193">193</a> 
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>       }
-<a class="jxr_linenumber" name="L195" href="#L195">195</a> 
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>       Object defaultValue = flag.getDefinition().getDefaultValue();
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>       <strong class="jxr_keyword">if</strong> (defaultValue != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>         nodeNamespace = IAnyUriItem.valueOf(ObjectUtils.notNull(defaultValue.toString())).asUri();
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>       }
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>       nodeNamespace = IAnyUriItem.<strong class="jxr_keyword">cast</strong>(ObjectUtils.notNull(ns.toAtomicItem())).asUri();
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>     }
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> 
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>     String nodeNamespaceString = IProperty.normalizeNamespace(nodeNamespace).toString();
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>     <strong class="jxr_keyword">return</strong> IBooleanItem.valueOf(namespaces.stream()
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>         .map(node -&gt; nodeNamespaceString.equals(node.asString()))
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>         .anyMatch(bool -&gt; bool));
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>   }
-<a class="jxr_linenumber" name="L209" href="#L209">209</a> }
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>       }
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> 
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>       Object defaultValue = flag.getDefinition().getDefaultValue();
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>       <strong class="jxr_keyword">if</strong> (defaultValue != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>         nodeNamespace = IAnyUriItem.valueOf(ObjectUtils.notNull(defaultValue.toString())).asUri();
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>       }
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>       nodeNamespace = IAnyUriItem.<strong class="jxr_keyword">cast</strong>(ObjectUtils.notNull(ns.toAtomicItem())).asUri();
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>     }
+<a class="jxr_linenumber" name="L202" href="#L202">202</a> 
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>     String nodeNamespaceString = IProperty.normalizeNamespace(nodeNamespace).toString();
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>     <strong class="jxr_keyword">return</strong> IBooleanItem.valueOf(namespaces.stream()
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>         .map(node -&gt; nodeNamespaceString.equals(node.asString()))
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>         .anyMatch(bool -&gt; bool));
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>   }
+<a class="jxr_linenumber" name="L208" href="#L208">208</a> }
 </pre>
 <hr/>
 <div id="footer">© 2025</div>

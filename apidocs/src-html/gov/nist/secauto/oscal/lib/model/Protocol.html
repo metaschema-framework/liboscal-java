@@ -45,7 +45,7 @@
 <span class="source-line-no">032</span><span id="line-32">    description = "Information about the protocol used to provide a service.",</span>
 <span class="source-line-no">033</span><span id="line-33">    name = "protocol",</span>
 <span class="source-line-no">034</span><span id="line-34">    moduleClass = OscalImplementationCommonModule.class,</span>
-<span class="source-line-no">035</span><span id="line-35">    valueConstraints = @ValueConstraints(expect = @Expect(level = IConstraint.Level.WARNING, test = "@uuid", message = "It is a best practice to provide a UUID."))</span>
+<span class="source-line-no">035</span><span id="line-35">    valueConstraints = @ValueConstraints(expect = @Expect(id = "oscal-component-protocol-uuid", level = IConstraint.Level.WARNING, test = "@uuid", message = "It is a best practice to provide a UUID."))</span>
 <span class="source-line-no">036</span><span id="line-36">)</span>
 <span class="source-line-no">037</span><span id="line-37">public class Protocol implements IBoundObject {</span>
 <span class="source-line-no">038</span><span id="line-38">  private final IMetaschemaData __metaschemaData;</span>

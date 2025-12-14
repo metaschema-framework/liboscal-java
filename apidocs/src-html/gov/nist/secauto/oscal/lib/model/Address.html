@@ -54,7 +54,7 @@
 <span class="source-line-no">041</span><span id="line-41">      description = "Indicates the type of address.",</span>
 <span class="source-line-no">042</span><span id="line-42">      name = "type",</span>
 <span class="source-line-no">043</span><span id="line-43">      typeAdapter = TokenAdapter.class,</span>
-<span class="source-line-no">044</span><span id="line-44">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, allowOthers = true, values = {@AllowedValue(value = "home", description = "A home address."), @AllowedValue(value = "work", description = "A work address.")}))</span>
+<span class="source-line-no">044</span><span id="line-44">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-metadata-address-location-type-values", level = IConstraint.Level.ERROR, allowOthers = true, values = {@AllowedValue(value = "home", description = "A home address."), @AllowedValue(value = "work", description = "A work address.")}))</span>
 <span class="source-line-no">045</span><span id="line-45">  )</span>
 <span class="source-line-no">046</span><span id="line-46">  private String _type;</span>
 <span class="source-line-no">047</span><span id="line-47"></span>
@@ -92,7 +92,7 @@
 <span class="source-line-no">079</span><span id="line-79">      formalName = "Country Code",</span>
 <span class="source-line-no">080</span><span id="line-80">      description = "The ISO 3166-1 alpha-2 country code for the mailing address.",</span>
 <span class="source-line-no">081</span><span id="line-81">      useName = "country",</span>
-<span class="source-line-no">082</span><span id="line-82">      valueConstraints = @ValueConstraints(matches = @Matches(level = IConstraint.Level.ERROR, pattern = "[A-Z]{2}"))</span>
+<span class="source-line-no">082</span><span id="line-82">      valueConstraints = @ValueConstraints(matches = @Matches(id = "oscal-metadata-location-address-country-regex", level = IConstraint.Level.ERROR, pattern = "[A-Z]{2}"))</span>
 <span class="source-line-no">083</span><span id="line-83">  )</span>
 <span class="source-line-no">084</span><span id="line-84">  private String _country;</span>
 <span class="source-line-no">085</span><span id="line-85"></span>

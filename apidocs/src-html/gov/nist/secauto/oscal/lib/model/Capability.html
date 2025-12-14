@@ -46,7 +46,7 @@
 <span class="source-line-no">033</span><span id="line-33">    description = "A grouping of other components and/or capabilities.",</span>
 <span class="source-line-no">034</span><span id="line-34">    name = "capability",</span>
 <span class="source-line-no">035</span><span id="line-35">    moduleClass = OscalComponentDefinitionModule.class,</span>
-<span class="source-line-no">036</span><span id="line-36">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "unique-component-definition-capability-incorporates-component", level = IConstraint.Level.ERROR, target = "incorporates-component", keyFields = @KeyField(target = "@component-uuid"), remarks = "A given `component` must not be referenced more than once within the same `capability`."))</span>
+<span class="source-line-no">036</span><span id="line-36">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-component-definition-capability-incorporates-component", level = IConstraint.Level.ERROR, target = "incorporates-component", keyFields = @KeyField(target = "@component-uuid"), remarks = "A given `component` must not be referenced more than once within the same `capability`."))</span>
 <span class="source-line-no">037</span><span id="line-37">)</span>
 <span class="source-line-no">038</span><span id="line-38">public class Capability implements IBoundObject {</span>
 <span class="source-line-no">039</span><span id="line-39">  private final IMetaschemaData __metaschemaData;</span>

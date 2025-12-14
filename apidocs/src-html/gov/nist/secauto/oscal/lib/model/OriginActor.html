@@ -56,7 +56,7 @@
 <span class="source-line-no">043</span><span id="line-43">      name = "type",</span>
 <span class="source-line-no">044</span><span id="line-44">      required = true,</span>
 <span class="source-line-no">045</span><span id="line-45">      typeAdapter = TokenAdapter.class,</span>
-<span class="source-line-no">046</span><span id="line-46">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "tool", description = "A reference to a tool component defined with the assessment assets."), @AllowedValue(value = "assessment-platform", description = "A reference to an assessment-platform defined with the assessment assets."), @AllowedValue(value = "party", description = "A reference to a party defined within the document metadata.")}))</span>
+<span class="source-line-no">046</span><span id="line-46">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-origin-actor-type-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "tool", description = "A reference to a tool component defined with the assessment assets."), @AllowedValue(value = "assessment-platform", description = "A reference to an assessment-platform defined with the assessment assets."), @AllowedValue(value = "party", description = "A reference to a party defined within the document metadata.")}))</span>
 <span class="source-line-no">047</span><span id="line-47">  )</span>
 <span class="source-line-no">048</span><span id="line-48">  private String _type;</span>
 <span class="source-line-no">049</span><span id="line-49"></span>

@@ -49,7 +49,7 @@
 <span class="source-line-no">036</span><span id="line-36">    remarks = "A `responsible-party` requires one or more `party-uuid` references creating a strong relationship arc between the referenced `role-id` and the reference parties. This differs in semantics from `responsible-role` which doesn't require that a `party-uuid` is referenced.\n"</span>
 <span class="source-line-no">037</span><span id="line-37">            + "\n"</span>
 <span class="source-line-no">038</span><span id="line-38">            + "The scope of use of this object determines if the responsibility has been performed or will be performed in the future. The containing object will describe the intent.",</span>
-<span class="source-line-no">039</span><span id="line-39">    valueConstraints = @ValueConstraints(indexHasKey = @IndexHasKey(level = IConstraint.Level.ERROR, indexName = "index-metadata-role-id", keyFields = @KeyField(target = "@role-id")))</span>
+<span class="source-line-no">039</span><span id="line-39">    valueConstraints = @ValueConstraints(indexHasKey = @IndexHasKey(id = "oscal-metadata-responsible-party-index-metadata-role-id", level = IConstraint.Level.ERROR, indexName = "index-metadata-role-id", keyFields = @KeyField(target = "@role-id")))</span>
 <span class="source-line-no">040</span><span id="line-40">)</span>
 <span class="source-line-no">041</span><span id="line-41">public class ResponsibleParty implements IBoundObject {</span>
 <span class="source-line-no">042</span><span id="line-42">  private final IMetaschemaData __metaschemaData;</span>
@@ -74,7 +74,7 @@
 <span class="source-line-no">061</span><span id="line-61">      maxOccurs = -1,</span>
 <span class="source-line-no">062</span><span id="line-62">      groupAs = @GroupAs(name = "party-uuids", inJson = JsonGroupAsBehavior.LIST),</span>
 <span class="source-line-no">063</span><span id="line-63">      typeAdapter = UuidAdapter.class,</span>
-<span class="source-line-no">064</span><span id="line-64">      valueConstraints = @ValueConstraints(indexHasKey = @IndexHasKey(level = IConstraint.Level.ERROR, indexName = "index-metadata-party-uuid", keyFields = @KeyField))</span>
+<span class="source-line-no">064</span><span id="line-64">      valueConstraints = @ValueConstraints(indexHasKey = @IndexHasKey(id = "oscal-index-metadata-party-uuid", level = IConstraint.Level.ERROR, indexName = "index-metadata-party-uuid", keyFields = @KeyField))</span>
 <span class="source-line-no">065</span><span id="line-65">  )</span>
 <span class="source-line-no">066</span><span id="line-66">  private List&lt;UUID&gt; _partyUuids;</span>
 <span class="source-line-no">067</span><span id="line-67"></span>

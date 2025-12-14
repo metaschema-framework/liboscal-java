@@ -39,7 +39,7 @@
 <span class="source-line-no">026</span><span id="line-26">    name = "port-range",</span>
 <span class="source-line-no">027</span><span id="line-27">    moduleClass = OscalImplementationCommonModule.class,</span>
 <span class="source-line-no">028</span><span id="line-28">    remarks = "To be validated as a natural number (integer \\&gt;= 1). A single port uses the same value for start and end. Use multiple 'port-range' entries for non-contiguous ranges.",</span>
-<span class="source-line-no">029</span><span id="line-29">    valueConstraints = @ValueConstraints(expect = {@Expect(id = "port-range-has-start", level = IConstraint.Level.WARNING, test = "exists(@start)", message = "A port range should have a start port given."), @Expect(id = "port-range-has-end", level = IConstraint.Level.WARNING, test = "exists(@end)", message = "A port range should have an end port given. To define a single port, the start and end should be the same value."), @Expect(id = "port-range-starts-before-end", level = IConstraint.Level.WARNING, test = "not(@start &gt; @end)", message = "The port range start should not be after its end.")})</span>
+<span class="source-line-no">029</span><span id="line-29">    valueConstraints = @ValueConstraints(expect = {@Expect(id = "oscal-component-protocol-port-range-has-start", level = IConstraint.Level.WARNING, test = "exists(@start)", message = "A port range should have a start port given."), @Expect(id = "oscal-component-protocol-port-range-has-end", level = IConstraint.Level.WARNING, test = "exists(@end)", message = "A port range should have an end port given. To define a single port, the start and end should be the same value."), @Expect(id = "oscal-component-protocol-port-range-starts-before-end", level = IConstraint.Level.WARNING, test = "not(@start &gt; @end)", message = "The port range start should not be after its end.")})</span>
 <span class="source-line-no">030</span><span id="line-30">)</span>
 <span class="source-line-no">031</span><span id="line-31">public class PortRange implements IBoundObject {</span>
 <span class="source-line-no">032</span><span id="line-32">  private final IMetaschemaData __metaschemaData;</span>
@@ -76,7 +76,7 @@
 <span class="source-line-no">063</span><span id="line-63">      description = "Indicates the transport type.",</span>
 <span class="source-line-no">064</span><span id="line-64">      name = "transport",</span>
 <span class="source-line-no">065</span><span id="line-65">      typeAdapter = TokenAdapter.class,</span>
-<span class="source-line-no">066</span><span id="line-66">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "TCP", description = "Transmission Control Protocol"), @AllowedValue(value = "UDP", description = "User Datagram Protocol")}))</span>
+<span class="source-line-no">066</span><span id="line-66">      valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-component-protocol-transport-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "TCP", description = "Transmission Control Protocol"), @AllowedValue(value = "UDP", description = "User Datagram Protocol")}))</span>
 <span class="source-line-no">067</span><span id="line-67">  )</span>
 <span class="source-line-no">068</span><span id="line-68">  private String _transport;</span>
 <span class="source-line-no">069</span><span id="line-69"></span>

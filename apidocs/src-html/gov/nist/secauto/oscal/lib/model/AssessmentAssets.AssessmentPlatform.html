@@ -47,7 +47,7 @@
 <span class="source-line-no">034</span><span id="line-34">    description = "Identifies the assets used to perform this assessment, such as the assessment team, scanning tools, and assumptions.",</span>
 <span class="source-line-no">035</span><span id="line-35">    name = "assessment-assets",</span>
 <span class="source-line-no">036</span><span id="line-36">    moduleClass = OscalAssessmentCommonModule.class,</span>
-<span class="source-line-no">037</span><span id="line-37">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "unique-ssp-assessment-assets-component", level = IConstraint.Level.ERROR, target = "component", keyFields = @KeyField(target = "@uuid"), remarks = "Since multiple assessment `component` entries can be provided, each component must have a unique `uuid`."))</span>
+<span class="source-line-no">037</span><span id="line-37">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-ssp-assessment-assets-component", level = IConstraint.Level.ERROR, target = "component", keyFields = @KeyField(target = "@uuid"), remarks = "Since multiple assessment `component` entries can be provided, each component must have a unique `uuid`."))</span>
 <span class="source-line-no">038</span><span id="line-38">)</span>
 <span class="source-line-no">039</span><span id="line-39">public class AssessmentAssets implements IBoundObject {</span>
 <span class="source-line-no">040</span><span id="line-40">  private final IMetaschemaData __metaschemaData;</span>
@@ -364,7 +364,7 @@
 <span class="source-line-no">351</span><span id="line-351">        description = "The set of components that are used by the assessment platform.",</span>
 <span class="source-line-no">352</span><span id="line-352">        name = "uses-component",</span>
 <span class="source-line-no">353</span><span id="line-353">        moduleClass = OscalAssessmentCommonModule.class,</span>
-<span class="source-line-no">354</span><span id="line-354">        modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "unique-ssp-uses-component-responsible-party", level = IConstraint.Level.ERROR, target = "responsible-party", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-party` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
+<span class="source-line-no">354</span><span id="line-354">        modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-ssp-uses-component-responsible-party", level = IConstraint.Level.ERROR, target = "responsible-party", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-party` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
 <span class="source-line-no">355</span><span id="line-355">    )</span>
 <span class="source-line-no">356</span><span id="line-356">    public static class UsesComponent implements IBoundObject {</span>
 <span class="source-line-no">357</span><span id="line-357">      private final IMetaschemaData __metaschemaData;</span>

@@ -48,7 +48,7 @@
 <span class="source-line-no">035</span><span id="line-35">    name = "control-implementation",</span>
 <span class="source-line-no">036</span><span id="line-36">    moduleClass = OscalComponentDefinitionModule.class,</span>
 <span class="source-line-no">037</span><span id="line-37">    remarks = "Use of `set-parameter` in this context, sets the parameter for all controls referenced by any `implemented-requirement` contained in this context. Any `set-parameter` defined in a child context will override this value. If not overridden by a child, this value applies in the child context.",</span>
-<span class="source-line-no">038</span><span id="line-38">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "unique-component-definition-control-implementation-set-parameter", level = IConstraint.Level.ERROR, target = "set-parameter", keyFields = @KeyField(target = "@param-id"), remarks = "Since multiple `set-parameter` entries can be provided, each parameter must be set only once."))</span>
+<span class="source-line-no">038</span><span id="line-38">    modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-component-definition-control-implementation-set-parameter", level = IConstraint.Level.ERROR, target = "set-parameter", keyFields = @KeyField(target = "@param-id"), remarks = "Since multiple `set-parameter` entries can be provided, each parameter must be set only once."))</span>
 <span class="source-line-no">039</span><span id="line-39">)</span>
 <span class="source-line-no">040</span><span id="line-40">public class ComponentControlImplementation implements IBoundObject {</span>
 <span class="source-line-no">041</span><span id="line-41">  private final IMetaschemaData __metaschemaData;</span>
