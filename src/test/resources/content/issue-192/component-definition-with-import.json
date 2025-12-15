@@ -1,0 +1,29 @@
+{
+  "component-definition": {
+    "uuid": "b0000000-0000-0000-0000-000000000001",
+    "metadata": {
+      "title": "Component Definition with Import",
+      "last-modified": "2024-01-01T00:00:00Z",
+      "version": "1.0.0",
+      "oscal-version": "1.1.2"
+    },
+    "import-component-definitions": [
+      {
+        "href": "#d0000000-0000-0000-0000-000000000001"
+      }
+    ],
+    "back-matter": {
+      "resources": [
+        {
+          "uuid": "d0000000-0000-0000-0000-000000000001",
+          "title": "Imported Component Definition Resource",
+          "rlinks": [
+            {
+              "href": "base-component-definition.json"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

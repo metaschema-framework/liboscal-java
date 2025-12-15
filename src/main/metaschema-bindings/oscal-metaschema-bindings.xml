@@ -113,6 +113,11 @@
 	</metaschema-binding>
 	<metaschema-binding
 		href="../../../oscal/src/metaschema/oscal_component_metaschema.xml">
+		<define-assembly-binding name="component-definition">
+			<java>
+				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+			</java>
+		</define-assembly-binding>
 		<define-assembly-binding name="component">
 			<java>
 				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
@@ -164,6 +169,14 @@
 	<metaschema-binding
 		href="../../../oscal/src/metaschema/oscal_assessment-results_metaschema.xml">
 		<define-assembly-binding name="assessment-results">
+			<java>
+				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+			</java>
+		</define-assembly-binding>
+	</metaschema-binding>
+	<metaschema-binding
+		href="../../../oscal/src/metaschema/oscal_mapping_metaschema.xml">
+		<define-assembly-binding name="mapping-collection">
 			<java>
 				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
 			</java>
