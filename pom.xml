@@ -9,7 +9,7 @@
 
 	<groupId>dev.metaschema.oscal</groupId>
 	<artifactId>liboscal-java</artifactId>
-	<version>6.1.0-SNAPSHOT</version>
+	<version>7.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>OSCAL Java Library</name>
@@ -93,15 +93,13 @@
 		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<dependency.metaschema-framework.version>3.0.0.M1</dependency.metaschema-framework.version>
+		<dependency.metaschema-framework.version>3.0.0-SNAPSHOT</dependency.metaschema-framework.version>
 
 		<dependency.commons-lang3.version>3.20.0</dependency.commons-lang3.version>
 		<dependency.jmock-junit5.version>2.13.1</dependency.jmock-junit5.version>
 		<dependency.lazy4j.version>2.0.3</dependency.lazy4j.version>
-		<dependency.log4j2.version>2.25.2</dependency.log4j2.version>
-		<dependency.saxon.version>12.9</dependency.saxon.version>
-		<dependency.xmlbeans.version>5.3.0</dependency.xmlbeans.version>
-		<dependency.xmlresolver.version>6.0.19</dependency.xmlresolver.version>
+		<dependency.log4j2.version>2.25.3</dependency.log4j2.version>
+		<dependency.saxon.version>12.5</dependency.saxon.version>
 		<dependency.xmlunit.version>2.11.0</dependency.xmlunit.version>
 
 		<plugin.cyclonedx.version>2.9.1</plugin.cyclonedx.version>
@@ -170,36 +168,6 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
-			<dependency>
-				<groupId>org.xmlresolver</groupId>
-				<artifactId>xmlresolver</artifactId>
-				<version>${dependency.xmlresolver.version}</version>
-				<classifier>data</classifier>
-				<exclusions>
-					<exclusion>
-						<!-- to avoid duplicate import of XML APIs -->
-						<groupId>xml-apis</groupId>
-						<artifactId>xml-apis</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.xmlresolver</groupId>
-				<artifactId>xmlresolver</artifactId>
-				<version>${dependency.xmlresolver.version}</version>
-				<exclusions>
-					<exclusion>
-						<!-- to avoid duplicate import of XML APIs -->
-						<groupId>xml-apis</groupId>
-						<artifactId>xml-apis</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-            <dependency>
-                <groupId>org.apache.xmlbeans</groupId>
-                <artifactId>xmlbeans</artifactId>
-                <version>${dependency.xmlbeans.version}</version>
-            </dependency>
 
 			<dependency>
 				<groupId>org.junit</groupId>

@@ -22,3 +22,6 @@ velocity.log*
 
 # Claude
 CLAUDE.local.md
+
+# Git worktrees
+.worktrees/

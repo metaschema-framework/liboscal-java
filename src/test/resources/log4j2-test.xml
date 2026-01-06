@@ -10,21 +10,21 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<Logger name="gov.nist.secauto.metaschema" level="info" additivity="false">
+		<Logger name="dev.metaschema" level="info" additivity="false">
 			<AppenderRef ref="console" />
 		</Logger>
-		<Logger name="gov.nist.secauto.metaschema.databind" level="debug" additivity="false">
+		<Logger name="dev.metaschema.databind" level="debug" additivity="false">
 			<AppenderRef ref="console" />
 		</Logger>
-		<Logger name="gov.nist.secauto.metaschema.databind.datatypes" level="info" additivity="false">
-			<AppenderRef ref="console" />
-		</Logger>
-
-		<Logger name="gov.nist.secauto.metaschema.core.model.xml" level="info" additivity="false">
+		<Logger name="dev.metaschema.databind.datatypes" level="info" additivity="false">
 			<AppenderRef ref="console" />
 		</Logger>
 
-		<Logger name="gov.nist.secauto.oscal.lib" level="debug" additivity="false">
+		<Logger name="dev.metaschema.core.model.xml" level="info" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<Logger name="dev.metaschema.oscal.lib" level="debug" additivity="false">
 			<AppenderRef ref="console" />
 		</Logger>
 		<Root level="info">

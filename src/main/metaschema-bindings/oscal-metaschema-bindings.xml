@@ -4,29 +4,29 @@
 	<model-binding
 		namespace="http://csrc.nist.gov/ns/oscal/1.0">
 		<java>
-			<use-package-name>gov.nist.secauto.oscal.lib.model</use-package-name>
+			<use-package-name>dev.metaschema.oscal.lib.model</use-package-name>
 		</java>
 	</model-binding>
 	<metaschema-binding
 		href="../../../oscal/src/metaschema/oscal_metadata_metaschema.xml">
 		<define-assembly-binding name="property">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.metadata.AbstractProperty</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.metadata.AbstractProperty</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="link">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.metadata.AbstractLink</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.metadata.AbstractLink</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="back-matter">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.metadata.AbstractBackMatter</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.metadata.AbstractBackMatter</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="metadata">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.metadata.AbstractMetadata</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.metadata.AbstractMetadata</extend-base-class>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
@@ -47,13 +47,13 @@
 		href="../../../oscal/src/metaschema/oscal_control-common_metaschema.xml">
 		<define-assembly-binding name="parameter">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.control.AbstractParameter</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.AbstractParameter</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="part">
 			<java>
 				<use-class-name>ControlPart</use-class-name>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.control.AbstractPart</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.AbstractPart</extend-base-class>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
@@ -61,19 +61,19 @@
 		href="../../../oscal/src/metaschema/oscal_catalog_metaschema.xml">
 		<define-assembly-binding name="catalog">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.control.catalog.AbstractCatalog</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.catalog.AbstractCatalog</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="group">
 			<java>
 				<use-class-name>CatalogGroup</use-class-name>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.control.catalog.AbstractCatalogGroup</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.catalog.AbstractCatalogGroup</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="control">
 			<java>
 				<use-class-name>Control</use-class-name>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.control.catalog.AbstractControl</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.catalog.AbstractControl</extend-base-class>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
@@ -81,7 +81,7 @@
 		href="../../../oscal/src/metaschema/oscal_profile_metaschema.xml">
 		<define-assembly-binding name="profile">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.AbstractOscalInstance</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="import">
@@ -97,7 +97,7 @@
 		<define-assembly-binding name="select-control-by-id">
 			<java>
 				<use-class-name>ProfileSelectControlById</use-class-name>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.control.profile.AbstractProfileSelectControlById</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.profile.AbstractProfileSelectControlById</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="set-parameter">
@@ -115,12 +115,12 @@
 		href="../../../oscal/src/metaschema/oscal_component_metaschema.xml">
 		<define-assembly-binding name="component-definition">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.AbstractOscalInstance</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="component">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.AbstractOscalInstance</extend-base-class>
 				<use-class-name>ComponentData</use-class-name>
 			</java>
 		</define-assembly-binding>
@@ -133,7 +133,7 @@
 		<define-assembly-binding name="control-implementation">
 			<java>
 				<use-class-name>ComponentControlImplementation</use-class-name>
-				<!-- <extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractControl</extend-base-class> -->
+				<!-- <extend-base-class>dev.metaschema.oscal.lib.model.AbstractControl</extend-base-class> -->
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="statement">
@@ -146,7 +146,7 @@
 		href="../../../oscal/src/metaschema/oscal_ssp_metaschema.xml">
 		<define-assembly-binding name="system-security-plan">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.AbstractOscalInstance</extend-base-class>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
@@ -154,7 +154,7 @@
 		href="../../../oscal/src/metaschema/oscal_poam_metaschema.xml">
 		<define-assembly-binding name="plan-of-action-and-milestones">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.AbstractOscalInstance</extend-base-class>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
@@ -162,7 +162,7 @@
 		href="../../../oscal/src/metaschema/oscal_assessment-plan_metaschema.xml">
 		<define-assembly-binding name="assessment-plan">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.AbstractOscalInstance</extend-base-class>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
@@ -170,7 +170,7 @@
 		href="../../../oscal/src/metaschema/oscal_assessment-results_metaschema.xml">
 		<define-assembly-binding name="assessment-results">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.AbstractOscalInstance</extend-base-class>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
@@ -178,7 +178,7 @@
 		href="../../../oscal/src/metaschema/oscal_mapping_metaschema.xml">
 		<define-assembly-binding name="mapping-collection">
 			<java>
-				<extend-base-class>gov.nist.secauto.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.AbstractOscalInstance</extend-base-class>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
