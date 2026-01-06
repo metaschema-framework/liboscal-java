@@ -493,7 +493,7 @@ public class ProfileResolver {
     StructuringDirective retval;
     if (merge == null) {
       retval = StructuringDirective.FLAT;
-    } else if (merge.getAsIs() != null && merge.getAsIs()) {
+    } else if (Boolean.TRUE.equals(merge.getAsIs())) {
       retval = StructuringDirective.AS_IS;
     } else if (merge.getCustom() != null) {
       retval = StructuringDirective.CUSTOM;

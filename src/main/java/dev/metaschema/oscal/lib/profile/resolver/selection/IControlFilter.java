@@ -128,21 +128,21 @@ public interface IControlFilter {
       IncludeAll includeAll = profileImport.getIncludeAll();
 
       if (includeAll == null) {
-        List<? extends IProfileSelectControlById> selections = profileImport.getIncludeControls();
-        if (selections == null) {
+        List<? extends IProfileSelectControlById> includeSelections = profileImport.getIncludeControls();
+        if (includeSelections.isEmpty()) {
           this.inclusionFilter = IControlSelectionFilter.NONE_MATCH;
         } else {
-          this.inclusionFilter = new DefaultControlSelectionFilter(selections);
+          this.inclusionFilter = new DefaultControlSelectionFilter(includeSelections);
         }
       } else {
         this.inclusionFilter = IControlSelectionFilter.ALL_MATCH;
       }
 
-      List<? extends IProfileSelectControlById> selections = profileImport.getExcludeControls();
-      if (selections == null) {
+      List<? extends IProfileSelectControlById> excludeSelections = profileImport.getExcludeControls();
+      if (excludeSelections.isEmpty()) {
         this.exclusionFilter = IControlSelectionFilter.NONE_MATCH;
       } else {
-        this.exclusionFilter = new DefaultControlSelectionFilter(selections);
+        this.exclusionFilter = new DefaultControlSelectionFilter(excludeSelections);
       }
 
     }

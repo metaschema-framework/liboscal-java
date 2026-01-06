@@ -179,11 +179,6 @@ public final class ResolveReference {
       throw new UnidentifiedFunctionError(
           String.format("The backmatter resource '%s' does not have an rlink entry.", reference));
     }
-    URI retval = rLink.getHref();
-    if (retval == null) {
-      throw new UnidentifiedFunctionError(
-          String.format("The backmatter resource '%s' has an rlink with a null href value.", reference));
-    }
-    return retval;
+    return rLink.getHref();
   }
 }

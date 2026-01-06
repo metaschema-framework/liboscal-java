@@ -145,12 +145,7 @@ public class Import {
     Metadata importedMetadata = toCatalog(importedCatalogDocument).getMetadata();
 
     if (importedMetadata != null) {
-      Metadata resolvedMetadata = resolvedCatalog.getMetadata();
-      if (resolvedMetadata == null) {
-        resolvedMetadata = new Metadata();
-        resolvedCatalog.setMetadata(resolvedMetadata);
-      }
-      resolveMetadata(importedMetadata, resolvedMetadata, indexer);
+      resolveMetadata(importedMetadata, resolvedCatalog.getMetadata(), indexer);
     }
   }
 

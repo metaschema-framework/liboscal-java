@@ -400,22 +400,6 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
   public Boolean visitControl(Control control, Context context) {
     assert context != null;
 
-    if (control.getParams() == null) {
-      control.setParams(new LinkedList<>());
-    }
-
-    if (control.getProps() == null) {
-      control.setProps(new LinkedList<>());
-    }
-
-    if (control.getLinks() == null) {
-      control.setLinks(new LinkedList<>());
-    }
-
-    if (control.getParts() == null) {
-      control.setParts(new LinkedList<>());
-    }
-
     boolean retval = handleCurrent(
         control,
         control::setTitle,
@@ -454,13 +438,6 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
   @Override
   public Boolean visitParameter(Parameter parameter, Context context) {
     assert context != null;
-    if (parameter.getProps() == null) {
-      parameter.setProps(new LinkedList<>());
-    }
-
-    if (parameter.getLinks() == null) {
-      parameter.setLinks(new LinkedList<>());
-    }
 
     return handleCurrent(
         parameter,
@@ -483,17 +460,6 @@ public class AddVisitor implements ICatalogVisitor<Boolean, AddVisitor.Context> 
    */
   public boolean visitPart(ControlPart part, Context context) {
     assert context != null;
-    if (part.getProps() == null) {
-      part.setProps(new LinkedList<>());
-    }
-
-    if (part.getLinks() == null) {
-      part.setLinks(new LinkedList<>());
-    }
-
-    if (part.getParts() == null) {
-      part.setParts(new LinkedList<>());
-    }
 
     boolean retval = handleCurrent(
         part,
