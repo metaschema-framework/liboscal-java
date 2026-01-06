@@ -24,7 +24,7 @@
 			<AppenderRef ref="console" />
 		</Logger>
 
-		<Logger name="gov.nist.secauto.oscal.lib" level="debug" additivity="false">
+		<Logger name="dev.metaschema.oscal.lib" level="debug" additivity="false">
 			<AppenderRef ref="console" />
 		</Logger>
 		<Root level="info">
