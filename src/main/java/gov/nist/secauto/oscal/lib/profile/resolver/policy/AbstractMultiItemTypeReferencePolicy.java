@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.policy;
 
-import gov.nist.secauto.metaschema.core.util.CollectionUtil;
+import dev.metaschema.core.util.CollectionUtil;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem;
 
 import java.util.List;

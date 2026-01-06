@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.support;
 
-import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
+import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 

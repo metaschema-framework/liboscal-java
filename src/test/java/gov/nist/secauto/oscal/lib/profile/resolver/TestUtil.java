@@ -5,10 +5,10 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver;
 
-import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItemFactory;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.metaschema.databind.model.IBoundDefinitionModelAssembly;
+import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
+import dev.metaschema.core.metapath.item.node.INodeItemFactory;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.model.IBoundDefinitionModelAssembly;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
 import gov.nist.secauto.oscal.lib.model.Catalog;
 import gov.nist.secauto.oscal.lib.model.control.AbstractParameter;

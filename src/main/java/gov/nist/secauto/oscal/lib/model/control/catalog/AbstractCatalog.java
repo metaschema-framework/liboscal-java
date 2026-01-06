@@ -5,8 +5,8 @@
 
 package gov.nist.secauto.oscal.lib.model.control.catalog;
 
-import gov.nist.secauto.metaschema.core.util.CollectionUtil;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import dev.metaschema.core.util.CollectionUtil;
+import dev.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.model.AbstractOscalInstance;
 import gov.nist.secauto.oscal.lib.model.control.AbstractParameter;
 

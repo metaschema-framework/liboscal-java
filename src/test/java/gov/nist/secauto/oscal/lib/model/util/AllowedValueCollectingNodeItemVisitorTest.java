@@ -7,13 +7,13 @@ package gov.nist.secauto.oscal.lib.model.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import gov.nist.secauto.metaschema.core.model.MetaschemaException;
-import gov.nist.secauto.metaschema.core.model.constraint.IConstraintSet;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.metaschema.databind.IBindingContext;
-import gov.nist.secauto.metaschema.databind.model.metaschema.BindingConstraintLoader;
-import gov.nist.secauto.metaschema.databind.model.metaschema.IBindingMetaschemaModule;
-import gov.nist.secauto.metaschema.databind.model.metaschema.IBindingModuleLoader;
+import dev.metaschema.core.model.MetaschemaException;
+import dev.metaschema.core.model.constraint.IConstraintSet;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.IBindingContext;
+import dev.metaschema.databind.model.metaschema.BindingConstraintLoader;
+import dev.metaschema.databind.model.metaschema.IBindingMetaschemaModule;
+import dev.metaschema.databind.model.metaschema.IBindingModuleLoader;
 import gov.nist.secauto.oscal.lib.model.util.AllowedValueCollectingNodeItemVisitor.NodeItemRecord;
 
 import org.junit.jupiter.api.Test;

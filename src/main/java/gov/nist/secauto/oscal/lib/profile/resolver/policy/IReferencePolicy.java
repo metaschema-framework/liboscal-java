@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.policy;
 
-import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
+import dev.metaschema.core.metapath.item.node.IModelNodeItem;
 import gov.nist.secauto.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
 
 import edu.umd.cs.findbugs.annotations.NonNull;

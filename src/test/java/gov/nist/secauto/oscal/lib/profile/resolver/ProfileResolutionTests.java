@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.metaschema.databind.io.DefaultBoundLoader;
-import gov.nist.secauto.metaschema.databind.io.Format;
-import gov.nist.secauto.metaschema.databind.io.ISerializer;
+import dev.metaschema.core.metapath.DynamicContext;
+import dev.metaschema.core.metapath.item.node.INodeItem;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.io.DefaultBoundLoader;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.ISerializer;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
 import gov.nist.secauto.oscal.lib.model.Catalog;
 import gov.nist.secauto.oscal.lib.profile.resolver.selection.ImportCycleException;

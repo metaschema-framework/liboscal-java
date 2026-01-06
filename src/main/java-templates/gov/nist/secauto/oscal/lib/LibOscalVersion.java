@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib;
 
-import gov.nist.secauto.metaschema.core.util.IVersionInfo;
+import dev.metaschema.core.util.IVersionInfo;
 
 /**
  * Provides version information for this library.

@@ -5,20 +5,20 @@
 
 package gov.nist.secauto.oscal.lib.model.util;
 
-import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-import gov.nist.secauto.metaschema.core.metapath.StaticContext;
-import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
-import gov.nist.secauto.metaschema.core.metapath.item.node.AbstractRecursionPreventingNodeItemVisitor;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyInstanceGroupedNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IAssemblyNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IDefinitionNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IFieldNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IFlagNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IModuleNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItemFactory;
-import gov.nist.secauto.metaschema.core.model.IModule;
-import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValuesConstraint;
-import gov.nist.secauto.metaschema.core.model.constraint.ILet;
+import dev.metaschema.core.metapath.DynamicContext;
+import dev.metaschema.core.metapath.StaticContext;
+import dev.metaschema.core.metapath.item.ISequence;
+import dev.metaschema.core.metapath.item.node.AbstractRecursionPreventingNodeItemVisitor;
+import dev.metaschema.core.metapath.item.node.IAssemblyInstanceGroupedNodeItem;
+import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
+import dev.metaschema.core.metapath.item.node.IDefinitionNodeItem;
+import dev.metaschema.core.metapath.item.node.IFieldNodeItem;
+import dev.metaschema.core.metapath.item.node.IFlagNodeItem;
+import dev.metaschema.core.metapath.item.node.IModuleNodeItem;
+import dev.metaschema.core.metapath.item.node.INodeItemFactory;
+import dev.metaschema.core.model.IModule;
+import dev.metaschema.core.model.constraint.IAllowedValuesConstraint;
+import dev.metaschema.core.model.constraint.ILet;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;

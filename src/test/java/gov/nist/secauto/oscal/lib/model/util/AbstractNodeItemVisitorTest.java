@@ -5,12 +5,12 @@
 
 package gov.nist.secauto.oscal.lib.model.util;
 
-import gov.nist.secauto.metaschema.core.metapath.item.node.IDefinitionNodeItem;
-import gov.nist.secauto.metaschema.core.model.MetaschemaException;
-import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValue;
-import gov.nist.secauto.metaschema.core.model.constraint.IAllowedValuesConstraint;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.metaschema.databind.model.IBoundModule;
+import dev.metaschema.core.metapath.item.node.IDefinitionNodeItem;
+import dev.metaschema.core.model.MetaschemaException;
+import dev.metaschema.core.model.constraint.IAllowedValue;
+import dev.metaschema.core.model.constraint.IAllowedValuesConstraint;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.model.IBoundModule;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
 import gov.nist.secauto.oscal.lib.model.OscalCompleteModule;
 import gov.nist.secauto.oscal.lib.model.util.AllowedValueCollectingNodeItemVisitor.AllowedValuesRecord;

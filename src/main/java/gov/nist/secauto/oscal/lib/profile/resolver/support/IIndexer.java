@@ -5,12 +5,12 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.support;
 
-import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
-import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression.ResultType;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IModelNodeItem;
-import gov.nist.secauto.metaschema.core.metapath.item.node.INodeItem;
-import gov.nist.secauto.metaschema.core.util.CustomCollectors;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import dev.metaschema.core.metapath.IMetapathExpression;
+import dev.metaschema.core.metapath.IMetapathExpression.ResultType;
+import dev.metaschema.core.metapath.item.node.IModelNodeItem;
+import dev.metaschema.core.metapath.item.node.INodeItem;
+import dev.metaschema.core.util.CustomCollectors;
+import dev.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
 import gov.nist.secauto.oscal.lib.model.metadata.IProperty;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem.ItemType;

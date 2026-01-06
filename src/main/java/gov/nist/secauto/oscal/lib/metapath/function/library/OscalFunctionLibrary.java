@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.metapath.function.library;
 
-import gov.nist.secauto.metaschema.core.metapath.function.FunctionLibrary;
+import dev.metaschema.core.metapath.function.FunctionLibrary;
 
 public class OscalFunctionLibrary
     extends FunctionLibrary {

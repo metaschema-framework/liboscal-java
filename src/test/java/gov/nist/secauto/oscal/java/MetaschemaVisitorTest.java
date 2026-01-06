@@ -5,15 +5,15 @@
 
 package gov.nist.secauto.oscal.java;
 
-import gov.nist.secauto.metaschema.core.metapath.DynamicContext;
-import gov.nist.secauto.metaschema.core.metapath.IMetapathExpression;
-import gov.nist.secauto.metaschema.core.model.constraint.ConstraintValidationException;
-import gov.nist.secauto.metaschema.core.metapath.StaticContext;
-import gov.nist.secauto.metaschema.core.metapath.item.IItem;
-import gov.nist.secauto.metaschema.core.metapath.item.ISequence;
-import gov.nist.secauto.metaschema.core.metapath.item.node.IDocumentNodeItem;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
-import gov.nist.secauto.metaschema.databind.io.IBoundLoader;
+import dev.metaschema.core.metapath.DynamicContext;
+import dev.metaschema.core.metapath.IMetapathExpression;
+import dev.metaschema.core.model.constraint.ConstraintValidationException;
+import dev.metaschema.core.metapath.StaticContext;
+import dev.metaschema.core.metapath.item.IItem;
+import dev.metaschema.core.metapath.item.ISequence;
+import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.io.IBoundLoader;
 import gov.nist.secauto.oscal.lib.OscalBindingContext;
 import gov.nist.secauto.oscal.lib.metapath.function.library.ResolveProfile;
 

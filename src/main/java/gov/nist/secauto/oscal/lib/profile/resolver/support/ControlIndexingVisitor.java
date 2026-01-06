@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.support;
 
-import gov.nist.secauto.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
+import dev.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
 import gov.nist.secauto.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
 
 import java.util.Set;

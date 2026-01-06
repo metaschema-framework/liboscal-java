@@ -5,10 +5,10 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.alter;
 
-import gov.nist.secauto.metaschema.core.datatype.markup.MarkupLine;
-import gov.nist.secauto.metaschema.core.util.CollectionUtil;
-import gov.nist.secauto.metaschema.core.util.CustomCollectors;
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import dev.metaschema.core.datatype.markup.MarkupLine;
+import dev.metaschema.core.util.CollectionUtil;
+import dev.metaschema.core.util.CustomCollectors;
+import dev.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.model.Catalog;
 import gov.nist.secauto.oscal.lib.model.CatalogGroup;
 import gov.nist.secauto.oscal.lib.model.Control;

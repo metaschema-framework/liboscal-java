@@ -5,9 +5,9 @@
 
 package gov.nist.secauto.oscal.lib.model.control;
 
-import gov.nist.secauto.metaschema.core.datatype.markup.MarkupMultiline;
-import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
-import gov.nist.secauto.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
+import dev.metaschema.core.datatype.markup.MarkupMultiline;
+import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
+import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
 import gov.nist.secauto.oscal.lib.model.ControlPart;
 
 import java.util.List;

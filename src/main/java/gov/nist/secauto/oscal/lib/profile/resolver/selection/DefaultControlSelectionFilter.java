@@ -5,7 +5,7 @@
 
 package gov.nist.secauto.oscal.lib.profile.resolver.selection;
 
-import gov.nist.secauto.metaschema.core.util.ObjectUtils;
+import dev.metaschema.core.util.ObjectUtils;
 import gov.nist.secauto.oscal.lib.model.ProfileMatching;
 import gov.nist.secauto.oscal.lib.model.control.catalog.IControl;
 import gov.nist.secauto.oscal.lib.model.control.profile.IProfileSelectControlById;
