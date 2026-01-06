@@ -18,9 +18,12 @@ import dev.metaschema.core.metapath.item.atomic.IAnyUriItem;
 import dev.metaschema.core.metapath.item.atomic.IBooleanItem;
 import dev.metaschema.core.metapath.item.atomic.IStringItem;
 import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
+import dev.metaschema.core.metapath.item.node.IFieldNodeItem;
 import dev.metaschema.core.metapath.item.node.IFlagNodeItem;
-import dev.metaschema.core.model.IAssemblyDefinition;
+import dev.metaschema.core.metapath.item.node.IModelNodeItem;
+import dev.metaschema.core.metapath.type.InvalidTypeMetapathException;
 import dev.metaschema.core.model.IFlagInstance;
+import dev.metaschema.core.model.IModelDefinition;
 import dev.metaschema.core.qname.IEnhancedQName;
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.OscalModelConstants;
@@ -137,8 +140,19 @@ public final class HasOscalNamespace {
       return ISequence.empty();
     }
 
-    IAssemblyNodeItem node = FunctionUtils.requireType(IAssemblyNodeItem.class, focus);
-    return ISequence.of(hasNamespace(FunctionUtils.asType(node), namespaceArgs));
+    // Support both assembly and field nodes
+    IModelNodeItem<?, ?> node;
+    if (focus instanceof IAssemblyNodeItem) {
+      node = (IAssemblyNodeItem) focus;
+    } else if (focus instanceof IFieldNodeItem) {
+      node = (IFieldNodeItem) focus;
+    } else {
+      throw new InvalidTypeMetapathException(
+          focus,
+          String.format("Expected an assembly or field node, but got '%s'",
+              focus == null ? "null" : focus.getClass().getName()));
+    }
+    return ISequence.of(hasNamespace(node, namespaceArgs));
   }
 
   @SuppressWarnings({ "unused",
@@ -169,7 +183,7 @@ public final class HasOscalNamespace {
   @SuppressWarnings("PMD.LinguisticNaming") // false positive
   @NonNull
   public static IBooleanItem hasNamespace(
-      @NonNull IAssemblyNodeItem propOrPart,
+      @NonNull IModelNodeItem<?, ?> propOrPart,
       @NonNull ISequence<? extends IStringItem> namespaces) {
     Object propOrPartObject = propOrPart.getValue();
     if (propOrPartObject == null) {
@@ -181,15 +195,11 @@ public final class HasOscalNamespace {
     IFlagNodeItem ns = propOrPart.getFlagByName(NS_FLAG_QNAME);
     if (ns == null) {
       // check if the node actually has a "ns" flag
-      IAssemblyDefinition definition = propOrPart.getDefinition();
+      IModelDefinition definition = propOrPart.getDefinition();
       IFlagInstance flag = definition.getFlagInstanceByName(NS_FLAG_QNAME.getIndexPosition());
       if (flag == null) {
-        throw new ContextAbsentDynamicMetapathException(
-            String.format(
-                "Node at path '%s' bound to '%s' based on the assembly definition '%s' has no OSCAL namespace",
-                propOrPart.getMetapath(),
-                propOrPart.getClass().getName(),
-                propOrPart.getDefinition().getName()));
+        // Node doesn't support namespaces, so it can't match any namespace
+        return IBooleanItem.FALSE;
       }
 
       Object defaultValue = flag.getDefinition().getDefaultValue();
