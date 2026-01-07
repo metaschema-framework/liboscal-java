@@ -29,6 +29,16 @@ on:
         required: false
         default: false
         type: boolean
+      linkcheck_fail_on_error:
+        description: 'a boolean flag that determines if bad links found by the link checker fail fast and stop a complete build'
+        required: false
+        default: true
+        type: boolean
+      linkcheck_create_issue:
+        description: 'create new GitHub issue if broken links found'
+        required: false
+        default: false
+        type: boolean
   workflow_dispatch:
     inputs:
       ref:
