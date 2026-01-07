@@ -70,8 +70,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 env:
-  INPUT_FAIL_ON_ERROR: ${{ github.event.inputs.linkcheck_fail_on_error || 'true' }}
-  INPUT_ISSUE_ON_ERROR: ${{ github.event.inputs.linkcheck_create_issue || 'false' }}
+  INPUT_FAIL_ON_ERROR: ${{ inputs.linkcheck_fail_on_error || 'true' }}
+  INPUT_ISSUE_ON_ERROR: ${{ inputs.linkcheck_create_issue || 'false' }}
   MAVEN_VERSION: 3.9.8
   JAVA_DISTRO: 'temurin'
   JAVA_VERSION_FILE: .java-version
