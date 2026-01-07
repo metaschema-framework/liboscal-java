@@ -174,7 +174,7 @@ jobs:
         if [ "${{ env.UPLOAD_SCAN_SARIF }}" == "true" ]; then
           echo ":white_check_mark: Results uploaded to GitHub Security tab" >> $GITHUB_STEP_SUMMARY
         else
-          echo ":information_source: Results not uploaded (branch/PR not targeting develop or release)" >> $GITHUB_STEP_SUMMARY
+          echo ":information_source: Results not uploaded (branch/PR not targeting main, develop, or release)" >> $GITHUB_STEP_SUMMARY
         fi
     # -------------------------
     # Trivy Security Scan
@@ -213,7 +213,7 @@ jobs:
         if [ "${{ env.UPLOAD_SCAN_SARIF }}" == "true" ]; then
           echo ":white_check_mark: Results uploaded to GitHub Security tab" >> $GITHUB_STEP_SUMMARY
         else
-          echo ":information_source: Results not uploaded (branch/PR not targeting develop or release)" >> $GITHUB_STEP_SUMMARY
+          echo ":information_source: Results not uploaded (branch/PR not targeting main, develop, or release)" >> $GITHUB_STEP_SUMMARY
         fi
     - name: Upload CodeQL scan results to GitHub Security tab
       if: ${{ !inputs.skip_code_scans && env.UPLOAD_SCAN_SARIF == 'true' }}
