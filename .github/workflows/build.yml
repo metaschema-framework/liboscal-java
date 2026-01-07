@@ -1,12 +1,14 @@
 on:
   push:
     branches:
+    - main
     - release/**
     - develop
     - feature/**
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
+    - main
     - release/**
     - develop
     - feature/**
@@ -65,8 +67,8 @@ env:
   JAVA_VERSION_FILE: .java-version
   # Post Maven artifacts to the artifact repo if the branch is 'develop' or 'release/*'. This avoids publishing artifacts for pull requests
   COMMIT_MAVEN_ARTIFACTS: ${{ (github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')) && github.repository_owner == 'metaschema-framework' }}
-  # Upload security scan SARIF results if the branch is 'develop' or 'release/*' or a pull request targeting these branches.
-  UPLOAD_SCAN_SARIF: ${{ (github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')) || (github.event_name == 'pull_request' && (github.base_ref == 'develop' || startsWith(github.base_ref, 'release/'))) }}
+  # Upload security scan SARIF results for main, develop, release/* branches, or PRs targeting these branches.
+  UPLOAD_SCAN_SARIF: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')) || (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'develop' || startsWith(github.base_ref, 'release/'))) }}
 jobs:
   build-code:
     name: Code
