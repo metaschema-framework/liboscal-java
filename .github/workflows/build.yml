@@ -288,14 +288,14 @@ jobs:
         echo "<summary><h2>Link Checker Results</h2></summary>" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         if [ -f "html-link-report.md" ]; then
-          # Extract summary stats from the report
-          ERRORS=$(grep -c "^\[ERR\]" html-link-report.md 2>/dev/null || echo "0")
-          TIMEOUTS=$(grep -c "^\[TIMEOUT\]" html-link-report.md 2>/dev/null || echo "0")
+          # Extract summary stats from the report (lychee markdown format uses "- [Status]")
+          ERRORS=$(grep -c "^- \[Broken\]" html-link-report.md 2>/dev/null || echo "0")
+          TIMEOUTS=$(grep -c "^- \[Timeout\]" html-link-report.md 2>/dev/null || echo "0")
           if [ "$ERRORS" -gt 0 ]; then
             echo ":x: **Found $ERRORS broken link(s)**" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo '```' >> $GITHUB_STEP_SUMMARY
-            grep "^\[ERR\]" html-link-report.md >> $GITHUB_STEP_SUMMARY
+            grep "^- \[Broken\]" html-link-report.md >> $GITHUB_STEP_SUMMARY
             echo '```' >> $GITHUB_STEP_SUMMARY
           elif [ "$TIMEOUTS" -gt 0 ]; then
             echo ":warning: **$TIMEOUTS link(s) timed out** (external sites may be slow)" >> $GITHUB_STEP_SUMMARY
