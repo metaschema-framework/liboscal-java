@@ -1,0 +1,14 @@
+name: Scheduled Build
+on:
+  schedule:
+    # Nightly build at 3:00 AM UTC (after metaschema-java at 2:00 AM)
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+jobs:
+  nightly:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: develop
+      skip_code_scans: true
+      skip_linkcheck: true
+    secrets: inherit
