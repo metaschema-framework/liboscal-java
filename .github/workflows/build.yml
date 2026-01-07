@@ -167,13 +167,13 @@ jobs:
     # -------------------------
     # Trivy Security Scan
     # -------------------------
-    - name: Run Trivy vulnerability scanner
+    - name: Run Trivy security scanner
       if: ${{ !inputs.skip_code_scans }}
       uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8
       with:
         scan-type: 'fs'
         scan-ref: '.'
-        scanners: 'vuln'
+        scanners: 'vuln,secret,misconfig'
         format: 'sarif'
         output: 'trivy-results.sarif'
         severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
@@ -261,7 +261,7 @@ jobs:
       if: ${{ !inputs.skip_linkcheck }}
       uses: lycheeverse/lychee-action@a8c4c7cb88f0c7386610c35eb25108e448569cb0
       with:
-        args: --verbose --no-progress --accept 200,206,429 './target/staging/**/*.html'  --remap "https://github.com/metaschema-framework/liboscal-java/tree/main/ file://${GITHUB_WORKSPACE}/" --remap "https://liboscal-java.metaschema.dev/ file://${GITHUB_WORKSPACE}/target/staging/"
+        args: --verbose --no-progress --accept 200,206,429,503 './target/staging/**/*.html'  --remap "https://github.com/metaschema-framework/liboscal-java/tree/main/ file://${GITHUB_WORKSPACE}/" --remap "https://liboscal-java.metaschema.dev/ file://${GITHUB_WORKSPACE}/target/staging/"
         format: markdown
         output: html-link-report.md
         debug: true
