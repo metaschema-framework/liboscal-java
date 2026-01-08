@@ -121,6 +121,7 @@ jobs:
       uses: github/codeql-action/init@5d4e8d1aca955e8d8589aabd499c5cae939e33c7
       with:
         languages: java
+        config-file: .github/codeql-config.yml
     # -------------------------
     # Maven Build
     # -------------------------
@@ -189,6 +190,8 @@ jobs:
         format: 'sarif'
         output: 'trivy-results.sarif'
         severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
+        # Exclude submodule (has its own security scanning in upstream repo)
+        skip-dirs: 'oscal'
     - name: Trivy Summary
       if: ${{ !inputs.skip_code_scans }}
       run: |
