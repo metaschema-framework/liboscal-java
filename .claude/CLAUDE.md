@@ -73,7 +73,7 @@ Custom functions beyond core Metaschema (registered in `OscalFunctionLibrary`):
 
 ## Git Workflow
 
-- Repository: https://github.com/metaschema-framework/liboscal-java
+- Repository: <https://github.com/metaschema-framework/liboscal-java>
 - **All PRs MUST be created from a personal fork** (required by CONTRIBUTING.md)
 - **All PRs MUST target the `develop` branch**
 - All changes require PR review
