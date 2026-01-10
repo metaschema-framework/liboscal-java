@@ -2,21 +2,33 @@
 
 This guide explains how to add ${project.name} to your Java project.
 
+## Overview
+
+This library provides everything you need to work with OSCAL documents in Java. Adding this single dependency gives you:
+
+- Pre-generated Java model classes for all OSCAL document types
+- Serialization support for XML, JSON, and YAML formats
+- Profile resolution capabilities
+- Validation tools
+- The underlying [Metaschema Java](https://metaschema-java.metaschema.dev/) framework
+
 ## Prerequisites
 
-Before installing, ensure you have:
+Before installing, ensure your development environment meets these requirements:
 
 | Requirement | Minimum Version | Recommended |
-|-------------|-----------------|-------------|
+|:------------|:----------------|:------------|
 | Java JDK    | 11              | 17 or later |
 | Maven       | 3.9.0           | Latest      |
 | Gradle      | 7.0             | Latest      |
+
+The library targets Java 11 for broad compatibility, but building from source requires Java 17. See [Building from Source](building.html) if you need to compile the library yourself.
 
 ## Maven
 
 ### Release Versions
 
-Add the following dependency to your `pom.xml`:
+Stable releases are published to Maven Central and require no additional repository configuration. Add the following dependency to your `pom.xml`:
 
 ```xml
 <dependency>
@@ -30,7 +42,9 @@ Release versions are available from [Maven Central](https://central.sonatype.com
 
 ### Snapshot Versions
 
-For the latest development version, add the Sonatype snapshots repository:
+Snapshot versions contain the latest changes from the `develop` branch, including new features, bug fixes, and support for newer OSCAL releases that haven't yet been officially released. These are useful for testing upcoming changes or accessing features before they're released, but they may be less stable than release versions.
+
+To use snapshots, add the project's snapshot repository:
 
 ```xml
 <repositories>
@@ -53,6 +67,8 @@ For the latest development version, add the Sonatype snapshots repository:
 ```
 
 ## Gradle
+
+Gradle users can add the library using either Kotlin DSL or Groovy DSL syntax.
 
 ### Kotlin DSL
 
@@ -98,18 +114,61 @@ repositories {
 
 ## Building from Source
 
-If you need to build the library from source (for development or to access unreleased features), see the [Building](building.html) guide.
+If you need to build the library from source—for example, to contribute changes, debug issues, or access unreleased features—see the [Building](building.html) guide. Building from source requires Java 17 or later.
 
 ## IDE Setup
 
-For IDE-specific setup instructions, refer to your IDE's documentation:
+Modern Java IDEs automatically recognize Maven and Gradle projects, downloading dependencies and configuring the classpath. After adding the dependency to your build file:
+
+1. **IntelliJ IDEA**: Open the project folder or `pom.xml`/`build.gradle` file. IntelliJ will import the project and download dependencies automatically.
+
+2. **Eclipse**: Import as a Maven or Gradle project using the built-in import wizard. The [M2Eclipse](https://www.eclipse.org/m2e/) plugin handles Maven projects.
+
+3. **VS Code**: Install the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack), then open the project folder. VS Code will detect the build system and configure accordingly.
+
+For more detailed IDE setup, refer to your IDE's documentation:
 
 - [IntelliJ IDEA - Maven Projects](https://www.jetbrains.com/help/idea/maven-support.html)
 - [Eclipse - Maven Integration](https://www.eclipse.org/m2e/)
 - [VS Code - Java Extension Pack](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
 
+## Verifying Installation
+
+After adding the dependency, verify the installation by loading a sample OSCAL document:
+
+```java
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IDeserializer;
+import java.net.URI;
+
+public class VerifyInstallation {
+    public static void main(String[] args) throws Exception {
+        OscalBindingContext context = OscalBindingContext.instance();
+
+        // Load the NIST SP 800-53 catalog from the official OSCAL content repository
+        URI catalogUri = URI.create(
+            "https://raw.githubusercontent.com/usnistgov/oscal-content/main/" +
+            "nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json");
+
+        IDeserializer<Catalog> deserializer = context.newDeserializer(
+            Format.JSON, Catalog.class);
+        Catalog catalog = deserializer.deserialize(catalogUri);
+
+        System.out.println("Successfully loaded: " + catalog.getMetadata().getTitle());
+        System.out.println("Number of groups: " + catalog.getGroups().size());
+    }
+}
+```
+
+If this compiles and runs without errors, the library is correctly installed.
+
 ## Next Steps
 
-- [API Overview](api-overview.html) - Learn about the core library classes
-- [Reading OSCAL Documents](guides/reading-oscal-documents.html) - Load OSCAL content from files
-- [Writing OSCAL Documents](guides/writing-oscal-documents.html) - Serialize OSCAL data to files
+Once installed, explore these guides to start using the library:
+
+- [Loading OSCAL Modules](guides/loading-oscal-modules.html) - Understand the OSCAL binding context
+- [Reading & Writing Data](guides/reading-writing-data.html) - Load and save OSCAL documents in any format
+- [Resolving Profiles](guides/resolving-profiles.html) - Resolve profiles to produce flattened catalogs
+- [Validating with Constraints](guides/validating-with-constraints.html) - Validate OSCAL content

@@ -239,6 +239,8 @@ public class OscalValidator {
 
 ## Next Steps
 
+Continue learning about liboscal-java with these related guides:
+
 - [Reading & Writing Data](reading-writing-data.html) - Load documents for validation
 - [Executing Metapath](executing-metapath.html) - Query validated content
 - [Architecture](architecture.html) - Understand the validation pipeline

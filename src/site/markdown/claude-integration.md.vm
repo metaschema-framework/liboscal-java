@@ -28,14 +28,14 @@ The configuration provides Claude with:
 
 ## Claude Plugins
 
-Enhanced capabilities are available through Claude plugins from the [metaschema-framework](https://github.com/metaschema-framework) organization:
+Enhanced capabilities are available through [Claude plugins](https://github.com/metaschema-framework/claude-plugins/tree/main) from the metaschema-framework organization:
 
 ### OSCAL Plugin
 
 The `oscal` plugin provides OSCAL-specific skills:
 
 | Skill | Description |
-|-------|-------------|
+|:------|:------------|
 | `oscal:oscal-basics` | OSCAL document structure, models, and concepts |
 
 ### Metaschema Plugin
@@ -43,7 +43,7 @@ The `oscal` plugin provides OSCAL-specific skills:
 The `metaschema` plugin provides Metaschema knowledge:
 
 | Skill | Description |
-|-------|-------------|
+|:------|:------------|
 | `metaschema:metaschema-basics` | Introduction to Metaschema concepts |
 | `metaschema:metaschema-module-authoring` | Creating and modifying Metaschema modules |
 | `metaschema:metaschema-constraints-authoring` | Writing validation constraints |
@@ -54,7 +54,7 @@ The `metaschema` plugin provides Metaschema knowledge:
 The `metaschema-tools` plugin provides CLI and library guidance:
 
 | Skill | Description |
-|-------|-------------|
+|:------|:------------|
 | `metaschema-tools:metaschema-java-library` | Java library interfaces and patterns |
 | `metaschema-tools:using-metaschema-java` | CLI commands for validation and conversion |
 
@@ -63,7 +63,7 @@ The `metaschema-tools` plugin provides CLI and library guidance:
 The `oscal-tools` plugin provides CLI guidance:
 
 | Skill | Description |
-|-------|-------------|
+|:------|:------------|
 | `oscal-tools:using-oscal-cli` | OSCAL CLI commands and workflows |
 
 ## Installing Plugins
@@ -131,7 +131,9 @@ Claude Code integrates with the development workflow defined in CLAUDE.md:
 
 ## Related Resources
 
+For more information about Claude Code and the technologies used in this project:
+
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Metaschema Framework Plugins](https://github.com/metaschema-framework)
+- [Metaschema Framework Plugins](https://github.com/metaschema-framework/claude-plugins/tree/main)
 - [OSCAL Documentation](https://pages.nist.gov/OSCAL/)
 - [Metaschema Specification](https://metaschema.dev/)

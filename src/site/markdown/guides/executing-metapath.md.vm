@@ -15,12 +15,16 @@ import dev.metaschema.core.metapath.MetapathExpression;
 import dev.metaschema.core.metapath.IMetapathExpression;
 import dev.metaschema.core.metapath.item.IItem;
 import dev.metaschema.core.metapath.item.ISequence;
-import dev.metaschema.databind.model.IBoundObject;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IDeserializer;
+import java.nio.file.Path;
 
 OscalBindingContext context = OscalBindingContext.instance();
 
 // Load a catalog
-Catalog catalog = loadCatalog("catalog.json");
+IDeserializer<Catalog> deserializer = context.newDeserializer(
+    Format.JSON, Catalog.class);
+Catalog catalog = deserializer.deserialize(Path.of("catalog.json"));
 
 // Compile an expression
 IMetapathExpression expression = MetapathExpression.compile(
@@ -261,6 +265,8 @@ public class MetapathQueryCache {
 5. **Test expressions** - Validate with CLI before embedding
 
 ## Next Steps
+
+Continue learning about liboscal-java with these related guides:
 
 - [Validating with Constraints](validating-with-constraints.html) - Validate queried data
 - [Reading & Writing Data](reading-writing-data.html) - Load documents to query

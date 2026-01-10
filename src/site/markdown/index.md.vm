@@ -2,6 +2,32 @@
 
 A Java library for processing [OSCAL](https://pages.nist.gov/OSCAL/) (Open Security Controls Assessment Language) content. This library enables Java developers to create, read, validate, and transform OSCAL documents.
 
+## What is OSCAL?
+
+OSCAL is a set of standardized formats developed by [NIST](https://www.nist.gov/) for expressing security controls, control baselines, system security plans, assessment plans and results, and plans of action and milestones. Organizations use OSCAL to:
+
+- **Document security controls** - Express control catalogs (like NIST SP 800-53) in a machine-readable format
+- **Define control baselines** - Create profiles that select and customize controls for specific use cases
+- **Create system security plans** - Document how systems implement required controls
+- **Automate security assessments** - Define assessment procedures and capture results in structured formats
+- **Track remediation** - Manage plans of action and milestones (POA&Ms) for security findings
+
+OSCAL supports XML, JSON, and YAML representations of all document types, with equivalent semantics across all formats. This means you can choose the format that best fits your toolchain while maintaining full compatibility with other OSCAL-compliant tools.
+
+## Why Use This Library?
+
+This library provides a complete Java solution for working with OSCAL content:
+
+- **Type-safe access** - Work with strongly-typed Java objects rather than parsing XML or JSON directly. The compiler catches errors that would otherwise appear at runtime.
+
+- **Format flexibility** - Read OSCAL from any supported format (XML, JSON, YAML) and write to any format. Convert between formats without losing data.
+
+- **Profile resolution** - Resolve OSCAL profiles to produce flattened catalogs that include all selected controls with modifications applied.
+
+- **Validation** - Validate OSCAL documents against the official schemas and constraint rules to ensure well-formed, valid content.
+
+- **Built on Metaschema** - Leverages the [Metaschema Java](https://metaschema-java.metaschema.dev/) framework, ensuring the Java model stays synchronized with the official OSCAL specification.
+
 ## Quick Start
 
 Add the dependency to your Maven project:
@@ -21,6 +47,7 @@ import dev.metaschema.oscal.lib.OscalBindingContext;
 import dev.metaschema.oscal.lib.model.Catalog;
 import dev.metaschema.databind.io.Format;
 import dev.metaschema.databind.io.IDeserializer;
+import java.nio.file.Path;
 
 // Get the binding context
 OscalBindingContext context = OscalBindingContext.instance();
@@ -38,31 +65,47 @@ See the [Installation](installation.html) guide for complete setup instructions.
 
 ## Key Features
 
-- **Multi-format Support** - Read and write OSCAL documents in XML, JSON, and YAML
-- **Profile Resolution** - Resolve OSCAL profiles to produce baseline catalogs
-- **Validation** - Validate OSCAL content for well-formedness and schema compliance
-- **Constraint Validation** - (Experimental) Validate using Metaschema constraints
-- **Builders** - Programmatically create OSCAL data elements
+### Multi-format Support
+
+Read and write OSCAL documents in XML, JSON, and YAML formats. The library automatically detects input format and handles all serialization details. Convert between formats with a simple API call—no manual transformation required.
+
+### Profile Resolution
+
+OSCAL profiles allow organizations to customize control catalogs by selecting controls, modifying parameter values, and adding organization-specific guidance. Profile resolution produces a "resolved catalog" that flattens all selections and modifications into a single catalog document. This library implements the complete profile resolution algorithm as specified in the OSCAL specification.
+
+### Validation
+
+Validate OSCAL documents at multiple levels:
+- **Well-formedness** - Ensure documents are valid XML, JSON, or YAML
+- **Schema compliance** - Verify documents conform to the OSCAL schema structure
+- **Constraint validation** - (Experimental) Check documents against Metaschema constraint rules that express business logic beyond schema requirements
+
+### Programmatic Construction
+
+Build OSCAL documents programmatically using Java builder patterns. Create catalogs, profiles, system security plans, and other OSCAL documents entirely in code, then serialize to any supported format.
 
 ## Supported OSCAL Document Types
 
-| Document Type | Class |
-|--------------|-------|
-| Catalog | `Catalog` |
-| Profile | `Profile` |
-| System Security Plan | `SystemSecurityPlan` |
-| Component Definition | `ComponentDefinition` |
-| Assessment Plan | `AssessmentPlan` |
-| Assessment Results | `AssessmentResults` |
-| POA&M | `PlanOfActionAndMilestones` |
+This library supports all OSCAL model types. Each document type has a corresponding Java class in the `dev.metaschema.oscal.lib.model` package:
+
+| Document Type | Class | Purpose |
+|:--------------|:------|:--------|
+| Catalog | `Catalog` | Collections of security controls (e.g., NIST SP 800-53) |
+| Profile | `Profile` | Control baselines that select and customize catalog controls |
+| Mapping | `MappingCollection` | Relationships between control frameworks |
+| System Security Plan | `SystemSecurityPlan` | Documentation of how a system implements controls |
+| Component Definition | `ComponentDefinition` | Reusable security capabilities and components |
+| Assessment Plan | `AssessmentPlan` | Plans for assessing control implementation |
+| Assessment Results | `AssessmentResults` | Results from security assessments |
+| POA&M | `PlanOfActionAndMilestones` | Plans for addressing security findings |
 
 ## Getting Started
 
 | Task | Guide |
-|------|-------|
+|:-----|:------|
 | Add to your project | [Installation](installation.html) |
 | Build from source | [Building](building.html) |
-| Load OSCAL modules | [Loading OSCAL Modules](guides/loading-oscal-modules.html) |
+| Understand the binding context | [Using the Binding Context](guides/loading-oscal-modules.html) |
 | Read and write data | [Reading & Writing Data](guides/reading-writing-data.html) |
 | Resolve profiles | [Resolving Profiles](guides/resolving-profiles.html) |
 | Query with Metapath | [Executing Metapath](guides/executing-metapath.html) |
@@ -76,8 +119,10 @@ See the [Architecture](guides/architecture.html) guide for details on the librar
 
 ## Related Projects
 
+This library is part of a larger ecosystem of OSCAL and Metaschema tools:
+
 | Project | Description |
-|---------|-------------|
+|:--------|:------------|
 | [oscal-cli](https://github.com/metaschema-framework/oscal-cli) | Command-line tool for OSCAL operations |
 | [metaschema-java](https://github.com/metaschema-framework/metaschema-java) | Core Metaschema framework |
 | [OSCAL](https://pages.nist.gov/OSCAL/) | OSCAL specification and documentation |
@@ -87,6 +132,8 @@ See the [Architecture](guides/architecture.html) guide for details on the librar
 This project includes plugins for [Claude Code](https://claude.ai/code) that provide AI-assisted development. See the [Claude Integration](claude-integration.html) guide for details.
 
 ## Support
+
+Have questions or found an issue? Here's how to get help:
 
 - [GitHub Issues](${project.issueManagement.url}) - Report bugs or request features
 - [Contributing](${project.scm.url}/blob/develop/CONTRIBUTING.md) - Contribution guidelines

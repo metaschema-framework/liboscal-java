@@ -1,6 +1,18 @@
-# Loading OSCAL Modules
+# Using the OSCAL Binding Context
 
-This guide explains how to load OSCAL model definitions and create binding contexts.
+This guide explains how to initialize and use the `OscalBindingContext`, which is the foundation for all OSCAL operations in liboscal-java.
+
+## What is the Binding Context?
+
+Before you can read, write, or validate OSCAL documents, you need a **binding context**. The binding context is the central object that:
+
+- Knows about all OSCAL document types (Catalog, Profile, SSP, etc.)
+- Creates deserializers for reading OSCAL files
+- Creates serializers for writing OSCAL files
+- Provides access to Metapath evaluation
+- Handles constraint validation
+
+Think of it as the "factory" that produces all the tools you need for OSCAL processing. In liboscal-java, the `OscalBindingContext` extends the base Metaschema binding context with OSCAL-specific configuration.
 
 ## Overview
 
@@ -52,15 +64,90 @@ IDeserializer<SystemSecurityPlan> sspReader = context.newDeserializer(
 
 ## Available OSCAL Document Types
 
+The binding context provides access to all OSCAL document types. Each type corresponds to a root element in the OSCAL specification:
+
 | Class | Description |
-|-------|-------------|
+|:------|:------------|
 | `Catalog` | OSCAL catalogs with controls and groups |
 | `Profile` | Control selection and tailoring |
+| `MappingCollection` | Control mapping between frameworks |
 | `SystemSecurityPlan` | System security documentation |
 | `ComponentDefinition` | Reusable component capabilities |
 | `AssessmentPlan` | Security assessment planning |
 | `AssessmentResults` | Assessment findings |
 | `PlanOfActionAndMilestones` | POA&M tracking |
+
+## Model Mapping
+
+Understanding how OSCAL elements map to Java classes helps you navigate the API. The generated classes mirror the OSCAL model structure:
+
+### Document Structure
+
+Each OSCAL document type has a corresponding Java class with nested classes for its components:
+
+```
+Catalog (root)
+├── Metadata              # Document metadata (title, dates, parties)
+│   ├── Property          # Key-value properties
+│   └── Link              # Related resources
+├── Group                 # Control groupings
+│   └── Control           # Individual controls
+│       ├── Parameter     # Control parameters
+│       ├── Part          # Prose sections
+│       └── Property      # Control properties
+└── BackMatter            # Referenced resources
+    └── Resource          # External documents
+```
+
+### Common Patterns
+
+OSCAL uses consistent patterns across document types. Once you understand these patterns, working with any OSCAL type becomes intuitive:
+
+| OSCAL Concept | Java Pattern | Example |
+|:--------------|:-------------|:--------|
+| Root element | Top-level class | `Catalog`, `Profile` |
+| Nested elements | Nested classes | `Catalog.Group`, `Control.Part` |
+| Required UUID | `getUuid()` method | `catalog.getUuid()` |
+| Metadata | `getMetadata()` method | `catalog.getMetadata()` |
+| Back matter | `getBackMatter()` method | `catalog.getBackMatter()` |
+| Properties | `getProps()` method | Returns `List<Property>` |
+| Links | `getLinks()` method | Returns `List<Link>` |
+
+### Navigating the Model
+
+Use getter methods to traverse the document structure:
+
+```java
+Catalog catalog = deserializer.deserialize(path);
+
+// Access metadata
+Metadata metadata = catalog.getMetadata();
+String title = metadata.getTitle().toString();
+
+// Iterate through groups and controls
+for (Group group : catalog.getGroups()) {
+    System.out.println("Group: " + group.getTitle());
+
+    for (Control control : group.getControls()) {
+        System.out.println("  Control: " + control.getId() + " - " + control.getTitle());
+    }
+}
+```
+
+### Building Documents
+
+Create OSCAL documents programmatically using constructors and setters:
+
+```java
+Catalog catalog = new Catalog();
+catalog.setUuid(UUID.randomUUID());
+
+Metadata metadata = new Metadata();
+metadata.setTitle(MarkupLine.fromMarkdown("My Catalog"));
+metadata.setLastModified(ZonedDateTime.now());
+metadata.setVersion("1.0.0");
+catalog.setMetadata(metadata);
+```
 
 ## Understanding the Context Hierarchy
 
@@ -133,6 +220,8 @@ try {
 4. **Don't cache deserializers** - Create new deserializers as needed; they're lightweight
 
 ## Next Steps
+
+Continue learning about liboscal-java with these related guides:
 
 - [Reading & Writing Data](reading-writing-data.html) - Load and save OSCAL documents
 - [Resolving Profiles](resolving-profiles.html) - Resolve profiles programmatically

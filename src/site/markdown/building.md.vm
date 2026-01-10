@@ -5,7 +5,7 @@ This guide explains how to build ${project.name} from source code.
 ## Prerequisites
 
 | Requirement | Minimum Version | Notes |
-|-------------|-----------------|-------|
+|:------------|:----------------|:------|
 | Java JDK    | 17              | Required for building (output JARs are JDK 11 compatible) |
 | Maven       | 3.9.0           | Required for building |
 | Git         | 2.0             | Required for cloning |
@@ -154,6 +154,18 @@ mvn install
 mvn license:format
 ```
 
+## Building the Site
+
+To build the project documentation site:
+
+```bash
+mvn install site -DskipTests
+```
+
+**Note:** The `install` and `site` goals must run together in a single Maven invocation. This is required because the Javadoc plugin needs access to the generated OSCAL model classes, which are only available after the `install` phase completes within the same Maven session.
+
+Running `mvn site` alone will fail with Javadoc errors about missing model classes.
+
 ## Generated Sources
 
 OSCAL model classes are generated during the build from Metaschema definitions in the `oscal/` submodule. These generated classes appear in:
@@ -174,5 +186,7 @@ For contribution guidelines, including code style requirements and the pull requ
 
 ## Next Steps
 
+Once you've built the project, explore these resources to start using the library:
+
 - [Installation](installation.html) - Add the library to your project
-- [API Overview](api-overview.html) - Learn about the core library classes
+- [Architecture](guides/architecture.html) - Understand the library structure

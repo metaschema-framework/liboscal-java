@@ -2,14 +2,27 @@
 
 This guide explains how to resolve OSCAL profiles programmatically using liboscal-java.
 
+## What is Profile Resolution?
+
+OSCAL profiles are a powerful mechanism for customizing security control catalogs. Instead of copying and manually editing a catalog like NIST SP 800-53, organizations create profiles that:
+
+- **Select controls** - Choose which controls apply to their environment
+- **Set parameters** - Fill in organization-specific values for control parameters
+- **Modify content** - Add guidance, alter statements, or customize controls
+- **Layer customizations** - Import other profiles to build on existing baselines
+
+However, many tools that consume OSCAL content expect a simple catalog, not a profile with references to external catalogs. **Profile resolution** is the process of "flattening" a profile into a self-contained catalog that includes all selected controls with all modifications applied.
+
+For example, if you have a profile that imports NIST SP 800-53 and selects the FedRAMP High baseline controls, profile resolution produces a catalog containing just those controls, with any organization-specific modifications already applied.
+
 ## Overview
 
 Profile resolution takes an OSCAL profile and produces a **resolved catalog** containing:
 
-- Only the selected controls
-- All parameter values set
-- All modifications applied
-- A single, self-contained document
+- Only the selected controls (not the entire source catalog)
+- All parameter values set to their resolved values
+- All modifications (additions, alterations) applied
+- A single, self-contained document with no external dependencies
 
 ## Basic Profile Resolution
 
@@ -229,6 +242,8 @@ The resolver supports various options through the profile structure:
 4. **Check for circular imports** - Can cause infinite loops
 
 ## Next Steps
+
+Continue learning about liboscal-java with these related guides:
 
 - [Reading & Writing Data](reading-writing-data.html) - Save resolved catalogs
 - [Executing Metapath](executing-metapath.html) - Query resolved content

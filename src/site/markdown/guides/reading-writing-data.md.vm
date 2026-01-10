@@ -2,6 +2,26 @@
 
 This guide explains how to read, write, and convert OSCAL documents using liboscal-java.
 
+## Overview
+
+One of the core capabilities of liboscal-java is format-agnostic serialization—the ability to read and write OSCAL documents in XML, JSON, and YAML formats using the same Java objects. This means you can:
+
+- Load OSCAL documents in any format and work with them as strongly-typed Java objects
+- Convert between formats by reading in one format and writing in another
+- Process documents without needing to know or care about the original format
+- Output documents in whichever format your downstream tools require
+
+The library handles all format-specific details automatically. Whether your input is XML, JSON, or YAML, you get the same `Catalog`, `Profile`, or `SystemSecurityPlan` object.
+
+## Key Concepts
+
+Before diving into code, understand these core concepts:
+
+- **`OscalBindingContext`** - The entry point for all serialization operations. Use the singleton instance via `OscalBindingContext.instance()`.
+- **`IDeserializer<T>`** - Reads a specific document type (e.g., `Catalog`) from a file, URL, or stream
+- **`ISerializer<T>`** - Writes a specific document type to a file or stream
+- **`Format`** - Enum specifying the data format: `Format.XML`, `Format.JSON`, or `Format.YAML`
+
 ## Reading OSCAL Documents
 
 ### From a File
@@ -218,6 +238,8 @@ try {
 5. **Close resources** properly when using streams
 
 ## Next Steps
+
+Continue learning about liboscal-java with these related guides:
 
 - [Resolving Profiles](resolving-profiles.html) - Resolve profiles to catalogs
 - [Executing Metapath](executing-metapath.html) - Query OSCAL data

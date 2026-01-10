@@ -4,9 +4,17 @@ This guide explains the architecture and module structure of liboscal-java.
 
 ## Overview
 
-liboscal-java is built on top of the [Metaschema Java Tools](https://github.com/metaschema-framework/metaschema-java) framework. It provides OSCAL-specific functionality while leveraging the general-purpose Metaschema capabilities.
+liboscal-java is built on top of the [Metaschema Java Tools](https://github.com/metaschema-framework/metaschema-java) framework. It provides OSCAL-specific functionality while leveraging the general-purpose Metaschema capabilities for serialization, validation, and querying.
 
-## Dependency Hierarchy
+Understanding the architecture helps you work effectively with the library, especially when debugging issues or extending its capabilities. The library follows a layered design where each layer builds on the capabilities provided by the layer below.
+
+## Library Structure
+
+This section describes how the library is organized and relates to its dependencies.
+
+### Dependency Hierarchy
+
+The following diagram shows how liboscal-java relates to the underlying Metaschema framework and the OSCAL model definitions:
 
 ```
 liboscal-java
@@ -18,6 +26,7 @@ liboscal-java
     └── OSCAL Metaschema modules (generated model classes)
         ├── oscal_catalog
         ├── oscal_profile
+        ├── oscal_mapping
         ├── oscal_ssp
         ├── oscal_component-definition
         ├── oscal_assessment-plan
@@ -25,7 +34,9 @@ liboscal-java
         └── oscal_poam
 ```
 
-## Package Structure
+### Package Structure
+
+The library's Java packages are organized by functionality. The main entry point is `OscalBindingContext`, and all OSCAL model classes live under the `model` subpackage:
 
 ```
 dev.metaschema.oscal.lib
@@ -33,6 +44,7 @@ dev.metaschema.oscal.lib
 ├── model/                    # Generated OSCAL model classes
 │   ├── Catalog
 │   ├── Profile
+│   ├── MappingCollection
 │   ├── SystemSecurityPlan
 │   ├── ComponentDefinition
 │   ├── AssessmentPlan
@@ -49,9 +61,11 @@ dev.metaschema.oscal.lib
 
 ## Key Components
 
+The following sections describe the main classes you'll interact with when using the library.
+
 ### OscalBindingContext
 
-The central class for working with OSCAL documents:
+The `OscalBindingContext` is your starting point for all OSCAL operations. It provides factory methods for creating serializers, deserializers, and validators:
 
 ```java
 OscalBindingContext context = OscalBindingContext.instance();
@@ -72,7 +86,7 @@ StaticContext staticCtx = context.getStaticContext();
 
 ### Generated Model Classes
 
-OSCAL model classes are generated during the build from Metaschema definitions:
+Rather than hand-writing Java classes for each OSCAL element, the library generates them from the official OSCAL Metaschema definitions. This ensures the Java model always matches the OSCAL specification:
 
 ```
 oscal/src/main/metaschema/
@@ -89,7 +103,7 @@ target/generated-sources/metaschema/
 
 ### ProfileResolver
 
-Resolves OSCAL profiles to catalogs:
+One of the most important OSCAL operations is profile resolution—converting a profile (which references controls in external catalogs) into a standalone resolved catalog. The `ProfileResolver` class handles this:
 
 ```java
 ProfileResolver resolver = new ProfileResolver();
@@ -105,17 +119,21 @@ Catalog resolved = resolver.resolve(profile);
 
 ### OSCAL Function Library
 
-OSCAL-specific Metapath functions:
+The library extends the base Metapath expression language with OSCAL-specific functions. These are automatically registered when you use `OscalBindingContext`:
 
 | Function | Purpose |
-|----------|---------|
+|:---------|:--------|
 | `has-oscal-namespace` | Check namespace membership |
 | `resolve-profile` | Resolve profile imports |
 | `resolve-reference` | Resolve internal references |
 
 ## Data Flow
 
+Understanding how data flows through the system helps when debugging issues or optimizing performance. This section traces the path of data through the major operations.
+
 ### Reading Documents
+
+When you deserialize an OSCAL document, the library detects the format, parses the content, and maps it to Java objects:
 
 ```
 File/URL
@@ -135,6 +153,8 @@ Application Code
 
 ### Writing Documents
 
+Serialization is the reverse process—converting your Java objects back to XML, JSON, or YAML:
+
 ```
 Model Objects
     ↓
@@ -148,6 +168,8 @@ File/Stream
 ```
 
 ### Profile Resolution
+
+Profile resolution is more complex because it may involve loading external resources and applying multiple transformations:
 
 ```
 Profile (with imports)
@@ -163,14 +185,16 @@ Merge Controls
 Resolved Catalog
 ```
 
-## Integration Points
+## Integration and Extension
 
-### Metaschema Framework
+This section describes how the library integrates with the Metaschema ecosystem and how you can extend it.
 
-liboscal-java extends the Metaschema framework:
+### Metaschema Framework Integration
+
+liboscal-java extends the base Metaschema framework with OSCAL-specific functionality. The following table shows how the library maps to Metaschema components:
 
 | Metaschema Component | liboscal-java Usage |
-|---------------------|---------------------|
+|:---------------------|:--------------------|
 | `IBindingContext` | `OscalBindingContext` extends it |
 | `IDeserializer` | Load OSCAL documents |
 | `ISerializer` | Write OSCAL documents |
@@ -179,24 +203,40 @@ liboscal-java extends the Metaschema framework:
 
 ### Extension Points
 
-**Custom Metapath Functions:**
+The library provides hooks for adding custom functionality without modifying the core code.
+
+#### Custom Metapath Functions
+
+You can extend the Metapath query language with domain-specific functions. This is useful when you need operations that aren't provided by the built-in function library:
+
 ```java
 // Register custom function
 context.registerFunction(myCustomFunction);
 ```
 
-**Custom Constraint Handlers:**
+#### Custom Constraint Handlers
+
+To customize how constraint violations are reported or handled, implement your own validation handler. This allows integration with logging frameworks, custom error reporting, or workflow systems:
+
 ```java
 IConstraintValidationHandler handler = new MyHandler();
 deserializer.setConstraintValidationHandler(handler);
 ```
 
-## Threading Model
+## Runtime Considerations
 
-- `OscalBindingContext.instance()` is thread-safe
+This section covers topics important when deploying applications that use the library.
+
+### Threading Model
+
+When using the library in multi-threaded applications, understanding which components are thread-safe helps avoid subtle bugs. The general pattern is to share the context but create fresh serializers and deserializers for each operation:
+
+- `OscalBindingContext.instance()` is thread-safe for reading configuration
 - Deserializers are single-use (create new per operation)
 - Serializers are single-use (create new per operation)
-- Model objects are not thread-safe for modification
+- Model objects are not thread-safe for concurrent modification
+
+The following example shows the recommended pattern for parallel processing:
 
 ```java
 // Good: Shared context, per-operation deserializers
@@ -209,13 +249,17 @@ executor.submit(() -> {
 });
 ```
 
-## Memory Considerations
+### Memory Considerations
 
-- Large catalogs (SP 800-53) can consume significant memory
-- Consider streaming for very large documents
-- Profile resolution loads entire import chain into memory
+OSCAL documents can vary significantly in size, from small component definitions to comprehensive catalogs like NIST SP 800-53. Keep these factors in mind when working with larger documents:
+
+- Large catalogs (SP 800-53) can consume significant memory when fully loaded
+- Consider streaming approaches for very large documents if you only need to process portions
+- Profile resolution loads the entire import chain into memory, which can be substantial for profiles with deep import hierarchies
 
 ## Build Process
+
+The library uses Maven for its build process. A key step is the automatic generation of Java model classes from the OSCAL Metaschema definitions. This ensures the Java API always matches the official OSCAL specification:
 
 ```
 1. Compile Metaschema Sources
@@ -229,15 +273,21 @@ executor.submit(() -> {
 5. Package JAR
 ```
 
+If you're building from source, the generated classes appear in `target/generated-sources/metaschema/` and are automatically included in the compilation.
+
 ## Related Projects
 
+liboscal-java is part of a larger ecosystem of tools for working with OSCAL and Metaschema. Understanding these relationships helps when you need to trace issues or find additional capabilities:
+
 | Project | Relationship |
-|---------|--------------|
+|:--------|:-------------|
 | [metaschema-java](https://github.com/metaschema-framework/metaschema-java) | Core framework dependency |
 | [oscal-cli](https://github.com/metaschema-framework/oscal-cli) | CLI built on liboscal-java |
 | [OSCAL](https://github.com/usnistgov/OSCAL) | Source Metaschema definitions |
 
 ## Next Steps
+
+Continue learning about liboscal-java with these related guides:
 
 - [Loading OSCAL Modules](loading-oscal-modules.html) - Get started with the context
 - [Reading & Writing Data](reading-writing-data.html) - Work with documents

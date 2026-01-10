@@ -55,25 +55,26 @@
       <item name="Home" href="./"/>
       <item name="GitHub" href="${this.scm.url}"/>
     </menu>
+    <menu name="Documentation" inherit="top">
+        <item name="Installation" href="installation.html" />
+        <item name="Building" href="building.html" />
+        <item name="Claude Integration" href="claude-integration.html" />
+        <item name="Architecture" href="guides/architecture.html" />
+    </menu>
+    <menu name="Guides" inherit="top">
+        <item name="Binding Context" href="guides/loading-oscal-modules.html" />
+        <item name="Reading &amp; Writing Data" href="guides/reading-writing-data.html" />
+        <item name="Resolving Profiles" href="guides/resolving-profiles.html" />
+        <item name="Executing Metapath" href="guides/executing-metapath.html" />
+        <item name="Validating with Constraints" href="guides/validating-with-constraints.html" />
+        <item name="Architecture" href="guides/architecture.html" />
+    </menu>
     <menu name="Modules" ref="modules"/>
     <menu name="Contribute" inherit="bottom">
       <item name="Contribute" href="${this.scm.url}/CONTRIBUTING.md"/>
       <item name="Issues" href="${this.issueManagement.url}"/>
     </menu>
     <menu name="Maven Documentation" ref="reports" inherit="bottom"/>
-    <menu name="Documentation" inherit="top">
-        <item name="Installation" href="installation.html" />
-        <item name="Building" href="building.html" />
-        <item name="Claude Integration" href="claude-integration.html" />
-        <item name="API Overview" href="api-overview.html" />
-    </menu>
-    <menu name="Guides" inherit="top">
-        <item name="Reading OSCAL Documents" href="guides/reading-oscal-documents.html" />
-        <item name="Writing OSCAL Documents" href="guides/writing-oscal-documents.html" />
-        <item name="Creating OSCAL Programmatically" href="guides/creating-oscal-programmatically.html" />
-        <item name="Resolving Profiles" href="guides/resolving-profiles.html" />
-        <item name="Validating Content" href="guides/validating-content.html" />
-    </menu>
 
 		<!-- Disable copyright footer -->
     <footer>
