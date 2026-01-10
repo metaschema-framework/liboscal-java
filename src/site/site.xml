@@ -61,6 +61,19 @@
       <item name="Issues" href="${this.issueManagement.url}"/>
     </menu>
     <menu name="Maven Documentation" ref="reports" inherit="bottom"/>
+    <menu name="Documentation" inherit="top">
+        <item name="Installation" href="installation.html" />
+        <item name="Building" href="building.html" />
+        <item name="Claude Integration" href="claude-integration.html" />
+        <item name="API Overview" href="api-overview.html" />
+    </menu>
+    <menu name="Guides" inherit="top">
+        <item name="Reading OSCAL Documents" href="guides/reading-oscal-documents.html" />
+        <item name="Writing OSCAL Documents" href="guides/writing-oscal-documents.html" />
+        <item name="Creating OSCAL Programmatically" href="guides/creating-oscal-programmatically.html" />
+        <item name="Resolving Profiles" href="guides/resolving-profiles.html" />
+        <item name="Validating Content" href="guides/validating-content.html" />
+    </menu>
 
 		<!-- Disable copyright footer -->
     <footer>

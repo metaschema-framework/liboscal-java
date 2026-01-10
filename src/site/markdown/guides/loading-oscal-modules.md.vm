@@ -1,0 +1,139 @@
+# Loading OSCAL Modules
+
+This guide explains how to load OSCAL model definitions and create binding contexts.
+
+## Overview
+
+The `OscalBindingContext` is the central entry point for working with OSCAL in liboscal-java. It provides:
+
+- Pre-configured access to all OSCAL model types
+- Serialization and deserialization capabilities
+- Metapath expression support
+- Constraint validation
+
+## Getting the Binding Context
+
+### Standard Singleton
+
+For most use cases, use the singleton instance:
+
+```java
+import dev.metaschema.oscal.lib.OscalBindingContext;
+
+OscalBindingContext context = OscalBindingContext.instance();
+```
+
+### Why Use the Singleton?
+
+The `OscalBindingContext.instance()` method returns a pre-configured context that:
+
+- Loads all OSCAL Metaschema modules
+- Registers OSCAL-specific Metapath functions
+- Is thread-safe for concurrent use
+- Avoids repeated module loading overhead
+
+## Working with OSCAL Types
+
+Once you have the context, you can work with any OSCAL document type:
+
+```java
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.oscal.lib.model.Profile;
+import dev.metaschema.oscal.lib.model.SystemSecurityPlan;
+
+// Create deserializers
+IDeserializer<Catalog> catalogReader = context.newDeserializer(
+    Format.JSON, Catalog.class);
+IDeserializer<Profile> profileReader = context.newDeserializer(
+    Format.XML, Profile.class);
+IDeserializer<SystemSecurityPlan> sspReader = context.newDeserializer(
+    Format.JSON, SystemSecurityPlan.class);
+```
+
+## Available OSCAL Document Types
+
+| Class | Description |
+|-------|-------------|
+| `Catalog` | OSCAL catalogs with controls and groups |
+| `Profile` | Control selection and tailoring |
+| `SystemSecurityPlan` | System security documentation |
+| `ComponentDefinition` | Reusable component capabilities |
+| `AssessmentPlan` | Security assessment planning |
+| `AssessmentResults` | Assessment findings |
+| `PlanOfActionAndMilestones` | POA&M tracking |
+
+## Understanding the Context Hierarchy
+
+```
+OscalBindingContext
+    └── Extends BindingContext (from metaschema-databind)
+         └── Loads OSCAL Metaschema modules
+              ├── oscal_catalog
+              ├── oscal_profile
+              ├── oscal_ssp
+              ├── oscal_component-definition
+              ├── oscal_assessment-plan
+              ├── oscal_assessment-results
+              └── oscal_poam
+```
+
+## Custom Configuration
+
+For advanced use cases, you can access the underlying Metaschema:
+
+```java
+import dev.metaschema.core.model.IModule;
+
+// Get the OSCAL module
+IModule oscalModule = context.getModuleByUri(
+    URI.create("http://csrc.nist.gov/ns/oscal/1.0"));
+```
+
+## Thread Safety
+
+The `OscalBindingContext.instance()` is:
+
+- **Thread-safe** for reading operations
+- **Immutable** once created
+- **Suitable** for use in multi-threaded applications
+
+```java
+// Safe to use from multiple threads
+ExecutorService executor = Executors.newFixedThreadPool(4);
+OscalBindingContext context = OscalBindingContext.instance();
+
+for (Path file : files) {
+    executor.submit(() -> {
+        // Each thread can safely use the same context
+        Catalog catalog = loadCatalog(context, file);
+        processCatalog(catalog);
+    });
+}
+```
+
+## Error Handling
+
+Handle module loading errors appropriately:
+
+```java
+try {
+    OscalBindingContext context = OscalBindingContext.instance();
+} catch (MetaschemaException e) {
+    // Handle module loading failure
+    logger.error("Failed to load OSCAL modules", e);
+    throw new RuntimeException("OSCAL initialization failed", e);
+}
+```
+
+## Best Practices
+
+1. **Use the singleton** - Avoid creating multiple context instances
+2. **Reuse the context** - Pass the same context throughout your application
+3. **Handle errors** - Catch and handle `MetaschemaException` appropriately
+4. **Don't cache deserializers** - Create new deserializers as needed; they're lightweight
+
+## Next Steps
+
+- [Reading & Writing Data](reading-writing-data.html) - Load and save OSCAL documents
+- [Resolving Profiles](resolving-profiles.html) - Resolve profiles programmatically
+- [Architecture](architecture.html) - Understand the library structure

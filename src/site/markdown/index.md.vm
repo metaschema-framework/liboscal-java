@@ -1,26 +1,92 @@
 # ${project.name}
 
-A Java library to support processing OSCAL content.
+A Java library for processing [OSCAL](https://pages.nist.gov/OSCAL/) (Open Security Controls Assessment Language) content. This library enables Java developers to create, read, validate, and transform OSCAL documents.
 
-This open-source, Metaschema Java library offers a programmatic means to work with [OSCAL](https://pages.nist.gov/OSCAL/) models defined by the [Metaschema modeling language](https://github.com/metaschema-framework/metaschema). This framework also supports programmatically creating, modifying, parsing, and writing XML, JSON, and YAML OSCAL instance data. This work is intended to make it easier for Java software developers to incorporate OSCAL-based capabilities into their applications.
+## Quick Start
 
-The following features are supported by this library:
-- Reading and writing OSCAL documents in XML, JSON, and YAML formats into a common Java object model.
-- Resolution of OSCAL profiles to [produce resolved catalogs](https://pages.nist.gov/OSCAL/concepts/processing/profile-resolution/).
-- Validation of OSCAL content [well-formedness and validation](https://pages.nist.gov/OSCAL/concepts/validation/) of OSCAL syntax using XML and JSON schemas.
-- (Experimental) Validation of OSCAL content using [Metaschema](https://metaschema.dev/) constraints to enforce allowed values, cross-references, and some conditionally required data elements.
-- Builders for programmatically creating common OSCAL data elements.
-
-This library is based on the [Metaschema Java Tools](https://metaschema-java.metaschema.dev/) project.
-
-# Usage
-
-The following dependency can be added to your POM to use this library.
+Add the dependency to your Maven project:
 
 ```xml
 <dependency>
-  <groupId>${project.groupId}</groupId>
-  <artifactId>${project.artifactId}</artifactId>
-  <version>${project.version}</version>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>${project.artifactId}</artifactId>
+    <version>${project.version}</version>
 </dependency>
 ```
+
+Load and work with an OSCAL catalog:
+
+```java
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IDeserializer;
+
+// Get the binding context
+OscalBindingContext context = OscalBindingContext.instance();
+
+// Load a catalog
+IDeserializer<Catalog> deserializer = context.newDeserializer(
+    Format.JSON, Catalog.class);
+Catalog catalog = deserializer.deserialize(Path.of("catalog.json"));
+
+// Access content
+System.out.println("Catalog: " + catalog.getMetadata().getTitle());
+```
+
+See the [Installation](installation.html) guide for complete setup instructions.
+
+## Key Features
+
+- **Multi-format Support** - Read and write OSCAL documents in XML, JSON, and YAML
+- **Profile Resolution** - Resolve OSCAL profiles to produce baseline catalogs
+- **Validation** - Validate OSCAL content for well-formedness and schema compliance
+- **Constraint Validation** - (Experimental) Validate using Metaschema constraints
+- **Builders** - Programmatically create OSCAL data elements
+
+## Supported OSCAL Document Types
+
+| Document Type | Class |
+|--------------|-------|
+| Catalog | `Catalog` |
+| Profile | `Profile` |
+| System Security Plan | `SystemSecurityPlan` |
+| Component Definition | `ComponentDefinition` |
+| Assessment Plan | `AssessmentPlan` |
+| Assessment Results | `AssessmentResults` |
+| POA&M | `PlanOfActionAndMilestones` |
+
+## Getting Started
+
+| Task | Guide |
+|------|-------|
+| Add to your project | [Installation](installation.html) |
+| Build from source | [Building](building.html) |
+| Load OSCAL modules | [Loading OSCAL Modules](guides/loading-oscal-modules.html) |
+| Read and write data | [Reading & Writing Data](guides/reading-writing-data.html) |
+| Resolve profiles | [Resolving Profiles](guides/resolving-profiles.html) |
+| Query with Metapath | [Executing Metapath](guides/executing-metapath.html) |
+| Validate content | [Validating with Constraints](guides/validating-with-constraints.html) |
+
+## Architecture
+
+This library is built on the [Metaschema Java Tools](https://metaschema-java.metaschema.dev/) project. OSCAL model classes are generated from the OSCAL Metaschema definitions during the build process.
+
+See the [Architecture](guides/architecture.html) guide for details on the library structure.
+
+## Related Projects
+
+| Project | Description |
+|---------|-------------|
+| [oscal-cli](https://github.com/metaschema-framework/oscal-cli) | Command-line tool for OSCAL operations |
+| [metaschema-java](https://github.com/metaschema-framework/metaschema-java) | Core Metaschema framework |
+| [OSCAL](https://pages.nist.gov/OSCAL/) | OSCAL specification and documentation |
+
+## Using with Claude Code
+
+This project includes plugins for [Claude Code](https://claude.ai/code) that provide AI-assisted development. See the [Claude Integration](claude-integration.html) guide for details.
+
+## Support
+
+- [GitHub Issues](${project.issueManagement.url}) - Report bugs or request features
+- [Contributing](${project.scm.url}/blob/develop/CONTRIBUTING.md) - Contribution guidelines

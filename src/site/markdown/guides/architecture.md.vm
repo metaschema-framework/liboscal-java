@@ -1,0 +1,244 @@
+# Architecture
+
+This guide explains the architecture and module structure of liboscal-java.
+
+## Overview
+
+liboscal-java is built on top of the [Metaschema Java Tools](https://github.com/metaschema-framework/metaschema-java) framework. It provides OSCAL-specific functionality while leveraging the general-purpose Metaschema capabilities.
+
+## Dependency Hierarchy
+
+```
+liboscal-java
+    │
+    ├── metaschema-databind (data binding, serialization)
+    │   ├── metaschema-core (Metaschema model, Metapath)
+    │   └── metaschema-model (module loading)
+    │
+    └── OSCAL Metaschema modules (generated model classes)
+        ├── oscal_catalog
+        ├── oscal_profile
+        ├── oscal_ssp
+        ├── oscal_component-definition
+        ├── oscal_assessment-plan
+        ├── oscal_assessment-results
+        └── oscal_poam
+```
+
+## Package Structure
+
+```
+dev.metaschema.oscal.lib
+├── OscalBindingContext       # Central entry point
+├── model/                    # Generated OSCAL model classes
+│   ├── Catalog
+│   ├── Profile
+│   ├── SystemSecurityPlan
+│   ├── ComponentDefinition
+│   ├── AssessmentPlan
+│   ├── AssessmentResults
+│   └── PlanOfActionAndMilestones
+├── profile/
+│   └── resolver/             # Profile resolution
+│       └── ProfileResolver
+└── metapath/
+    └── function/
+        └── library/          # OSCAL-specific Metapath functions
+            └── OscalFunctionLibrary
+```
+
+## Key Components
+
+### OscalBindingContext
+
+The central class for working with OSCAL documents:
+
+```java
+OscalBindingContext context = OscalBindingContext.instance();
+
+// Create readers/writers
+IDeserializer<Catalog> reader = context.newDeserializer(Format.JSON, Catalog.class);
+ISerializer<Catalog> writer = context.newSerializer(Format.JSON, Catalog.class);
+
+// Access Metapath support
+StaticContext staticCtx = context.getStaticContext();
+```
+
+**Responsibilities:**
+- Load OSCAL Metaschema modules
+- Register OSCAL-specific Metapath functions
+- Provide serialization/deserialization factories
+- Manage constraint validation
+
+### Generated Model Classes
+
+OSCAL model classes are generated during the build from Metaschema definitions:
+
+```
+oscal/src/main/metaschema/
+    ├── oscal_catalog_metaschema.xml
+    ├── oscal_profile_metaschema.xml
+    └── ...
+        ↓ (maven-metaschema-plugin)
+target/generated-sources/metaschema/
+    └── dev/metaschema/oscal/lib/model/
+        ├── Catalog.java
+        ├── Profile.java
+        └── ...
+```
+
+### ProfileResolver
+
+Resolves OSCAL profiles to catalogs:
+
+```java
+ProfileResolver resolver = new ProfileResolver();
+Catalog resolved = resolver.resolve(profile);
+```
+
+**Resolution steps:**
+1. Load imported catalogs/profiles
+2. Apply control selections
+3. Apply modifications
+4. Merge controls from multiple imports
+5. Generate resolved catalog
+
+### OSCAL Function Library
+
+OSCAL-specific Metapath functions:
+
+| Function | Purpose |
+|----------|---------|
+| `has-oscal-namespace` | Check namespace membership |
+| `resolve-profile` | Resolve profile imports |
+| `resolve-reference` | Resolve internal references |
+
+## Data Flow
+
+### Reading Documents
+
+```
+File/URL
+    ↓
+Format Detection (XML/JSON/YAML)
+    ↓
+Parser (Jackson/StAX)
+    ↓
+Metaschema Databind (unmarshalling)
+    ↓
+Generated Model Objects
+    ↓
+Optional: Constraint Validation
+    ↓
+Application Code
+```
+
+### Writing Documents
+
+```
+Model Objects
+    ↓
+Metaschema Databind (marshalling)
+    ↓
+Serializer (Jackson/StAX)
+    ↓
+Format Output (XML/JSON/YAML)
+    ↓
+File/Stream
+```
+
+### Profile Resolution
+
+```
+Profile (with imports)
+    ↓
+Load Referenced Catalogs/Profiles (recursive)
+    ↓
+Apply Selections (include/exclude)
+    ↓
+Apply Modifications (parameters, alterations)
+    ↓
+Merge Controls
+    ↓
+Resolved Catalog
+```
+
+## Integration Points
+
+### Metaschema Framework
+
+liboscal-java extends the Metaschema framework:
+
+| Metaschema Component | liboscal-java Usage |
+|---------------------|---------------------|
+| `IBindingContext` | `OscalBindingContext` extends it |
+| `IDeserializer` | Load OSCAL documents |
+| `ISerializer` | Write OSCAL documents |
+| `MetapathExpression` | Query OSCAL content |
+| `IConstraintValidationHandler` | Validate constraints |
+
+### Extension Points
+
+**Custom Metapath Functions:**
+```java
+// Register custom function
+context.registerFunction(myCustomFunction);
+```
+
+**Custom Constraint Handlers:**
+```java
+IConstraintValidationHandler handler = new MyHandler();
+deserializer.setConstraintValidationHandler(handler);
+```
+
+## Threading Model
+
+- `OscalBindingContext.instance()` is thread-safe
+- Deserializers are single-use (create new per operation)
+- Serializers are single-use (create new per operation)
+- Model objects are not thread-safe for modification
+
+```java
+// Good: Shared context, per-operation deserializers
+OscalBindingContext context = OscalBindingContext.instance();
+
+executor.submit(() -> {
+    IDeserializer<Catalog> reader = context.newDeserializer(Format.JSON, Catalog.class);
+    Catalog catalog = reader.deserialize(path);
+    // process catalog
+});
+```
+
+## Memory Considerations
+
+- Large catalogs (SP 800-53) can consume significant memory
+- Consider streaming for very large documents
+- Profile resolution loads entire import chain into memory
+
+## Build Process
+
+```
+1. Compile Metaschema Sources
+   ↓
+2. Generate Java Model Classes (maven-metaschema-plugin)
+   ↓
+3. Compile Generated + Handwritten Java
+   ↓
+4. Run Tests
+   ↓
+5. Package JAR
+```
+
+## Related Projects
+
+| Project | Relationship |
+|---------|--------------|
+| [metaschema-java](https://github.com/metaschema-framework/metaschema-java) | Core framework dependency |
+| [oscal-cli](https://github.com/metaschema-framework/oscal-cli) | CLI built on liboscal-java |
+| [OSCAL](https://github.com/usnistgov/OSCAL) | Source Metaschema definitions |
+
+## Next Steps
+
+- [Loading OSCAL Modules](loading-oscal-modules.html) - Get started with the context
+- [Reading & Writing Data](reading-writing-data.html) - Work with documents
+- [Installation](../installation.html) - Add to your project

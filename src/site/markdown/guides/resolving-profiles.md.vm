@@ -1,0 +1,235 @@
+# Resolving Profiles
+
+This guide explains how to resolve OSCAL profiles programmatically using liboscal-java.
+
+## Overview
+
+Profile resolution takes an OSCAL profile and produces a **resolved catalog** containing:
+
+- Only the selected controls
+- All parameter values set
+- All modifications applied
+- A single, self-contained document
+
+## Basic Profile Resolution
+
+```java
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.oscal.lib.model.Profile;
+import dev.metaschema.oscal.lib.profile.resolver.ProfileResolver;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IDeserializer;
+
+import java.nio.file.Path;
+
+// Load the profile
+OscalBindingContext context = OscalBindingContext.instance();
+IDeserializer<Profile> deserializer = context.newDeserializer(
+    Format.JSON, Profile.class);
+Profile profile = deserializer.deserialize(Path.of("profile.json"));
+
+// Resolve to catalog
+ProfileResolver resolver = new ProfileResolver();
+Catalog resolvedCatalog = resolver.resolve(profile);
+```
+
+## Resolution with Custom Document Loader
+
+For profiles that import external resources:
+
+```java
+import dev.metaschema.core.util.IDocumentLoader;
+import dev.metaschema.databind.io.DefaultBoundLoader;
+
+// Create a document loader
+IDocumentLoader loader = new DefaultBoundLoader(context);
+
+// Resolve with custom loader
+ProfileResolver resolver = new ProfileResolver();
+resolver.setDocumentLoader(loader);
+Catalog resolvedCatalog = resolver.resolve(profile);
+```
+
+## Saving the Resolved Catalog
+
+```java
+import dev.metaschema.databind.io.ISerializer;
+
+// Write the resolved catalog
+ISerializer<Catalog> serializer = context.newSerializer(
+    Format.JSON, Catalog.class);
+serializer.serialize(resolvedCatalog, Path.of("resolved-catalog.json"));
+```
+
+## Complete Example
+
+```java
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.oscal.lib.model.Profile;
+import dev.metaschema.oscal.lib.profile.resolver.ProfileResolver;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IDeserializer;
+import dev.metaschema.databind.io.ISerializer;
+
+import java.nio.file.Path;
+
+public class ProfileResolutionExample {
+
+    public static void main(String[] args) throws Exception {
+        // Get binding context
+        OscalBindingContext context = OscalBindingContext.instance();
+
+        // Load profile
+        IDeserializer<Profile> profileReader = context.newDeserializer(
+            Format.JSON, Profile.class);
+        Profile profile = profileReader.deserialize(
+            Path.of("fedramp-high-profile.json"));
+
+        // Resolve
+        ProfileResolver resolver = new ProfileResolver();
+        Catalog resolved = resolver.resolve(profile);
+
+        // Save result
+        ISerializer<Catalog> catalogWriter = context.newSerializer(
+            Format.JSON, Catalog.class);
+        catalogWriter.serialize(resolved,
+            Path.of("fedramp-high-resolved.json"));
+
+        System.out.println("Resolved " +
+            resolved.getGroups().stream()
+                .flatMap(g -> g.getControls().stream())
+                .count() + " controls");
+    }
+}
+```
+
+## Profile Resolution Pipeline
+
+Understanding what happens during resolution:
+
+```
+Profile
+  │
+  ├── 1. Load imported catalogs/profiles (recursive)
+  │
+  ├── 2. Select controls (include/exclude)
+  │
+  ├── 3. Apply modifications
+  │     ├── Set parameters
+  │     ├── Add content
+  │     └── Alter existing content
+  │
+  ├── 4. Merge controls (from multiple imports)
+  │
+  └── 5. Generate resolved catalog
+```
+
+## Handling Remote Resources
+
+When profiles import remote catalogs:
+
+```java
+import java.net.URI;
+
+// Profile imports: "href": "https://example.com/catalog.json"
+
+// The resolver will fetch remote resources automatically
+ProfileResolver resolver = new ProfileResolver();
+Catalog resolved = resolver.resolve(profile);
+```
+
+## Working with Profile Chains
+
+Profiles can import other profiles (chaining):
+
+```
+Base Catalog
+    ↓
+Profile A (selects controls)
+    ↓
+Profile B (adds customizations)
+    ↓
+Profile C (organization-specific)
+    ↓
+Resolved Catalog
+```
+
+Resolution handles chains automatically:
+
+```java
+// Even if profile imports another profile, resolution is handled
+ProfileResolver resolver = new ProfileResolver();
+Catalog resolved = resolver.resolve(organizationProfile);
+```
+
+## Error Handling
+
+```java
+import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionException;
+
+try {
+    Catalog resolved = resolver.resolve(profile);
+} catch (ProfileResolutionException e) {
+    System.err.println("Resolution failed: " + e.getMessage());
+    // Handle specific resolution errors
+} catch (IOException e) {
+    System.err.println("Failed to load import: " + e.getMessage());
+    // Handle I/O errors
+}
+```
+
+## Accessing Resolved Content
+
+After resolution, work with the catalog:
+
+```java
+Catalog resolved = resolver.resolve(profile);
+
+// Iterate controls
+resolved.getGroups().forEach(group -> {
+    System.out.println("Group: " + group.getTitle());
+
+    group.getControls().forEach(control -> {
+        System.out.println("  Control: " + control.getId() +
+            " - " + control.getTitle());
+    });
+});
+
+// Find specific control
+resolved.getGroups().stream()
+    .flatMap(g -> g.getControls().stream())
+    .filter(c -> c.getId().equals("ac-1"))
+    .findFirst()
+    .ifPresent(control -> {
+        System.out.println("Found: " + control.getTitle());
+    });
+```
+
+## Resolution Options
+
+The resolver supports various options through the profile structure:
+
+| Profile Element | Effect on Resolution |
+|-----------------|----------------------|
+| `import/include-all` | Include all controls from source |
+| `import/include-controls` | Include specific controls |
+| `import/exclude-controls` | Exclude specific controls |
+| `merge/combine` | How to combine duplicate controls |
+| `merge/flat` | Flatten control hierarchy |
+| `modify/set-parameters` | Set parameter values |
+| `modify/alters` | Modify control content |
+
+## Best Practices
+
+1. **Cache resolved catalogs** - Resolution can be expensive
+2. **Handle remote failures** - Network requests may fail
+3. **Validate after resolution** - Ensure result is valid
+4. **Check for circular imports** - Can cause infinite loops
+
+## Next Steps
+
+- [Reading & Writing Data](reading-writing-data.html) - Save resolved catalogs
+- [Executing Metapath](executing-metapath.html) - Query resolved content
+- [Validating with Constraints](validating-with-constraints.html) - Validate results

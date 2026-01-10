@@ -1,0 +1,244 @@
+# Validating with Constraints
+
+This guide explains how to validate OSCAL documents using Metaschema constraints.
+
+## Overview
+
+Metaschema constraints provide validation beyond schema compliance:
+
+- **Cardinality** - Required fields, maximum occurrences
+- **Allowed values** - Enumerated value restrictions
+- **Patterns** - Regex-based validation
+- **Uniqueness** - Key constraints within scopes
+- **Cross-references** - Reference integrity
+- **Custom rules** - Metapath-based assertions
+
+## Basic Validation
+
+### Validate During Deserialization
+
+```java
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IDeserializer;
+import dev.metaschema.core.model.constraint.IConstraintValidationHandler;
+import dev.metaschema.core.model.validation.IValidationResult;
+
+OscalBindingContext context = OscalBindingContext.instance();
+IDeserializer<Catalog> deserializer = context.newDeserializer(
+    Format.JSON, Catalog.class);
+
+// Enable constraint validation
+deserializer.setConstraintValidationEnabled(true);
+
+Catalog catalog = deserializer.deserialize(Path.of("catalog.json"));
+```
+
+### Validate Existing Objects
+
+```java
+import dev.metaschema.databind.model.IBoundObject;
+import dev.metaschema.core.model.validation.IValidationResult;
+
+// Validate an already-loaded object
+IValidationResult result = context.validate(catalog);
+
+if (!result.isPassing()) {
+    result.getFindings().forEach(finding -> {
+        System.err.println(finding.getSeverity() + ": " +
+            finding.getMessage());
+    });
+}
+```
+
+## Working with Validation Results
+
+```java
+import dev.metaschema.core.model.validation.IValidationFinding;
+import dev.metaschema.core.model.validation.IValidationResult;
+
+IValidationResult result = context.validate(catalog);
+
+// Check if validation passed
+if (result.isPassing()) {
+    System.out.println("Validation passed");
+} else {
+    System.out.println("Validation failed");
+}
+
+// Process findings
+for (IValidationFinding finding : result.getFindings()) {
+    System.out.println(String.format("[%s] %s at %s",
+        finding.getSeverity(),
+        finding.getMessage(),
+        finding.getLocation()));
+}
+```
+
+## Understanding Finding Severity
+
+| Severity | Meaning |
+|----------|---------|
+| `CRITICAL` | Severe error, document unusable |
+| `ERROR` | Constraint violation |
+| `WARNING` | Potential issue, may be intentional |
+| `INFORMATIONAL` | Note for awareness |
+
+## Custom Validation Handler
+
+```java
+import dev.metaschema.core.model.constraint.IConstraintValidationHandler;
+import dev.metaschema.core.model.constraint.IFinding;
+
+public class CustomValidationHandler implements IConstraintValidationHandler {
+
+    private final List<IFinding> findings = new ArrayList<>();
+
+    @Override
+    public void handleFinding(IFinding finding) {
+        findings.add(finding);
+
+        // Log immediately
+        if (finding.getSeverity().ordinal() >= Severity.ERROR.ordinal()) {
+            System.err.println("Validation error: " + finding.getMessage());
+        }
+    }
+
+    public List<IFinding> getFindings() {
+        return findings;
+    }
+
+    public boolean hasErrors() {
+        return findings.stream()
+            .anyMatch(f -> f.getSeverity().ordinal() >= Severity.ERROR.ordinal());
+    }
+}
+```
+
+## Common OSCAL Validation Errors
+
+### Missing Required Fields
+
+```
+ERROR: Required field 'title' is missing at /catalog/metadata
+```
+
+**Fix:** Add the required metadata title:
+
+```json
+{
+  "catalog": {
+    "metadata": {
+      "title": "My Catalog"
+    }
+  }
+}
+```
+
+### Invalid UUID
+
+```
+ERROR: Value 'not-a-uuid' is not a valid UUID at /catalog/uuid
+```
+
+**Fix:** Use a valid UUID v4 format.
+
+### Invalid Reference
+
+```
+ERROR: Reference 'control-999' not found at /profile/modify/set-parameters/0/param-id
+```
+
+**Fix:** Ensure referenced elements exist.
+
+### Constraint Violation
+
+```
+ERROR: Value 'unknown' is not allowed for property 'status' at /catalog/controls/0/props/0
+```
+
+**Fix:** Use allowed values defined by constraints.
+
+## Validating Specific Document Types
+
+### System Security Plans
+
+```java
+import dev.metaschema.oscal.lib.model.SystemSecurityPlan;
+
+IDeserializer<SystemSecurityPlan> deserializer = context.newDeserializer(
+    Format.JSON, SystemSecurityPlan.class);
+deserializer.setConstraintValidationEnabled(true);
+
+SystemSecurityPlan ssp = deserializer.deserialize(Path.of("ssp.json"));
+```
+
+### Profiles
+
+```java
+import dev.metaschema.oscal.lib.model.Profile;
+
+// Note: Profile validation includes checking import references
+IDeserializer<Profile> deserializer = context.newDeserializer(
+    Format.JSON, Profile.class);
+deserializer.setConstraintValidationEnabled(true);
+
+Profile profile = deserializer.deserialize(Path.of("profile.json"));
+```
+
+## Validation in CI/CD
+
+```java
+public class OscalValidator {
+
+    public static void main(String[] args) {
+        if (args.length < 1) {
+            System.err.println("Usage: java OscalValidator <file>");
+            System.exit(2);
+        }
+
+        Path file = Path.of(args[0]);
+        OscalBindingContext context = OscalBindingContext.instance();
+
+        try {
+            IDeserializer<Catalog> deserializer = context.newDeserializer(
+                Format.valueOf(file), Catalog.class);
+            deserializer.setConstraintValidationEnabled(true);
+
+            Catalog catalog = deserializer.deserialize(file);
+            IValidationResult result = context.validate(catalog);
+
+            if (result.isPassing()) {
+                System.out.println("Validation passed");
+                System.exit(0);
+            } else {
+                result.getFindings().forEach(f ->
+                    System.err.println(f.getSeverity() + ": " + f.getMessage()));
+                System.exit(1);
+            }
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            System.exit(2);
+        }
+    }
+}
+```
+
+## Best Practices
+
+1. **Validate early** - Check documents as soon as they're loaded
+2. **Log all findings** - Even warnings may indicate issues
+3. **Fail fast on errors** - Don't process invalid documents
+4. **Report locations** - Include XPath/JSON Pointer for debugging
+5. **Consider severity** - Some warnings may be acceptable
+
+## Constraint Validation Status
+
+> **Note:** Metaschema constraint validation is experimental. Some constraints may not be fully enforced. Schema-level validation (well-formedness, structure) is stable.
+
+## Next Steps
+
+- [Reading & Writing Data](reading-writing-data.html) - Load documents for validation
+- [Executing Metapath](executing-metapath.html) - Query validated content
+- [Architecture](architecture.html) - Understand the validation pipeline

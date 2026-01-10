@@ -1,0 +1,224 @@
+# Reading & Writing Data
+
+This guide explains how to read, write, and convert OSCAL documents using liboscal-java.
+
+## Reading OSCAL Documents
+
+### From a File
+
+```java
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IDeserializer;
+
+import java.nio.file.Path;
+
+OscalBindingContext context = OscalBindingContext.instance();
+
+// Read JSON
+IDeserializer<Catalog> deserializer = context.newDeserializer(
+    Format.JSON, Catalog.class);
+Catalog catalog = deserializer.deserialize(Path.of("catalog.json"));
+
+// Read XML
+deserializer = context.newDeserializer(Format.XML, Catalog.class);
+catalog = deserializer.deserialize(Path.of("catalog.xml"));
+
+// Read YAML
+deserializer = context.newDeserializer(Format.YAML, Catalog.class);
+catalog = deserializer.deserialize(Path.of("catalog.yaml"));
+```
+
+### From a URL
+
+```java
+import java.net.URI;
+
+IDeserializer<Catalog> deserializer = context.newDeserializer(
+    Format.JSON, Catalog.class);
+Catalog catalog = deserializer.deserialize(
+    URI.create("https://example.com/catalog.json").toURL());
+```
+
+### From an InputStream
+
+```java
+import java.io.InputStream;
+
+try (InputStream is = getClass().getResourceAsStream("/catalog.json")) {
+    IDeserializer<Catalog> deserializer = context.newDeserializer(
+        Format.JSON, Catalog.class);
+    Catalog catalog = deserializer.deserialize(is,
+        URI.create("classpath:/catalog.json"));
+}
+```
+
+### Auto-detecting Format
+
+Detect format from file extension:
+
+```java
+Path file = Path.of("document.json");
+Format format = Format.valueOf(file);  // Returns Format.JSON
+
+IDeserializer<Catalog> deserializer = context.newDeserializer(
+    format, Catalog.class);
+```
+
+## Writing OSCAL Documents
+
+### To a File
+
+```java
+import dev.metaschema.databind.io.ISerializer;
+
+ISerializer<Catalog> serializer = context.newSerializer(
+    Format.JSON, Catalog.class);
+serializer.serialize(catalog, Path.of("output.json"));
+```
+
+### To an OutputStream
+
+```java
+import java.io.OutputStream;
+import java.nio.file.Files;
+
+try (OutputStream os = Files.newOutputStream(Path.of("output.json"))) {
+    ISerializer<Catalog> serializer = context.newSerializer(
+        Format.JSON, Catalog.class);
+    serializer.serialize(catalog, os);
+}
+```
+
+### To a String
+
+```java
+import java.io.StringWriter;
+
+StringWriter writer = new StringWriter();
+ISerializer<Catalog> serializer = context.newSerializer(
+    Format.JSON, Catalog.class);
+serializer.serialize(catalog, writer);
+String json = writer.toString();
+```
+
+## Converting Between Formats
+
+### XML to JSON
+
+```java
+// Read XML
+IDeserializer<Catalog> xmlReader = context.newDeserializer(
+    Format.XML, Catalog.class);
+Catalog catalog = xmlReader.deserialize(Path.of("catalog.xml"));
+
+// Write JSON
+ISerializer<Catalog> jsonWriter = context.newSerializer(
+    Format.JSON, Catalog.class);
+jsonWriter.serialize(catalog, Path.of("catalog.json"));
+```
+
+### Batch Conversion
+
+```java
+public void convertDirectory(Path inputDir, Path outputDir,
+        Format inputFormat, Format outputFormat) throws IOException {
+
+    OscalBindingContext context = OscalBindingContext.instance();
+
+    try (Stream<Path> files = Files.list(inputDir)) {
+        files.filter(p -> Format.valueOf(p) == inputFormat)
+             .forEach(inputPath -> {
+                 try {
+                     // Read
+                     IDeserializer<Catalog> reader = context.newDeserializer(
+                         inputFormat, Catalog.class);
+                     Catalog catalog = reader.deserialize(inputPath);
+
+                     // Write
+                     String outputName = inputPath.getFileName().toString()
+                         .replaceAll("\\.[^.]+$", outputFormat.getDefaultExtension());
+                     Path outputPath = outputDir.resolve(outputName);
+
+                     ISerializer<Catalog> writer = context.newSerializer(
+                         outputFormat, Catalog.class);
+                     writer.serialize(catalog, outputPath);
+                 } catch (IOException e) {
+                     throw new UncheckedIOException(e);
+                 }
+             });
+    }
+}
+```
+
+## Working with Different Document Types
+
+### System Security Plans
+
+```java
+import dev.metaschema.oscal.lib.model.SystemSecurityPlan;
+
+IDeserializer<SystemSecurityPlan> deserializer = context.newDeserializer(
+    Format.JSON, SystemSecurityPlan.class);
+SystemSecurityPlan ssp = deserializer.deserialize(Path.of("ssp.json"));
+
+// Access SSP content
+System.out.println("System Name: " +
+    ssp.getSystemCharacteristics().getSystemName());
+```
+
+### Profiles
+
+```java
+import dev.metaschema.oscal.lib.model.Profile;
+
+IDeserializer<Profile> deserializer = context.newDeserializer(
+    Format.JSON, Profile.class);
+Profile profile = deserializer.deserialize(Path.of("profile.json"));
+
+// Access imports
+profile.getImports().forEach(imp ->
+    System.out.println("Imports: " + imp.getHref()));
+```
+
+### Component Definitions
+
+```java
+import dev.metaschema.oscal.lib.model.ComponentDefinition;
+
+IDeserializer<ComponentDefinition> deserializer = context.newDeserializer(
+    Format.JSON, ComponentDefinition.class);
+ComponentDefinition compDef = deserializer.deserialize(
+    Path.of("component.json"));
+```
+
+## Error Handling
+
+```java
+import dev.metaschema.databind.io.DeserializationException;
+
+try {
+    Catalog catalog = deserializer.deserialize(Path.of("catalog.json"));
+} catch (DeserializationException e) {
+    // Handle parsing errors
+    System.err.println("Failed to parse: " + e.getMessage());
+} catch (IOException e) {
+    // Handle I/O errors
+    System.err.println("Failed to read file: " + e.getMessage());
+}
+```
+
+## Best Practices
+
+1. **Use try-with-resources** for streams
+2. **Detect format from extension** using `Format.valueOf(Path)`
+3. **Reuse the binding context** - don't create new instances
+4. **Handle exceptions** appropriately for your use case
+5. **Close resources** properly when using streams
+
+## Next Steps
+
+- [Resolving Profiles](resolving-profiles.html) - Resolve profiles to catalogs
+- [Executing Metapath](executing-metapath.html) - Query OSCAL data
+- [Validating with Constraints](validating-with-constraints.html) - Validate content

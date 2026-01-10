@@ -1,0 +1,115 @@
+# Installation
+
+This guide explains how to add ${project.name} to your Java project.
+
+## Prerequisites
+
+Before installing, ensure you have:
+
+| Requirement | Minimum Version | Recommended |
+|-------------|-----------------|-------------|
+| Java JDK    | 11              | 17 or later |
+| Maven       | 3.9.0           | Latest      |
+| Gradle      | 7.0             | Latest      |
+
+## Maven
+
+### Release Versions
+
+Add the following dependency to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>${project.artifactId}</artifactId>
+    <version>${project.version}</version>
+</dependency>
+```
+
+Release versions are available from [Maven Central](https://central.sonatype.com/artifact/dev.metaschema.oscal/liboscal-java).
+
+### Snapshot Versions
+
+For the latest development version, add the Sonatype snapshots repository:
+
+```xml
+<repositories>
+    <repository>
+        <id>sonatype-snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.artifactId}</artifactId>
+        <version>${project.version}</version>
+    </dependency>
+</dependencies>
+```
+
+## Gradle
+
+### Kotlin DSL
+
+Add to your `build.gradle.kts`:
+
+```kotlin
+dependencies {
+    implementation("${project.groupId}:${project.artifactId}:${project.version}")
+}
+```
+
+For snapshot versions, add the repository:
+
+```kotlin
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+}
+```
+
+### Groovy DSL
+
+Add to your `build.gradle`:
+
+```groovy
+dependencies {
+    implementation '${project.groupId}:${project.artifactId}:${project.version}'
+}
+```
+
+For snapshot versions, add the repository:
+
+```groovy
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+}
+```
+
+## Building from Source
+
+If you need to build the library from source (for development or to access unreleased features), see the [Building](building.html) guide.
+
+## IDE Setup
+
+For IDE-specific setup instructions, refer to your IDE's documentation:
+
+- [IntelliJ IDEA - Maven Projects](https://www.jetbrains.com/help/idea/maven-support.html)
+- [Eclipse - Maven Integration](https://www.eclipse.org/m2e/)
+- [VS Code - Java Extension Pack](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
+
+## Next Steps
+
+- [API Overview](api-overview.html) - Learn about the core library classes
+- [Reading OSCAL Documents](guides/reading-oscal-documents.html) - Load OSCAL content from files
+- [Writing OSCAL Documents](guides/writing-oscal-documents.html) - Serialize OSCAL data to files
