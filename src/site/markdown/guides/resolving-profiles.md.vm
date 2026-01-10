@@ -26,42 +26,44 @@ Profile resolution takes an OSCAL profile and produces a **resolved catalog** co
 
 ## Basic Profile Resolution
 
+The `ProfileResolver` accepts file paths, URLs, or document nodes and returns an `IDocumentNodeItem` containing the resolved catalog:
+
 ```java
 import dev.metaschema.oscal.lib.OscalBindingContext;
 import dev.metaschema.oscal.lib.model.Catalog;
-import dev.metaschema.oscal.lib.model.Profile;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolver;
-import dev.metaschema.databind.io.Format;
-import dev.metaschema.databind.io.IDeserializer;
+import dev.metaschema.core.model.IDocumentNodeItem;
 
 import java.nio.file.Path;
 
-// Load the profile
-OscalBindingContext context = OscalBindingContext.instance();
-IDeserializer<Profile> deserializer = context.newDeserializer(
-    Format.JSON, Profile.class);
-Profile profile = deserializer.deserialize(Path.of("profile.json"));
-
-// Resolve to catalog
+// Resolve a profile directly from a file path
 ProfileResolver resolver = new ProfileResolver();
-Catalog resolvedCatalog = resolver.resolve(profile);
+IDocumentNodeItem resolvedDocument = resolver.resolve(Path.of("profile.json"));
+
+// Extract the catalog from the resolved document
+Catalog resolvedCatalog = (Catalog) resolvedDocument.getValue();
 ```
 
 ## Resolution with Custom Document Loader
 
-For profiles that import external resources:
+For profiles that import external resources, configure a document loader:
 
 ```java
-import dev.metaschema.core.util.IDocumentLoader;
 import dev.metaschema.databind.io.DefaultBoundLoader;
 
-// Create a document loader
-IDocumentLoader loader = new DefaultBoundLoader(context);
+// Get the binding context
+OscalBindingContext context = OscalBindingContext.instance();
 
-// Resolve with custom loader
+// Create a document loader with the context
+DefaultBoundLoader loader = new DefaultBoundLoader(context);
+
+// Configure resolver with custom loader
 ProfileResolver resolver = new ProfileResolver();
 resolver.setDocumentLoader(loader);
-Catalog resolvedCatalog = resolver.resolve(profile);
+
+// Resolve the profile
+IDocumentNodeItem resolvedDocument = resolver.resolve(Path.of("profile.json"));
+Catalog resolvedCatalog = (Catalog) resolvedDocument.getValue();
 ```
 
 ## Saving the Resolved Catalog

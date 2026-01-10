@@ -45,17 +45,13 @@ Load and work with an OSCAL catalog:
 ```java
 import dev.metaschema.oscal.lib.OscalBindingContext;
 import dev.metaschema.oscal.lib.model.Catalog;
-import dev.metaschema.databind.io.Format;
-import dev.metaschema.databind.io.IDeserializer;
 import java.nio.file.Path;
 
 // Get the binding context
 OscalBindingContext context = OscalBindingContext.instance();
 
-// Load a catalog
-IDeserializer<Catalog> deserializer = context.newDeserializer(
-    Format.JSON, Catalog.class);
-Catalog catalog = deserializer.deserialize(Path.of("catalog.json"));
+// Load a catalog using the convenience method
+Catalog catalog = context.loadCatalog(Path.of("catalog.json"));
 
 // Access content
 System.out.println("Catalog: " + catalog.getMetadata().getTitle());
