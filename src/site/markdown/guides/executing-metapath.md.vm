@@ -212,6 +212,9 @@ try {
 For repeated queries, cache compiled expressions:
 
 ```java
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class MetapathQueryCache {
     private final Map<String, IMetapathExpression> cache =
         new ConcurrentHashMap<>();

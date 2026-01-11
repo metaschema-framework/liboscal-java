@@ -18,31 +18,36 @@ Metaschema constraints provide validation beyond schema compliance:
 ### Validate During Deserialization
 
 ```java
+import dev.metaschema.databind.io.DeserializationFeature;
+import dev.metaschema.databind.io.IBoundLoader;
 import dev.metaschema.oscal.lib.OscalBindingContext;
 import dev.metaschema.oscal.lib.model.Catalog;
-import dev.metaschema.databind.io.Format;
-import dev.metaschema.databind.io.IDeserializer;
-import dev.metaschema.core.model.constraint.IConstraintValidationHandler;
-import dev.metaschema.core.model.validation.IValidationResult;
+
+import java.nio.file.Path;
 
 OscalBindingContext context = OscalBindingContext.instance();
-IDeserializer<Catalog> deserializer = context.newDeserializer(
-    Format.JSON, Catalog.class);
+IBoundLoader loader = context.newBoundLoader();
 
-// Enable constraint validation
-deserializer.setConstraintValidationEnabled(true);
+// Enable constraint validation during loading
+loader.enableFeature(DeserializationFeature.DESERIALIZE_VALIDATE_CONSTRAINTS);
 
-Catalog catalog = deserializer.deserialize(Path.of("catalog.json"));
+Catalog catalog = loader.load(Catalog.class, Path.of("catalog.json"));
 ```
 
 ### Validate Existing Objects
 
 ```java
-import dev.metaschema.databind.model.IBoundObject;
 import dev.metaschema.core.model.validation.IValidationResult;
+import dev.metaschema.oscal.lib.OscalBindingContext;
 
-// Validate an already-loaded object
-IValidationResult result = context.validate(catalog);
+import java.net.URI;
+import java.nio.file.Path;
+
+OscalBindingContext context = OscalBindingContext.instance();
+URI target = Path.of("catalog.json").toUri();
+
+// Validate against constraints
+IValidationResult result = context.validateWithConstraints(target, null);
 
 if (!result.isPassing()) {
     result.getFindings().forEach(finding -> {
@@ -55,10 +60,18 @@ if (!result.isPassing()) {
 ## Working with Validation Results
 
 ```java
+import dev.metaschema.core.model.constraint.IConstraint.Level;
 import dev.metaschema.core.model.validation.IValidationFinding;
 import dev.metaschema.core.model.validation.IValidationResult;
+import dev.metaschema.oscal.lib.OscalBindingContext;
 
-IValidationResult result = context.validate(catalog);
+import java.net.URI;
+import java.nio.file.Path;
+
+OscalBindingContext context = OscalBindingContext.instance();
+URI target = Path.of("catalog.json").toUri();
+
+IValidationResult result = context.validateWithConstraints(target, null);
 
 // Check if validation passed
 if (result.isPassing()) {
@@ -85,34 +98,30 @@ for (IValidationFinding finding : result.getFindings()) {
 | `WARNING` | Potential issue, may be intentional |
 | `INFORMATIONAL` | Note for awareness |
 
-## Custom Validation Handler
+## Using FindingCollectingConstraintValidationHandler
+
+The framework provides `FindingCollectingConstraintValidationHandler` for collecting validation findings:
 
 ```java
-import dev.metaschema.core.model.constraint.IConstraintValidationHandler;
-import dev.metaschema.core.model.constraint.IFinding;
+import dev.metaschema.core.model.constraint.FindingCollectingConstraintValidationHandler;
+import dev.metaschema.core.model.constraint.IConstraint.Level;
 
-public class CustomValidationHandler implements IConstraintValidationHandler {
+// The handler implements IValidationResult
+FindingCollectingConstraintValidationHandler handler =
+    new FindingCollectingConstraintValidationHandler();
 
-    private final List<IFinding> findings = new ArrayList<>();
+// After validation completes, check results
+if (!handler.isPassing()) {
+    handler.getFindings().forEach(finding -> {
+        System.err.println(finding.getSeverity() + ": " +
+            finding.getMessage());
+    });
+}
 
-    @Override
-    public void handleFinding(IFinding finding) {
-        findings.add(finding);
-
-        // Log immediately
-        if (finding.getSeverity().ordinal() >= Severity.ERROR.ordinal()) {
-            System.err.println("Validation error: " + finding.getMessage());
-        }
-    }
-
-    public List<IFinding> getFindings() {
-        return findings;
-    }
-
-    public boolean hasErrors() {
-        return findings.stream()
-            .anyMatch(f -> f.getSeverity().ordinal() >= Severity.ERROR.ordinal());
-    }
+// Check highest severity level
+Level highestSeverity = handler.getHighestSeverity();
+if (highestSeverity.ordinal() >= Level.ERROR.ordinal()) {
+    System.err.println("Validation failed with errors");
 }
 ```
 
