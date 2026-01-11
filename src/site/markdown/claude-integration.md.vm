@@ -1,0 +1,139 @@
+# Claude Code Integration
+
+${project.name} includes configuration for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), Anthropic's agentic coding tool. This integration enables AI-assisted development with context-aware guidance specific to OSCAL and this library.
+
+## Overview
+
+Claude Code can assist with:
+
+- Understanding the OSCAL data model and library architecture
+- Writing code that uses ${project.name} APIs
+- Debugging issues with OSCAL document processing
+- Implementing profile resolution and validation workflows
+- Following project coding conventions and best practices
+
+## Project Configuration
+
+This repository includes a `.claude/` directory with project-specific configuration:
+
+- **CLAUDE.md** - Project instructions and conventions that Claude follows
+- **settings.json** - Tool permissions and project settings
+
+The configuration provides Claude with:
+
+- Build and test commands specific to this project
+- Code style and architecture guidelines
+- Git workflow requirements (worktrees, PR process)
+- Links to relevant documentation
+
+## Claude Plugins
+
+Enhanced capabilities are available through [Claude plugins](https://github.com/metaschema-framework/claude-plugins/tree/main) from the metaschema-framework organization:
+
+### OSCAL Plugin
+
+The `oscal` plugin provides OSCAL-specific skills:
+
+| Skill | Description |
+|:------|:------------|
+| `oscal:oscal-basics` | OSCAL document structure, models, and concepts |
+
+### Metaschema Plugin
+
+The `metaschema` plugin provides Metaschema knowledge:
+
+| Skill | Description |
+|:------|:------------|
+| `metaschema:metaschema-basics` | Introduction to Metaschema concepts |
+| `metaschema:metaschema-module-authoring` | Creating and modifying Metaschema modules |
+| `metaschema:metaschema-constraints-authoring` | Writing validation constraints |
+| `metaschema:metapath-expressions` | Metapath query language syntax |
+
+### Metaschema Tools Plugin
+
+The `metaschema-tools` plugin provides CLI and library guidance:
+
+| Skill | Description |
+|:------|:------------|
+| `metaschema-tools:metaschema-java-library` | Java library interfaces and patterns |
+| `metaschema-tools:using-metaschema-java` | CLI commands for validation and conversion |
+
+### OSCAL Tools Plugin
+
+The `oscal-tools` plugin provides CLI guidance:
+
+| Skill | Description |
+|:------|:------------|
+| `oscal-tools:using-oscal-cli` | OSCAL CLI commands and workflows |
+
+## Installing Plugins
+
+To install metaschema-framework plugins, use the Claude Code settings or install via command line:
+
+```bash
+# Install individual plugins
+claude plugins:install metaschema-framework/oscal
+claude plugins:install metaschema-framework/metaschema
+claude plugins:install metaschema-framework/metaschema-tools
+claude plugins:install metaschema-framework/oscal-tools
+```
+
+## Example Workflows
+
+### Understanding the Library
+
+Ask Claude to explain library concepts:
+
+```
+"Explain how OscalBindingContext works and when I would use it"
+"What's the difference between reading OSCAL as XML vs JSON?"
+"How does profile resolution work in this library?"
+```
+
+### Writing Code
+
+Ask Claude to help write code:
+
+```
+"Write code to load an OSCAL catalog from a JSON file"
+"Create a method that validates an SSP against its imported profile"
+"Show me how to programmatically create a component definition"
+```
+
+### Debugging
+
+Ask Claude to help debug issues:
+
+```
+"This profile resolution is failing with [error]. What's wrong?"
+"Why am I getting a validation error on this control?"
+"Help me understand this Metapath constraint violation"
+```
+
+### Following Best Practices
+
+Ask Claude about conventions:
+
+```
+"What's the correct way to handle null values in this library?"
+"How should I structure tests for OSCAL document processing?"
+"What naming conventions does this project use?"
+```
+
+## Development Workflow Integration
+
+Claude Code integrates with the development workflow defined in CLAUDE.md:
+
+1. **Git Worktrees** - Claude will guide you to use worktrees for feature development
+2. **PR Process** - Claude knows to push to your fork and target the develop branch
+3. **Testing** - Claude will run tests before suggesting code is complete
+4. **Code Style** - Claude applies the project's formatting and style conventions
+
+## Related Resources
+
+For more information about Claude Code and the technologies used in this project:
+
+- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
+- [Metaschema Framework Plugins](https://github.com/metaschema-framework/claude-plugins/tree/main)
+- [OSCAL Documentation](https://pages.nist.gov/OSCAL/)
+- [Metaschema Specification](https://metaschema.dev/)

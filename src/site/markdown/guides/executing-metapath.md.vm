@@ -1,0 +1,276 @@
+# Executing Metapath
+
+This guide explains how to use Metapath expressions to query OSCAL documents programmatically.
+
+## Overview
+
+Metapath is an expression language for querying Metaschema-based documents. It's similar to XPath but works across all formats (XML, JSON, YAML).
+
+## Basic Metapath Evaluation
+
+```java
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.core.metapath.MetapathExpression;
+import dev.metaschema.core.metapath.IMetapathExpression;
+import dev.metaschema.core.metapath.item.IItem;
+import dev.metaschema.core.metapath.item.ISequence;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IDeserializer;
+import java.nio.file.Path;
+
+OscalBindingContext context = OscalBindingContext.instance();
+
+// Load a catalog
+IDeserializer<Catalog> deserializer = context.newDeserializer(
+    Format.JSON, Catalog.class);
+Catalog catalog = deserializer.deserialize(Path.of("catalog.json"));
+
+// Compile an expression
+IMetapathExpression expression = MetapathExpression.compile(
+    "//control", context.getStaticContext());
+
+// Evaluate against the catalog
+ISequence<?> results = expression.evaluate(catalog);
+
+// Process results
+for (IItem item : results) {
+    System.out.println("Found: " + item.toAtomicItem().asString());
+}
+```
+
+## Common Query Patterns
+
+### Find All Controls
+
+```java
+IMetapathExpression expr = MetapathExpression.compile(
+    "//control", context.getStaticContext());
+ISequence<?> controls = expr.evaluate(catalog);
+```
+
+### Find Control by ID
+
+```java
+IMetapathExpression expr = MetapathExpression.compile(
+    "//control[@id='ac-1']", context.getStaticContext());
+ISequence<?> result = expr.evaluate(catalog);
+```
+
+### Get Control Titles
+
+```java
+IMetapathExpression expr = MetapathExpression.compile(
+    "//control/title", context.getStaticContext());
+ISequence<?> titles = expr.evaluate(catalog);
+
+titles.forEach(title ->
+    System.out.println(title.toAtomicItem().asString()));
+```
+
+### Count Controls
+
+```java
+IMetapathExpression expr = MetapathExpression.compile(
+    "count(//control)", context.getStaticContext());
+ISequence<?> result = expr.evaluate(catalog);
+
+int count = result.getFirstItem(true)
+    .toAtomicItem()
+    .asInteger()
+    .intValue();
+System.out.println("Control count: " + count);
+```
+
+### Find Controls with Specific Properties
+
+```java
+// Find controls with status=withdrawn
+IMetapathExpression expr = MetapathExpression.compile(
+    "//control[prop[@name='status'][@value='withdrawn']]",
+    context.getStaticContext());
+```
+
+## Working with Results
+
+### Getting Bound Objects
+
+```java
+import dev.metaschema.databind.model.IBoundObject;
+import dev.metaschema.oscal.lib.model.Control;
+
+ISequence<?> results = expression.evaluate(catalog);
+
+for (IItem item : results) {
+    if (item instanceof IBoundObject) {
+        Object value = ((IBoundObject) item).getValue();
+        if (value instanceof Control) {
+            Control control = (Control) value;
+            System.out.println("Control ID: " + control.getId());
+            System.out.println("Title: " + control.getTitle());
+        }
+    }
+}
+```
+
+### Getting Atomic Values
+
+```java
+IMetapathExpression expr = MetapathExpression.compile(
+    "//control/@id", context.getStaticContext());
+ISequence<?> ids = expr.evaluate(catalog);
+
+ids.forEach(item -> {
+    String id = item.toAtomicItem().asString();
+    System.out.println("ID: " + id);
+});
+```
+
+## OSCAL-Specific Functions
+
+liboscal-java provides OSCAL-specific Metapath functions:
+
+### has-oscal-namespace
+
+Check if a property has an OSCAL namespace:
+
+```java
+IMetapathExpression expr = MetapathExpression.compile(
+    "//prop[has-oscal-namespace(., 'https://fedramp.gov/ns/oscal')]",
+    context.getStaticContext());
+```
+
+### resolve-profile
+
+Resolve a profile import (within Metapath):
+
+```java
+IMetapathExpression expr = MetapathExpression.compile(
+    "resolve-profile(import)",
+    context.getStaticContext());
+```
+
+## Query Examples by Document Type
+
+### Catalog Queries
+
+```java
+// All control groups
+"//group"
+
+// Controls in a specific group
+"//group[@id='access-control']/control"
+
+// Control enhancements
+"//control[contains(@id, '.')]"
+
+// All parameters
+"//param"
+```
+
+### Profile Queries
+
+```java
+// All imports
+"//import"
+
+// Included controls
+"//import/include-controls/with-id"
+
+// Parameter modifications
+"//modify/set-parameter"
+```
+
+### SSP Queries
+
+```java
+// System name
+"/system-security-plan/system-characteristics/system-name"
+
+// Implemented requirements
+"//implemented-requirement"
+
+// Components
+"//component"
+```
+
+## Error Handling
+
+```java
+import dev.metaschema.core.metapath.MetapathException;
+
+try {
+    IMetapathExpression expr = MetapathExpression.compile(
+        "//control[invalid syntax", context.getStaticContext());
+} catch (MetapathException e) {
+    System.err.println("Invalid expression: " + e.getMessage());
+}
+```
+
+## Caching Compiled Expressions
+
+For repeated queries, cache compiled expressions:
+
+```java
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class MetapathQueryCache {
+    private final Map<String, IMetapathExpression> cache =
+        new ConcurrentHashMap<>();
+    private final StaticContext staticContext;
+
+    public MetapathQueryCache(OscalBindingContext context) {
+        this.staticContext = context.getStaticContext();
+    }
+
+    public IMetapathExpression getExpression(String path) {
+        return cache.computeIfAbsent(path, p ->
+            MetapathExpression.compile(p, staticContext));
+    }
+
+    public ISequence<?> query(Object document, String path) {
+        return getExpression(path).evaluate(document);
+    }
+}
+```
+
+## Path Syntax Reference
+
+| Expression | Description |
+|------------|-------------|
+| `/catalog` | Root catalog |
+| `//control` | All controls at any depth |
+| `control[@id='ac-1']` | Control with specific ID |
+| `control[1]` | First control |
+| `control[last()]` | Last control |
+| `control/title` | Titles of direct child controls |
+| `..` | Parent element |
+| `.` | Current element |
+
+## Function Reference
+
+| Function | Description |
+|----------|-------------|
+| `count(seq)` | Count items |
+| `string-length(str)` | String length |
+| `starts-with(str, prefix)` | Check prefix |
+| `contains(str, substr)` | Check substring |
+| `not(expr)` | Logical negation |
+| `exists(seq)` | Check if non-empty |
+
+## Best Practices
+
+1. **Compile once, use many** - Cache compiled expressions
+2. **Be specific** - Narrow paths are faster than `//`
+3. **Handle empty results** - Check sequence length before accessing
+4. **Use predicates** - Filter in the expression, not in Java
+5. **Test expressions** - Validate with CLI before embedding
+
+## Next Steps
+
+Continue learning about liboscal-java with these related guides:
+
+- [Validating with Constraints](validating-with-constraints.html) - Validate queried data
+- [Reading & Writing Data](reading-writing-data.html) - Load documents to query
+- [Architecture](architecture.html) - Understand Metapath internals

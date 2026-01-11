@@ -29,7 +29,7 @@ You can include these artifacts in your Maven POM as a dependency.
 
 ## Building
 
-This project can be built with [Apache Maven](https://maven.apache.org/) version 3.8.4 or greater.
+This project can be built with [Apache Maven](https://maven.apache.org/) version 3.9.0 or greater.
 
 The following instructions can be used to clone and build this project.
 
