@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<licensePluginReport goal="FORMAT" timestamp="1765738360111">
-    <module artifactId="liboscal-java" groupId="dev.metaschema.oscal" version="6.0.0"/>
+<licensePluginReport goal="FORMAT" timestamp="1768188007237">
+    <module artifactId="liboscal-java" groupId="dev.metaschema.oscal" version="7.0.0"/>
     <files>
-        <file path="src/test/java/gov/nist/secauto/oscal/java/ExamplesTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/java/MetaschemaVisitorTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/java/OscalBindingContextTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/java/ReadWriteTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/model/util/AbstractNodeItemVisitorTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/model/util/AllowedValueCollectingNodeItemVisitorTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/profile/resolver/ModifyPhaseUtilsTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/profile/resolver/ProfileResolutionTests.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/profile/resolver/TestUtil.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/profile/resolver/policy/ReferenceCountingVisitorTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/profile/resolver/selection/ControlSelectionVisitorTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/profile/resolver/selection/DefaultControlSelectionFilterTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/profile/resolver/selection/FilterNonSelectedVisitorTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/profile/resolver/selection/ImportTest.java" result="NOOP"/>
-        <file path="src/test/java/gov/nist/secauto/oscal/lib/validation/OscalValidationTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/ExamplesTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/MetaschemaVisitorTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/OscalBindingContextTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/ReadWriteTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/model/util/AbstractNodeItemVisitorTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/model/util/AllowedValueCollectingNodeItemVisitorTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/profile/resolver/ModifyPhaseUtilsTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/profile/resolver/ProfileResolutionTests.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/profile/resolver/TestUtil.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/profile/resolver/policy/ReferenceCountingVisitorTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/profile/resolver/selection/ControlSelectionVisitorTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/profile/resolver/selection/DefaultControlSelectionFilterTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/profile/resolver/selection/FilterNonSelectedVisitorTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/profile/resolver/selection/ImportTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/validation/ComponentDefinitionImportTest.java" result="NOOP"/>
+        <file path="src/test/java/dev/metaschema/oscal/lib/validation/OscalValidationTest.java" result="NOOP"/>
     </files>
 </licensePluginReport>

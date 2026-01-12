@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>SelectObjectiveById xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">// Generated from: ../../../../../../../../oscal/src/metaschema/oscal_assessment-common_metaschema.xml</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment">// Do not edit - changes will be lost when regenerated.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">package</strong> dev.metaschema.oscal.lib.model;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> dev.metaschema.core.datatype.adapter.TokenAdapter;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> dev.metaschema.core.model.IBoundObject;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> dev.metaschema.core.model.IMetaschemaData;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> dev.metaschema.core.util.ObjectUtils;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> dev.metaschema.databind.model.annotations.BoundFlag;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> dev.metaschema.databind.model.annotations.MetaschemaAssembly;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.builder.ToStringStyle;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * Used to select a control objective for inclusion/exclusion based on the control objective's identifier.</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  @MetaschemaAssembly(
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      formalName = <span class="jxr_string">"Select Objective"</span>,
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      description = <span class="jxr_string">"Used to select a control objective for inclusion/exclusion based on the control objective's identifier."</span>,
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      name = <span class="jxr_string">"select-objective-by-id"</span>,
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      moduleClass = OscalAssessmentCommonModule.<strong class="jxr_keyword">class</strong>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  )
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="SelectObjectiveById" href="../../../../../dev/metaschema/oscal/lib/model/SelectObjectiveById.html#SelectObjectiveById">SelectObjectiveById</a> <strong class="jxr_keyword">implements</strong> IBoundObject {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> IMetaschemaData __metaschemaData;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">   * Points to an assessment objective.</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>    @BoundFlag(
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>        formalName = <span class="jxr_string">"Objective ID"</span>,
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>        description = <span class="jxr_string">"Points to an assessment objective."</span>,
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>        name = <span class="jxr_string">"objective-id"</span>,
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>        required = <strong class="jxr_keyword">true</strong>,
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>        typeAdapter = TokenAdapter.<strong class="jxr_keyword">class</strong>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>    )
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>    <strong class="jxr_keyword">private</strong> String _objectiveId;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">   * Constructs a new {@code dev.metaschema.oscal.lib.model.SelectObjectiveById} instance with no metadata.</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>    <strong class="jxr_keyword">public</strong> <a name="SelectObjectiveById" href="../../../../../dev/metaschema/oscal/lib/model/SelectObjectiveById.html#SelectObjectiveById">SelectObjectiveById</a>() {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">this</strong>(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>    }
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">   * Constructs a new {@code dev.metaschema.oscal.lib.model.SelectObjectiveById} instance with the specified metadata.</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">   * @param data</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment">   *           the metaschema data, or {@code null} if none</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>    <strong class="jxr_keyword">public</strong> <a name="SelectObjectiveById" href="../../../../../dev/metaschema/oscal/lib/model/SelectObjectiveById.html#SelectObjectiveById">SelectObjectiveById</a>(IMetaschemaData data) {
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">this</strong>.__metaschemaData = data;
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>    }
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>    @Override
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>    <strong class="jxr_keyword">public</strong> IMetaschemaData getMetaschemaData() {
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">return</strong> __metaschemaData;
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>    }
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">   * Get the "{@literal Objective ID}".</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">   * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">   * Points to an assessment objective.</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">   * @return the objective-id value</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>    @NonNull
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>    <strong class="jxr_keyword">public</strong> String getObjectiveId() {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">return</strong> _objectiveId;
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>    }
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">   * Set the "{@literal Objective ID}".</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">   * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">   * Points to an assessment objective.</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">   * @param value</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">   *           the objective-id value to set</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setObjectiveId(@NonNull String value) {
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      _objectiveId = value;
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>    }
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>    @Override
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>    <strong class="jxr_keyword">public</strong> String toString() {
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">return</strong> ObjectUtils.notNull(<strong class="jxr_keyword">new</strong> ReflectionToStringBuilder(<strong class="jxr_keyword">this</strong>, ToStringStyle.MULTI_LINE_STYLE).toString());
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>    }
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  }
+</pre>
+<hr/>
+<div id="footer">© 2026</div>
+</body>
+</html>
