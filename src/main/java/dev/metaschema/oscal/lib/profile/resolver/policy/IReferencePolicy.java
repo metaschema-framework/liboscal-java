@@ -7,7 +7,6 @@ package dev.metaschema.oscal.lib.profile.resolver.policy;
 
 import dev.metaschema.core.metapath.item.node.IModelNodeItem;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 @FunctionalInterface

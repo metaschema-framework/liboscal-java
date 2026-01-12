@@ -5,6 +5,11 @@
 
 package dev.metaschema.oscal.lib.model.control.catalog;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
+
 import dev.metaschema.core.datatype.markup.MarkupLine;
 import dev.metaschema.core.util.CollectionUtil;
 import dev.metaschema.core.util.ObjectUtils;
@@ -15,12 +20,6 @@ import dev.metaschema.oscal.lib.model.Link;
 import dev.metaschema.oscal.lib.model.Parameter;
 import dev.metaschema.oscal.lib.model.Property;
 import dev.metaschema.oscal.lib.model.control.AbstractParameter;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Stream;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractCatalogGroup

@@ -7,6 +7,12 @@ package dev.metaschema.oscal.lib.profile.resolver.policy;
 
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.List;
+import java.util.Locale;
+
 import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
 import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
 import dev.metaschema.core.metapath.format.IPathFormatter;
@@ -15,13 +21,6 @@ import dev.metaschema.core.util.CollectionUtil;
 import dev.metaschema.core.util.CustomCollectors;
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.List;
-import java.util.Locale;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public class InsertReferencePolicy

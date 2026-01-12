@@ -5,6 +5,9 @@
 
 package dev.metaschema.oscal.lib.metapath.function.library;
 
+import java.net.URI;
+import java.util.List;
+
 import dev.metaschema.core.metapath.DynamicContext;
 import dev.metaschema.core.metapath.function.FunctionUtils;
 import dev.metaschema.core.metapath.function.IArgument;
@@ -24,10 +27,6 @@ import dev.metaschema.oscal.lib.OscalUtils;
 import dev.metaschema.oscal.lib.model.BackMatter.Resource;
 import dev.metaschema.oscal.lib.model.BackMatter.Resource.Rlink;
 import dev.metaschema.oscal.lib.model.IOscalInstance;
-
-import java.net.URI;
-import java.util.List;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

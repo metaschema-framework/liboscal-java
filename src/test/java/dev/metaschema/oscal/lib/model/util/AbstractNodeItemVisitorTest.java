@@ -5,16 +5,6 @@
 
 package dev.metaschema.oscal.lib.model.util;
 
-import dev.metaschema.core.metapath.item.node.IDefinitionNodeItem;
-import dev.metaschema.core.model.MetaschemaException;
-import dev.metaschema.core.model.constraint.IAllowedValue;
-import dev.metaschema.core.model.constraint.IAllowedValuesConstraint;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.databind.model.IBoundModule;
-import dev.metaschema.oscal.lib.OscalBindingContext;
-import dev.metaschema.oscal.lib.model.OscalCompleteModule;
-import dev.metaschema.oscal.lib.model.util.AllowedValueCollectingNodeItemVisitor.AllowedValuesRecord;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +17,15 @@ import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import dev.metaschema.core.metapath.item.node.IDefinitionNodeItem;
+import dev.metaschema.core.model.MetaschemaException;
+import dev.metaschema.core.model.constraint.IAllowedValue;
+import dev.metaschema.core.model.constraint.IAllowedValuesConstraint;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.model.IBoundModule;
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.OscalCompleteModule;
+import dev.metaschema.oscal.lib.model.util.AllowedValueCollectingNodeItemVisitor.AllowedValuesRecord;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 class AbstractNodeItemVisitorTest {

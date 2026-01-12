@@ -11,16 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import dev.metaschema.core.metapath.DynamicContext;
-import dev.metaschema.core.metapath.item.node.INodeItem;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.databind.io.DefaultBoundLoader;
-import dev.metaschema.databind.io.Format;
-import dev.metaschema.databind.io.ISerializer;
-import dev.metaschema.oscal.lib.OscalBindingContext;
-import dev.metaschema.oscal.lib.model.Catalog;
-import dev.metaschema.oscal.lib.profile.resolver.selection.ImportCycleException;
-
 import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XsltCompiler;
@@ -52,6 +42,15 @@ import java.time.ZoneOffset;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
+import dev.metaschema.core.metapath.DynamicContext;
+import dev.metaschema.core.metapath.item.node.INodeItem;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.io.DefaultBoundLoader;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.ISerializer;
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.oscal.lib.profile.resolver.selection.ImportCycleException;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 class ProfileResolutionTests {

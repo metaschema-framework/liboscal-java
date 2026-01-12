@@ -10,7 +10,6 @@ import dev.metaschema.oscal.lib.model.CatalogGroup;
 import dev.metaschema.oscal.lib.model.Control;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
 import dev.metaschema.oscal.lib.profile.resolver.support.ICatalogVisitor;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**

@@ -5,13 +5,12 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.policy;
 
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
-
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public class PatternIdentifierParser implements IIdentifierParser {

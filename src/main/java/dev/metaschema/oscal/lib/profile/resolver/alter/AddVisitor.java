@@ -5,20 +5,6 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.alter;
 
-import dev.metaschema.core.datatype.markup.MarkupLine;
-import dev.metaschema.core.util.CollectionUtil;
-import dev.metaschema.core.util.CustomCollectors;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.model.Catalog;
-import dev.metaschema.oscal.lib.model.CatalogGroup;
-import dev.metaschema.oscal.lib.model.Control;
-import dev.metaschema.oscal.lib.model.ControlPart;
-import dev.metaschema.oscal.lib.model.Link;
-import dev.metaschema.oscal.lib.model.Parameter;
-import dev.metaschema.oscal.lib.model.Property;
-import dev.metaschema.oscal.lib.model.control.catalog.ICatalogVisitor;
-import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
-
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -33,6 +19,19 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import dev.metaschema.core.datatype.markup.MarkupLine;
+import dev.metaschema.core.util.CollectionUtil;
+import dev.metaschema.core.util.CustomCollectors;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.oscal.lib.model.CatalogGroup;
+import dev.metaschema.oscal.lib.model.Control;
+import dev.metaschema.oscal.lib.model.ControlPart;
+import dev.metaschema.oscal.lib.model.Link;
+import dev.metaschema.oscal.lib.model.Parameter;
+import dev.metaschema.oscal.lib.model.Property;
+import dev.metaschema.oscal.lib.model.control.catalog.ICatalogVisitor;
+import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

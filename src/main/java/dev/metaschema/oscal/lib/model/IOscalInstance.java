@@ -5,10 +5,9 @@
 
 package dev.metaschema.oscal.lib.model;
 
-import dev.metaschema.oscal.lib.model.BackMatter.Resource;
-
 import java.util.UUID;
 
+import dev.metaschema.oscal.lib.model.BackMatter.Resource;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

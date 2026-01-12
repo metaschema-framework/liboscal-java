@@ -5,12 +5,6 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.selection;
 
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.model.ProfileMatching;
-import dev.metaschema.oscal.lib.model.control.catalog.IControl;
-import dev.metaschema.oscal.lib.model.control.profile.IProfileSelectControlById;
-import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +16,11 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.model.ProfileMatching;
+import dev.metaschema.oscal.lib.model.control.catalog.IControl;
+import dev.metaschema.oscal.lib.model.control.profile.IProfileSelectControlById;
+import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public class DefaultControlSelectionFilter implements IControlSelectionFilter {

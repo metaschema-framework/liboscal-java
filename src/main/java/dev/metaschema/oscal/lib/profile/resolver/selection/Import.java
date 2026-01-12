@@ -8,6 +8,11 @@ package dev.metaschema.oscal.lib.profile.resolver.selection;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.util.VersionUtil;
 
+import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import dev.metaschema.core.metapath.item.node.INodeItem;
@@ -33,12 +38,6 @@ import dev.metaschema.oscal.lib.profile.resolver.support.BasicIndexer;
 import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer.SelectionStatus;
-
-import java.net.URI;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public class Import {

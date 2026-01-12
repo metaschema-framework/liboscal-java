@@ -8,6 +8,18 @@ package dev.metaschema.oscal.lib.profile.resolver.policy;
 import com.vladsch.flexmark.ast.InlineLinkNode;
 import com.vladsch.flexmark.util.ast.Node;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.function.BiConsumer;
+
 import dev.metaschema.core.datatype.markup.IMarkupString;
 import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
 import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
@@ -34,19 +46,6 @@ import dev.metaschema.oscal.lib.profile.resolver.ProfileResolver.UriResolver;
 import dev.metaschema.oscal.lib.profile.resolver.support.AbstractCatalogEntityVisitor;
 import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.BiConsumer;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

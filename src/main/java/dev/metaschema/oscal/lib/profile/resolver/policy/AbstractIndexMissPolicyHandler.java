@@ -5,10 +5,9 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.policy;
 
-import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
-
 import java.util.List;
 
+import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractIndexMissPolicyHandler<TYPE> implements ICustomReferencePolicyHandler<TYPE> {

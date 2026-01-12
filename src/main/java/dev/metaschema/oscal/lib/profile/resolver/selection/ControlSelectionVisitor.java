@@ -5,6 +5,9 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.selection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import dev.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
@@ -17,10 +20,6 @@ import dev.metaschema.oscal.lib.profile.resolver.support.AbstractIndexingVisitor
 import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer.SelectionStatus;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

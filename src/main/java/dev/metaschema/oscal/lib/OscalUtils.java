@@ -5,15 +5,14 @@
 
 package dev.metaschema.oscal.lib;
 
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.model.BackMatter.Resource;
-import dev.metaschema.oscal.lib.model.BackMatter.Resource.Rlink;
-
 import java.net.URI;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.model.BackMatter.Resource;
+import dev.metaschema.oscal.lib.model.BackMatter.Resource.Rlink;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

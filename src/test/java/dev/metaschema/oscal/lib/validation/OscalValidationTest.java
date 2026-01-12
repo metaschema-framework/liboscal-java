@@ -8,30 +8,6 @@ package dev.metaschema.oscal.lib.validation;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dev.metaschema.core.configuration.DefaultConfiguration;
-import dev.metaschema.core.configuration.IMutableConfiguration;
-import dev.metaschema.core.model.IModule;
-import dev.metaschema.core.model.IResourceLocation;
-import dev.metaschema.core.model.MetaschemaException;
-import dev.metaschema.core.model.constraint.ConstraintValidationException;
-import dev.metaschema.core.model.constraint.ConstraintValidationFinding;
-import dev.metaschema.core.model.validation.AbstractValidationResultProcessor;
-import dev.metaschema.core.model.validation.IValidationFinding;
-import dev.metaschema.core.model.validation.IValidationResult;
-import dev.metaschema.core.model.validation.JsonSchemaContentValidator;
-import dev.metaschema.core.model.validation.JsonSchemaContentValidator.JsonValidationFinding;
-import dev.metaschema.core.model.validation.XmlSchemaContentValidator;
-import dev.metaschema.core.model.validation.XmlSchemaContentValidator.XmlValidationFinding;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.databind.IBindingContext;
-import dev.metaschema.databind.IBindingContext.ISchemaValidationProvider;
-import dev.metaschema.databind.io.Format;
-import dev.metaschema.databind.model.metaschema.IBindingModuleLoader;
-import dev.metaschema.schemagen.ISchemaGenerator;
-import dev.metaschema.schemagen.ISchemaGenerator.SchemaFormat;
-import dev.metaschema.schemagen.SchemaGenerationFeature;
-import dev.metaschema.oscal.lib.OscalBindingContext;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -55,6 +31,29 @@ import java.util.function.Function;
 
 import javax.xml.transform.stream.StreamSource;
 
+import dev.metaschema.core.configuration.DefaultConfiguration;
+import dev.metaschema.core.configuration.IMutableConfiguration;
+import dev.metaschema.core.model.IModule;
+import dev.metaschema.core.model.IResourceLocation;
+import dev.metaschema.core.model.MetaschemaException;
+import dev.metaschema.core.model.constraint.ConstraintValidationException;
+import dev.metaschema.core.model.constraint.ConstraintValidationFinding;
+import dev.metaschema.core.model.validation.AbstractValidationResultProcessor;
+import dev.metaschema.core.model.validation.IValidationFinding;
+import dev.metaschema.core.model.validation.IValidationResult;
+import dev.metaschema.core.model.validation.JsonSchemaContentValidator;
+import dev.metaschema.core.model.validation.JsonSchemaContentValidator.JsonValidationFinding;
+import dev.metaschema.core.model.validation.XmlSchemaContentValidator;
+import dev.metaschema.core.model.validation.XmlSchemaContentValidator.XmlValidationFinding;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.IBindingContext;
+import dev.metaschema.databind.IBindingContext.ISchemaValidationProvider;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.model.metaschema.IBindingModuleLoader;
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.schemagen.ISchemaGenerator;
+import dev.metaschema.schemagen.ISchemaGenerator.SchemaFormat;
+import dev.metaschema.schemagen.SchemaGenerationFeature;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 class OscalValidationTest {

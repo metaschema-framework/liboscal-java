@@ -5,16 +5,6 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.support;
 
-import dev.metaschema.core.metapath.IMetapathExpression;
-import dev.metaschema.core.metapath.IMetapathExpression.ResultType;
-import dev.metaschema.core.metapath.item.node.IModelNodeItem;
-import dev.metaschema.core.metapath.item.node.INodeItem;
-import dev.metaschema.core.util.CustomCollectors;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.OscalBindingContext;
-import dev.metaschema.oscal.lib.model.metadata.IProperty;
-import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +18,15 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import dev.metaschema.core.metapath.IMetapathExpression;
+import dev.metaschema.core.metapath.IMetapathExpression.ResultType;
+import dev.metaschema.core.metapath.item.node.IModelNodeItem;
+import dev.metaschema.core.metapath.item.node.INodeItem;
+import dev.metaschema.core.util.CustomCollectors;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.metadata.IProperty;
+import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

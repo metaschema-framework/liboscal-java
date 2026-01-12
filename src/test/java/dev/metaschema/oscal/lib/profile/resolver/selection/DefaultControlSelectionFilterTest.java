@@ -8,11 +8,6 @@ package dev.metaschema.oscal.lib.profile.resolver.selection;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.model.ProfileMatching;
-import dev.metaschema.oscal.lib.model.control.catalog.IControl;
-import dev.metaschema.oscal.lib.model.control.profile.IProfileSelectControlById;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
@@ -24,6 +19,10 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import java.util.Collections;
 import java.util.List;
 
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.model.ProfileMatching;
+import dev.metaschema.oscal.lib.model.control.catalog.IControl;
+import dev.metaschema.oscal.lib.model.control.profile.IProfileSelectControlById;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

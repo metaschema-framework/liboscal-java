@@ -6,7 +6,6 @@
 package dev.metaschema.oscal.lib;
 
 import dev.metaschema.core.qname.IEnhancedQName;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class OscalModelConstants {

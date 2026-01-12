@@ -7,15 +7,6 @@ package dev.metaschema.oscal.lib.model.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import dev.metaschema.core.model.MetaschemaException;
-import dev.metaschema.core.model.constraint.IConstraintSet;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.databind.IBindingContext;
-import dev.metaschema.databind.model.metaschema.BindingConstraintLoader;
-import dev.metaschema.databind.model.metaschema.IBindingMetaschemaModule;
-import dev.metaschema.databind.model.metaschema.IBindingModuleLoader;
-import dev.metaschema.oscal.lib.model.util.AllowedValueCollectingNodeItemVisitor.NodeItemRecord;
-
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -24,6 +15,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
+
+import dev.metaschema.core.model.MetaschemaException;
+import dev.metaschema.core.model.constraint.IConstraintSet;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.IBindingContext;
+import dev.metaschema.databind.model.metaschema.BindingConstraintLoader;
+import dev.metaschema.databind.model.metaschema.IBindingMetaschemaModule;
+import dev.metaschema.databind.model.metaschema.IBindingModuleLoader;
+import dev.metaschema.oscal.lib.model.util.AllowedValueCollectingNodeItemVisitor.NodeItemRecord;
 
 class AllowedValueCollectingNodeItemVisitorTest {
 

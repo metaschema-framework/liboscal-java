@@ -5,6 +5,11 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.policy;
 
+import org.apache.logging.log4j.Level;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
 import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import dev.metaschema.core.metapath.item.node.INodeItem;
 import dev.metaschema.databind.io.Format;
@@ -19,11 +24,6 @@ import dev.metaschema.oscal.lib.profile.resolver.selection.IControlSelectionStat
 import dev.metaschema.oscal.lib.profile.resolver.support.IIdentifierMapper;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer;
 import dev.metaschema.oscal.lib.profile.resolver.support.ReassignmentIndexer;
-
-import org.apache.logging.log4j.Level;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 class ReferenceCountingVisitorTest {
   @SuppressWarnings("null")

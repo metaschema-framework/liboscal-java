@@ -5,15 +5,14 @@
 
 package dev.metaschema.oscal.lib.model.control.catalog;
 
+import java.util.Objects;
+
 import dev.metaschema.core.util.CollectionUtil;
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.model.Catalog;
 import dev.metaschema.oscal.lib.model.CatalogGroup;
 import dev.metaschema.oscal.lib.model.Control;
 import dev.metaschema.oscal.lib.model.Parameter;
-
-import java.util.Objects;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractCatalogVisitor<RESULT, CONTEXT> implements ICatalogVisitor<RESULT, CONTEXT> {

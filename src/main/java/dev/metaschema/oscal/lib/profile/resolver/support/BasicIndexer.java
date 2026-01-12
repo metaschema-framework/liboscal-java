@@ -5,6 +5,19 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.support;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
 import dev.metaschema.core.datatype.adapter.UuidAdapter;
 import dev.metaschema.core.metapath.IMetapathExpression;
 import dev.metaschema.core.metapath.IMetapathExpression.ResultType;
@@ -23,20 +36,6 @@ import dev.metaschema.oscal.lib.model.Metadata.Role;
 import dev.metaschema.oscal.lib.model.Parameter;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolver;
 import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public class BasicIndexer implements IIndexer {

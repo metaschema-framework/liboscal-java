@@ -9,11 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import dev.metaschema.core.model.validation.IValidationResult;
-import dev.metaschema.oscal.lib.OscalBindingContext;
-import dev.metaschema.oscal.lib.model.ComponentDefinition;
-import dev.metaschema.oscal.lib.model.IOscalInstance;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -21,6 +16,11 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import dev.metaschema.core.model.validation.IValidationResult;
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.ComponentDefinition;
+import dev.metaschema.oscal.lib.model.IOscalInstance;
 
 /**
  * Test case for oscal-cli issue #192: Validates that ComponentDefinition

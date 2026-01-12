@@ -5,6 +5,11 @@
 
 package dev.metaschema.oscal.lib.profile.resolver;
 
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import dev.metaschema.core.metapath.item.node.INodeItemFactory;
 import dev.metaschema.core.util.ObjectUtils;
@@ -18,12 +23,6 @@ import dev.metaschema.oscal.lib.model.control.catalog.AbstractControl;
 import dev.metaschema.oscal.lib.model.metadata.AbstractProperty;
 import dev.metaschema.oscal.lib.model.metadata.IProperty;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIdentifierMapper;
-
-import java.nio.file.Paths;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class TestUtil {

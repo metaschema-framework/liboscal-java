@@ -5,8 +5,6 @@
 
 package dev.metaschema.oscal.lib.profile.resolver;
 
-import dev.metaschema.core.util.CollectionUtil;
-
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dev.metaschema.core.util.CollectionUtil;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

@@ -9,7 +9,6 @@ import dev.metaschema.oscal.lib.model.Catalog;
 import dev.metaschema.oscal.lib.model.CatalogGroup;
 import dev.metaschema.oscal.lib.model.Control;
 import dev.metaschema.oscal.lib.model.Parameter;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public interface ICatalogVisitor<RESULT, CONTEXT> {

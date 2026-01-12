@@ -5,9 +5,9 @@
 
 package dev.metaschema.oscal.lib.model.control.catalog;
 
-import dev.metaschema.oscal.lib.model.ControlPart;
-
 import java.util.List;
+
+import dev.metaschema.oscal.lib.model.ControlPart;
 
 public interface ICatalogGroup extends IGroupContainer {
   List<ControlPart> getParts();

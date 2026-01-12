@@ -5,13 +5,12 @@
 
 package dev.metaschema.oscal.lib.model.control.catalog;
 
+import java.util.stream.Stream;
+
 import dev.metaschema.core.util.CollectionUtil;
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.model.AbstractOscalInstance;
 import dev.metaschema.oscal.lib.model.control.AbstractParameter;
-
-import java.util.stream.Stream;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractCatalog

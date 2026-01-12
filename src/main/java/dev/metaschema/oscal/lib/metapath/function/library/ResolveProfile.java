@@ -5,6 +5,10 @@
 
 package dev.metaschema.oscal.lib.metapath.function.library;
 
+import java.io.IOException;
+import java.net.URI;
+import java.util.List;
+
 import dev.metaschema.core.metapath.DynamicContext;
 import dev.metaschema.core.metapath.MetapathConstants;
 import dev.metaschema.core.metapath.function.DocumentFunctionException;
@@ -23,11 +27,6 @@ import dev.metaschema.oscal.lib.OscalModelConstants;
 import dev.metaschema.oscal.lib.model.Catalog;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionException;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolver;
-
-import java.io.IOException;
-import java.net.URI;
-import java.util.List;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class ResolveProfile {

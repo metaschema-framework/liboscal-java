@@ -5,12 +5,11 @@
 
 package dev.metaschema.oscal.lib.model.control;
 
-import dev.metaschema.oscal.lib.model.ParameterSelection;
-import dev.metaschema.oscal.lib.model.Property;
-
 import java.util.List;
 import java.util.stream.Stream;
 
+import dev.metaschema.oscal.lib.model.ParameterSelection;
+import dev.metaschema.oscal.lib.model.Property;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public interface IParameter {

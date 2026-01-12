@@ -5,12 +5,11 @@
 
 package dev.metaschema.oscal.lib.model.control.catalog;
 
-import dev.metaschema.oscal.lib.model.Control;
-import dev.metaschema.oscal.lib.model.Parameter;
-
 import java.util.List;
 import java.util.stream.Stream;
 
+import dev.metaschema.oscal.lib.model.Control;
+import dev.metaschema.oscal.lib.model.Parameter;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public interface IControlContainer {

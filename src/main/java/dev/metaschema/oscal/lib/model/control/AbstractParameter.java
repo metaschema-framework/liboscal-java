@@ -5,6 +5,14 @@
 
 package dev.metaschema.oscal.lib.model.control;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
+
 import dev.metaschema.core.datatype.markup.MarkupLine;
 import dev.metaschema.core.datatype.markup.MarkupMultiline;
 import dev.metaschema.core.util.CollectionUtil;
@@ -16,15 +24,6 @@ import dev.metaschema.oscal.lib.model.ParameterGuideline;
 import dev.metaschema.oscal.lib.model.ParameterSelection;
 import dev.metaschema.oscal.lib.model.Property;
 import dev.metaschema.oscal.lib.model.metadata.IProperty;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Stream;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractParameter implements IParameter {

@@ -7,6 +7,12 @@ package dev.metaschema.oscal.lib.profile.resolver.selection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.model.CatalogGroup;
@@ -16,12 +22,6 @@ import dev.metaschema.oscal.lib.profile.resolver.TestUtil;
 import dev.metaschema.oscal.lib.profile.resolver.support.BasicIndexer;
 import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer;
-
-import org.junit.jupiter.api.Test;
-
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class ControlSelectionVisitorTest {
 

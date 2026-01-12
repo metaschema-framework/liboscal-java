@@ -5,9 +5,9 @@
 
 package dev.metaschema.oscal.lib.model.control.profile;
 
-import dev.metaschema.oscal.lib.model.ProfileMatching;
-
 import java.util.List;
+
+import dev.metaschema.oscal.lib.model.ProfileMatching;
 
 public interface IProfileSelectControlById {
 

@@ -5,15 +5,14 @@
 
 package dev.metaschema.oscal.lib.model.control;
 
-import dev.metaschema.core.datatype.markup.MarkupMultiline;
-import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
-import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
-import dev.metaschema.oscal.lib.model.ControlPart;
-
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import dev.metaschema.core.datatype.markup.MarkupMultiline;
+import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
+import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension.InsertAnchorNode;
+import dev.metaschema.oscal.lib.model.ControlPart;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public interface IPart {

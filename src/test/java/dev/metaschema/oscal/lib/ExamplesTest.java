@@ -8,22 +8,6 @@ package dev.metaschema.oscal.lib;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dev.metaschema.core.metapath.DynamicContext;
-import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
-import dev.metaschema.core.metapath.item.node.INodeItem;
-import dev.metaschema.core.model.constraint.ConstraintValidationException;
-import dev.metaschema.core.model.constraint.DefaultConstraintValidator;
-import dev.metaschema.core.model.constraint.FindingCollectingConstraintValidationHandler;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.databind.io.DeserializationFeature;
-import dev.metaschema.databind.io.Format;
-import dev.metaschema.databind.io.IBoundLoader;
-import dev.metaschema.databind.io.ISerializer;
-import dev.metaschema.oscal.lib.OscalBindingContext;
-import dev.metaschema.oscal.lib.model.Catalog;
-import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionException;
-import dev.metaschema.oscal.lib.profile.resolver.ProfileResolver;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +19,21 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import dev.metaschema.core.metapath.DynamicContext;
+import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
+import dev.metaschema.core.metapath.item.node.INodeItem;
+import dev.metaschema.core.model.constraint.ConstraintValidationException;
+import dev.metaschema.core.model.constraint.DefaultConstraintValidator;
+import dev.metaschema.core.model.constraint.FindingCollectingConstraintValidationHandler;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.io.DeserializationFeature;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IBoundLoader;
+import dev.metaschema.databind.io.ISerializer;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionException;
+import dev.metaschema.oscal.lib.profile.resolver.ProfileResolver;
 
 class ExamplesTest {
 

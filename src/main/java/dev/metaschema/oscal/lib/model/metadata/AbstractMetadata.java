@@ -5,11 +5,10 @@
 
 package dev.metaschema.oscal.lib.model.metadata;
 
-import dev.metaschema.oscal.lib.model.Metadata.Party;
-
 import java.util.List;
 import java.util.UUID;
 
+import dev.metaschema.oscal.lib.model.Metadata.Party;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractMetadata implements IMetadata {

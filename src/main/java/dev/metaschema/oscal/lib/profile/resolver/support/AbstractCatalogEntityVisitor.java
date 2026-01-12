@@ -5,6 +5,10 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.support;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
+
 import dev.metaschema.core.metapath.IMetapathExpression;
 import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
@@ -13,11 +17,6 @@ import dev.metaschema.core.util.CollectionUtil;
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.OscalBindingContext;
 import dev.metaschema.oscal.lib.OscalModelConstants;
-
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.Set;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**

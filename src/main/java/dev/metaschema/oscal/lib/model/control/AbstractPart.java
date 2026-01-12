@@ -5,6 +5,13 @@
 
 package dev.metaschema.oscal.lib.model.control;
 
+import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 import dev.metaschema.core.datatype.markup.MarkupLine;
 import dev.metaschema.core.datatype.markup.MarkupMultiline;
 import dev.metaschema.core.datatype.markup.flexmark.InsertAnchorExtension;
@@ -14,14 +21,6 @@ import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.model.ControlPart;
 import dev.metaschema.oscal.lib.model.Link;
 import dev.metaschema.oscal.lib.model.Property;
-
-import java.net.URI;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractPart implements IPart {

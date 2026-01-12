@@ -5,11 +5,6 @@
 
 package dev.metaschema.oscal.lib.model.metadata;
 
-import dev.metaschema.core.qname.IEnhancedQName;
-import dev.metaschema.core.util.CollectionUtil;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.model.Property;
-
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +14,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dev.metaschema.core.qname.IEnhancedQName;
+import dev.metaschema.core.util.CollectionUtil;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.model.Property;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractProperty implements IProperty {

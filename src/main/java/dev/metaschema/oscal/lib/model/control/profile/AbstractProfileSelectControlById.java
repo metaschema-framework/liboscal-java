@@ -5,15 +5,14 @@
 
 package dev.metaschema.oscal.lib.model.control.profile;
 
-import dev.metaschema.oscal.lib.model.ProfileMatching;
-import dev.metaschema.oscal.lib.model.ProfileSelectControlById;
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import dev.metaschema.oscal.lib.model.ProfileMatching;
+import dev.metaschema.oscal.lib.model.ProfileSelectControlById;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractProfileSelectControlById implements IProfileSelectControlById {

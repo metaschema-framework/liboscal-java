@@ -5,6 +5,11 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.selection;
 
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import dev.metaschema.core.metapath.IMetapathExpression;
 import dev.metaschema.core.metapath.format.IPathFormatter;
 import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
@@ -14,12 +19,6 @@ import dev.metaschema.oscal.lib.OscalBindingContext;
 import dev.metaschema.oscal.lib.model.CatalogGroup;
 import dev.metaschema.oscal.lib.model.Control;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer;
-
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

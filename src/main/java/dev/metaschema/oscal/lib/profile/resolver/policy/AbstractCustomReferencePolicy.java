@@ -5,16 +5,15 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.policy;
 
-import dev.metaschema.core.metapath.item.node.IModelNodeItem;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
-import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+import dev.metaschema.core.metapath.item.node.IModelNodeItem;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
+import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

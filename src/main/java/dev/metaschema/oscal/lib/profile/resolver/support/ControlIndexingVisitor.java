@@ -5,11 +5,10 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.support;
 
-import dev.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
-import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
-
 import java.util.Set;
 
+import dev.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
+import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**

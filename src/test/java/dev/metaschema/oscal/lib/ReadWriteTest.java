@@ -7,16 +7,6 @@ package dev.metaschema.oscal.lib;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dev.metaschema.core.model.IBoundObject;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.databind.DefaultBindingContext;
-import dev.metaschema.databind.IBindingContext;
-import dev.metaschema.databind.io.DeserializationFeature;
-import dev.metaschema.databind.io.Format;
-import dev.metaschema.databind.io.IDeserializer;
-import dev.metaschema.databind.io.ISerializer;
-import dev.metaschema.oscal.lib.model.Catalog;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -26,6 +16,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import dev.metaschema.core.model.IBoundObject;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.DefaultBindingContext;
+import dev.metaschema.databind.IBindingContext;
+import dev.metaschema.databind.io.DeserializationFeature;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IDeserializer;
+import dev.metaschema.databind.io.ISerializer;
+import dev.metaschema.oscal.lib.model.Catalog;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 class ReadWriteTest {

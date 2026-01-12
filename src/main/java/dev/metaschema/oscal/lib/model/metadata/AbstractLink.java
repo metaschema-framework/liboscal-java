@@ -5,16 +5,15 @@
 
 package dev.metaschema.oscal.lib.model.metadata;
 
-import dev.metaschema.core.datatype.markup.MarkupLine;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.model.Link;
-
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dev.metaschema.core.datatype.markup.MarkupLine;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.model.Link;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractLink implements ILink {

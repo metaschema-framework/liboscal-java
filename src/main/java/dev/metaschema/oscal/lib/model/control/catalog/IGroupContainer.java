@@ -5,10 +5,9 @@
 
 package dev.metaschema.oscal.lib.model.control.catalog;
 
-import dev.metaschema.oscal.lib.model.CatalogGroup;
-
 import java.util.List;
 
+import dev.metaschema.oscal.lib.model.CatalogGroup;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public interface IGroupContainer extends IControlContainer {

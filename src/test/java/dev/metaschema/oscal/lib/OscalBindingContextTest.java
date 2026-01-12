@@ -8,15 +8,6 @@ package dev.metaschema.oscal.lib;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.databind.io.Format;
-import dev.metaschema.databind.io.IBoundLoader;
-import dev.metaschema.databind.io.ISerializer;
-import dev.metaschema.oscal.lib.OscalBindingContext;
-import dev.metaschema.oscal.lib.model.Catalog;
-import dev.metaschema.oscal.lib.model.Profile;
-import dev.metaschema.oscal.lib.model.SystemSecurityPlan;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -31,6 +22,13 @@ import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.io.Format;
+import dev.metaschema.databind.io.IBoundLoader;
+import dev.metaschema.databind.io.ISerializer;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.oscal.lib.model.Profile;
+import dev.metaschema.oscal.lib.model.SystemSecurityPlan;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 class OscalBindingContextTest {

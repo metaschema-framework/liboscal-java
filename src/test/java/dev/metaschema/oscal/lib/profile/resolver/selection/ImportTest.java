@@ -5,6 +5,12 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.selection;
 
+import org.junit.jupiter.api.Test;
+
+import java.net.URI;
+import java.nio.file.Paths;
+import java.util.Collections;
+
 import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import dev.metaschema.core.metapath.item.node.INodeItemFactory;
@@ -21,13 +27,6 @@ import dev.metaschema.oscal.lib.model.ProfileImport;
 import dev.metaschema.oscal.lib.model.control.catalog.AbstractControl;
 import dev.metaschema.oscal.lib.model.control.profile.AbstractProfileSelectControlById;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionException;
-
-import org.junit.jupiter.api.Test;
-
-import java.net.URI;
-import java.nio.file.Paths;
-import java.util.Collections;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 class ImportTest {

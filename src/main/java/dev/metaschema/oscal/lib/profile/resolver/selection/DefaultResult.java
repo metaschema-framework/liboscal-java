@@ -5,12 +5,6 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.selection;
 
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.model.Catalog;
-import dev.metaschema.oscal.lib.model.CatalogGroup;
-import dev.metaschema.oscal.lib.model.Control;
-import dev.metaschema.oscal.lib.model.Parameter;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +15,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.model.Catalog;
+import dev.metaschema.oscal.lib.model.CatalogGroup;
+import dev.metaschema.oscal.lib.model.Control;
+import dev.metaschema.oscal.lib.model.Parameter;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import nl.talsmasoftware.lazy4j.Lazy;
 

@@ -5,11 +5,10 @@
 
 package dev.metaschema.oscal.lib.model;
 
-import dev.metaschema.oscal.lib.model.BackMatter.Resource;
-import dev.metaschema.oscal.lib.model.metadata.IBackMatter;
-
 import java.util.UUID;
 
+import dev.metaschema.oscal.lib.model.BackMatter.Resource;
+import dev.metaschema.oscal.lib.model.metadata.IBackMatter;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractOscalInstance implements IOscalInstance {

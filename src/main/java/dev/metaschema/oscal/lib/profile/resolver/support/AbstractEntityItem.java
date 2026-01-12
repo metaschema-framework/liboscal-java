@@ -5,11 +5,10 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.support;
 
-import dev.metaschema.core.metapath.item.node.IModelNodeItem;
-import dev.metaschema.core.util.ObjectUtils;
-
 import java.net.URI;
 
+import dev.metaschema.core.metapath.item.node.IModelNodeItem;
+import dev.metaschema.core.util.ObjectUtils;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractEntityItem implements IEntityItem {

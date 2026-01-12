@@ -5,6 +5,9 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.merge;
 
+import java.util.EnumSet;
+import java.util.UUID;
+
 import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
 import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
 import dev.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
@@ -26,10 +29,6 @@ import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
 import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer.SelectionStatus;
-
-import java.util.EnumSet;
-import java.util.UUID;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

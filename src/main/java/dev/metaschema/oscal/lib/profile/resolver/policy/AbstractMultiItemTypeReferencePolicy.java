@@ -5,11 +5,10 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.policy;
 
-import dev.metaschema.core.util.CollectionUtil;
-import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
-
 import java.util.List;
 
+import dev.metaschema.core.util.CollectionUtil;
+import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractMultiItemTypeReferencePolicy<TYPE>

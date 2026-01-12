@@ -6,7 +6,6 @@
 package dev.metaschema.oscal.lib.profile.resolver.support;
 
 import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**

@@ -5,13 +5,12 @@
 
 package dev.metaschema.oscal.lib.model.metadata;
 
-import dev.metaschema.oscal.lib.model.Metadata.Location;
-import dev.metaschema.oscal.lib.model.Metadata.Party;
-import dev.metaschema.oscal.lib.model.Metadata.Role;
-
 import java.util.List;
 import java.util.UUID;
 
+import dev.metaschema.oscal.lib.model.Metadata.Location;
+import dev.metaschema.oscal.lib.model.Metadata.Party;
+import dev.metaschema.oscal.lib.model.Metadata.Role;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

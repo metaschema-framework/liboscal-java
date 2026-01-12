@@ -5,6 +5,25 @@
 
 package dev.metaschema.oscal.lib.profile.resolver;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.file.Path;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import dev.metaschema.core.metapath.DynamicContext;
 import dev.metaschema.core.metapath.IDocumentLoader;
 import dev.metaschema.core.metapath.IMetapathExpression;
@@ -58,26 +77,6 @@ import dev.metaschema.oscal.lib.profile.resolver.support.ControlIndexingVisitor;
 import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem;
 import dev.metaschema.oscal.lib.profile.resolver.support.IEntityItem.ItemType;
 import dev.metaschema.oscal.lib.profile.resolver.support.IIndexer;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.file.Path;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

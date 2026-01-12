@@ -5,6 +5,12 @@
 
 package dev.metaschema.oscal.lib;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+
 import dev.metaschema.core.metapath.StaticContext;
 import dev.metaschema.core.model.MetaschemaException;
 import dev.metaschema.core.util.ObjectUtils;
@@ -19,13 +25,6 @@ import dev.metaschema.oscal.lib.model.OscalCompleteModule;
 import dev.metaschema.oscal.lib.model.PlanOfActionAndMilestones;
 import dev.metaschema.oscal.lib.model.Profile;
 import dev.metaschema.oscal.lib.model.SystemSecurityPlan;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import nl.talsmasoftware.lazy4j.Lazy;
 

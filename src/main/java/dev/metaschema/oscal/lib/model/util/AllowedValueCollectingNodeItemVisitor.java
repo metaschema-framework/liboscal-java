@@ -5,6 +5,12 @@
 
 package dev.metaschema.oscal.lib.model.util;
 
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import dev.metaschema.core.metapath.DynamicContext;
 import dev.metaschema.core.metapath.StaticContext;
 import dev.metaschema.core.metapath.item.ISequence;
@@ -19,13 +25,6 @@ import dev.metaschema.core.metapath.item.node.INodeItemFactory;
 import dev.metaschema.core.model.IModule;
 import dev.metaschema.core.model.constraint.IAllowedValuesConstraint;
 import dev.metaschema.core.model.constraint.ILet;
-
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public class AllowedValueCollectingNodeItemVisitor

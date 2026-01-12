@@ -5,10 +5,10 @@
 
 package dev.metaschema.oscal.lib.model.control.catalog;
 
+import java.util.List;
+
 import dev.metaschema.oscal.lib.model.Control;
 import dev.metaschema.oscal.lib.model.ControlPart;
-
-import java.util.List;
 
 public interface IControl extends IControlContainer {
 

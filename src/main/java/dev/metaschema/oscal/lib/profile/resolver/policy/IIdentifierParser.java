@@ -6,7 +6,6 @@
 package dev.metaschema.oscal.lib.profile.resolver.policy;
 
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 

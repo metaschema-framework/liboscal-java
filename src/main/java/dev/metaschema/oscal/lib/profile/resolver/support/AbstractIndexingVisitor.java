@@ -5,13 +5,12 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.support;
 
-import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
-import dev.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
-import dev.metaschema.core.util.ObjectUtils;
-
 import java.util.EnumSet;
 import java.util.Set;
 
+import dev.metaschema.core.metapath.item.node.IAssemblyNodeItem;
+import dev.metaschema.core.metapath.item.node.IRootAssemblyNodeItem;
+import dev.metaschema.core.util.ObjectUtils;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class AbstractIndexingVisitor<T, R>

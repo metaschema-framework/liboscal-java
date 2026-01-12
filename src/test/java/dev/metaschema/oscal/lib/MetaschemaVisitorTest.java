@@ -5,18 +5,6 @@
 
 package dev.metaschema.oscal.lib;
 
-import dev.metaschema.core.metapath.DynamicContext;
-import dev.metaschema.core.metapath.IMetapathExpression;
-import dev.metaschema.core.model.constraint.ConstraintValidationException;
-import dev.metaschema.core.metapath.StaticContext;
-import dev.metaschema.core.metapath.item.IItem;
-import dev.metaschema.core.metapath.item.ISequence;
-import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.databind.io.IBoundLoader;
-import dev.metaschema.oscal.lib.OscalBindingContext;
-import dev.metaschema.oscal.lib.metapath.function.library.ResolveProfile;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +16,16 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import dev.metaschema.core.metapath.DynamicContext;
+import dev.metaschema.core.metapath.IMetapathExpression;
+import dev.metaschema.core.metapath.StaticContext;
+import dev.metaschema.core.metapath.item.IItem;
+import dev.metaschema.core.metapath.item.ISequence;
+import dev.metaschema.core.metapath.item.node.IDocumentNodeItem;
+import dev.metaschema.core.model.constraint.ConstraintValidationException;
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.databind.io.IBoundLoader;
+import dev.metaschema.oscal.lib.metapath.function.library.ResolveProfile;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 class MetaschemaVisitorTest {

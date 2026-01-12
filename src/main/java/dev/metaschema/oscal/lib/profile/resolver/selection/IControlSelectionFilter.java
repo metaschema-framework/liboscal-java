@@ -5,9 +5,6 @@
 
 package dev.metaschema.oscal.lib.profile.resolver.selection;
 
-import dev.metaschema.core.util.ObjectUtils;
-import dev.metaschema.oscal.lib.model.control.catalog.IControl;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
@@ -15,6 +12,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import dev.metaschema.core.util.ObjectUtils;
+import dev.metaschema.oscal.lib.model.control.catalog.IControl;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 @FunctionalInterface
