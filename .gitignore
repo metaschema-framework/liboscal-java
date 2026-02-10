@@ -23,6 +23,7 @@ velocity.log*
 # Claude
 CLAUDE.local.md
 .claude/settings.local.json
+tmpclaude-*-cwd
 
 # Git worktrees
 .worktrees/
