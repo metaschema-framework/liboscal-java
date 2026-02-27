@@ -342,7 +342,7 @@ jobs:
       run: |
         zip ${{ runner.temp }}/website.zip -r target/staging
     - name: Upload generated site
-      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
       with:
         name: website
         path: |
@@ -394,7 +394,7 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
     - name: Upload link check report
       if: ${{ !inputs.skip_linkcheck }}
-      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
       with:
         name: html-link-report
         path: html-link-report.md
