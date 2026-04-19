@@ -80,7 +80,7 @@ class OscalValidationTest {
 
     IValidationResult validationResult = bindingContext.validate(
         new URI(
-            "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-automation/refs/heads/master/src/content/rev5/baselines/xml/FedRAMP_rev5_MODERATE-baseline_profile.xml"),
+            "https://raw.githubusercontent.com/OSCAL-Foundation/fedramp-automation/c784140bc6d1ac9fa159aabc0e8a29e9aa2c63a9/src/content/rev5/baselines/xml/FedRAMP_rev5_MODERATE-baseline_profile.xml"),
         Format.XML,
         new ValidationProvider(module),
         null);
