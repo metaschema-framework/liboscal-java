@@ -5,6 +5,9 @@
 
 package dev.metaschema.oscal.lib.model.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -12,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import dev.metaschema.core.metapath.DynamicContext;
+import dev.metaschema.core.metapath.MetapathException;
 import dev.metaschema.core.metapath.StaticContext;
 import dev.metaschema.core.metapath.item.ISequence;
 import dev.metaschema.core.metapath.item.node.AbstractRecursionPreventingNodeItemVisitor;
@@ -29,6 +33,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 public class AllowedValueCollectingNodeItemVisitor
     extends AbstractRecursionPreventingNodeItemVisitor<DynamicContext, Void> {
+  private static final Logger LOGGER = LogManager.getLogger(AllowedValueCollectingNodeItemVisitor.class);
 
   private final Map<IDefinitionNodeItem<?, ?>, NodeItemRecord> nodeItemAnalysis = new LinkedHashMap<>();
 
@@ -56,11 +61,18 @@ public class AllowedValueCollectingNodeItemVisitor
       @NonNull DynamicContext context) {
     itemLocation.getDefinition().getAllowedValuesConstraints().stream()
         .forEachOrdered(allowedValues -> {
-          ISequence<?> result = allowedValues.getTarget().evaluate(itemLocation, context);
-          result.stream().forEachOrdered(target -> {
-            assert target != null;
-            handleAllowedValues(allowedValues, itemLocation, (IDefinitionNodeItem<?, ?>) target);
-          });
+          try {
+            ISequence<?> result = allowedValues.getTarget().evaluate(itemLocation, context);
+            result.stream().forEachOrdered(target -> {
+              assert target != null;
+              handleAllowedValues(allowedValues, itemLocation, (IDefinitionNodeItem<?, ?>) target);
+            });
+          } catch (MetapathException ex) {
+            LOGGER.atWarn().log(
+                "Skipping allowed-values constraint target '{}' at '{}' because it cannot be evaluated"
+                    + " against the module definition: {}",
+                allowedValues.getTarget().getPath(), itemLocation.getMetapath(), ex.getLocalizedMessage());
+          }
         });
   }
 
@@ -106,9 +118,19 @@ public class AllowedValueCollectingNodeItemVisitor
     assert context != null;
     DynamicContext subContext = context;
     for (ILet let : item.getDefinition().getLetExpressions().values()) {
-      ISequence<?> result = let.getValueExpression().evaluate(item,
-          subContext).reusable();
-      subContext = subContext.bindVariableValue(let.getName(), result);
+      try {
+        ISequence<?> result = let.getValueExpression().evaluate(item,
+            subContext).reusable();
+        subContext = subContext.bindVariableValue(let.getName(), result);
+      } catch (MetapathException ex) {
+        // Let expressions may reference runtime-only data (e.g., resolving an href)
+        // that is not available when walking the module definition. Skip binding the
+        // variable in that case; dependent expressions will be skipped downstream.
+        LOGGER.atWarn().log(
+            "Skipping let expression '${}' at '{}' because it cannot be evaluated against"
+                + " the module definition: {}",
+            let.getName(), item.getMetapath(), ex.getLocalizedMessage());
+      }
     }
     return subContext;
   }

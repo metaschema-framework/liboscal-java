@@ -5,6 +5,7 @@
 
 package dev.metaschema.oscal.lib.model.util;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -20,9 +21,12 @@ import dev.metaschema.core.model.MetaschemaException;
 import dev.metaschema.core.model.constraint.IConstraintSet;
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.databind.IBindingContext;
+import dev.metaschema.databind.model.IBoundModule;
 import dev.metaschema.databind.model.metaschema.BindingConstraintLoader;
 import dev.metaschema.databind.model.metaschema.IBindingMetaschemaModule;
 import dev.metaschema.databind.model.metaschema.IBindingModuleLoader;
+import dev.metaschema.oscal.lib.OscalBindingContext;
+import dev.metaschema.oscal.lib.model.OscalCompleteModule;
 import dev.metaschema.oscal.lib.model.util.AllowedValueCollectingNodeItemVisitor.NodeItemRecord;
 
 class AllowedValueCollectingNodeItemVisitorTest {
@@ -74,5 +78,13 @@ class AllowedValueCollectingNodeItemVisitorTest {
     walker.visit(module);
     Collection<NodeItemRecord> allowedValuesByTarget = ObjectUtils.notNull(walker.getAllowedValueLocations());
     assertEquals(1, allowedValuesByTarget.size());
+  }
+
+  @Test
+  void testVisitOscalCompleteModuleHandlesUnevaluableLets() throws MetaschemaException {
+    IBoundModule module = OscalBindingContext.instance().registerModule(OscalCompleteModule.class);
+
+    AllowedValueCollectingNodeItemVisitor walker = new AllowedValueCollectingNodeItemVisitor();
+    assertDoesNotThrow(() -> walker.visit(module));
   }
 }
