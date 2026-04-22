@@ -56,6 +56,17 @@
 				<extend-base-class>dev.metaschema.oscal.lib.model.control.AbstractPart</extend-base-class>
 			</java>
 		</define-assembly-binding>
+		<define-assembly-binding name="select-control-by-id">
+			<java>
+				<use-class-name>ProfileSelectControlById</use-class-name>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.profile.AbstractProfileSelectControlById</extend-base-class>
+			</java>
+		</define-assembly-binding>
+		<define-assembly-binding name="matching">
+			<java>
+				<use-class-name>ProfileMatching</use-class-name>
+			</java>
+		</define-assembly-binding>
 	</metaschema-binding>
 	<metaschema-binding
 		href="../../../oscal/src/metaschema/oscal_catalog_metaschema.xml">
@@ -94,20 +105,9 @@
 				<use-class-name>ProfileGroup</use-class-name>
 			</java>
 		</define-assembly-binding>
-		<define-assembly-binding name="select-control-by-id">
-			<java>
-				<use-class-name>ProfileSelectControlById</use-class-name>
-				<extend-base-class>dev.metaschema.oscal.lib.model.control.profile.AbstractProfileSelectControlById</extend-base-class>
-			</java>
-		</define-assembly-binding>
 		<define-assembly-binding name="set-parameter">
 			<java>
 				<use-class-name>ProfileSetParameter</use-class-name>
-			</java>
-		</define-assembly-binding>
-		<define-assembly-binding name="matching">
-			<java>
-				<use-class-name>ProfileMatching</use-class-name>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
