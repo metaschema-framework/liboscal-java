@@ -118,14 +118,13 @@
 		
         <constraints>
             <let var="resolved-profile-import" expression=".[@href] ! resolve-profile(doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(@href))))/catalog"/>
-			<index id="oscal-profile-import-index-control-id" name="profile-import-index-control-id" target="$resolved-profile-import//control">
-            	<formal-name>In-Scope Control Identifiers</formal-name>
-            	<description>An index of control identifiers that are in-scope for selection in the profile import.</description>
-                <key-field target="@id"/>
-            </index>
-            <index-has-key id="oscal-profile-import-has-key-include-exclude-control-id" name="profile-import-index-control-id" target="(include-controls|exclude-controls)/with-id">
-                <key-field target="."/>
-            </index-has-key>
+            <expect id="oscal-profile-import-include-exclude-control-id-in-imported-catalog"
+                    target="(include-controls|exclude-controls)/with-id"
+                    test="let $id := . return exists($resolved-profile-import//control[@id = $id])">
+                <formal-name>In-Scope Control Identifier</formal-name>
+                <description>Each referenced control identifier must match a control in the catalog resolved by the surrounding profile import.</description>
+                <message>Control identifier '{ . }' was not found in the imported catalog.</message>
+            </expect>
         </constraints>
     </context>
     <context>

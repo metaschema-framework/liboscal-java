@@ -1,0 +1,36 @@
+{
+  "profile": {
+    "uuid": "13a94063-d30b-4fc8-bf3b-b75bf9da0b72",
+    "metadata": {
+      "title": "Test Profile (Reversed Imports)",
+      "last-modified": "2026-03-23T00:00:00Z",
+      "version": "1.0.0",
+      "oscal-version": "1.2.1"
+    },
+    "imports": [
+      {
+        "href": "test-catalog.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "test-01"
+            ]
+          }
+        ]
+      },
+      {
+        "href": "test-catalog-ac-1.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "ac-1"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "profile": {
+    "uuid": "e285521b-890c-4b8e-b0c3-e72fac21a51e",
+    "metadata": {
+      "title": "Test Profile",
+      "last-modified": "2026-03-23T00:00:00Z",
+      "version": "1.0.0",
+      "oscal-version": "1.2.1"
+    },
+    "imports": [
+      {
+        "href": "test-catalog-ac-1.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "ac-1"
+            ]
+          }
+        ]
+      },
+      {
+        "href": "test-catalog.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "test-01"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "as-is": true
+    }
+  }
+}
