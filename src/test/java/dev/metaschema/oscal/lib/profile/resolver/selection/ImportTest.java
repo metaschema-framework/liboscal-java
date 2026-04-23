@@ -25,7 +25,7 @@ import dev.metaschema.oscal.lib.model.IncludeAll;
 import dev.metaschema.oscal.lib.model.Profile;
 import dev.metaschema.oscal.lib.model.ProfileImport;
 import dev.metaschema.oscal.lib.model.control.catalog.AbstractControl;
-import dev.metaschema.oscal.lib.model.control.profile.AbstractProfileSelectControlById;
+import dev.metaschema.oscal.lib.model.control.profile.AbstractControlCommonSelectControlById;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionException;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -59,7 +59,7 @@ class ImportTest {
     ProfileImport profileImport = new ProfileImport();
     profileImport.setIncludeAll(new IncludeAll());
     profileImport.setExcludeControls(Collections.singletonList(
-        AbstractProfileSelectControlById.builder()
+        AbstractControlCommonSelectControlById.builder()
             .withId("control1")
             .build()));
     profileImport.setHref(cwd);

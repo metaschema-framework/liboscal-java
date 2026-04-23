@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import dev.metaschema.oscal.lib.model.ControlCommonSelectControlById;
 import dev.metaschema.oscal.lib.model.ProfileMatching;
-import dev.metaschema.oscal.lib.model.ProfileSelectControlById;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
-public abstract class AbstractProfileSelectControlById implements IProfileSelectControlById {
+public abstract class AbstractControlCommonSelectControlById implements IControlCommonSelectControlById {
   // TODO: move implementation from profile resolver selection code here
 
   @NonNull
@@ -53,8 +53,8 @@ public abstract class AbstractProfileSelectControlById implements IProfileSelect
     }
 
     @NonNull
-    public ProfileSelectControlById build() {
-      ProfileSelectControlById retval = new ProfileSelectControlById();
+    public ControlCommonSelectControlById build() {
+      ControlCommonSelectControlById retval = new ControlCommonSelectControlById();
       retval.setWithChildControls(withChildControls ? "yes" : "no");
       retval.setWithIds(withIds);
       retval.setMatching(matching.stream()

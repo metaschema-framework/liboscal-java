@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.model.ProfileMatching;
 import dev.metaschema.oscal.lib.model.control.catalog.IControl;
-import dev.metaschema.oscal.lib.model.control.profile.IProfileSelectControlById;
+import dev.metaschema.oscal.lib.model.control.profile.IControlCommonSelectControlById;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -37,7 +37,7 @@ public class DefaultControlSelectionFilter implements IControlSelectionFilter {
    *          a list of select criteria
    */
   @SuppressWarnings("null")
-  public DefaultControlSelectionFilter(@NonNull List<? extends IProfileSelectControlById> selections) {
+  public DefaultControlSelectionFilter(@NonNull List<? extends IControlCommonSelectControlById> selections) {
     this.selections = selections.stream()
         // ignore null entries
         .filter(Objects::nonNull)
@@ -132,7 +132,7 @@ public class DefaultControlSelectionFilter implements IControlSelectionFilter {
     private final Set<String> identifiers;
     private final List<Pattern> patterns;
 
-    public Selection(IProfileSelectControlById selection) {
+    public Selection(IControlCommonSelectControlById selection) {
       // process with-child-controls
       // default is "no"
       this.withChildControls = "yes".equals(selection.getWithChildControls());

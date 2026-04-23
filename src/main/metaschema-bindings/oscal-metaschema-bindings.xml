@@ -58,8 +58,8 @@
 		</define-assembly-binding>
 		<define-assembly-binding name="select-control-by-id">
 			<java>
-				<use-class-name>ProfileSelectControlById</use-class-name>
-				<extend-base-class>dev.metaschema.oscal.lib.model.control.profile.AbstractProfileSelectControlById</extend-base-class>
+				<use-class-name>ControlCommonSelectControlById</use-class-name>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.profile.AbstractControlCommonSelectControlById</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="matching">
@@ -156,6 +156,14 @@
 		<define-assembly-binding name="plan-of-action-and-milestones">
 			<java>
 				<extend-base-class>dev.metaschema.oscal.lib.model.AbstractOscalInstance</extend-base-class>
+			</java>
+		</define-assembly-binding>
+	</metaschema-binding>
+	<metaschema-binding
+		href="../../../oscal/src/metaschema/oscal_assessment-common_metaschema.xml">
+		<define-assembly-binding name="select-control-by-id">
+			<java>
+				<use-class-name>AssessmentCommonSelectControlById</use-class-name>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>

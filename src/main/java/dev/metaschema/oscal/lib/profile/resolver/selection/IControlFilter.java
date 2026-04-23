@@ -13,7 +13,7 @@ import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.model.IncludeAll;
 import dev.metaschema.oscal.lib.model.ProfileImport;
 import dev.metaschema.oscal.lib.model.control.catalog.IControl;
-import dev.metaschema.oscal.lib.model.control.profile.IProfileSelectControlById;
+import dev.metaschema.oscal.lib.model.control.profile.IControlCommonSelectControlById;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 public interface IControlFilter {
@@ -127,7 +127,7 @@ public interface IControlFilter {
       IncludeAll includeAll = profileImport.getIncludeAll();
 
       if (includeAll == null) {
-        List<? extends IProfileSelectControlById> includeSelections = profileImport.getIncludeControls();
+        List<? extends IControlCommonSelectControlById> includeSelections = profileImport.getIncludeControls();
         if (includeSelections.isEmpty()) {
           this.inclusionFilter = IControlSelectionFilter.NONE_MATCH;
         } else {
@@ -137,7 +137,7 @@ public interface IControlFilter {
         this.inclusionFilter = IControlSelectionFilter.ALL_MATCH;
       }
 
-      List<? extends IProfileSelectControlById> excludeSelections = profileImport.getExcludeControls();
+      List<? extends IControlCommonSelectControlById> excludeSelections = profileImport.getExcludeControls();
       if (excludeSelections.isEmpty()) {
         this.exclusionFilter = IControlSelectionFilter.NONE_MATCH;
       } else {
