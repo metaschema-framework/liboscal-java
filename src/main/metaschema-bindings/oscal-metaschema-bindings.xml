@@ -65,7 +65,7 @@
 		<define-assembly-binding name="matching">
 			<java>
 				<use-class-name>ProfileMatching</use-class-name>
-				<extend-base-class>dev.metaschema.oscal.lib.model.control.profile.AbstractProfileMatching</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.AbstractControlMatching</extend-base-class>
 			</java>
 		</define-assembly-binding>
 	</metaschema-binding>
