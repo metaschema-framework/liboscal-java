@@ -112,6 +112,27 @@ class OscalValidationTest {
     assertFalse(validationResult.isPassing());
   }
 
+  @Test
+  void testValidateProfileWithMultipleImports()
+      throws MetaschemaException, IOException, URISyntaxException, ConstraintValidationException {
+    // Regression test for oscal-cli#250: a profile that imports two catalogs
+    // should validate every with-id against the catalog referenced by the
+    // same import, not against an index built from the first import only.
+    IBindingContext bindingContext = OscalBindingContext.newInstance();
+
+    IValidationResult validationResult = bindingContext.validateWithConstraints(
+        Paths.get("src/test/resources/content/issue-250/test-profile.json").toUri(),
+        null);
+
+    if (validationResult.isPassing()) {
+      LOGGER.info("The resource is valid.");
+    } else {
+      LOGGER.info("Validation identified the following issues:");
+      new LoggingValidationHandler().handleResults(validationResult);
+    }
+    assertTrue(validationResult.isPassing());
+  }
+
   private static final class ValidationProvider implements ISchemaValidationProvider {
     @NonNull
     private final IModule module;

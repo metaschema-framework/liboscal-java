@@ -1,0 +1,23 @@
+{
+  "catalog": {
+    "uuid": "a7167eec-1ab2-4ec3-9921-5680981be857",
+    "metadata": {
+      "title": "Test Catalog",
+      "last-modified": "2026-02-25T02:49:04Z",
+      "version": "1.0.0",
+      "oscal-version": "1.2.1"
+    },
+    "controls": [
+      {
+        "id": "test-01",
+        "title": "TEST CONTROL",
+        "parts": [
+          {
+            "name": "statement",
+            "prose": "Test content"
+          }
+        ]
+      }
+    ]
+  }
+}
