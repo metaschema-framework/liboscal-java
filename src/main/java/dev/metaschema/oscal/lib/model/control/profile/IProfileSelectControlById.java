@@ -8,13 +8,11 @@ package dev.metaschema.oscal.lib.model.control.profile;
 import java.util.List;
 
 import dev.metaschema.oscal.lib.model.ProfileMatching;
+import dev.metaschema.oscal.lib.model.control.IControlSelection;
 
-public interface IProfileSelectControlById {
+public interface IProfileSelectControlById extends IControlSelection {
 
-  String getWithChildControls();
-
-  List<String> getWithIds();
-
+  @Override
   List<ProfileMatching> getMatching();
 
 }
