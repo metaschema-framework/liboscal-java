@@ -21,8 +21,8 @@ import java.util.List;
 
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.model.ProfileMatching;
+import dev.metaschema.oscal.lib.model.control.IControlCommonSelectControlById;
 import dev.metaschema.oscal.lib.model.control.catalog.IControl;
-import dev.metaschema.oscal.lib.model.control.profile.IProfileSelectControlById;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -35,13 +35,13 @@ class DefaultControlSelectionFilterTest {
   };
 
   @Mock
-  private IProfileSelectControlById selectControlByIdA;
+  private IControlCommonSelectControlById selectControlByIdA;
   @Mock
   private ProfileMatching matchingA;
   @Mock
   private ProfileMatching matchingB;
   @Mock
-  private IProfileSelectControlById selectControlByIdB;
+  private IControlCommonSelectControlById selectControlByIdB;
 
   @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   @NonNull
