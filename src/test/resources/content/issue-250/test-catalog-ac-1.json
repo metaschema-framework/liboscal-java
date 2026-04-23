@@ -1,0 +1,23 @@
+{
+  "catalog": {
+    "uuid": "5f6606a2-5d1f-4df2-8d5e-4c0e7b57bea6",
+    "metadata": {
+      "title": "Minimal AC Family Catalog",
+      "last-modified": "2026-02-25T02:49:04Z",
+      "version": "1.0.0",
+      "oscal-version": "1.2.1"
+    },
+    "controls": [
+      {
+        "id": "ac-1",
+        "title": "Access Control Policy and Procedures",
+        "parts": [
+          {
+            "name": "statement",
+            "prose": "Minimal AC-1 statement used only to validate profile imports."
+          }
+        ]
+      }
+    ]
+  }
+}

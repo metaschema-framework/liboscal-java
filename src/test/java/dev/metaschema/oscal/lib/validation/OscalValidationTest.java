@@ -118,10 +118,25 @@ class OscalValidationTest {
     // Regression test for oscal-cli#250: a profile that imports two catalogs
     // should validate every with-id against the catalog referenced by the
     // same import, not against an index built from the first import only.
+    assertMultiImportProfileValidates("src/test/resources/content/issue-250/test-profile.json");
+  }
+
+  @Test
+  void testValidateProfileWithMultipleImportsReversed()
+      throws MetaschemaException, IOException, URISyntaxException, ConstraintValidationException {
+    // Companion regression for oscal-cli#250: the original bug report noted
+    // that reversing the import order moved the errors. This test validates
+    // the same two catalogs with their import order swapped to guard against
+    // any future reintroduction of import-order sensitivity.
+    assertMultiImportProfileValidates("src/test/resources/content/issue-250/test-profile-reversed.json");
+  }
+
+  private void assertMultiImportProfileValidates(@NonNull String profilePath)
+      throws MetaschemaException, IOException, ConstraintValidationException {
     IBindingContext bindingContext = OscalBindingContext.newInstance();
 
     IValidationResult validationResult = bindingContext.validateWithConstraints(
-        Paths.get("src/test/resources/content/issue-250/test-profile.json").toUri(),
+        Paths.get(profilePath).toUri(),
         null);
 
     if (validationResult.isPassing()) {
