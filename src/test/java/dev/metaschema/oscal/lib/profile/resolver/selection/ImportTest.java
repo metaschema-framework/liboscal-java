@@ -24,8 +24,8 @@ import dev.metaschema.oscal.lib.model.Catalog;
 import dev.metaschema.oscal.lib.model.IncludeAll;
 import dev.metaschema.oscal.lib.model.Profile;
 import dev.metaschema.oscal.lib.model.ProfileImport;
+import dev.metaschema.oscal.lib.model.control.AbstractControlCommonSelectControlById;
 import dev.metaschema.oscal.lib.model.control.catalog.AbstractControl;
-import dev.metaschema.oscal.lib.model.control.profile.AbstractControlCommonSelectControlById;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionException;
 import edu.umd.cs.findbugs.annotations.NonNull;
 

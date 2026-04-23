@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 
 import dev.metaschema.core.util.ObjectUtils;
 import dev.metaschema.oscal.lib.model.ProfileMatching;
+import dev.metaschema.oscal.lib.model.control.IControlCommonSelectControlById;
 import dev.metaschema.oscal.lib.model.control.catalog.IControl;
-import dev.metaschema.oscal.lib.model.control.profile.IControlCommonSelectControlById;
 import dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionEvaluationException;
 import edu.umd.cs.findbugs.annotations.NonNull;
 

@@ -59,7 +59,7 @@
 		<define-assembly-binding name="select-control-by-id">
 			<java>
 				<use-class-name>ControlCommonSelectControlById</use-class-name>
-				<extend-base-class>dev.metaschema.oscal.lib.model.control.profile.AbstractControlCommonSelectControlById</extend-base-class>
+				<extend-base-class>dev.metaschema.oscal.lib.model.control.AbstractControlCommonSelectControlById</extend-base-class>
 			</java>
 		</define-assembly-binding>
 		<define-assembly-binding name="matching">
