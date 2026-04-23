@@ -6,4 +6,7 @@
 package dev.metaschema.oscal.lib.model.control;
 
 public abstract class AbstractControlMatching implements IControlMatching {
+  protected AbstractControlMatching() {
+    // base class for generated matching bindings
+  }
 }

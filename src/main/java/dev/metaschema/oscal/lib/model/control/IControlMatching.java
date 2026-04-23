@@ -5,6 +5,7 @@
 
 package dev.metaschema.oscal.lib.model.control;
 
+@SuppressWarnings("PMD.ImplicitFunctionalInterface")
 public interface IControlMatching {
 
   String getPattern();
