@@ -1100,577 +1100,614 @@
 <span class="source-line-no">1087</span><span id="line-1087">      private URI _byNs;</span>
 <span class="source-line-no">1088</span><span id="line-1088"></span>
 <span class="source-line-no">1089</span><span id="line-1089">      /**</span>
-<span class="source-line-no">1090</span><span id="line-1090">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Modify.Alter.Remove} instance with no metadata.</span>
+<span class="source-line-no">1090</span><span id="line-1090">       * Additional commentary about the containing object.</span>
 <span class="source-line-no">1091</span><span id="line-1091">       */</span>
-<span class="source-line-no">1092</span><span id="line-1092">      public Remove() {</span>
-<span class="source-line-no">1093</span><span id="line-1093">        this(null);</span>
-<span class="source-line-no">1094</span><span id="line-1094">      }</span>
-<span class="source-line-no">1095</span><span id="line-1095"></span>
-<span class="source-line-no">1096</span><span id="line-1096">      /**</span>
-<span class="source-line-no">1097</span><span id="line-1097">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Modify.Alter.Remove} instance with the specified metadata.</span>
-<span class="source-line-no">1098</span><span id="line-1098">       *</span>
-<span class="source-line-no">1099</span><span id="line-1099">       * @param data</span>
-<span class="source-line-no">1100</span><span id="line-1100">       *           the metaschema data, or {@code null} if none</span>
-<span class="source-line-no">1101</span><span id="line-1101">       */</span>
-<span class="source-line-no">1102</span><span id="line-1102">      public Remove(IMetaschemaData data) {</span>
-<span class="source-line-no">1103</span><span id="line-1103">        this.__metaschemaData = data;</span>
-<span class="source-line-no">1104</span><span id="line-1104">      }</span>
-<span class="source-line-no">1105</span><span id="line-1105"></span>
-<span class="source-line-no">1106</span><span id="line-1106">      @Override</span>
-<span class="source-line-no">1107</span><span id="line-1107">      public IMetaschemaData getMetaschemaData() {</span>
-<span class="source-line-no">1108</span><span id="line-1108">        return __metaschemaData;</span>
-<span class="source-line-no">1109</span><span id="line-1109">      }</span>
-<span class="source-line-no">1110</span><span id="line-1110"></span>
-<span class="source-line-no">1111</span><span id="line-1111">      /**</span>
-<span class="source-line-no">1112</span><span id="line-1112">       * Get the "{@literal Reference by (assigned) name}".</span>
-<span class="source-line-no">1113</span><span id="line-1113">       *</span>
-<span class="source-line-no">1114</span><span id="line-1114">       * &lt;p&gt;</span>
-<span class="source-line-no">1115</span><span id="line-1115">       * Identify items remove by matching their assigned name.</span>
-<span class="source-line-no">1116</span><span id="line-1116">       *</span>
-<span class="source-line-no">1117</span><span id="line-1117">       * @return the by-name value, or {@code null} if not set</span>
-<span class="source-line-no">1118</span><span id="line-1118">       */</span>
-<span class="source-line-no">1119</span><span id="line-1119">      @Nullable</span>
-<span class="source-line-no">1120</span><span id="line-1120">      public String getByName() {</span>
-<span class="source-line-no">1121</span><span id="line-1121">        return _byName;</span>
-<span class="source-line-no">1122</span><span id="line-1122">      }</span>
-<span class="source-line-no">1123</span><span id="line-1123"></span>
-<span class="source-line-no">1124</span><span id="line-1124">      /**</span>
-<span class="source-line-no">1125</span><span id="line-1125">       * Set the "{@literal Reference by (assigned) name}".</span>
-<span class="source-line-no">1126</span><span id="line-1126">       *</span>
-<span class="source-line-no">1127</span><span id="line-1127">       * &lt;p&gt;</span>
-<span class="source-line-no">1128</span><span id="line-1128">       * Identify items remove by matching their assigned name.</span>
-<span class="source-line-no">1129</span><span id="line-1129">       *</span>
-<span class="source-line-no">1130</span><span id="line-1130">       * @param value</span>
-<span class="source-line-no">1131</span><span id="line-1131">       *           the by-name value to set, or {@code null} to clear</span>
-<span class="source-line-no">1132</span><span id="line-1132">       */</span>
-<span class="source-line-no">1133</span><span id="line-1133">      public void setByName(@Nullable String value) {</span>
-<span class="source-line-no">1134</span><span id="line-1134">        _byName = value;</span>
-<span class="source-line-no">1135</span><span id="line-1135">      }</span>
-<span class="source-line-no">1136</span><span id="line-1136"></span>
-<span class="source-line-no">1137</span><span id="line-1137">      /**</span>
-<span class="source-line-no">1138</span><span id="line-1138">       * Get the "{@literal Reference by class}".</span>
-<span class="source-line-no">1139</span><span id="line-1139">       *</span>
-<span class="source-line-no">1140</span><span id="line-1140">       * &lt;p&gt;</span>
-<span class="source-line-no">1141</span><span id="line-1141">       * Identify items to remove by matching their &lt;code&gt;class&lt;/code&gt;.</span>
-<span class="source-line-no">1142</span><span id="line-1142">       *</span>
-<span class="source-line-no">1143</span><span id="line-1143">       * @return the by-class value, or {@code null} if not set</span>
-<span class="source-line-no">1144</span><span id="line-1144">       */</span>
-<span class="source-line-no">1145</span><span id="line-1145">      @Nullable</span>
-<span class="source-line-no">1146</span><span id="line-1146">      public String getByClass() {</span>
-<span class="source-line-no">1147</span><span id="line-1147">        return _byClass;</span>
-<span class="source-line-no">1148</span><span id="line-1148">      }</span>
-<span class="source-line-no">1149</span><span id="line-1149"></span>
-<span class="source-line-no">1150</span><span id="line-1150">      /**</span>
-<span class="source-line-no">1151</span><span id="line-1151">       * Set the "{@literal Reference by class}".</span>
-<span class="source-line-no">1152</span><span id="line-1152">       *</span>
-<span class="source-line-no">1153</span><span id="line-1153">       * &lt;p&gt;</span>
-<span class="source-line-no">1154</span><span id="line-1154">       * Identify items to remove by matching their &lt;code&gt;class&lt;/code&gt;.</span>
-<span class="source-line-no">1155</span><span id="line-1155">       *</span>
-<span class="source-line-no">1156</span><span id="line-1156">       * @param value</span>
-<span class="source-line-no">1157</span><span id="line-1157">       *           the by-class value to set, or {@code null} to clear</span>
-<span class="source-line-no">1158</span><span id="line-1158">       */</span>
-<span class="source-line-no">1159</span><span id="line-1159">      public void setByClass(@Nullable String value) {</span>
-<span class="source-line-no">1160</span><span id="line-1160">        _byClass = value;</span>
-<span class="source-line-no">1161</span><span id="line-1161">      }</span>
-<span class="source-line-no">1162</span><span id="line-1162"></span>
-<span class="source-line-no">1163</span><span id="line-1163">      /**</span>
-<span class="source-line-no">1164</span><span id="line-1164">       * Get the "{@literal Reference by ID}".</span>
-<span class="source-line-no">1165</span><span id="line-1165">       *</span>
-<span class="source-line-no">1166</span><span id="line-1166">       * &lt;p&gt;</span>
-<span class="source-line-no">1167</span><span id="line-1167">       * Identify items to remove indicated by their &lt;code&gt;id&lt;/code&gt;.</span>
-<span class="source-line-no">1168</span><span id="line-1168">       *</span>
-<span class="source-line-no">1169</span><span id="line-1169">       * @return the by-id value, or {@code null} if not set</span>
-<span class="source-line-no">1170</span><span id="line-1170">       */</span>
-<span class="source-line-no">1171</span><span id="line-1171">      @Nullable</span>
-<span class="source-line-no">1172</span><span id="line-1172">      public String getById() {</span>
-<span class="source-line-no">1173</span><span id="line-1173">        return _byId;</span>
-<span class="source-line-no">1174</span><span id="line-1174">      }</span>
-<span class="source-line-no">1175</span><span id="line-1175"></span>
-<span class="source-line-no">1176</span><span id="line-1176">      /**</span>
-<span class="source-line-no">1177</span><span id="line-1177">       * Set the "{@literal Reference by ID}".</span>
-<span class="source-line-no">1178</span><span id="line-1178">       *</span>
-<span class="source-line-no">1179</span><span id="line-1179">       * &lt;p&gt;</span>
-<span class="source-line-no">1180</span><span id="line-1180">       * Identify items to remove indicated by their &lt;code&gt;id&lt;/code&gt;.</span>
-<span class="source-line-no">1181</span><span id="line-1181">       *</span>
-<span class="source-line-no">1182</span><span id="line-1182">       * @param value</span>
-<span class="source-line-no">1183</span><span id="line-1183">       *           the by-id value to set, or {@code null} to clear</span>
-<span class="source-line-no">1184</span><span id="line-1184">       */</span>
-<span class="source-line-no">1185</span><span id="line-1185">      public void setById(@Nullable String value) {</span>
-<span class="source-line-no">1186</span><span id="line-1186">        _byId = value;</span>
-<span class="source-line-no">1187</span><span id="line-1187">      }</span>
-<span class="source-line-no">1188</span><span id="line-1188"></span>
-<span class="source-line-no">1189</span><span id="line-1189">      /**</span>
-<span class="source-line-no">1190</span><span id="line-1190">       * Get the "{@literal Item Name Reference}".</span>
-<span class="source-line-no">1191</span><span id="line-1191">       *</span>
-<span class="source-line-no">1192</span><span id="line-1192">       * &lt;p&gt;</span>
-<span class="source-line-no">1193</span><span id="line-1193">       * Identify items to remove by the name of the item's information object name, e.g. &lt;code&gt;title&lt;/code&gt; or &lt;code&gt;prop&lt;/code&gt;.</span>
-<span class="source-line-no">1194</span><span id="line-1194">       *</span>
-<span class="source-line-no">1195</span><span id="line-1195">       * @return the by-item-name value, or {@code null} if not set</span>
-<span class="source-line-no">1196</span><span id="line-1196">       */</span>
-<span class="source-line-no">1197</span><span id="line-1197">      @Nullable</span>
-<span class="source-line-no">1198</span><span id="line-1198">      public String getByItemName() {</span>
-<span class="source-line-no">1199</span><span id="line-1199">        return _byItemName;</span>
-<span class="source-line-no">1200</span><span id="line-1200">      }</span>
-<span class="source-line-no">1201</span><span id="line-1201"></span>
-<span class="source-line-no">1202</span><span id="line-1202">      /**</span>
-<span class="source-line-no">1203</span><span id="line-1203">       * Set the "{@literal Item Name Reference}".</span>
-<span class="source-line-no">1204</span><span id="line-1204">       *</span>
-<span class="source-line-no">1205</span><span id="line-1205">       * &lt;p&gt;</span>
-<span class="source-line-no">1206</span><span id="line-1206">       * Identify items to remove by the name of the item's information object name, e.g. &lt;code&gt;title&lt;/code&gt; or &lt;code&gt;prop&lt;/code&gt;.</span>
-<span class="source-line-no">1207</span><span id="line-1207">       *</span>
-<span class="source-line-no">1208</span><span id="line-1208">       * @param value</span>
-<span class="source-line-no">1209</span><span id="line-1209">       *           the by-item-name value to set, or {@code null} to clear</span>
-<span class="source-line-no">1210</span><span id="line-1210">       */</span>
-<span class="source-line-no">1211</span><span id="line-1211">      public void setByItemName(@Nullable String value) {</span>
-<span class="source-line-no">1212</span><span id="line-1212">        _byItemName = value;</span>
-<span class="source-line-no">1213</span><span id="line-1213">      }</span>
-<span class="source-line-no">1214</span><span id="line-1214"></span>
-<span class="source-line-no">1215</span><span id="line-1215">      /**</span>
-<span class="source-line-no">1216</span><span id="line-1216">       * Get the "{@literal Item Namespace Reference}".</span>
-<span class="source-line-no">1217</span><span id="line-1217">       *</span>
-<span class="source-line-no">1218</span><span id="line-1218">       * &lt;p&gt;</span>
-<span class="source-line-no">1219</span><span id="line-1219">       * Identify items to remove by the item's &lt;code&gt;ns&lt;/code&gt;, which is the namespace associated with a &lt;code&gt;part&lt;/code&gt;, or &lt;code&gt;prop&lt;/code&gt;.</span>
-<span class="source-line-no">1220</span><span id="line-1220">       *</span>
-<span class="source-line-no">1221</span><span id="line-1221">       * @return the by-ns value, or {@code null} if not set</span>
-<span class="source-line-no">1222</span><span id="line-1222">       */</span>
-<span class="source-line-no">1223</span><span id="line-1223">      @Nullable</span>
-<span class="source-line-no">1224</span><span id="line-1224">      public URI getByNs() {</span>
-<span class="source-line-no">1225</span><span id="line-1225">        return _byNs;</span>
-<span class="source-line-no">1226</span><span id="line-1226">      }</span>
-<span class="source-line-no">1227</span><span id="line-1227"></span>
-<span class="source-line-no">1228</span><span id="line-1228">      /**</span>
-<span class="source-line-no">1229</span><span id="line-1229">       * Set the "{@literal Item Namespace Reference}".</span>
-<span class="source-line-no">1230</span><span id="line-1230">       *</span>
-<span class="source-line-no">1231</span><span id="line-1231">       * &lt;p&gt;</span>
-<span class="source-line-no">1232</span><span id="line-1232">       * Identify items to remove by the item's &lt;code&gt;ns&lt;/code&gt;, which is the namespace associated with a &lt;code&gt;part&lt;/code&gt;, or &lt;code&gt;prop&lt;/code&gt;.</span>
-<span class="source-line-no">1233</span><span id="line-1233">       *</span>
-<span class="source-line-no">1234</span><span id="line-1234">       * @param value</span>
-<span class="source-line-no">1235</span><span id="line-1235">       *           the by-ns value to set, or {@code null} to clear</span>
-<span class="source-line-no">1236</span><span id="line-1236">       */</span>
-<span class="source-line-no">1237</span><span id="line-1237">      public void setByNs(@Nullable URI value) {</span>
-<span class="source-line-no">1238</span><span id="line-1238">        _byNs = value;</span>
-<span class="source-line-no">1239</span><span id="line-1239">      }</span>
-<span class="source-line-no">1240</span><span id="line-1240"></span>
-<span class="source-line-no">1241</span><span id="line-1241">      @Override</span>
-<span class="source-line-no">1242</span><span id="line-1242">      public String toString() {</span>
-<span class="source-line-no">1243</span><span id="line-1243">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
-<span class="source-line-no">1244</span><span id="line-1244">      }</span>
-<span class="source-line-no">1245</span><span id="line-1245">    }</span>
-<span class="source-line-no">1246</span><span id="line-1246"></span>
-<span class="source-line-no">1247</span><span id="line-1247">    /**</span>
-<span class="source-line-no">1248</span><span id="line-1248">     * Specifies contents to be added into controls, in resolution.</span>
-<span class="source-line-no">1249</span><span id="line-1249">     */</span>
-<span class="source-line-no">1250</span><span id="line-1250">    @MetaschemaAssembly(</span>
-<span class="source-line-no">1251</span><span id="line-1251">        formalName = "Addition",</span>
-<span class="source-line-no">1252</span><span id="line-1252">        description = "Specifies contents to be added into controls, in resolution.",</span>
-<span class="source-line-no">1253</span><span id="line-1253">        name = "add",</span>
-<span class="source-line-no">1254</span><span id="line-1254">        moduleClass = OscalProfileModule.class,</span>
-<span class="source-line-no">1255</span><span id="line-1255">        remarks = "When no `by-id` is given, the addition is inserted into the control targeted by the alteration at the start or end as indicated by `position`. Only `position` values of \"starting\" or \"ending\" are permitted when there is no `by-id`.\n"</span>
-<span class="source-line-no">1256</span><span id="line-1256">                + "\n"</span>
-<span class="source-line-no">1257</span><span id="line-1257">                + "`by-id`, when given, should indicate, by its ID, an element inside the control to serve as the anchor point for the addition. In this case, `position` value may be any of the permitted values.",</span>
-<span class="source-line-no">1258</span><span id="line-1258">        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-profile-modify-alter-prop-name-values", level = IConstraint.Level.ERROR, target = "prop[has-oscal-namespace('http://csrc.nist.gov/ns/oscal')]/@name", values = {@AllowedValue(value = "label", description = "A human-readable label for the parent context, which may be rendered in place of the actual identifier for some use cases."), @AllowedValue(value = "sort-id", description = "An alternative identifier, whose value is easily sortable among other such values in the document."), @AllowedValue(value = "alt-identifier", description = "An alternate or aliased identifier for the parent context.")}))</span>
-<span class="source-line-no">1259</span><span id="line-1259">    )</span>
-<span class="source-line-no">1260</span><span id="line-1260">    public static class Add implements IBoundObject {</span>
-<span class="source-line-no">1261</span><span id="line-1261">      private final IMetaschemaData __metaschemaData;</span>
-<span class="source-line-no">1262</span><span id="line-1262"></span>
-<span class="source-line-no">1263</span><span id="line-1263">      /**</span>
-<span class="source-line-no">1264</span><span id="line-1264">       * Where to add the new content with respect to the targeted element (beside it or inside it).</span>
-<span class="source-line-no">1265</span><span id="line-1265">       */</span>
-<span class="source-line-no">1266</span><span id="line-1266">      @BoundFlag(</span>
-<span class="source-line-no">1267</span><span id="line-1267">          formalName = "Position",</span>
-<span class="source-line-no">1268</span><span id="line-1268">          description = "Where to add the new content with respect to the targeted element (beside it or inside it).",</span>
-<span class="source-line-no">1269</span><span id="line-1269">          name = "position",</span>
-<span class="source-line-no">1270</span><span id="line-1270">          defaultValue = "ending",</span>
-<span class="source-line-no">1271</span><span id="line-1271">          typeAdapter = TokenAdapter.class,</span>
-<span class="source-line-no">1272</span><span id="line-1272">          valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-alter-position-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "before", description = "Preceding the by-id target"), @AllowedValue(value = "after", description = "Following the by-id target"), @AllowedValue(value = "starting", description = "Inside the control or by-id target, at the start"), @AllowedValue(value = "ending", description = "Inside the control or by-id target, at the end")}))</span>
-<span class="source-line-no">1273</span><span id="line-1273">      )</span>
-<span class="source-line-no">1274</span><span id="line-1274">      private String _position;</span>
-<span class="source-line-no">1275</span><span id="line-1275"></span>
-<span class="source-line-no">1276</span><span id="line-1276">      /**</span>
-<span class="source-line-no">1277</span><span id="line-1277">       * Target location of the addition.</span>
-<span class="source-line-no">1278</span><span id="line-1278">       */</span>
-<span class="source-line-no">1279</span><span id="line-1279">      @BoundFlag(</span>
-<span class="source-line-no">1280</span><span id="line-1280">          formalName = "Reference by ID",</span>
-<span class="source-line-no">1281</span><span id="line-1281">          description = "Target location of the addition.",</span>
-<span class="source-line-no">1282</span><span id="line-1282">          name = "by-id",</span>
-<span class="source-line-no">1283</span><span id="line-1283">          typeAdapter = TokenAdapter.class</span>
-<span class="source-line-no">1284</span><span id="line-1284">      )</span>
-<span class="source-line-no">1285</span><span id="line-1285">      private String _byId;</span>
-<span class="source-line-no">1286</span><span id="line-1286"></span>
-<span class="source-line-no">1287</span><span id="line-1287">      /**</span>
-<span class="source-line-no">1288</span><span id="line-1288">       * A name given to the control, which may be used by a tool for display and navigation.</span>
-<span class="source-line-no">1289</span><span id="line-1289">       */</span>
-<span class="source-line-no">1290</span><span id="line-1290">      @BoundField(</span>
-<span class="source-line-no">1291</span><span id="line-1291">          formalName = "Title Change",</span>
-<span class="source-line-no">1292</span><span id="line-1292">          description = "A name given to the control, which may be used by a tool for display and navigation.",</span>
-<span class="source-line-no">1293</span><span id="line-1293">          useName = "title",</span>
-<span class="source-line-no">1294</span><span id="line-1294">          typeAdapter = MarkupLineAdapter.class</span>
-<span class="source-line-no">1295</span><span id="line-1295">      )</span>
-<span class="source-line-no">1296</span><span id="line-1296">      private MarkupLine _title;</span>
-<span class="source-line-no">1297</span><span id="line-1297"></span>
-<span class="source-line-no">1298</span><span id="line-1298">      /**</span>
-<span class="source-line-no">1299</span><span id="line-1299">       * Parameters provide a mechanism for the dynamic assignment of value(s) in a control.</span>
-<span class="source-line-no">1300</span><span id="line-1300">       */</span>
-<span class="source-line-no">1301</span><span id="line-1301">      @BoundAssembly(</span>
-<span class="source-line-no">1302</span><span id="line-1302">          formalName = "Parameter",</span>
-<span class="source-line-no">1303</span><span id="line-1303">          description = "Parameters provide a mechanism for the dynamic assignment of value(s) in a control.",</span>
-<span class="source-line-no">1304</span><span id="line-1304">          useName = "param",</span>
-<span class="source-line-no">1305</span><span id="line-1305">          maxOccurs = -1,</span>
-<span class="source-line-no">1306</span><span id="line-1306">          groupAs = @GroupAs(name = "params", inJson = JsonGroupAsBehavior.LIST)</span>
-<span class="source-line-no">1307</span><span id="line-1307">      )</span>
-<span class="source-line-no">1308</span><span id="line-1308">      private List&lt;Parameter&gt; _params;</span>
-<span class="source-line-no">1309</span><span id="line-1309"></span>
-<span class="source-line-no">1310</span><span id="line-1310">      /**</span>
-<span class="source-line-no">1311</span><span id="line-1311">       * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
-<span class="source-line-no">1312</span><span id="line-1312">       */</span>
-<span class="source-line-no">1313</span><span id="line-1313">      @BoundAssembly(</span>
-<span class="source-line-no">1314</span><span id="line-1314">          formalName = "Property",</span>
-<span class="source-line-no">1315</span><span id="line-1315">          description = "An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.",</span>
-<span class="source-line-no">1316</span><span id="line-1316">          useName = "prop",</span>
-<span class="source-line-no">1317</span><span id="line-1317">          maxOccurs = -1,</span>
-<span class="source-line-no">1318</span><span id="line-1318">          groupAs = @GroupAs(name = "props", inJson = JsonGroupAsBehavior.LIST)</span>
-<span class="source-line-no">1319</span><span id="line-1319">      )</span>
-<span class="source-line-no">1320</span><span id="line-1320">      private List&lt;Property&gt; _props;</span>
-<span class="source-line-no">1321</span><span id="line-1321"></span>
-<span class="source-line-no">1322</span><span id="line-1322">      /**</span>
-<span class="source-line-no">1323</span><span id="line-1323">       * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
-<span class="source-line-no">1324</span><span id="line-1324">       */</span>
-<span class="source-line-no">1325</span><span id="line-1325">      @BoundAssembly(</span>
-<span class="source-line-no">1326</span><span id="line-1326">          formalName = "Link",</span>
-<span class="source-line-no">1327</span><span id="line-1327">          description = "A reference to a local or remote resource, that has a specific relation to the containing object.",</span>
-<span class="source-line-no">1328</span><span id="line-1328">          useName = "link",</span>
-<span class="source-line-no">1329</span><span id="line-1329">          maxOccurs = -1,</span>
-<span class="source-line-no">1330</span><span id="line-1330">          groupAs = @GroupAs(name = "links", inJson = JsonGroupAsBehavior.LIST)</span>
-<span class="source-line-no">1331</span><span id="line-1331">      )</span>
-<span class="source-line-no">1332</span><span id="line-1332">      private List&lt;Link&gt; _links;</span>
-<span class="source-line-no">1333</span><span id="line-1333"></span>
-<span class="source-line-no">1334</span><span id="line-1334">      /**</span>
-<span class="source-line-no">1335</span><span id="line-1335">       * An annotated, markup-based textual element of a control's or catalog group's definition, or a child of another part.</span>
-<span class="source-line-no">1336</span><span id="line-1336">       */</span>
-<span class="source-line-no">1337</span><span id="line-1337">      @BoundAssembly(</span>
-<span class="source-line-no">1338</span><span id="line-1338">          formalName = "Part",</span>
-<span class="source-line-no">1339</span><span id="line-1339">          description = "An annotated, markup-based textual element of a control's or catalog group's definition, or a child of another part.",</span>
-<span class="source-line-no">1340</span><span id="line-1340">          useName = "part",</span>
-<span class="source-line-no">1341</span><span id="line-1341">          maxOccurs = -1,</span>
-<span class="source-line-no">1342</span><span id="line-1342">          groupAs = @GroupAs(name = "parts", inJson = JsonGroupAsBehavior.LIST)</span>
-<span class="source-line-no">1343</span><span id="line-1343">      )</span>
-<span class="source-line-no">1344</span><span id="line-1344">      private List&lt;ControlPart&gt; _parts;</span>
-<span class="source-line-no">1345</span><span id="line-1345"></span>
-<span class="source-line-no">1346</span><span id="line-1346">      /**</span>
-<span class="source-line-no">1347</span><span id="line-1347">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Modify.Alter.Add} instance with no metadata.</span>
-<span class="source-line-no">1348</span><span id="line-1348">       */</span>
-<span class="source-line-no">1349</span><span id="line-1349">      public Add() {</span>
-<span class="source-line-no">1350</span><span id="line-1350">        this(null);</span>
-<span class="source-line-no">1351</span><span id="line-1351">      }</span>
-<span class="source-line-no">1352</span><span id="line-1352"></span>
-<span class="source-line-no">1353</span><span id="line-1353">      /**</span>
-<span class="source-line-no">1354</span><span id="line-1354">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Modify.Alter.Add} instance with the specified metadata.</span>
-<span class="source-line-no">1355</span><span id="line-1355">       *</span>
-<span class="source-line-no">1356</span><span id="line-1356">       * @param data</span>
-<span class="source-line-no">1357</span><span id="line-1357">       *           the metaschema data, or {@code null} if none</span>
-<span class="source-line-no">1358</span><span id="line-1358">       */</span>
-<span class="source-line-no">1359</span><span id="line-1359">      public Add(IMetaschemaData data) {</span>
-<span class="source-line-no">1360</span><span id="line-1360">        this.__metaschemaData = data;</span>
-<span class="source-line-no">1361</span><span id="line-1361">      }</span>
-<span class="source-line-no">1362</span><span id="line-1362"></span>
-<span class="source-line-no">1363</span><span id="line-1363">      @Override</span>
-<span class="source-line-no">1364</span><span id="line-1364">      public IMetaschemaData getMetaschemaData() {</span>
-<span class="source-line-no">1365</span><span id="line-1365">        return __metaschemaData;</span>
-<span class="source-line-no">1366</span><span id="line-1366">      }</span>
-<span class="source-line-no">1367</span><span id="line-1367"></span>
-<span class="source-line-no">1368</span><span id="line-1368">      /**</span>
-<span class="source-line-no">1369</span><span id="line-1369">       * Get the "{@literal Position}".</span>
-<span class="source-line-no">1370</span><span id="line-1370">       *</span>
-<span class="source-line-no">1371</span><span id="line-1371">       * &lt;p&gt;</span>
-<span class="source-line-no">1372</span><span id="line-1372">       * Where to add the new content with respect to the targeted element (beside it or inside it).</span>
-<span class="source-line-no">1373</span><span id="line-1373">       *</span>
-<span class="source-line-no">1374</span><span id="line-1374">       * @return the position value, or {@code null} if not set</span>
-<span class="source-line-no">1375</span><span id="line-1375">       */</span>
-<span class="source-line-no">1376</span><span id="line-1376">      @Nullable</span>
-<span class="source-line-no">1377</span><span id="line-1377">      public String getPosition() {</span>
-<span class="source-line-no">1378</span><span id="line-1378">        return _position;</span>
-<span class="source-line-no">1379</span><span id="line-1379">      }</span>
-<span class="source-line-no">1380</span><span id="line-1380"></span>
-<span class="source-line-no">1381</span><span id="line-1381">      /**</span>
-<span class="source-line-no">1382</span><span id="line-1382">       * Set the "{@literal Position}".</span>
-<span class="source-line-no">1383</span><span id="line-1383">       *</span>
-<span class="source-line-no">1384</span><span id="line-1384">       * &lt;p&gt;</span>
-<span class="source-line-no">1385</span><span id="line-1385">       * Where to add the new content with respect to the targeted element (beside it or inside it).</span>
-<span class="source-line-no">1386</span><span id="line-1386">       *</span>
-<span class="source-line-no">1387</span><span id="line-1387">       * @param value</span>
-<span class="source-line-no">1388</span><span id="line-1388">       *           the position value to set, or {@code null} to clear</span>
-<span class="source-line-no">1389</span><span id="line-1389">       */</span>
-<span class="source-line-no">1390</span><span id="line-1390">      public void setPosition(@Nullable String value) {</span>
-<span class="source-line-no">1391</span><span id="line-1391">        _position = value;</span>
-<span class="source-line-no">1392</span><span id="line-1392">      }</span>
-<span class="source-line-no">1393</span><span id="line-1393"></span>
-<span class="source-line-no">1394</span><span id="line-1394">      /**</span>
-<span class="source-line-no">1395</span><span id="line-1395">       * Get the "{@literal Reference by ID}".</span>
-<span class="source-line-no">1396</span><span id="line-1396">       *</span>
-<span class="source-line-no">1397</span><span id="line-1397">       * &lt;p&gt;</span>
-<span class="source-line-no">1398</span><span id="line-1398">       * Target location of the addition.</span>
-<span class="source-line-no">1399</span><span id="line-1399">       *</span>
-<span class="source-line-no">1400</span><span id="line-1400">       * @return the by-id value, or {@code null} if not set</span>
-<span class="source-line-no">1401</span><span id="line-1401">       */</span>
-<span class="source-line-no">1402</span><span id="line-1402">      @Nullable</span>
-<span class="source-line-no">1403</span><span id="line-1403">      public String getById() {</span>
-<span class="source-line-no">1404</span><span id="line-1404">        return _byId;</span>
-<span class="source-line-no">1405</span><span id="line-1405">      }</span>
-<span class="source-line-no">1406</span><span id="line-1406"></span>
-<span class="source-line-no">1407</span><span id="line-1407">      /**</span>
-<span class="source-line-no">1408</span><span id="line-1408">       * Set the "{@literal Reference by ID}".</span>
-<span class="source-line-no">1409</span><span id="line-1409">       *</span>
-<span class="source-line-no">1410</span><span id="line-1410">       * &lt;p&gt;</span>
-<span class="source-line-no">1411</span><span id="line-1411">       * Target location of the addition.</span>
-<span class="source-line-no">1412</span><span id="line-1412">       *</span>
-<span class="source-line-no">1413</span><span id="line-1413">       * @param value</span>
-<span class="source-line-no">1414</span><span id="line-1414">       *           the by-id value to set, or {@code null} to clear</span>
-<span class="source-line-no">1415</span><span id="line-1415">       */</span>
-<span class="source-line-no">1416</span><span id="line-1416">      public void setById(@Nullable String value) {</span>
-<span class="source-line-no">1417</span><span id="line-1417">        _byId = value;</span>
-<span class="source-line-no">1418</span><span id="line-1418">      }</span>
-<span class="source-line-no">1419</span><span id="line-1419"></span>
-<span class="source-line-no">1420</span><span id="line-1420">      /**</span>
-<span class="source-line-no">1421</span><span id="line-1421">       * Get the "{@literal Title Change}".</span>
-<span class="source-line-no">1422</span><span id="line-1422">       *</span>
-<span class="source-line-no">1423</span><span id="line-1423">       * &lt;p&gt;</span>
-<span class="source-line-no">1424</span><span id="line-1424">       * A name given to the control, which may be used by a tool for display and navigation.</span>
-<span class="source-line-no">1425</span><span id="line-1425">       *</span>
-<span class="source-line-no">1426</span><span id="line-1426">       * @return the title value, or {@code null} if not set</span>
-<span class="source-line-no">1427</span><span id="line-1427">       */</span>
-<span class="source-line-no">1428</span><span id="line-1428">      @Nullable</span>
-<span class="source-line-no">1429</span><span id="line-1429">      public MarkupLine getTitle() {</span>
-<span class="source-line-no">1430</span><span id="line-1430">        return _title;</span>
-<span class="source-line-no">1431</span><span id="line-1431">      }</span>
-<span class="source-line-no">1432</span><span id="line-1432"></span>
-<span class="source-line-no">1433</span><span id="line-1433">      /**</span>
-<span class="source-line-no">1434</span><span id="line-1434">       * Set the "{@literal Title Change}".</span>
-<span class="source-line-no">1435</span><span id="line-1435">       *</span>
-<span class="source-line-no">1436</span><span id="line-1436">       * &lt;p&gt;</span>
-<span class="source-line-no">1437</span><span id="line-1437">       * A name given to the control, which may be used by a tool for display and navigation.</span>
-<span class="source-line-no">1438</span><span id="line-1438">       *</span>
-<span class="source-line-no">1439</span><span id="line-1439">       * @param value</span>
-<span class="source-line-no">1440</span><span id="line-1440">       *           the title value to set, or {@code null} to clear</span>
-<span class="source-line-no">1441</span><span id="line-1441">       */</span>
-<span class="source-line-no">1442</span><span id="line-1442">      public void setTitle(@Nullable MarkupLine value) {</span>
-<span class="source-line-no">1443</span><span id="line-1443">        _title = value;</span>
-<span class="source-line-no">1444</span><span id="line-1444">      }</span>
-<span class="source-line-no">1445</span><span id="line-1445"></span>
-<span class="source-line-no">1446</span><span id="line-1446">      /**</span>
-<span class="source-line-no">1447</span><span id="line-1447">       * Get the "{@literal Parameter}".</span>
-<span class="source-line-no">1448</span><span id="line-1448">       *</span>
-<span class="source-line-no">1449</span><span id="line-1449">       * &lt;p&gt;</span>
-<span class="source-line-no">1450</span><span id="line-1450">       * Parameters provide a mechanism for the dynamic assignment of value(s) in a control.</span>
-<span class="source-line-no">1451</span><span id="line-1451">       *</span>
-<span class="source-line-no">1452</span><span id="line-1452">       * @return the param value</span>
-<span class="source-line-no">1453</span><span id="line-1453">       */</span>
-<span class="source-line-no">1454</span><span id="line-1454">      @NonNull</span>
-<span class="source-line-no">1455</span><span id="line-1455">      public List&lt;Parameter&gt; getParams() {</span>
-<span class="source-line-no">1456</span><span id="line-1456">        if (_params == null) {</span>
-<span class="source-line-no">1457</span><span id="line-1457">          _params = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1458</span><span id="line-1458">        }</span>
-<span class="source-line-no">1459</span><span id="line-1459">        return ObjectUtils.notNull(_params);</span>
-<span class="source-line-no">1460</span><span id="line-1460">      }</span>
-<span class="source-line-no">1461</span><span id="line-1461"></span>
-<span class="source-line-no">1462</span><span id="line-1462">      /**</span>
-<span class="source-line-no">1463</span><span id="line-1463">       * Set the "{@literal Parameter}".</span>
-<span class="source-line-no">1464</span><span id="line-1464">       *</span>
-<span class="source-line-no">1465</span><span id="line-1465">       * &lt;p&gt;</span>
-<span class="source-line-no">1466</span><span id="line-1466">       * Parameters provide a mechanism for the dynamic assignment of value(s) in a control.</span>
-<span class="source-line-no">1467</span><span id="line-1467">       *</span>
-<span class="source-line-no">1468</span><span id="line-1468">       * @param value</span>
-<span class="source-line-no">1469</span><span id="line-1469">       *           the param value to set</span>
-<span class="source-line-no">1470</span><span id="line-1470">       */</span>
-<span class="source-line-no">1471</span><span id="line-1471">      public void setParams(@NonNull List&lt;Parameter&gt; value) {</span>
-<span class="source-line-no">1472</span><span id="line-1472">        _params = value;</span>
-<span class="source-line-no">1473</span><span id="line-1473">      }</span>
-<span class="source-line-no">1474</span><span id="line-1474"></span>
-<span class="source-line-no">1475</span><span id="line-1475">      /**</span>
-<span class="source-line-no">1476</span><span id="line-1476">       * Add a new {@link Parameter} item to the underlying collection.</span>
-<span class="source-line-no">1477</span><span id="line-1477">       * @param item the item to add</span>
-<span class="source-line-no">1478</span><span id="line-1478">       * @return {@code true}</span>
-<span class="source-line-no">1479</span><span id="line-1479">       */</span>
-<span class="source-line-no">1480</span><span id="line-1480">      public boolean addParam(Parameter item) {</span>
-<span class="source-line-no">1481</span><span id="line-1481">        Parameter value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1482</span><span id="line-1482">        if (_params == null) {</span>
-<span class="source-line-no">1483</span><span id="line-1483">          _params = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1484</span><span id="line-1484">        }</span>
-<span class="source-line-no">1485</span><span id="line-1485">        return _params.add(value);</span>
-<span class="source-line-no">1486</span><span id="line-1486">      }</span>
-<span class="source-line-no">1487</span><span id="line-1487"></span>
-<span class="source-line-no">1488</span><span id="line-1488">      /**</span>
-<span class="source-line-no">1489</span><span id="line-1489">       * Remove the first matching {@link Parameter} item from the underlying collection.</span>
-<span class="source-line-no">1490</span><span id="line-1490">       * @param item the item to remove</span>
-<span class="source-line-no">1491</span><span id="line-1491">       * @return {@code true} if the item was removed or {@code false} otherwise</span>
-<span class="source-line-no">1492</span><span id="line-1492">       */</span>
-<span class="source-line-no">1493</span><span id="line-1493">      public boolean removeParam(Parameter item) {</span>
-<span class="source-line-no">1494</span><span id="line-1494">        Parameter value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1495</span><span id="line-1495">        return _params != null &amp;&amp; _params.remove(value);</span>
-<span class="source-line-no">1496</span><span id="line-1496">      }</span>
-<span class="source-line-no">1497</span><span id="line-1497"></span>
-<span class="source-line-no">1498</span><span id="line-1498">      /**</span>
-<span class="source-line-no">1499</span><span id="line-1499">       * Get the "{@literal Property}".</span>
-<span class="source-line-no">1500</span><span id="line-1500">       *</span>
-<span class="source-line-no">1501</span><span id="line-1501">       * &lt;p&gt;</span>
-<span class="source-line-no">1502</span><span id="line-1502">       * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
-<span class="source-line-no">1503</span><span id="line-1503">       *</span>
-<span class="source-line-no">1504</span><span id="line-1504">       * @return the prop value</span>
-<span class="source-line-no">1505</span><span id="line-1505">       */</span>
-<span class="source-line-no">1506</span><span id="line-1506">      @NonNull</span>
-<span class="source-line-no">1507</span><span id="line-1507">      public List&lt;Property&gt; getProps() {</span>
-<span class="source-line-no">1508</span><span id="line-1508">        if (_props == null) {</span>
-<span class="source-line-no">1509</span><span id="line-1509">          _props = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1510</span><span id="line-1510">        }</span>
-<span class="source-line-no">1511</span><span id="line-1511">        return ObjectUtils.notNull(_props);</span>
-<span class="source-line-no">1512</span><span id="line-1512">      }</span>
-<span class="source-line-no">1513</span><span id="line-1513"></span>
-<span class="source-line-no">1514</span><span id="line-1514">      /**</span>
-<span class="source-line-no">1515</span><span id="line-1515">       * Set the "{@literal Property}".</span>
-<span class="source-line-no">1516</span><span id="line-1516">       *</span>
-<span class="source-line-no">1517</span><span id="line-1517">       * &lt;p&gt;</span>
-<span class="source-line-no">1518</span><span id="line-1518">       * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
-<span class="source-line-no">1519</span><span id="line-1519">       *</span>
-<span class="source-line-no">1520</span><span id="line-1520">       * @param value</span>
-<span class="source-line-no">1521</span><span id="line-1521">       *           the prop value to set</span>
-<span class="source-line-no">1522</span><span id="line-1522">       */</span>
-<span class="source-line-no">1523</span><span id="line-1523">      public void setProps(@NonNull List&lt;Property&gt; value) {</span>
-<span class="source-line-no">1524</span><span id="line-1524">        _props = value;</span>
-<span class="source-line-no">1525</span><span id="line-1525">      }</span>
-<span class="source-line-no">1526</span><span id="line-1526"></span>
-<span class="source-line-no">1527</span><span id="line-1527">      /**</span>
-<span class="source-line-no">1528</span><span id="line-1528">       * Add a new {@link Property} item to the underlying collection.</span>
-<span class="source-line-no">1529</span><span id="line-1529">       * @param item the item to add</span>
-<span class="source-line-no">1530</span><span id="line-1530">       * @return {@code true}</span>
-<span class="source-line-no">1531</span><span id="line-1531">       */</span>
-<span class="source-line-no">1532</span><span id="line-1532">      public boolean addProp(Property item) {</span>
-<span class="source-line-no">1533</span><span id="line-1533">        Property value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1534</span><span id="line-1534">        if (_props == null) {</span>
-<span class="source-line-no">1535</span><span id="line-1535">          _props = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1536</span><span id="line-1536">        }</span>
-<span class="source-line-no">1537</span><span id="line-1537">        return _props.add(value);</span>
-<span class="source-line-no">1538</span><span id="line-1538">      }</span>
-<span class="source-line-no">1539</span><span id="line-1539"></span>
-<span class="source-line-no">1540</span><span id="line-1540">      /**</span>
-<span class="source-line-no">1541</span><span id="line-1541">       * Remove the first matching {@link Property} item from the underlying collection.</span>
-<span class="source-line-no">1542</span><span id="line-1542">       * @param item the item to remove</span>
-<span class="source-line-no">1543</span><span id="line-1543">       * @return {@code true} if the item was removed or {@code false} otherwise</span>
-<span class="source-line-no">1544</span><span id="line-1544">       */</span>
-<span class="source-line-no">1545</span><span id="line-1545">      public boolean removeProp(Property item) {</span>
-<span class="source-line-no">1546</span><span id="line-1546">        Property value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1547</span><span id="line-1547">        return _props != null &amp;&amp; _props.remove(value);</span>
-<span class="source-line-no">1548</span><span id="line-1548">      }</span>
-<span class="source-line-no">1549</span><span id="line-1549"></span>
-<span class="source-line-no">1550</span><span id="line-1550">      /**</span>
-<span class="source-line-no">1551</span><span id="line-1551">       * Get the "{@literal Link}".</span>
-<span class="source-line-no">1552</span><span id="line-1552">       *</span>
-<span class="source-line-no">1553</span><span id="line-1553">       * &lt;p&gt;</span>
-<span class="source-line-no">1554</span><span id="line-1554">       * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
-<span class="source-line-no">1555</span><span id="line-1555">       *</span>
-<span class="source-line-no">1556</span><span id="line-1556">       * @return the link value</span>
-<span class="source-line-no">1557</span><span id="line-1557">       */</span>
-<span class="source-line-no">1558</span><span id="line-1558">      @NonNull</span>
-<span class="source-line-no">1559</span><span id="line-1559">      public List&lt;Link&gt; getLinks() {</span>
-<span class="source-line-no">1560</span><span id="line-1560">        if (_links == null) {</span>
-<span class="source-line-no">1561</span><span id="line-1561">          _links = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1562</span><span id="line-1562">        }</span>
-<span class="source-line-no">1563</span><span id="line-1563">        return ObjectUtils.notNull(_links);</span>
-<span class="source-line-no">1564</span><span id="line-1564">      }</span>
-<span class="source-line-no">1565</span><span id="line-1565"></span>
-<span class="source-line-no">1566</span><span id="line-1566">      /**</span>
-<span class="source-line-no">1567</span><span id="line-1567">       * Set the "{@literal Link}".</span>
-<span class="source-line-no">1568</span><span id="line-1568">       *</span>
-<span class="source-line-no">1569</span><span id="line-1569">       * &lt;p&gt;</span>
-<span class="source-line-no">1570</span><span id="line-1570">       * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
-<span class="source-line-no">1571</span><span id="line-1571">       *</span>
-<span class="source-line-no">1572</span><span id="line-1572">       * @param value</span>
-<span class="source-line-no">1573</span><span id="line-1573">       *           the link value to set</span>
-<span class="source-line-no">1574</span><span id="line-1574">       */</span>
-<span class="source-line-no">1575</span><span id="line-1575">      public void setLinks(@NonNull List&lt;Link&gt; value) {</span>
-<span class="source-line-no">1576</span><span id="line-1576">        _links = value;</span>
-<span class="source-line-no">1577</span><span id="line-1577">      }</span>
-<span class="source-line-no">1578</span><span id="line-1578"></span>
-<span class="source-line-no">1579</span><span id="line-1579">      /**</span>
-<span class="source-line-no">1580</span><span id="line-1580">       * Add a new {@link Link} item to the underlying collection.</span>
-<span class="source-line-no">1581</span><span id="line-1581">       * @param item the item to add</span>
-<span class="source-line-no">1582</span><span id="line-1582">       * @return {@code true}</span>
-<span class="source-line-no">1583</span><span id="line-1583">       */</span>
-<span class="source-line-no">1584</span><span id="line-1584">      public boolean addLink(Link item) {</span>
-<span class="source-line-no">1585</span><span id="line-1585">        Link value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1586</span><span id="line-1586">        if (_links == null) {</span>
-<span class="source-line-no">1587</span><span id="line-1587">          _links = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1588</span><span id="line-1588">        }</span>
-<span class="source-line-no">1589</span><span id="line-1589">        return _links.add(value);</span>
-<span class="source-line-no">1590</span><span id="line-1590">      }</span>
-<span class="source-line-no">1591</span><span id="line-1591"></span>
-<span class="source-line-no">1592</span><span id="line-1592">      /**</span>
-<span class="source-line-no">1593</span><span id="line-1593">       * Remove the first matching {@link Link} item from the underlying collection.</span>
-<span class="source-line-no">1594</span><span id="line-1594">       * @param item the item to remove</span>
-<span class="source-line-no">1595</span><span id="line-1595">       * @return {@code true} if the item was removed or {@code false} otherwise</span>
-<span class="source-line-no">1596</span><span id="line-1596">       */</span>
-<span class="source-line-no">1597</span><span id="line-1597">      public boolean removeLink(Link item) {</span>
-<span class="source-line-no">1598</span><span id="line-1598">        Link value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1599</span><span id="line-1599">        return _links != null &amp;&amp; _links.remove(value);</span>
-<span class="source-line-no">1600</span><span id="line-1600">      }</span>
-<span class="source-line-no">1601</span><span id="line-1601"></span>
-<span class="source-line-no">1602</span><span id="line-1602">      /**</span>
-<span class="source-line-no">1603</span><span id="line-1603">       * Get the "{@literal Part}".</span>
-<span class="source-line-no">1604</span><span id="line-1604">       *</span>
-<span class="source-line-no">1605</span><span id="line-1605">       * &lt;p&gt;</span>
-<span class="source-line-no">1606</span><span id="line-1606">       * An annotated, markup-based textual element of a control's or catalog group's definition, or a child of another part.</span>
-<span class="source-line-no">1607</span><span id="line-1607">       *</span>
-<span class="source-line-no">1608</span><span id="line-1608">       * @return the part value</span>
-<span class="source-line-no">1609</span><span id="line-1609">       */</span>
-<span class="source-line-no">1610</span><span id="line-1610">      @NonNull</span>
-<span class="source-line-no">1611</span><span id="line-1611">      public List&lt;ControlPart&gt; getParts() {</span>
-<span class="source-line-no">1612</span><span id="line-1612">        if (_parts == null) {</span>
-<span class="source-line-no">1613</span><span id="line-1613">          _parts = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1614</span><span id="line-1614">        }</span>
-<span class="source-line-no">1615</span><span id="line-1615">        return ObjectUtils.notNull(_parts);</span>
-<span class="source-line-no">1616</span><span id="line-1616">      }</span>
-<span class="source-line-no">1617</span><span id="line-1617"></span>
-<span class="source-line-no">1618</span><span id="line-1618">      /**</span>
-<span class="source-line-no">1619</span><span id="line-1619">       * Set the "{@literal Part}".</span>
-<span class="source-line-no">1620</span><span id="line-1620">       *</span>
-<span class="source-line-no">1621</span><span id="line-1621">       * &lt;p&gt;</span>
-<span class="source-line-no">1622</span><span id="line-1622">       * An annotated, markup-based textual element of a control's or catalog group's definition, or a child of another part.</span>
-<span class="source-line-no">1623</span><span id="line-1623">       *</span>
-<span class="source-line-no">1624</span><span id="line-1624">       * @param value</span>
-<span class="source-line-no">1625</span><span id="line-1625">       *           the part value to set</span>
-<span class="source-line-no">1626</span><span id="line-1626">       */</span>
-<span class="source-line-no">1627</span><span id="line-1627">      public void setParts(@NonNull List&lt;ControlPart&gt; value) {</span>
-<span class="source-line-no">1628</span><span id="line-1628">        _parts = value;</span>
-<span class="source-line-no">1629</span><span id="line-1629">      }</span>
-<span class="source-line-no">1630</span><span id="line-1630"></span>
-<span class="source-line-no">1631</span><span id="line-1631">      /**</span>
-<span class="source-line-no">1632</span><span id="line-1632">       * Add a new {@link ControlPart} item to the underlying collection.</span>
-<span class="source-line-no">1633</span><span id="line-1633">       * @param item the item to add</span>
-<span class="source-line-no">1634</span><span id="line-1634">       * @return {@code true}</span>
-<span class="source-line-no">1635</span><span id="line-1635">       */</span>
-<span class="source-line-no">1636</span><span id="line-1636">      public boolean addPart(ControlPart item) {</span>
-<span class="source-line-no">1637</span><span id="line-1637">        ControlPart value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1638</span><span id="line-1638">        if (_parts == null) {</span>
-<span class="source-line-no">1639</span><span id="line-1639">          _parts = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1640</span><span id="line-1640">        }</span>
-<span class="source-line-no">1641</span><span id="line-1641">        return _parts.add(value);</span>
-<span class="source-line-no">1642</span><span id="line-1642">      }</span>
-<span class="source-line-no">1643</span><span id="line-1643"></span>
-<span class="source-line-no">1644</span><span id="line-1644">      /**</span>
-<span class="source-line-no">1645</span><span id="line-1645">       * Remove the first matching {@link ControlPart} item from the underlying collection.</span>
-<span class="source-line-no">1646</span><span id="line-1646">       * @param item the item to remove</span>
-<span class="source-line-no">1647</span><span id="line-1647">       * @return {@code true} if the item was removed or {@code false} otherwise</span>
-<span class="source-line-no">1648</span><span id="line-1648">       */</span>
-<span class="source-line-no">1649</span><span id="line-1649">      public boolean removePart(ControlPart item) {</span>
-<span class="source-line-no">1650</span><span id="line-1650">        ControlPart value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1651</span><span id="line-1651">        return _parts != null &amp;&amp; _parts.remove(value);</span>
-<span class="source-line-no">1652</span><span id="line-1652">      }</span>
-<span class="source-line-no">1653</span><span id="line-1653"></span>
-<span class="source-line-no">1654</span><span id="line-1654">      @Override</span>
-<span class="source-line-no">1655</span><span id="line-1655">      public String toString() {</span>
-<span class="source-line-no">1656</span><span id="line-1656">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
-<span class="source-line-no">1657</span><span id="line-1657">      }</span>
-<span class="source-line-no">1658</span><span id="line-1658">    }</span>
-<span class="source-line-no">1659</span><span id="line-1659">  }</span>
-<span class="source-line-no">1660</span><span id="line-1660">}</span>
+<span class="source-line-no">1092</span><span id="line-1092">      @BoundField(</span>
+<span class="source-line-no">1093</span><span id="line-1093">          formalName = "Remarks",</span>
+<span class="source-line-no">1094</span><span id="line-1094">          description = "Additional commentary about the containing object.",</span>
+<span class="source-line-no">1095</span><span id="line-1095">          useName = "remarks",</span>
+<span class="source-line-no">1096</span><span id="line-1096">          typeAdapter = MarkupMultilineAdapter.class</span>
+<span class="source-line-no">1097</span><span id="line-1097">      )</span>
+<span class="source-line-no">1098</span><span id="line-1098">      private MarkupMultiline _remarks;</span>
+<span class="source-line-no">1099</span><span id="line-1099"></span>
+<span class="source-line-no">1100</span><span id="line-1100">      /**</span>
+<span class="source-line-no">1101</span><span id="line-1101">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Modify.Alter.Remove} instance with no metadata.</span>
+<span class="source-line-no">1102</span><span id="line-1102">       */</span>
+<span class="source-line-no">1103</span><span id="line-1103">      public Remove() {</span>
+<span class="source-line-no">1104</span><span id="line-1104">        this(null);</span>
+<span class="source-line-no">1105</span><span id="line-1105">      }</span>
+<span class="source-line-no">1106</span><span id="line-1106"></span>
+<span class="source-line-no">1107</span><span id="line-1107">      /**</span>
+<span class="source-line-no">1108</span><span id="line-1108">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Modify.Alter.Remove} instance with the specified metadata.</span>
+<span class="source-line-no">1109</span><span id="line-1109">       *</span>
+<span class="source-line-no">1110</span><span id="line-1110">       * @param data</span>
+<span class="source-line-no">1111</span><span id="line-1111">       *           the metaschema data, or {@code null} if none</span>
+<span class="source-line-no">1112</span><span id="line-1112">       */</span>
+<span class="source-line-no">1113</span><span id="line-1113">      public Remove(IMetaschemaData data) {</span>
+<span class="source-line-no">1114</span><span id="line-1114">        this.__metaschemaData = data;</span>
+<span class="source-line-no">1115</span><span id="line-1115">      }</span>
+<span class="source-line-no">1116</span><span id="line-1116"></span>
+<span class="source-line-no">1117</span><span id="line-1117">      @Override</span>
+<span class="source-line-no">1118</span><span id="line-1118">      public IMetaschemaData getMetaschemaData() {</span>
+<span class="source-line-no">1119</span><span id="line-1119">        return __metaschemaData;</span>
+<span class="source-line-no">1120</span><span id="line-1120">      }</span>
+<span class="source-line-no">1121</span><span id="line-1121"></span>
+<span class="source-line-no">1122</span><span id="line-1122">      /**</span>
+<span class="source-line-no">1123</span><span id="line-1123">       * Get the "{@literal Reference by (assigned) name}".</span>
+<span class="source-line-no">1124</span><span id="line-1124">       *</span>
+<span class="source-line-no">1125</span><span id="line-1125">       * &lt;p&gt;</span>
+<span class="source-line-no">1126</span><span id="line-1126">       * Identify items remove by matching their assigned name.</span>
+<span class="source-line-no">1127</span><span id="line-1127">       *</span>
+<span class="source-line-no">1128</span><span id="line-1128">       * @return the by-name value, or {@code null} if not set</span>
+<span class="source-line-no">1129</span><span id="line-1129">       */</span>
+<span class="source-line-no">1130</span><span id="line-1130">      @Nullable</span>
+<span class="source-line-no">1131</span><span id="line-1131">      public String getByName() {</span>
+<span class="source-line-no">1132</span><span id="line-1132">        return _byName;</span>
+<span class="source-line-no">1133</span><span id="line-1133">      }</span>
+<span class="source-line-no">1134</span><span id="line-1134"></span>
+<span class="source-line-no">1135</span><span id="line-1135">      /**</span>
+<span class="source-line-no">1136</span><span id="line-1136">       * Set the "{@literal Reference by (assigned) name}".</span>
+<span class="source-line-no">1137</span><span id="line-1137">       *</span>
+<span class="source-line-no">1138</span><span id="line-1138">       * &lt;p&gt;</span>
+<span class="source-line-no">1139</span><span id="line-1139">       * Identify items remove by matching their assigned name.</span>
+<span class="source-line-no">1140</span><span id="line-1140">       *</span>
+<span class="source-line-no">1141</span><span id="line-1141">       * @param value</span>
+<span class="source-line-no">1142</span><span id="line-1142">       *           the by-name value to set, or {@code null} to clear</span>
+<span class="source-line-no">1143</span><span id="line-1143">       */</span>
+<span class="source-line-no">1144</span><span id="line-1144">      public void setByName(@Nullable String value) {</span>
+<span class="source-line-no">1145</span><span id="line-1145">        _byName = value;</span>
+<span class="source-line-no">1146</span><span id="line-1146">      }</span>
+<span class="source-line-no">1147</span><span id="line-1147"></span>
+<span class="source-line-no">1148</span><span id="line-1148">      /**</span>
+<span class="source-line-no">1149</span><span id="line-1149">       * Get the "{@literal Reference by class}".</span>
+<span class="source-line-no">1150</span><span id="line-1150">       *</span>
+<span class="source-line-no">1151</span><span id="line-1151">       * &lt;p&gt;</span>
+<span class="source-line-no">1152</span><span id="line-1152">       * Identify items to remove by matching their &lt;code&gt;class&lt;/code&gt;.</span>
+<span class="source-line-no">1153</span><span id="line-1153">       *</span>
+<span class="source-line-no">1154</span><span id="line-1154">       * @return the by-class value, or {@code null} if not set</span>
+<span class="source-line-no">1155</span><span id="line-1155">       */</span>
+<span class="source-line-no">1156</span><span id="line-1156">      @Nullable</span>
+<span class="source-line-no">1157</span><span id="line-1157">      public String getByClass() {</span>
+<span class="source-line-no">1158</span><span id="line-1158">        return _byClass;</span>
+<span class="source-line-no">1159</span><span id="line-1159">      }</span>
+<span class="source-line-no">1160</span><span id="line-1160"></span>
+<span class="source-line-no">1161</span><span id="line-1161">      /**</span>
+<span class="source-line-no">1162</span><span id="line-1162">       * Set the "{@literal Reference by class}".</span>
+<span class="source-line-no">1163</span><span id="line-1163">       *</span>
+<span class="source-line-no">1164</span><span id="line-1164">       * &lt;p&gt;</span>
+<span class="source-line-no">1165</span><span id="line-1165">       * Identify items to remove by matching their &lt;code&gt;class&lt;/code&gt;.</span>
+<span class="source-line-no">1166</span><span id="line-1166">       *</span>
+<span class="source-line-no">1167</span><span id="line-1167">       * @param value</span>
+<span class="source-line-no">1168</span><span id="line-1168">       *           the by-class value to set, or {@code null} to clear</span>
+<span class="source-line-no">1169</span><span id="line-1169">       */</span>
+<span class="source-line-no">1170</span><span id="line-1170">      public void setByClass(@Nullable String value) {</span>
+<span class="source-line-no">1171</span><span id="line-1171">        _byClass = value;</span>
+<span class="source-line-no">1172</span><span id="line-1172">      }</span>
+<span class="source-line-no">1173</span><span id="line-1173"></span>
+<span class="source-line-no">1174</span><span id="line-1174">      /**</span>
+<span class="source-line-no">1175</span><span id="line-1175">       * Get the "{@literal Reference by ID}".</span>
+<span class="source-line-no">1176</span><span id="line-1176">       *</span>
+<span class="source-line-no">1177</span><span id="line-1177">       * &lt;p&gt;</span>
+<span class="source-line-no">1178</span><span id="line-1178">       * Identify items to remove indicated by their &lt;code&gt;id&lt;/code&gt;.</span>
+<span class="source-line-no">1179</span><span id="line-1179">       *</span>
+<span class="source-line-no">1180</span><span id="line-1180">       * @return the by-id value, or {@code null} if not set</span>
+<span class="source-line-no">1181</span><span id="line-1181">       */</span>
+<span class="source-line-no">1182</span><span id="line-1182">      @Nullable</span>
+<span class="source-line-no">1183</span><span id="line-1183">      public String getById() {</span>
+<span class="source-line-no">1184</span><span id="line-1184">        return _byId;</span>
+<span class="source-line-no">1185</span><span id="line-1185">      }</span>
+<span class="source-line-no">1186</span><span id="line-1186"></span>
+<span class="source-line-no">1187</span><span id="line-1187">      /**</span>
+<span class="source-line-no">1188</span><span id="line-1188">       * Set the "{@literal Reference by ID}".</span>
+<span class="source-line-no">1189</span><span id="line-1189">       *</span>
+<span class="source-line-no">1190</span><span id="line-1190">       * &lt;p&gt;</span>
+<span class="source-line-no">1191</span><span id="line-1191">       * Identify items to remove indicated by their &lt;code&gt;id&lt;/code&gt;.</span>
+<span class="source-line-no">1192</span><span id="line-1192">       *</span>
+<span class="source-line-no">1193</span><span id="line-1193">       * @param value</span>
+<span class="source-line-no">1194</span><span id="line-1194">       *           the by-id value to set, or {@code null} to clear</span>
+<span class="source-line-no">1195</span><span id="line-1195">       */</span>
+<span class="source-line-no">1196</span><span id="line-1196">      public void setById(@Nullable String value) {</span>
+<span class="source-line-no">1197</span><span id="line-1197">        _byId = value;</span>
+<span class="source-line-no">1198</span><span id="line-1198">      }</span>
+<span class="source-line-no">1199</span><span id="line-1199"></span>
+<span class="source-line-no">1200</span><span id="line-1200">      /**</span>
+<span class="source-line-no">1201</span><span id="line-1201">       * Get the "{@literal Item Name Reference}".</span>
+<span class="source-line-no">1202</span><span id="line-1202">       *</span>
+<span class="source-line-no">1203</span><span id="line-1203">       * &lt;p&gt;</span>
+<span class="source-line-no">1204</span><span id="line-1204">       * Identify items to remove by the name of the item's information object name, e.g. &lt;code&gt;title&lt;/code&gt; or &lt;code&gt;prop&lt;/code&gt;.</span>
+<span class="source-line-no">1205</span><span id="line-1205">       *</span>
+<span class="source-line-no">1206</span><span id="line-1206">       * @return the by-item-name value, or {@code null} if not set</span>
+<span class="source-line-no">1207</span><span id="line-1207">       */</span>
+<span class="source-line-no">1208</span><span id="line-1208">      @Nullable</span>
+<span class="source-line-no">1209</span><span id="line-1209">      public String getByItemName() {</span>
+<span class="source-line-no">1210</span><span id="line-1210">        return _byItemName;</span>
+<span class="source-line-no">1211</span><span id="line-1211">      }</span>
+<span class="source-line-no">1212</span><span id="line-1212"></span>
+<span class="source-line-no">1213</span><span id="line-1213">      /**</span>
+<span class="source-line-no">1214</span><span id="line-1214">       * Set the "{@literal Item Name Reference}".</span>
+<span class="source-line-no">1215</span><span id="line-1215">       *</span>
+<span class="source-line-no">1216</span><span id="line-1216">       * &lt;p&gt;</span>
+<span class="source-line-no">1217</span><span id="line-1217">       * Identify items to remove by the name of the item's information object name, e.g. &lt;code&gt;title&lt;/code&gt; or &lt;code&gt;prop&lt;/code&gt;.</span>
+<span class="source-line-no">1218</span><span id="line-1218">       *</span>
+<span class="source-line-no">1219</span><span id="line-1219">       * @param value</span>
+<span class="source-line-no">1220</span><span id="line-1220">       *           the by-item-name value to set, or {@code null} to clear</span>
+<span class="source-line-no">1221</span><span id="line-1221">       */</span>
+<span class="source-line-no">1222</span><span id="line-1222">      public void setByItemName(@Nullable String value) {</span>
+<span class="source-line-no">1223</span><span id="line-1223">        _byItemName = value;</span>
+<span class="source-line-no">1224</span><span id="line-1224">      }</span>
+<span class="source-line-no">1225</span><span id="line-1225"></span>
+<span class="source-line-no">1226</span><span id="line-1226">      /**</span>
+<span class="source-line-no">1227</span><span id="line-1227">       * Get the "{@literal Item Namespace Reference}".</span>
+<span class="source-line-no">1228</span><span id="line-1228">       *</span>
+<span class="source-line-no">1229</span><span id="line-1229">       * &lt;p&gt;</span>
+<span class="source-line-no">1230</span><span id="line-1230">       * Identify items to remove by the item's &lt;code&gt;ns&lt;/code&gt;, which is the namespace associated with a &lt;code&gt;part&lt;/code&gt;, or &lt;code&gt;prop&lt;/code&gt;.</span>
+<span class="source-line-no">1231</span><span id="line-1231">       *</span>
+<span class="source-line-no">1232</span><span id="line-1232">       * @return the by-ns value, or {@code null} if not set</span>
+<span class="source-line-no">1233</span><span id="line-1233">       */</span>
+<span class="source-line-no">1234</span><span id="line-1234">      @Nullable</span>
+<span class="source-line-no">1235</span><span id="line-1235">      public URI getByNs() {</span>
+<span class="source-line-no">1236</span><span id="line-1236">        return _byNs;</span>
+<span class="source-line-no">1237</span><span id="line-1237">      }</span>
+<span class="source-line-no">1238</span><span id="line-1238"></span>
+<span class="source-line-no">1239</span><span id="line-1239">      /**</span>
+<span class="source-line-no">1240</span><span id="line-1240">       * Set the "{@literal Item Namespace Reference}".</span>
+<span class="source-line-no">1241</span><span id="line-1241">       *</span>
+<span class="source-line-no">1242</span><span id="line-1242">       * &lt;p&gt;</span>
+<span class="source-line-no">1243</span><span id="line-1243">       * Identify items to remove by the item's &lt;code&gt;ns&lt;/code&gt;, which is the namespace associated with a &lt;code&gt;part&lt;/code&gt;, or &lt;code&gt;prop&lt;/code&gt;.</span>
+<span class="source-line-no">1244</span><span id="line-1244">       *</span>
+<span class="source-line-no">1245</span><span id="line-1245">       * @param value</span>
+<span class="source-line-no">1246</span><span id="line-1246">       *           the by-ns value to set, or {@code null} to clear</span>
+<span class="source-line-no">1247</span><span id="line-1247">       */</span>
+<span class="source-line-no">1248</span><span id="line-1248">      public void setByNs(@Nullable URI value) {</span>
+<span class="source-line-no">1249</span><span id="line-1249">        _byNs = value;</span>
+<span class="source-line-no">1250</span><span id="line-1250">      }</span>
+<span class="source-line-no">1251</span><span id="line-1251"></span>
+<span class="source-line-no">1252</span><span id="line-1252">      /**</span>
+<span class="source-line-no">1253</span><span id="line-1253">       * Get the "{@literal Remarks}".</span>
+<span class="source-line-no">1254</span><span id="line-1254">       *</span>
+<span class="source-line-no">1255</span><span id="line-1255">       * &lt;p&gt;</span>
+<span class="source-line-no">1256</span><span id="line-1256">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1257</span><span id="line-1257">       *</span>
+<span class="source-line-no">1258</span><span id="line-1258">       * @return the remarks value, or {@code null} if not set</span>
+<span class="source-line-no">1259</span><span id="line-1259">       */</span>
+<span class="source-line-no">1260</span><span id="line-1260">      @Nullable</span>
+<span class="source-line-no">1261</span><span id="line-1261">      public MarkupMultiline getRemarks() {</span>
+<span class="source-line-no">1262</span><span id="line-1262">        return _remarks;</span>
+<span class="source-line-no">1263</span><span id="line-1263">      }</span>
+<span class="source-line-no">1264</span><span id="line-1264"></span>
+<span class="source-line-no">1265</span><span id="line-1265">      /**</span>
+<span class="source-line-no">1266</span><span id="line-1266">       * Set the "{@literal Remarks}".</span>
+<span class="source-line-no">1267</span><span id="line-1267">       *</span>
+<span class="source-line-no">1268</span><span id="line-1268">       * &lt;p&gt;</span>
+<span class="source-line-no">1269</span><span id="line-1269">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1270</span><span id="line-1270">       *</span>
+<span class="source-line-no">1271</span><span id="line-1271">       * @param value</span>
+<span class="source-line-no">1272</span><span id="line-1272">       *           the remarks value to set, or {@code null} to clear</span>
+<span class="source-line-no">1273</span><span id="line-1273">       */</span>
+<span class="source-line-no">1274</span><span id="line-1274">      public void setRemarks(@Nullable MarkupMultiline value) {</span>
+<span class="source-line-no">1275</span><span id="line-1275">        _remarks = value;</span>
+<span class="source-line-no">1276</span><span id="line-1276">      }</span>
+<span class="source-line-no">1277</span><span id="line-1277"></span>
+<span class="source-line-no">1278</span><span id="line-1278">      @Override</span>
+<span class="source-line-no">1279</span><span id="line-1279">      public String toString() {</span>
+<span class="source-line-no">1280</span><span id="line-1280">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
+<span class="source-line-no">1281</span><span id="line-1281">      }</span>
+<span class="source-line-no">1282</span><span id="line-1282">    }</span>
+<span class="source-line-no">1283</span><span id="line-1283"></span>
+<span class="source-line-no">1284</span><span id="line-1284">    /**</span>
+<span class="source-line-no">1285</span><span id="line-1285">     * Specifies contents to be added into controls, in resolution.</span>
+<span class="source-line-no">1286</span><span id="line-1286">     */</span>
+<span class="source-line-no">1287</span><span id="line-1287">    @MetaschemaAssembly(</span>
+<span class="source-line-no">1288</span><span id="line-1288">        formalName = "Addition",</span>
+<span class="source-line-no">1289</span><span id="line-1289">        description = "Specifies contents to be added into controls, in resolution.",</span>
+<span class="source-line-no">1290</span><span id="line-1290">        name = "add",</span>
+<span class="source-line-no">1291</span><span id="line-1291">        moduleClass = OscalProfileModule.class,</span>
+<span class="source-line-no">1292</span><span id="line-1292">        remarks = "When no `by-id` is given, the addition is inserted into the control targeted by the alteration at the start or end as indicated by `position`. Only `position` values of \"starting\" or \"ending\" are permitted when there is no `by-id`.\n"</span>
+<span class="source-line-no">1293</span><span id="line-1293">                + "\n"</span>
+<span class="source-line-no">1294</span><span id="line-1294">                + "`by-id`, when given, should indicate, by its ID, an element inside the control to serve as the anchor point for the addition. In this case, `position` value may be any of the permitted values.",</span>
+<span class="source-line-no">1295</span><span id="line-1295">        valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-profile-modify-alter-prop-name-values", level = IConstraint.Level.ERROR, target = "prop[has-oscal-namespace('http://csrc.nist.gov/ns/oscal')]/@name", values = {@AllowedValue(value = "label", description = "A human-readable label for the parent context, which may be rendered in place of the actual identifier for some use cases."), @AllowedValue(value = "sort-id", description = "An alternative identifier, whose value is easily sortable among other such values in the document."), @AllowedValue(value = "alt-identifier", description = "An alternate or aliased identifier for the parent context.")}))</span>
+<span class="source-line-no">1296</span><span id="line-1296">    )</span>
+<span class="source-line-no">1297</span><span id="line-1297">    public static class Add implements IBoundObject {</span>
+<span class="source-line-no">1298</span><span id="line-1298">      private final IMetaschemaData __metaschemaData;</span>
+<span class="source-line-no">1299</span><span id="line-1299"></span>
+<span class="source-line-no">1300</span><span id="line-1300">      /**</span>
+<span class="source-line-no">1301</span><span id="line-1301">       * Where to add the new content with respect to the targeted element (beside it or inside it).</span>
+<span class="source-line-no">1302</span><span id="line-1302">       */</span>
+<span class="source-line-no">1303</span><span id="line-1303">      @BoundFlag(</span>
+<span class="source-line-no">1304</span><span id="line-1304">          formalName = "Position",</span>
+<span class="source-line-no">1305</span><span id="line-1305">          description = "Where to add the new content with respect to the targeted element (beside it or inside it).",</span>
+<span class="source-line-no">1306</span><span id="line-1306">          name = "position",</span>
+<span class="source-line-no">1307</span><span id="line-1307">          defaultValue = "ending",</span>
+<span class="source-line-no">1308</span><span id="line-1308">          typeAdapter = TokenAdapter.class,</span>
+<span class="source-line-no">1309</span><span id="line-1309">          valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-alter-position-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "before", description = "Preceding the by-id target"), @AllowedValue(value = "after", description = "Following the by-id target"), @AllowedValue(value = "starting", description = "Inside the control or by-id target, at the start"), @AllowedValue(value = "ending", description = "Inside the control or by-id target, at the end")}))</span>
+<span class="source-line-no">1310</span><span id="line-1310">      )</span>
+<span class="source-line-no">1311</span><span id="line-1311">      private String _position;</span>
+<span class="source-line-no">1312</span><span id="line-1312"></span>
+<span class="source-line-no">1313</span><span id="line-1313">      /**</span>
+<span class="source-line-no">1314</span><span id="line-1314">       * Target location of the addition.</span>
+<span class="source-line-no">1315</span><span id="line-1315">       */</span>
+<span class="source-line-no">1316</span><span id="line-1316">      @BoundFlag(</span>
+<span class="source-line-no">1317</span><span id="line-1317">          formalName = "Reference by ID",</span>
+<span class="source-line-no">1318</span><span id="line-1318">          description = "Target location of the addition.",</span>
+<span class="source-line-no">1319</span><span id="line-1319">          name = "by-id",</span>
+<span class="source-line-no">1320</span><span id="line-1320">          typeAdapter = TokenAdapter.class</span>
+<span class="source-line-no">1321</span><span id="line-1321">      )</span>
+<span class="source-line-no">1322</span><span id="line-1322">      private String _byId;</span>
+<span class="source-line-no">1323</span><span id="line-1323"></span>
+<span class="source-line-no">1324</span><span id="line-1324">      /**</span>
+<span class="source-line-no">1325</span><span id="line-1325">       * A name given to the control, which may be used by a tool for display and navigation.</span>
+<span class="source-line-no">1326</span><span id="line-1326">       */</span>
+<span class="source-line-no">1327</span><span id="line-1327">      @BoundField(</span>
+<span class="source-line-no">1328</span><span id="line-1328">          formalName = "Title Change",</span>
+<span class="source-line-no">1329</span><span id="line-1329">          description = "A name given to the control, which may be used by a tool for display and navigation.",</span>
+<span class="source-line-no">1330</span><span id="line-1330">          useName = "title",</span>
+<span class="source-line-no">1331</span><span id="line-1331">          typeAdapter = MarkupLineAdapter.class</span>
+<span class="source-line-no">1332</span><span id="line-1332">      )</span>
+<span class="source-line-no">1333</span><span id="line-1333">      private MarkupLine _title;</span>
+<span class="source-line-no">1334</span><span id="line-1334"></span>
+<span class="source-line-no">1335</span><span id="line-1335">      /**</span>
+<span class="source-line-no">1336</span><span id="line-1336">       * Parameters provide a mechanism for the dynamic assignment of value(s) in a control.</span>
+<span class="source-line-no">1337</span><span id="line-1337">       */</span>
+<span class="source-line-no">1338</span><span id="line-1338">      @BoundAssembly(</span>
+<span class="source-line-no">1339</span><span id="line-1339">          formalName = "Parameter",</span>
+<span class="source-line-no">1340</span><span id="line-1340">          description = "Parameters provide a mechanism for the dynamic assignment of value(s) in a control.",</span>
+<span class="source-line-no">1341</span><span id="line-1341">          useName = "param",</span>
+<span class="source-line-no">1342</span><span id="line-1342">          maxOccurs = -1,</span>
+<span class="source-line-no">1343</span><span id="line-1343">          groupAs = @GroupAs(name = "params", inJson = JsonGroupAsBehavior.LIST)</span>
+<span class="source-line-no">1344</span><span id="line-1344">      )</span>
+<span class="source-line-no">1345</span><span id="line-1345">      private List&lt;Parameter&gt; _params;</span>
+<span class="source-line-no">1346</span><span id="line-1346"></span>
+<span class="source-line-no">1347</span><span id="line-1347">      /**</span>
+<span class="source-line-no">1348</span><span id="line-1348">       * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
+<span class="source-line-no">1349</span><span id="line-1349">       */</span>
+<span class="source-line-no">1350</span><span id="line-1350">      @BoundAssembly(</span>
+<span class="source-line-no">1351</span><span id="line-1351">          formalName = "Property",</span>
+<span class="source-line-no">1352</span><span id="line-1352">          description = "An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.",</span>
+<span class="source-line-no">1353</span><span id="line-1353">          useName = "prop",</span>
+<span class="source-line-no">1354</span><span id="line-1354">          maxOccurs = -1,</span>
+<span class="source-line-no">1355</span><span id="line-1355">          groupAs = @GroupAs(name = "props", inJson = JsonGroupAsBehavior.LIST)</span>
+<span class="source-line-no">1356</span><span id="line-1356">      )</span>
+<span class="source-line-no">1357</span><span id="line-1357">      private List&lt;Property&gt; _props;</span>
+<span class="source-line-no">1358</span><span id="line-1358"></span>
+<span class="source-line-no">1359</span><span id="line-1359">      /**</span>
+<span class="source-line-no">1360</span><span id="line-1360">       * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
+<span class="source-line-no">1361</span><span id="line-1361">       */</span>
+<span class="source-line-no">1362</span><span id="line-1362">      @BoundAssembly(</span>
+<span class="source-line-no">1363</span><span id="line-1363">          formalName = "Link",</span>
+<span class="source-line-no">1364</span><span id="line-1364">          description = "A reference to a local or remote resource, that has a specific relation to the containing object.",</span>
+<span class="source-line-no">1365</span><span id="line-1365">          useName = "link",</span>
+<span class="source-line-no">1366</span><span id="line-1366">          maxOccurs = -1,</span>
+<span class="source-line-no">1367</span><span id="line-1367">          groupAs = @GroupAs(name = "links", inJson = JsonGroupAsBehavior.LIST)</span>
+<span class="source-line-no">1368</span><span id="line-1368">      )</span>
+<span class="source-line-no">1369</span><span id="line-1369">      private List&lt;Link&gt; _links;</span>
+<span class="source-line-no">1370</span><span id="line-1370"></span>
+<span class="source-line-no">1371</span><span id="line-1371">      /**</span>
+<span class="source-line-no">1372</span><span id="line-1372">       * An annotated, markup-based textual element of a control's or catalog group's definition, or a child of another part.</span>
+<span class="source-line-no">1373</span><span id="line-1373">       */</span>
+<span class="source-line-no">1374</span><span id="line-1374">      @BoundAssembly(</span>
+<span class="source-line-no">1375</span><span id="line-1375">          formalName = "Part",</span>
+<span class="source-line-no">1376</span><span id="line-1376">          description = "An annotated, markup-based textual element of a control's or catalog group's definition, or a child of another part.",</span>
+<span class="source-line-no">1377</span><span id="line-1377">          useName = "part",</span>
+<span class="source-line-no">1378</span><span id="line-1378">          maxOccurs = -1,</span>
+<span class="source-line-no">1379</span><span id="line-1379">          groupAs = @GroupAs(name = "parts", inJson = JsonGroupAsBehavior.LIST)</span>
+<span class="source-line-no">1380</span><span id="line-1380">      )</span>
+<span class="source-line-no">1381</span><span id="line-1381">      private List&lt;ControlPart&gt; _parts;</span>
+<span class="source-line-no">1382</span><span id="line-1382"></span>
+<span class="source-line-no">1383</span><span id="line-1383">      /**</span>
+<span class="source-line-no">1384</span><span id="line-1384">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Modify.Alter.Add} instance with no metadata.</span>
+<span class="source-line-no">1385</span><span id="line-1385">       */</span>
+<span class="source-line-no">1386</span><span id="line-1386">      public Add() {</span>
+<span class="source-line-no">1387</span><span id="line-1387">        this(null);</span>
+<span class="source-line-no">1388</span><span id="line-1388">      }</span>
+<span class="source-line-no">1389</span><span id="line-1389"></span>
+<span class="source-line-no">1390</span><span id="line-1390">      /**</span>
+<span class="source-line-no">1391</span><span id="line-1391">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Modify.Alter.Add} instance with the specified metadata.</span>
+<span class="source-line-no">1392</span><span id="line-1392">       *</span>
+<span class="source-line-no">1393</span><span id="line-1393">       * @param data</span>
+<span class="source-line-no">1394</span><span id="line-1394">       *           the metaschema data, or {@code null} if none</span>
+<span class="source-line-no">1395</span><span id="line-1395">       */</span>
+<span class="source-line-no">1396</span><span id="line-1396">      public Add(IMetaschemaData data) {</span>
+<span class="source-line-no">1397</span><span id="line-1397">        this.__metaschemaData = data;</span>
+<span class="source-line-no">1398</span><span id="line-1398">      }</span>
+<span class="source-line-no">1399</span><span id="line-1399"></span>
+<span class="source-line-no">1400</span><span id="line-1400">      @Override</span>
+<span class="source-line-no">1401</span><span id="line-1401">      public IMetaschemaData getMetaschemaData() {</span>
+<span class="source-line-no">1402</span><span id="line-1402">        return __metaschemaData;</span>
+<span class="source-line-no">1403</span><span id="line-1403">      }</span>
+<span class="source-line-no">1404</span><span id="line-1404"></span>
+<span class="source-line-no">1405</span><span id="line-1405">      /**</span>
+<span class="source-line-no">1406</span><span id="line-1406">       * Get the "{@literal Position}".</span>
+<span class="source-line-no">1407</span><span id="line-1407">       *</span>
+<span class="source-line-no">1408</span><span id="line-1408">       * &lt;p&gt;</span>
+<span class="source-line-no">1409</span><span id="line-1409">       * Where to add the new content with respect to the targeted element (beside it or inside it).</span>
+<span class="source-line-no">1410</span><span id="line-1410">       *</span>
+<span class="source-line-no">1411</span><span id="line-1411">       * @return the position value, or {@code null} if not set</span>
+<span class="source-line-no">1412</span><span id="line-1412">       */</span>
+<span class="source-line-no">1413</span><span id="line-1413">      @Nullable</span>
+<span class="source-line-no">1414</span><span id="line-1414">      public String getPosition() {</span>
+<span class="source-line-no">1415</span><span id="line-1415">        return _position;</span>
+<span class="source-line-no">1416</span><span id="line-1416">      }</span>
+<span class="source-line-no">1417</span><span id="line-1417"></span>
+<span class="source-line-no">1418</span><span id="line-1418">      /**</span>
+<span class="source-line-no">1419</span><span id="line-1419">       * Set the "{@literal Position}".</span>
+<span class="source-line-no">1420</span><span id="line-1420">       *</span>
+<span class="source-line-no">1421</span><span id="line-1421">       * &lt;p&gt;</span>
+<span class="source-line-no">1422</span><span id="line-1422">       * Where to add the new content with respect to the targeted element (beside it or inside it).</span>
+<span class="source-line-no">1423</span><span id="line-1423">       *</span>
+<span class="source-line-no">1424</span><span id="line-1424">       * @param value</span>
+<span class="source-line-no">1425</span><span id="line-1425">       *           the position value to set, or {@code null} to clear</span>
+<span class="source-line-no">1426</span><span id="line-1426">       */</span>
+<span class="source-line-no">1427</span><span id="line-1427">      public void setPosition(@Nullable String value) {</span>
+<span class="source-line-no">1428</span><span id="line-1428">        _position = value;</span>
+<span class="source-line-no">1429</span><span id="line-1429">      }</span>
+<span class="source-line-no">1430</span><span id="line-1430"></span>
+<span class="source-line-no">1431</span><span id="line-1431">      /**</span>
+<span class="source-line-no">1432</span><span id="line-1432">       * Get the "{@literal Reference by ID}".</span>
+<span class="source-line-no">1433</span><span id="line-1433">       *</span>
+<span class="source-line-no">1434</span><span id="line-1434">       * &lt;p&gt;</span>
+<span class="source-line-no">1435</span><span id="line-1435">       * Target location of the addition.</span>
+<span class="source-line-no">1436</span><span id="line-1436">       *</span>
+<span class="source-line-no">1437</span><span id="line-1437">       * @return the by-id value, or {@code null} if not set</span>
+<span class="source-line-no">1438</span><span id="line-1438">       */</span>
+<span class="source-line-no">1439</span><span id="line-1439">      @Nullable</span>
+<span class="source-line-no">1440</span><span id="line-1440">      public String getById() {</span>
+<span class="source-line-no">1441</span><span id="line-1441">        return _byId;</span>
+<span class="source-line-no">1442</span><span id="line-1442">      }</span>
+<span class="source-line-no">1443</span><span id="line-1443"></span>
+<span class="source-line-no">1444</span><span id="line-1444">      /**</span>
+<span class="source-line-no">1445</span><span id="line-1445">       * Set the "{@literal Reference by ID}".</span>
+<span class="source-line-no">1446</span><span id="line-1446">       *</span>
+<span class="source-line-no">1447</span><span id="line-1447">       * &lt;p&gt;</span>
+<span class="source-line-no">1448</span><span id="line-1448">       * Target location of the addition.</span>
+<span class="source-line-no">1449</span><span id="line-1449">       *</span>
+<span class="source-line-no">1450</span><span id="line-1450">       * @param value</span>
+<span class="source-line-no">1451</span><span id="line-1451">       *           the by-id value to set, or {@code null} to clear</span>
+<span class="source-line-no">1452</span><span id="line-1452">       */</span>
+<span class="source-line-no">1453</span><span id="line-1453">      public void setById(@Nullable String value) {</span>
+<span class="source-line-no">1454</span><span id="line-1454">        _byId = value;</span>
+<span class="source-line-no">1455</span><span id="line-1455">      }</span>
+<span class="source-line-no">1456</span><span id="line-1456"></span>
+<span class="source-line-no">1457</span><span id="line-1457">      /**</span>
+<span class="source-line-no">1458</span><span id="line-1458">       * Get the "{@literal Title Change}".</span>
+<span class="source-line-no">1459</span><span id="line-1459">       *</span>
+<span class="source-line-no">1460</span><span id="line-1460">       * &lt;p&gt;</span>
+<span class="source-line-no">1461</span><span id="line-1461">       * A name given to the control, which may be used by a tool for display and navigation.</span>
+<span class="source-line-no">1462</span><span id="line-1462">       *</span>
+<span class="source-line-no">1463</span><span id="line-1463">       * @return the title value, or {@code null} if not set</span>
+<span class="source-line-no">1464</span><span id="line-1464">       */</span>
+<span class="source-line-no">1465</span><span id="line-1465">      @Nullable</span>
+<span class="source-line-no">1466</span><span id="line-1466">      public MarkupLine getTitle() {</span>
+<span class="source-line-no">1467</span><span id="line-1467">        return _title;</span>
+<span class="source-line-no">1468</span><span id="line-1468">      }</span>
+<span class="source-line-no">1469</span><span id="line-1469"></span>
+<span class="source-line-no">1470</span><span id="line-1470">      /**</span>
+<span class="source-line-no">1471</span><span id="line-1471">       * Set the "{@literal Title Change}".</span>
+<span class="source-line-no">1472</span><span id="line-1472">       *</span>
+<span class="source-line-no">1473</span><span id="line-1473">       * &lt;p&gt;</span>
+<span class="source-line-no">1474</span><span id="line-1474">       * A name given to the control, which may be used by a tool for display and navigation.</span>
+<span class="source-line-no">1475</span><span id="line-1475">       *</span>
+<span class="source-line-no">1476</span><span id="line-1476">       * @param value</span>
+<span class="source-line-no">1477</span><span id="line-1477">       *           the title value to set, or {@code null} to clear</span>
+<span class="source-line-no">1478</span><span id="line-1478">       */</span>
+<span class="source-line-no">1479</span><span id="line-1479">      public void setTitle(@Nullable MarkupLine value) {</span>
+<span class="source-line-no">1480</span><span id="line-1480">        _title = value;</span>
+<span class="source-line-no">1481</span><span id="line-1481">      }</span>
+<span class="source-line-no">1482</span><span id="line-1482"></span>
+<span class="source-line-no">1483</span><span id="line-1483">      /**</span>
+<span class="source-line-no">1484</span><span id="line-1484">       * Get the "{@literal Parameter}".</span>
+<span class="source-line-no">1485</span><span id="line-1485">       *</span>
+<span class="source-line-no">1486</span><span id="line-1486">       * &lt;p&gt;</span>
+<span class="source-line-no">1487</span><span id="line-1487">       * Parameters provide a mechanism for the dynamic assignment of value(s) in a control.</span>
+<span class="source-line-no">1488</span><span id="line-1488">       *</span>
+<span class="source-line-no">1489</span><span id="line-1489">       * @return the param value</span>
+<span class="source-line-no">1490</span><span id="line-1490">       */</span>
+<span class="source-line-no">1491</span><span id="line-1491">      @NonNull</span>
+<span class="source-line-no">1492</span><span id="line-1492">      public List&lt;Parameter&gt; getParams() {</span>
+<span class="source-line-no">1493</span><span id="line-1493">        if (_params == null) {</span>
+<span class="source-line-no">1494</span><span id="line-1494">          _params = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1495</span><span id="line-1495">        }</span>
+<span class="source-line-no">1496</span><span id="line-1496">        return ObjectUtils.notNull(_params);</span>
+<span class="source-line-no">1497</span><span id="line-1497">      }</span>
+<span class="source-line-no">1498</span><span id="line-1498"></span>
+<span class="source-line-no">1499</span><span id="line-1499">      /**</span>
+<span class="source-line-no">1500</span><span id="line-1500">       * Set the "{@literal Parameter}".</span>
+<span class="source-line-no">1501</span><span id="line-1501">       *</span>
+<span class="source-line-no">1502</span><span id="line-1502">       * &lt;p&gt;</span>
+<span class="source-line-no">1503</span><span id="line-1503">       * Parameters provide a mechanism for the dynamic assignment of value(s) in a control.</span>
+<span class="source-line-no">1504</span><span id="line-1504">       *</span>
+<span class="source-line-no">1505</span><span id="line-1505">       * @param value</span>
+<span class="source-line-no">1506</span><span id="line-1506">       *           the param value to set</span>
+<span class="source-line-no">1507</span><span id="line-1507">       */</span>
+<span class="source-line-no">1508</span><span id="line-1508">      public void setParams(@NonNull List&lt;Parameter&gt; value) {</span>
+<span class="source-line-no">1509</span><span id="line-1509">        _params = value;</span>
+<span class="source-line-no">1510</span><span id="line-1510">      }</span>
+<span class="source-line-no">1511</span><span id="line-1511"></span>
+<span class="source-line-no">1512</span><span id="line-1512">      /**</span>
+<span class="source-line-no">1513</span><span id="line-1513">       * Add a new {@link Parameter} item to the underlying collection.</span>
+<span class="source-line-no">1514</span><span id="line-1514">       * @param item the item to add</span>
+<span class="source-line-no">1515</span><span id="line-1515">       * @return {@code true}</span>
+<span class="source-line-no">1516</span><span id="line-1516">       */</span>
+<span class="source-line-no">1517</span><span id="line-1517">      public boolean addParam(Parameter item) {</span>
+<span class="source-line-no">1518</span><span id="line-1518">        Parameter value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1519</span><span id="line-1519">        if (_params == null) {</span>
+<span class="source-line-no">1520</span><span id="line-1520">          _params = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1521</span><span id="line-1521">        }</span>
+<span class="source-line-no">1522</span><span id="line-1522">        return _params.add(value);</span>
+<span class="source-line-no">1523</span><span id="line-1523">      }</span>
+<span class="source-line-no">1524</span><span id="line-1524"></span>
+<span class="source-line-no">1525</span><span id="line-1525">      /**</span>
+<span class="source-line-no">1526</span><span id="line-1526">       * Remove the first matching {@link Parameter} item from the underlying collection.</span>
+<span class="source-line-no">1527</span><span id="line-1527">       * @param item the item to remove</span>
+<span class="source-line-no">1528</span><span id="line-1528">       * @return {@code true} if the item was removed or {@code false} otherwise</span>
+<span class="source-line-no">1529</span><span id="line-1529">       */</span>
+<span class="source-line-no">1530</span><span id="line-1530">      public boolean removeParam(Parameter item) {</span>
+<span class="source-line-no">1531</span><span id="line-1531">        Parameter value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1532</span><span id="line-1532">        return _params != null &amp;&amp; _params.remove(value);</span>
+<span class="source-line-no">1533</span><span id="line-1533">      }</span>
+<span class="source-line-no">1534</span><span id="line-1534"></span>
+<span class="source-line-no">1535</span><span id="line-1535">      /**</span>
+<span class="source-line-no">1536</span><span id="line-1536">       * Get the "{@literal Property}".</span>
+<span class="source-line-no">1537</span><span id="line-1537">       *</span>
+<span class="source-line-no">1538</span><span id="line-1538">       * &lt;p&gt;</span>
+<span class="source-line-no">1539</span><span id="line-1539">       * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
+<span class="source-line-no">1540</span><span id="line-1540">       *</span>
+<span class="source-line-no">1541</span><span id="line-1541">       * @return the prop value</span>
+<span class="source-line-no">1542</span><span id="line-1542">       */</span>
+<span class="source-line-no">1543</span><span id="line-1543">      @NonNull</span>
+<span class="source-line-no">1544</span><span id="line-1544">      public List&lt;Property&gt; getProps() {</span>
+<span class="source-line-no">1545</span><span id="line-1545">        if (_props == null) {</span>
+<span class="source-line-no">1546</span><span id="line-1546">          _props = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1547</span><span id="line-1547">        }</span>
+<span class="source-line-no">1548</span><span id="line-1548">        return ObjectUtils.notNull(_props);</span>
+<span class="source-line-no">1549</span><span id="line-1549">      }</span>
+<span class="source-line-no">1550</span><span id="line-1550"></span>
+<span class="source-line-no">1551</span><span id="line-1551">      /**</span>
+<span class="source-line-no">1552</span><span id="line-1552">       * Set the "{@literal Property}".</span>
+<span class="source-line-no">1553</span><span id="line-1553">       *</span>
+<span class="source-line-no">1554</span><span id="line-1554">       * &lt;p&gt;</span>
+<span class="source-line-no">1555</span><span id="line-1555">       * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
+<span class="source-line-no">1556</span><span id="line-1556">       *</span>
+<span class="source-line-no">1557</span><span id="line-1557">       * @param value</span>
+<span class="source-line-no">1558</span><span id="line-1558">       *           the prop value to set</span>
+<span class="source-line-no">1559</span><span id="line-1559">       */</span>
+<span class="source-line-no">1560</span><span id="line-1560">      public void setProps(@NonNull List&lt;Property&gt; value) {</span>
+<span class="source-line-no">1561</span><span id="line-1561">        _props = value;</span>
+<span class="source-line-no">1562</span><span id="line-1562">      }</span>
+<span class="source-line-no">1563</span><span id="line-1563"></span>
+<span class="source-line-no">1564</span><span id="line-1564">      /**</span>
+<span class="source-line-no">1565</span><span id="line-1565">       * Add a new {@link Property} item to the underlying collection.</span>
+<span class="source-line-no">1566</span><span id="line-1566">       * @param item the item to add</span>
+<span class="source-line-no">1567</span><span id="line-1567">       * @return {@code true}</span>
+<span class="source-line-no">1568</span><span id="line-1568">       */</span>
+<span class="source-line-no">1569</span><span id="line-1569">      public boolean addProp(Property item) {</span>
+<span class="source-line-no">1570</span><span id="line-1570">        Property value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1571</span><span id="line-1571">        if (_props == null) {</span>
+<span class="source-line-no">1572</span><span id="line-1572">          _props = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1573</span><span id="line-1573">        }</span>
+<span class="source-line-no">1574</span><span id="line-1574">        return _props.add(value);</span>
+<span class="source-line-no">1575</span><span id="line-1575">      }</span>
+<span class="source-line-no">1576</span><span id="line-1576"></span>
+<span class="source-line-no">1577</span><span id="line-1577">      /**</span>
+<span class="source-line-no">1578</span><span id="line-1578">       * Remove the first matching {@link Property} item from the underlying collection.</span>
+<span class="source-line-no">1579</span><span id="line-1579">       * @param item the item to remove</span>
+<span class="source-line-no">1580</span><span id="line-1580">       * @return {@code true} if the item was removed or {@code false} otherwise</span>
+<span class="source-line-no">1581</span><span id="line-1581">       */</span>
+<span class="source-line-no">1582</span><span id="line-1582">      public boolean removeProp(Property item) {</span>
+<span class="source-line-no">1583</span><span id="line-1583">        Property value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1584</span><span id="line-1584">        return _props != null &amp;&amp; _props.remove(value);</span>
+<span class="source-line-no">1585</span><span id="line-1585">      }</span>
+<span class="source-line-no">1586</span><span id="line-1586"></span>
+<span class="source-line-no">1587</span><span id="line-1587">      /**</span>
+<span class="source-line-no">1588</span><span id="line-1588">       * Get the "{@literal Link}".</span>
+<span class="source-line-no">1589</span><span id="line-1589">       *</span>
+<span class="source-line-no">1590</span><span id="line-1590">       * &lt;p&gt;</span>
+<span class="source-line-no">1591</span><span id="line-1591">       * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
+<span class="source-line-no">1592</span><span id="line-1592">       *</span>
+<span class="source-line-no">1593</span><span id="line-1593">       * @return the link value</span>
+<span class="source-line-no">1594</span><span id="line-1594">       */</span>
+<span class="source-line-no">1595</span><span id="line-1595">      @NonNull</span>
+<span class="source-line-no">1596</span><span id="line-1596">      public List&lt;Link&gt; getLinks() {</span>
+<span class="source-line-no">1597</span><span id="line-1597">        if (_links == null) {</span>
+<span class="source-line-no">1598</span><span id="line-1598">          _links = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1599</span><span id="line-1599">        }</span>
+<span class="source-line-no">1600</span><span id="line-1600">        return ObjectUtils.notNull(_links);</span>
+<span class="source-line-no">1601</span><span id="line-1601">      }</span>
+<span class="source-line-no">1602</span><span id="line-1602"></span>
+<span class="source-line-no">1603</span><span id="line-1603">      /**</span>
+<span class="source-line-no">1604</span><span id="line-1604">       * Set the "{@literal Link}".</span>
+<span class="source-line-no">1605</span><span id="line-1605">       *</span>
+<span class="source-line-no">1606</span><span id="line-1606">       * &lt;p&gt;</span>
+<span class="source-line-no">1607</span><span id="line-1607">       * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
+<span class="source-line-no">1608</span><span id="line-1608">       *</span>
+<span class="source-line-no">1609</span><span id="line-1609">       * @param value</span>
+<span class="source-line-no">1610</span><span id="line-1610">       *           the link value to set</span>
+<span class="source-line-no">1611</span><span id="line-1611">       */</span>
+<span class="source-line-no">1612</span><span id="line-1612">      public void setLinks(@NonNull List&lt;Link&gt; value) {</span>
+<span class="source-line-no">1613</span><span id="line-1613">        _links = value;</span>
+<span class="source-line-no">1614</span><span id="line-1614">      }</span>
+<span class="source-line-no">1615</span><span id="line-1615"></span>
+<span class="source-line-no">1616</span><span id="line-1616">      /**</span>
+<span class="source-line-no">1617</span><span id="line-1617">       * Add a new {@link Link} item to the underlying collection.</span>
+<span class="source-line-no">1618</span><span id="line-1618">       * @param item the item to add</span>
+<span class="source-line-no">1619</span><span id="line-1619">       * @return {@code true}</span>
+<span class="source-line-no">1620</span><span id="line-1620">       */</span>
+<span class="source-line-no">1621</span><span id="line-1621">      public boolean addLink(Link item) {</span>
+<span class="source-line-no">1622</span><span id="line-1622">        Link value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1623</span><span id="line-1623">        if (_links == null) {</span>
+<span class="source-line-no">1624</span><span id="line-1624">          _links = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1625</span><span id="line-1625">        }</span>
+<span class="source-line-no">1626</span><span id="line-1626">        return _links.add(value);</span>
+<span class="source-line-no">1627</span><span id="line-1627">      }</span>
+<span class="source-line-no">1628</span><span id="line-1628"></span>
+<span class="source-line-no">1629</span><span id="line-1629">      /**</span>
+<span class="source-line-no">1630</span><span id="line-1630">       * Remove the first matching {@link Link} item from the underlying collection.</span>
+<span class="source-line-no">1631</span><span id="line-1631">       * @param item the item to remove</span>
+<span class="source-line-no">1632</span><span id="line-1632">       * @return {@code true} if the item was removed or {@code false} otherwise</span>
+<span class="source-line-no">1633</span><span id="line-1633">       */</span>
+<span class="source-line-no">1634</span><span id="line-1634">      public boolean removeLink(Link item) {</span>
+<span class="source-line-no">1635</span><span id="line-1635">        Link value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1636</span><span id="line-1636">        return _links != null &amp;&amp; _links.remove(value);</span>
+<span class="source-line-no">1637</span><span id="line-1637">      }</span>
+<span class="source-line-no">1638</span><span id="line-1638"></span>
+<span class="source-line-no">1639</span><span id="line-1639">      /**</span>
+<span class="source-line-no">1640</span><span id="line-1640">       * Get the "{@literal Part}".</span>
+<span class="source-line-no">1641</span><span id="line-1641">       *</span>
+<span class="source-line-no">1642</span><span id="line-1642">       * &lt;p&gt;</span>
+<span class="source-line-no">1643</span><span id="line-1643">       * An annotated, markup-based textual element of a control's or catalog group's definition, or a child of another part.</span>
+<span class="source-line-no">1644</span><span id="line-1644">       *</span>
+<span class="source-line-no">1645</span><span id="line-1645">       * @return the part value</span>
+<span class="source-line-no">1646</span><span id="line-1646">       */</span>
+<span class="source-line-no">1647</span><span id="line-1647">      @NonNull</span>
+<span class="source-line-no">1648</span><span id="line-1648">      public List&lt;ControlPart&gt; getParts() {</span>
+<span class="source-line-no">1649</span><span id="line-1649">        if (_parts == null) {</span>
+<span class="source-line-no">1650</span><span id="line-1650">          _parts = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1651</span><span id="line-1651">        }</span>
+<span class="source-line-no">1652</span><span id="line-1652">        return ObjectUtils.notNull(_parts);</span>
+<span class="source-line-no">1653</span><span id="line-1653">      }</span>
+<span class="source-line-no">1654</span><span id="line-1654"></span>
+<span class="source-line-no">1655</span><span id="line-1655">      /**</span>
+<span class="source-line-no">1656</span><span id="line-1656">       * Set the "{@literal Part}".</span>
+<span class="source-line-no">1657</span><span id="line-1657">       *</span>
+<span class="source-line-no">1658</span><span id="line-1658">       * &lt;p&gt;</span>
+<span class="source-line-no">1659</span><span id="line-1659">       * An annotated, markup-based textual element of a control's or catalog group's definition, or a child of another part.</span>
+<span class="source-line-no">1660</span><span id="line-1660">       *</span>
+<span class="source-line-no">1661</span><span id="line-1661">       * @param value</span>
+<span class="source-line-no">1662</span><span id="line-1662">       *           the part value to set</span>
+<span class="source-line-no">1663</span><span id="line-1663">       */</span>
+<span class="source-line-no">1664</span><span id="line-1664">      public void setParts(@NonNull List&lt;ControlPart&gt; value) {</span>
+<span class="source-line-no">1665</span><span id="line-1665">        _parts = value;</span>
+<span class="source-line-no">1666</span><span id="line-1666">      }</span>
+<span class="source-line-no">1667</span><span id="line-1667"></span>
+<span class="source-line-no">1668</span><span id="line-1668">      /**</span>
+<span class="source-line-no">1669</span><span id="line-1669">       * Add a new {@link ControlPart} item to the underlying collection.</span>
+<span class="source-line-no">1670</span><span id="line-1670">       * @param item the item to add</span>
+<span class="source-line-no">1671</span><span id="line-1671">       * @return {@code true}</span>
+<span class="source-line-no">1672</span><span id="line-1672">       */</span>
+<span class="source-line-no">1673</span><span id="line-1673">      public boolean addPart(ControlPart item) {</span>
+<span class="source-line-no">1674</span><span id="line-1674">        ControlPart value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1675</span><span id="line-1675">        if (_parts == null) {</span>
+<span class="source-line-no">1676</span><span id="line-1676">          _parts = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1677</span><span id="line-1677">        }</span>
+<span class="source-line-no">1678</span><span id="line-1678">        return _parts.add(value);</span>
+<span class="source-line-no">1679</span><span id="line-1679">      }</span>
+<span class="source-line-no">1680</span><span id="line-1680"></span>
+<span class="source-line-no">1681</span><span id="line-1681">      /**</span>
+<span class="source-line-no">1682</span><span id="line-1682">       * Remove the first matching {@link ControlPart} item from the underlying collection.</span>
+<span class="source-line-no">1683</span><span id="line-1683">       * @param item the item to remove</span>
+<span class="source-line-no">1684</span><span id="line-1684">       * @return {@code true} if the item was removed or {@code false} otherwise</span>
+<span class="source-line-no">1685</span><span id="line-1685">       */</span>
+<span class="source-line-no">1686</span><span id="line-1686">      public boolean removePart(ControlPart item) {</span>
+<span class="source-line-no">1687</span><span id="line-1687">        ControlPart value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1688</span><span id="line-1688">        return _parts != null &amp;&amp; _parts.remove(value);</span>
+<span class="source-line-no">1689</span><span id="line-1689">      }</span>
+<span class="source-line-no">1690</span><span id="line-1690"></span>
+<span class="source-line-no">1691</span><span id="line-1691">      @Override</span>
+<span class="source-line-no">1692</span><span id="line-1692">      public String toString() {</span>
+<span class="source-line-no">1693</span><span id="line-1693">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
+<span class="source-line-no">1694</span><span id="line-1694">      }</span>
+<span class="source-line-no">1695</span><span id="line-1695">    }</span>
+<span class="source-line-no">1696</span><span id="line-1696">  }</span>
+<span class="source-line-no">1697</span><span id="line-1697">}</span>
 
 
 

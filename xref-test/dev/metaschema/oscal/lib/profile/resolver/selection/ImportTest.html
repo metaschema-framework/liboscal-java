@@ -32,8 +32,8 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> dev.metaschema.oscal.lib.model.IncludeAll;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> dev.metaschema.oscal.lib.model.Profile;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> dev.metaschema.oscal.lib.model.ProfileImport;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> dev.metaschema.oscal.lib.model.control.catalog.AbstractControl;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> dev.metaschema.oscal.lib.model.control.profile.AbstractProfileSelectControlById;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> dev.metaschema.oscal.lib.model.control.AbstractControlCommonSelectControlById;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> dev.metaschema.oscal.lib.model.control.catalog.AbstractControl;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> dev.metaschema.oscal.lib.profile.resolver.ProfileResolutionException;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
@@ -67,7 +67,7 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      ProfileImport profileImport = <strong class="jxr_keyword">new</strong> ProfileImport();
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      profileImport.setIncludeAll(<strong class="jxr_keyword">new</strong> IncludeAll());
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      profileImport.setExcludeControls(Collections.singletonList(
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          AbstractProfileSelectControlById.builder()
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          AbstractControlCommonSelectControlById.builder()
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>              .withId(<span class="jxr_string">"control1"</span>)
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>              .build()));
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      profileImport.setHref(cwd);

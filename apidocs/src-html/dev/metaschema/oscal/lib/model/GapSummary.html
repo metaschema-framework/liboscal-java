@@ -67,7 +67,7 @@
 <span class="source-line-no">054</span><span id="line-54">      maxOccurs = -1,</span>
 <span class="source-line-no">055</span><span id="line-55">      groupAs = @GroupAs(name = "unmapped-controls", inJson = JsonGroupAsBehavior.LIST)</span>
 <span class="source-line-no">056</span><span id="line-56">  )</span>
-<span class="source-line-no">057</span><span id="line-57">  private List&lt;SelectControlById&gt; _unmappedControls;</span>
+<span class="source-line-no">057</span><span id="line-57">  private List&lt;ControlCommonSelectControlById&gt; _unmappedControls;</span>
 <span class="source-line-no">058</span><span id="line-58"></span>
 <span class="source-line-no">059</span><span id="line-59">  /**</span>
 <span class="source-line-no">060</span><span id="line-60">   * Constructs a new {@code dev.metaschema.oscal.lib.model.GapSummary} instance with no metadata.</span>
@@ -126,7 +126,7 @@
 <span class="source-line-no">113</span><span id="line-113">   * @return the unmapped-controls value</span>
 <span class="source-line-no">114</span><span id="line-114">   */</span>
 <span class="source-line-no">115</span><span id="line-115">  @NonNull</span>
-<span class="source-line-no">116</span><span id="line-116">  public List&lt;SelectControlById&gt; getUnmappedControls() {</span>
+<span class="source-line-no">116</span><span id="line-116">  public List&lt;ControlCommonSelectControlById&gt; getUnmappedControls() {</span>
 <span class="source-line-no">117</span><span id="line-117">    if (_unmappedControls == null) {</span>
 <span class="source-line-no">118</span><span id="line-118">      _unmappedControls = new LinkedList&lt;&gt;();</span>
 <span class="source-line-no">119</span><span id="line-119">    }</span>
@@ -142,17 +142,17 @@
 <span class="source-line-no">129</span><span id="line-129">   * @param value</span>
 <span class="source-line-no">130</span><span id="line-130">   *           the unmapped-controls value to set</span>
 <span class="source-line-no">131</span><span id="line-131">   */</span>
-<span class="source-line-no">132</span><span id="line-132">  public void setUnmappedControls(@NonNull List&lt;SelectControlById&gt; value) {</span>
+<span class="source-line-no">132</span><span id="line-132">  public void setUnmappedControls(@NonNull List&lt;ControlCommonSelectControlById&gt; value) {</span>
 <span class="source-line-no">133</span><span id="line-133">    _unmappedControls = value;</span>
 <span class="source-line-no">134</span><span id="line-134">  }</span>
 <span class="source-line-no">135</span><span id="line-135"></span>
 <span class="source-line-no">136</span><span id="line-136">  /**</span>
-<span class="source-line-no">137</span><span id="line-137">   * Add a new {@link SelectControlById} item to the underlying collection.</span>
+<span class="source-line-no">137</span><span id="line-137">   * Add a new {@link ControlCommonSelectControlById} item to the underlying collection.</span>
 <span class="source-line-no">138</span><span id="line-138">   * @param item the item to add</span>
 <span class="source-line-no">139</span><span id="line-139">   * @return {@code true}</span>
 <span class="source-line-no">140</span><span id="line-140">   */</span>
-<span class="source-line-no">141</span><span id="line-141">  public boolean addUnmappedControls(SelectControlById item) {</span>
-<span class="source-line-no">142</span><span id="line-142">    SelectControlById value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">141</span><span id="line-141">  public boolean addUnmappedControls(ControlCommonSelectControlById item) {</span>
+<span class="source-line-no">142</span><span id="line-142">    ControlCommonSelectControlById value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
 <span class="source-line-no">143</span><span id="line-143">    if (_unmappedControls == null) {</span>
 <span class="source-line-no">144</span><span id="line-144">      _unmappedControls = new LinkedList&lt;&gt;();</span>
 <span class="source-line-no">145</span><span id="line-145">    }</span>
@@ -160,12 +160,12 @@
 <span class="source-line-no">147</span><span id="line-147">  }</span>
 <span class="source-line-no">148</span><span id="line-148"></span>
 <span class="source-line-no">149</span><span id="line-149">  /**</span>
-<span class="source-line-no">150</span><span id="line-150">   * Remove the first matching {@link SelectControlById} item from the underlying collection.</span>
+<span class="source-line-no">150</span><span id="line-150">   * Remove the first matching {@link ControlCommonSelectControlById} item from the underlying collection.</span>
 <span class="source-line-no">151</span><span id="line-151">   * @param item the item to remove</span>
 <span class="source-line-no">152</span><span id="line-152">   * @return {@code true} if the item was removed or {@code false} otherwise</span>
 <span class="source-line-no">153</span><span id="line-153">   */</span>
-<span class="source-line-no">154</span><span id="line-154">  public boolean removeUnmappedControls(SelectControlById item) {</span>
-<span class="source-line-no">155</span><span id="line-155">    SelectControlById value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">154</span><span id="line-154">  public boolean removeUnmappedControls(ControlCommonSelectControlById item) {</span>
+<span class="source-line-no">155</span><span id="line-155">    ControlCommonSelectControlById value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
 <span class="source-line-no">156</span><span id="line-156">    return _unmappedControls != null &amp;&amp; _unmappedControls.remove(value);</span>
 <span class="source-line-no">157</span><span id="line-157">  }</span>
 <span class="source-line-no">158</span><span id="line-158"></span>

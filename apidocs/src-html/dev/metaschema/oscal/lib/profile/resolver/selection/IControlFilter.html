@@ -25,8 +25,8 @@
 <span class="source-line-no">012</span><span id="line-12">import dev.metaschema.core.util.ObjectUtils;</span>
 <span class="source-line-no">013</span><span id="line-13">import dev.metaschema.oscal.lib.model.IncludeAll;</span>
 <span class="source-line-no">014</span><span id="line-14">import dev.metaschema.oscal.lib.model.ProfileImport;</span>
-<span class="source-line-no">015</span><span id="line-15">import dev.metaschema.oscal.lib.model.control.catalog.IControl;</span>
-<span class="source-line-no">016</span><span id="line-16">import dev.metaschema.oscal.lib.model.control.profile.IProfileSelectControlById;</span>
+<span class="source-line-no">015</span><span id="line-15">import dev.metaschema.oscal.lib.model.control.IControlCommonSelectControlById;</span>
+<span class="source-line-no">016</span><span id="line-16">import dev.metaschema.oscal.lib.model.control.catalog.IControl;</span>
 <span class="source-line-no">017</span><span id="line-17">import edu.umd.cs.findbugs.annotations.NonNull;</span>
 <span class="source-line-no">018</span><span id="line-18"></span>
 <span class="source-line-no">019</span><span id="line-19">public interface IControlFilter {</span>
@@ -140,7 +140,7 @@
 <span class="source-line-no">127</span><span id="line-127">      IncludeAll includeAll = profileImport.getIncludeAll();</span>
 <span class="source-line-no">128</span><span id="line-128"></span>
 <span class="source-line-no">129</span><span id="line-129">      if (includeAll == null) {</span>
-<span class="source-line-no">130</span><span id="line-130">        List&lt;? extends IProfileSelectControlById&gt; includeSelections = profileImport.getIncludeControls();</span>
+<span class="source-line-no">130</span><span id="line-130">        List&lt;? extends IControlCommonSelectControlById&gt; includeSelections = profileImport.getIncludeControls();</span>
 <span class="source-line-no">131</span><span id="line-131">        if (includeSelections.isEmpty()) {</span>
 <span class="source-line-no">132</span><span id="line-132">          this.inclusionFilter = IControlSelectionFilter.NONE_MATCH;</span>
 <span class="source-line-no">133</span><span id="line-133">        } else {</span>
@@ -150,7 +150,7 @@
 <span class="source-line-no">137</span><span id="line-137">        this.inclusionFilter = IControlSelectionFilter.ALL_MATCH;</span>
 <span class="source-line-no">138</span><span id="line-138">      }</span>
 <span class="source-line-no">139</span><span id="line-139"></span>
-<span class="source-line-no">140</span><span id="line-140">      List&lt;? extends IProfileSelectControlById&gt; excludeSelections = profileImport.getExcludeControls();</span>
+<span class="source-line-no">140</span><span id="line-140">      List&lt;? extends IControlCommonSelectControlById&gt; excludeSelections = profileImport.getExcludeControls();</span>
 <span class="source-line-no">141</span><span id="line-141">      if (excludeSelections.isEmpty()) {</span>
 <span class="source-line-no">142</span><span id="line-142">        this.exclusionFilter = IControlSelectionFilter.NONE_MATCH;</span>
 <span class="source-line-no">143</span><span id="line-143">      } else {</span>

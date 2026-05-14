@@ -490,7 +490,7 @@
 <a class="jxr_linenumber" name="L482" href="#L482">482</a>     @BoundChoice(
 <a class="jxr_linenumber" name="L483" href="#L483">483</a>         choiceId = <span class="jxr_string">"choice-1"</span>
 <a class="jxr_linenumber" name="L484" href="#L484">484</a>     )
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>     <strong class="jxr_keyword">private</strong> List&lt;SelectControlByIdOscalAssessmentCommon&gt; _includeControls;
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>     <strong class="jxr_keyword">private</strong> List&lt;AssessmentCommonSelectControlById&gt; _includeControls;
 <a class="jxr_linenumber" name="L486" href="#L486">486</a> 
 <a class="jxr_linenumber" name="L487" href="#L487">487</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L488" href="#L488">488</a> <em class="jxr_javadoccomment">     * Used to select a control for inclusion/exclusion based on one or more control identifiers. A set of statement identifiers can be used to target the inclusion/exclusion to only specific control statements providing more granularity over the specific statements that are within the assessment scope.</em>
@@ -503,7 +503,7 @@
 <a class="jxr_linenumber" name="L495" href="#L495">495</a>         maxOccurs = -1,
 <a class="jxr_linenumber" name="L496" href="#L496">496</a>         groupAs = @GroupAs(name = <span class="jxr_string">"exclude-controls"</span>, inJson = JsonGroupAsBehavior.LIST)
 <a class="jxr_linenumber" name="L497" href="#L497">497</a>     )
-<a class="jxr_linenumber" name="L498" href="#L498">498</a>     <strong class="jxr_keyword">private</strong> List&lt;SelectControlByIdOscalAssessmentCommon&gt; _excludeControls;
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>     <strong class="jxr_keyword">private</strong> List&lt;AssessmentCommonSelectControlById&gt; _excludeControls;
 <a class="jxr_linenumber" name="L499" href="#L499">499</a> 
 <a class="jxr_linenumber" name="L500" href="#L500">500</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L501" href="#L501">501</a> <em class="jxr_javadoccomment">     * Additional commentary about the containing object.</em>
@@ -703,7 +703,7 @@
 <a class="jxr_linenumber" name="L695" href="#L695">695</a> <em class="jxr_javadoccomment">     * @return the include-control value</em>
 <a class="jxr_linenumber" name="L696" href="#L696">696</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L697" href="#L697">697</a>     @NonNull
-<a class="jxr_linenumber" name="L698" href="#L698">698</a>     <strong class="jxr_keyword">public</strong> List&lt;SelectControlByIdOscalAssessmentCommon&gt; getIncludeControls() {
+<a class="jxr_linenumber" name="L698" href="#L698">698</a>     <strong class="jxr_keyword">public</strong> List&lt;AssessmentCommonSelectControlById&gt; getIncludeControls() {
 <a class="jxr_linenumber" name="L699" href="#L699">699</a>       <strong class="jxr_keyword">if</strong> (_includeControls == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L700" href="#L700">700</a>         _includeControls = <strong class="jxr_keyword">new</strong> LinkedList&lt;&gt;();
 <a class="jxr_linenumber" name="L701" href="#L701">701</a>       }
@@ -719,17 +719,17 @@
 <a class="jxr_linenumber" name="L711" href="#L711">711</a> <em class="jxr_javadoccomment">     * @param value</em>
 <a class="jxr_linenumber" name="L712" href="#L712">712</a> <em class="jxr_javadoccomment">     *           the include-control value to set</em>
 <a class="jxr_linenumber" name="L713" href="#L713">713</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L714" href="#L714">714</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIncludeControls(@NonNull List&lt;SelectControlByIdOscalAssessmentCommon&gt; value) {
+<a class="jxr_linenumber" name="L714" href="#L714">714</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setIncludeControls(@NonNull List&lt;AssessmentCommonSelectControlById&gt; value) {
 <a class="jxr_linenumber" name="L715" href="#L715">715</a>       _includeControls = value;
 <a class="jxr_linenumber" name="L716" href="#L716">716</a>     }
 <a class="jxr_linenumber" name="L717" href="#L717">717</a> 
 <a class="jxr_linenumber" name="L718" href="#L718">718</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L719" href="#L719">719</a> <em class="jxr_javadoccomment">     * Add a new {@link SelectControlByIdOscalAssessmentCommon} item to the underlying collection.</em>
+<a class="jxr_linenumber" name="L719" href="#L719">719</a> <em class="jxr_javadoccomment">     * Add a new {@link AssessmentCommonSelectControlById} item to the underlying collection.</em>
 <a class="jxr_linenumber" name="L720" href="#L720">720</a> <em class="jxr_javadoccomment">     * @param item the item to add</em>
 <a class="jxr_linenumber" name="L721" href="#L721">721</a> <em class="jxr_javadoccomment">     * @return {@code true}</em>
 <a class="jxr_linenumber" name="L722" href="#L722">722</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L723" href="#L723">723</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addIncludeControl(<a name="SelectControlByIdOscalAssessmentCommon" href="../../../../../dev/metaschema/oscal/lib/model/SelectControlByIdOscalAssessmentCommon.html#SelectControlByIdOscalAssessmentCommon">SelectControlByIdOscalAssessmentCommon</a> item) {
-<a class="jxr_linenumber" name="L724" href="#L724">724</a>       <a name="SelectControlByIdOscalAssessmentCommon" href="../../../../../dev/metaschema/oscal/lib/model/SelectControlByIdOscalAssessmentCommon.html#SelectControlByIdOscalAssessmentCommon">SelectControlByIdOscalAssessmentCommon</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
+<a class="jxr_linenumber" name="L723" href="#L723">723</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addIncludeControl(<a name="AssessmentCommonSelectControlById" href="../../../../../dev/metaschema/oscal/lib/model/AssessmentCommonSelectControlById.html#AssessmentCommonSelectControlById">AssessmentCommonSelectControlById</a> item) {
+<a class="jxr_linenumber" name="L724" href="#L724">724</a>       <a name="AssessmentCommonSelectControlById" href="../../../../../dev/metaschema/oscal/lib/model/AssessmentCommonSelectControlById.html#AssessmentCommonSelectControlById">AssessmentCommonSelectControlById</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
 <a class="jxr_linenumber" name="L725" href="#L725">725</a>       <strong class="jxr_keyword">if</strong> (_includeControls == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L726" href="#L726">726</a>         _includeControls = <strong class="jxr_keyword">new</strong> LinkedList&lt;&gt;();
 <a class="jxr_linenumber" name="L727" href="#L727">727</a>       }
@@ -737,12 +737,12 @@
 <a class="jxr_linenumber" name="L729" href="#L729">729</a>     }
 <a class="jxr_linenumber" name="L730" href="#L730">730</a> 
 <a class="jxr_linenumber" name="L731" href="#L731">731</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L732" href="#L732">732</a> <em class="jxr_javadoccomment">     * Remove the first matching {@link SelectControlByIdOscalAssessmentCommon} item from the underlying collection.</em>
+<a class="jxr_linenumber" name="L732" href="#L732">732</a> <em class="jxr_javadoccomment">     * Remove the first matching {@link AssessmentCommonSelectControlById} item from the underlying collection.</em>
 <a class="jxr_linenumber" name="L733" href="#L733">733</a> <em class="jxr_javadoccomment">     * @param item the item to remove</em>
 <a class="jxr_linenumber" name="L734" href="#L734">734</a> <em class="jxr_javadoccomment">     * @return {@code true} if the item was removed or {@code false} otherwise</em>
 <a class="jxr_linenumber" name="L735" href="#L735">735</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L736" href="#L736">736</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeIncludeControl(<a name="SelectControlByIdOscalAssessmentCommon" href="../../../../../dev/metaschema/oscal/lib/model/SelectControlByIdOscalAssessmentCommon.html#SelectControlByIdOscalAssessmentCommon">SelectControlByIdOscalAssessmentCommon</a> item) {
-<a class="jxr_linenumber" name="L737" href="#L737">737</a>       <a name="SelectControlByIdOscalAssessmentCommon" href="../../../../../dev/metaschema/oscal/lib/model/SelectControlByIdOscalAssessmentCommon.html#SelectControlByIdOscalAssessmentCommon">SelectControlByIdOscalAssessmentCommon</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
+<a class="jxr_linenumber" name="L736" href="#L736">736</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeIncludeControl(<a name="AssessmentCommonSelectControlById" href="../../../../../dev/metaschema/oscal/lib/model/AssessmentCommonSelectControlById.html#AssessmentCommonSelectControlById">AssessmentCommonSelectControlById</a> item) {
+<a class="jxr_linenumber" name="L737" href="#L737">737</a>       <a name="AssessmentCommonSelectControlById" href="../../../../../dev/metaschema/oscal/lib/model/AssessmentCommonSelectControlById.html#AssessmentCommonSelectControlById">AssessmentCommonSelectControlById</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
 <a class="jxr_linenumber" name="L738" href="#L738">738</a>       <strong class="jxr_keyword">return</strong> _includeControls != <strong class="jxr_keyword">null</strong> &amp;&amp; _includeControls.remove(value);
 <a class="jxr_linenumber" name="L739" href="#L739">739</a>     }
 <a class="jxr_linenumber" name="L740" href="#L740">740</a> 
@@ -755,7 +755,7 @@
 <a class="jxr_linenumber" name="L747" href="#L747">747</a> <em class="jxr_javadoccomment">     * @return the exclude-control value</em>
 <a class="jxr_linenumber" name="L748" href="#L748">748</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L749" href="#L749">749</a>     @NonNull
-<a class="jxr_linenumber" name="L750" href="#L750">750</a>     <strong class="jxr_keyword">public</strong> List&lt;SelectControlByIdOscalAssessmentCommon&gt; getExcludeControls() {
+<a class="jxr_linenumber" name="L750" href="#L750">750</a>     <strong class="jxr_keyword">public</strong> List&lt;AssessmentCommonSelectControlById&gt; getExcludeControls() {
 <a class="jxr_linenumber" name="L751" href="#L751">751</a>       <strong class="jxr_keyword">if</strong> (_excludeControls == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L752" href="#L752">752</a>         _excludeControls = <strong class="jxr_keyword">new</strong> LinkedList&lt;&gt;();
 <a class="jxr_linenumber" name="L753" href="#L753">753</a>       }
@@ -771,17 +771,17 @@
 <a class="jxr_linenumber" name="L763" href="#L763">763</a> <em class="jxr_javadoccomment">     * @param value</em>
 <a class="jxr_linenumber" name="L764" href="#L764">764</a> <em class="jxr_javadoccomment">     *           the exclude-control value to set</em>
 <a class="jxr_linenumber" name="L765" href="#L765">765</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L766" href="#L766">766</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setExcludeControls(@NonNull List&lt;SelectControlByIdOscalAssessmentCommon&gt; value) {
+<a class="jxr_linenumber" name="L766" href="#L766">766</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setExcludeControls(@NonNull List&lt;AssessmentCommonSelectControlById&gt; value) {
 <a class="jxr_linenumber" name="L767" href="#L767">767</a>       _excludeControls = value;
 <a class="jxr_linenumber" name="L768" href="#L768">768</a>     }
 <a class="jxr_linenumber" name="L769" href="#L769">769</a> 
 <a class="jxr_linenumber" name="L770" href="#L770">770</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L771" href="#L771">771</a> <em class="jxr_javadoccomment">     * Add a new {@link SelectControlByIdOscalAssessmentCommon} item to the underlying collection.</em>
+<a class="jxr_linenumber" name="L771" href="#L771">771</a> <em class="jxr_javadoccomment">     * Add a new {@link AssessmentCommonSelectControlById} item to the underlying collection.</em>
 <a class="jxr_linenumber" name="L772" href="#L772">772</a> <em class="jxr_javadoccomment">     * @param item the item to add</em>
 <a class="jxr_linenumber" name="L773" href="#L773">773</a> <em class="jxr_javadoccomment">     * @return {@code true}</em>
 <a class="jxr_linenumber" name="L774" href="#L774">774</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L775" href="#L775">775</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addExcludeControl(<a name="SelectControlByIdOscalAssessmentCommon" href="../../../../../dev/metaschema/oscal/lib/model/SelectControlByIdOscalAssessmentCommon.html#SelectControlByIdOscalAssessmentCommon">SelectControlByIdOscalAssessmentCommon</a> item) {
-<a class="jxr_linenumber" name="L776" href="#L776">776</a>       <a name="SelectControlByIdOscalAssessmentCommon" href="../../../../../dev/metaschema/oscal/lib/model/SelectControlByIdOscalAssessmentCommon.html#SelectControlByIdOscalAssessmentCommon">SelectControlByIdOscalAssessmentCommon</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
+<a class="jxr_linenumber" name="L775" href="#L775">775</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addExcludeControl(<a name="AssessmentCommonSelectControlById" href="../../../../../dev/metaschema/oscal/lib/model/AssessmentCommonSelectControlById.html#AssessmentCommonSelectControlById">AssessmentCommonSelectControlById</a> item) {
+<a class="jxr_linenumber" name="L776" href="#L776">776</a>       <a name="AssessmentCommonSelectControlById" href="../../../../../dev/metaschema/oscal/lib/model/AssessmentCommonSelectControlById.html#AssessmentCommonSelectControlById">AssessmentCommonSelectControlById</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
 <a class="jxr_linenumber" name="L777" href="#L777">777</a>       <strong class="jxr_keyword">if</strong> (_excludeControls == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L778" href="#L778">778</a>         _excludeControls = <strong class="jxr_keyword">new</strong> LinkedList&lt;&gt;();
 <a class="jxr_linenumber" name="L779" href="#L779">779</a>       }
@@ -789,12 +789,12 @@
 <a class="jxr_linenumber" name="L781" href="#L781">781</a>     }
 <a class="jxr_linenumber" name="L782" href="#L782">782</a> 
 <a class="jxr_linenumber" name="L783" href="#L783">783</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L784" href="#L784">784</a> <em class="jxr_javadoccomment">     * Remove the first matching {@link SelectControlByIdOscalAssessmentCommon} item from the underlying collection.</em>
+<a class="jxr_linenumber" name="L784" href="#L784">784</a> <em class="jxr_javadoccomment">     * Remove the first matching {@link AssessmentCommonSelectControlById} item from the underlying collection.</em>
 <a class="jxr_linenumber" name="L785" href="#L785">785</a> <em class="jxr_javadoccomment">     * @param item the item to remove</em>
 <a class="jxr_linenumber" name="L786" href="#L786">786</a> <em class="jxr_javadoccomment">     * @return {@code true} if the item was removed or {@code false} otherwise</em>
 <a class="jxr_linenumber" name="L787" href="#L787">787</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L788" href="#L788">788</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeExcludeControl(<a name="SelectControlByIdOscalAssessmentCommon" href="../../../../../dev/metaschema/oscal/lib/model/SelectControlByIdOscalAssessmentCommon.html#SelectControlByIdOscalAssessmentCommon">SelectControlByIdOscalAssessmentCommon</a> item) {
-<a class="jxr_linenumber" name="L789" href="#L789">789</a>       <a name="SelectControlByIdOscalAssessmentCommon" href="../../../../../dev/metaschema/oscal/lib/model/SelectControlByIdOscalAssessmentCommon.html#SelectControlByIdOscalAssessmentCommon">SelectControlByIdOscalAssessmentCommon</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
+<a class="jxr_linenumber" name="L788" href="#L788">788</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeExcludeControl(<a name="AssessmentCommonSelectControlById" href="../../../../../dev/metaschema/oscal/lib/model/AssessmentCommonSelectControlById.html#AssessmentCommonSelectControlById">AssessmentCommonSelectControlById</a> item) {
+<a class="jxr_linenumber" name="L789" href="#L789">789</a>       <a name="AssessmentCommonSelectControlById" href="../../../../../dev/metaschema/oscal/lib/model/AssessmentCommonSelectControlById.html#AssessmentCommonSelectControlById">AssessmentCommonSelectControlById</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
 <a class="jxr_linenumber" name="L790" href="#L790">790</a>       <strong class="jxr_keyword">return</strong> _excludeControls != <strong class="jxr_keyword">null</strong> &amp;&amp; _excludeControls.remove(value);
 <a class="jxr_linenumber" name="L791" href="#L791">791</a>     }
 <a class="jxr_linenumber" name="L792" href="#L792">792</a> 

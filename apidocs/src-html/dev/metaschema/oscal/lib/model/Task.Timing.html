@@ -949,782 +949,893 @@
 <span class="source-line-no">936</span><span id="line-936">      private ZonedDateTime _date;</span>
 <span class="source-line-no">937</span><span id="line-937"></span>
 <span class="source-line-no">938</span><span id="line-938">      /**</span>
-<span class="source-line-no">939</span><span id="line-939">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.OnDate} instance with no metadata.</span>
+<span class="source-line-no">939</span><span id="line-939">       * Additional commentary about the containing object.</span>
 <span class="source-line-no">940</span><span id="line-940">       */</span>
-<span class="source-line-no">941</span><span id="line-941">      public OnDate() {</span>
-<span class="source-line-no">942</span><span id="line-942">        this(null);</span>
-<span class="source-line-no">943</span><span id="line-943">      }</span>
-<span class="source-line-no">944</span><span id="line-944"></span>
-<span class="source-line-no">945</span><span id="line-945">      /**</span>
-<span class="source-line-no">946</span><span id="line-946">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.OnDate} instance with the specified metadata.</span>
-<span class="source-line-no">947</span><span id="line-947">       *</span>
-<span class="source-line-no">948</span><span id="line-948">       * @param data</span>
-<span class="source-line-no">949</span><span id="line-949">       *           the metaschema data, or {@code null} if none</span>
-<span class="source-line-no">950</span><span id="line-950">       */</span>
-<span class="source-line-no">951</span><span id="line-951">      public OnDate(IMetaschemaData data) {</span>
-<span class="source-line-no">952</span><span id="line-952">        this.__metaschemaData = data;</span>
-<span class="source-line-no">953</span><span id="line-953">      }</span>
-<span class="source-line-no">954</span><span id="line-954"></span>
-<span class="source-line-no">955</span><span id="line-955">      @Override</span>
-<span class="source-line-no">956</span><span id="line-956">      public IMetaschemaData getMetaschemaData() {</span>
-<span class="source-line-no">957</span><span id="line-957">        return __metaschemaData;</span>
-<span class="source-line-no">958</span><span id="line-958">      }</span>
-<span class="source-line-no">959</span><span id="line-959"></span>
-<span class="source-line-no">960</span><span id="line-960">      /**</span>
-<span class="source-line-no">961</span><span id="line-961">       * Get the "{@literal On Date Condition}".</span>
-<span class="source-line-no">962</span><span id="line-962">       *</span>
-<span class="source-line-no">963</span><span id="line-963">       * &lt;p&gt;</span>
-<span class="source-line-no">964</span><span id="line-964">       * The task must occur on the specified date.</span>
-<span class="source-line-no">965</span><span id="line-965">       *</span>
-<span class="source-line-no">966</span><span id="line-966">       * @return the date value</span>
-<span class="source-line-no">967</span><span id="line-967">       */</span>
-<span class="source-line-no">968</span><span id="line-968">      @NonNull</span>
-<span class="source-line-no">969</span><span id="line-969">      public ZonedDateTime getDate() {</span>
-<span class="source-line-no">970</span><span id="line-970">        return _date;</span>
-<span class="source-line-no">971</span><span id="line-971">      }</span>
-<span class="source-line-no">972</span><span id="line-972"></span>
-<span class="source-line-no">973</span><span id="line-973">      /**</span>
-<span class="source-line-no">974</span><span id="line-974">       * Set the "{@literal On Date Condition}".</span>
-<span class="source-line-no">975</span><span id="line-975">       *</span>
-<span class="source-line-no">976</span><span id="line-976">       * &lt;p&gt;</span>
-<span class="source-line-no">977</span><span id="line-977">       * The task must occur on the specified date.</span>
-<span class="source-line-no">978</span><span id="line-978">       *</span>
-<span class="source-line-no">979</span><span id="line-979">       * @param value</span>
-<span class="source-line-no">980</span><span id="line-980">       *           the date value to set</span>
-<span class="source-line-no">981</span><span id="line-981">       */</span>
-<span class="source-line-no">982</span><span id="line-982">      public void setDate(@NonNull ZonedDateTime value) {</span>
-<span class="source-line-no">983</span><span id="line-983">        _date = value;</span>
-<span class="source-line-no">984</span><span id="line-984">      }</span>
-<span class="source-line-no">985</span><span id="line-985"></span>
-<span class="source-line-no">986</span><span id="line-986">      @Override</span>
-<span class="source-line-no">987</span><span id="line-987">      public String toString() {</span>
-<span class="source-line-no">988</span><span id="line-988">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
-<span class="source-line-no">989</span><span id="line-989">      }</span>
-<span class="source-line-no">990</span><span id="line-990">    }</span>
-<span class="source-line-no">991</span><span id="line-991"></span>
-<span class="source-line-no">992</span><span id="line-992">    /**</span>
-<span class="source-line-no">993</span><span id="line-993">     * The task is intended to occur within the specified date range.</span>
-<span class="source-line-no">994</span><span id="line-994">     */</span>
-<span class="source-line-no">995</span><span id="line-995">    @MetaschemaAssembly(</span>
-<span class="source-line-no">996</span><span id="line-996">        formalName = "On Date Range Condition",</span>
-<span class="source-line-no">997</span><span id="line-997">        description = "The task is intended to occur within the specified date range.",</span>
-<span class="source-line-no">998</span><span id="line-998">        name = "within-date-range",</span>
-<span class="source-line-no">999</span><span id="line-999">        moduleClass = OscalAssessmentCommonModule.class</span>
-<span class="source-line-no">1000</span><span id="line-1000">    )</span>
-<span class="source-line-no">1001</span><span id="line-1001">    public static class WithinDateRange implements IBoundObject {</span>
-<span class="source-line-no">1002</span><span id="line-1002">      private final IMetaschemaData __metaschemaData;</span>
-<span class="source-line-no">1003</span><span id="line-1003"></span>
-<span class="source-line-no">1004</span><span id="line-1004">      /**</span>
-<span class="source-line-no">1005</span><span id="line-1005">       * The task must occur on or after the specified date.</span>
-<span class="source-line-no">1006</span><span id="line-1006">       */</span>
-<span class="source-line-no">1007</span><span id="line-1007">      @BoundFlag(</span>
-<span class="source-line-no">1008</span><span id="line-1008">          formalName = "Start Date Condition",</span>
-<span class="source-line-no">1009</span><span id="line-1009">          description = "The task must occur on or after the specified date.",</span>
-<span class="source-line-no">1010</span><span id="line-1010">          name = "start",</span>
-<span class="source-line-no">1011</span><span id="line-1011">          required = true,</span>
-<span class="source-line-no">1012</span><span id="line-1012">          typeAdapter = DateTimeWithTZAdapter.class</span>
-<span class="source-line-no">1013</span><span id="line-1013">      )</span>
-<span class="source-line-no">1014</span><span id="line-1014">      private ZonedDateTime _start;</span>
-<span class="source-line-no">1015</span><span id="line-1015"></span>
-<span class="source-line-no">1016</span><span id="line-1016">      /**</span>
-<span class="source-line-no">1017</span><span id="line-1017">       * The task must occur on or before the specified date.</span>
+<span class="source-line-no">941</span><span id="line-941">      @BoundField(</span>
+<span class="source-line-no">942</span><span id="line-942">          formalName = "Remarks",</span>
+<span class="source-line-no">943</span><span id="line-943">          description = "Additional commentary about the containing object.",</span>
+<span class="source-line-no">944</span><span id="line-944">          useName = "remarks",</span>
+<span class="source-line-no">945</span><span id="line-945">          typeAdapter = MarkupMultilineAdapter.class</span>
+<span class="source-line-no">946</span><span id="line-946">      )</span>
+<span class="source-line-no">947</span><span id="line-947">      private MarkupMultiline _remarks;</span>
+<span class="source-line-no">948</span><span id="line-948"></span>
+<span class="source-line-no">949</span><span id="line-949">      /**</span>
+<span class="source-line-no">950</span><span id="line-950">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.OnDate} instance with no metadata.</span>
+<span class="source-line-no">951</span><span id="line-951">       */</span>
+<span class="source-line-no">952</span><span id="line-952">      public OnDate() {</span>
+<span class="source-line-no">953</span><span id="line-953">        this(null);</span>
+<span class="source-line-no">954</span><span id="line-954">      }</span>
+<span class="source-line-no">955</span><span id="line-955"></span>
+<span class="source-line-no">956</span><span id="line-956">      /**</span>
+<span class="source-line-no">957</span><span id="line-957">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.OnDate} instance with the specified metadata.</span>
+<span class="source-line-no">958</span><span id="line-958">       *</span>
+<span class="source-line-no">959</span><span id="line-959">       * @param data</span>
+<span class="source-line-no">960</span><span id="line-960">       *           the metaschema data, or {@code null} if none</span>
+<span class="source-line-no">961</span><span id="line-961">       */</span>
+<span class="source-line-no">962</span><span id="line-962">      public OnDate(IMetaschemaData data) {</span>
+<span class="source-line-no">963</span><span id="line-963">        this.__metaschemaData = data;</span>
+<span class="source-line-no">964</span><span id="line-964">      }</span>
+<span class="source-line-no">965</span><span id="line-965"></span>
+<span class="source-line-no">966</span><span id="line-966">      @Override</span>
+<span class="source-line-no">967</span><span id="line-967">      public IMetaschemaData getMetaschemaData() {</span>
+<span class="source-line-no">968</span><span id="line-968">        return __metaschemaData;</span>
+<span class="source-line-no">969</span><span id="line-969">      }</span>
+<span class="source-line-no">970</span><span id="line-970"></span>
+<span class="source-line-no">971</span><span id="line-971">      /**</span>
+<span class="source-line-no">972</span><span id="line-972">       * Get the "{@literal On Date Condition}".</span>
+<span class="source-line-no">973</span><span id="line-973">       *</span>
+<span class="source-line-no">974</span><span id="line-974">       * &lt;p&gt;</span>
+<span class="source-line-no">975</span><span id="line-975">       * The task must occur on the specified date.</span>
+<span class="source-line-no">976</span><span id="line-976">       *</span>
+<span class="source-line-no">977</span><span id="line-977">       * @return the date value</span>
+<span class="source-line-no">978</span><span id="line-978">       */</span>
+<span class="source-line-no">979</span><span id="line-979">      @NonNull</span>
+<span class="source-line-no">980</span><span id="line-980">      public ZonedDateTime getDate() {</span>
+<span class="source-line-no">981</span><span id="line-981">        return _date;</span>
+<span class="source-line-no">982</span><span id="line-982">      }</span>
+<span class="source-line-no">983</span><span id="line-983"></span>
+<span class="source-line-no">984</span><span id="line-984">      /**</span>
+<span class="source-line-no">985</span><span id="line-985">       * Set the "{@literal On Date Condition}".</span>
+<span class="source-line-no">986</span><span id="line-986">       *</span>
+<span class="source-line-no">987</span><span id="line-987">       * &lt;p&gt;</span>
+<span class="source-line-no">988</span><span id="line-988">       * The task must occur on the specified date.</span>
+<span class="source-line-no">989</span><span id="line-989">       *</span>
+<span class="source-line-no">990</span><span id="line-990">       * @param value</span>
+<span class="source-line-no">991</span><span id="line-991">       *           the date value to set</span>
+<span class="source-line-no">992</span><span id="line-992">       */</span>
+<span class="source-line-no">993</span><span id="line-993">      public void setDate(@NonNull ZonedDateTime value) {</span>
+<span class="source-line-no">994</span><span id="line-994">        _date = value;</span>
+<span class="source-line-no">995</span><span id="line-995">      }</span>
+<span class="source-line-no">996</span><span id="line-996"></span>
+<span class="source-line-no">997</span><span id="line-997">      /**</span>
+<span class="source-line-no">998</span><span id="line-998">       * Get the "{@literal Remarks}".</span>
+<span class="source-line-no">999</span><span id="line-999">       *</span>
+<span class="source-line-no">1000</span><span id="line-1000">       * &lt;p&gt;</span>
+<span class="source-line-no">1001</span><span id="line-1001">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1002</span><span id="line-1002">       *</span>
+<span class="source-line-no">1003</span><span id="line-1003">       * @return the remarks value, or {@code null} if not set</span>
+<span class="source-line-no">1004</span><span id="line-1004">       */</span>
+<span class="source-line-no">1005</span><span id="line-1005">      @Nullable</span>
+<span class="source-line-no">1006</span><span id="line-1006">      public MarkupMultiline getRemarks() {</span>
+<span class="source-line-no">1007</span><span id="line-1007">        return _remarks;</span>
+<span class="source-line-no">1008</span><span id="line-1008">      }</span>
+<span class="source-line-no">1009</span><span id="line-1009"></span>
+<span class="source-line-no">1010</span><span id="line-1010">      /**</span>
+<span class="source-line-no">1011</span><span id="line-1011">       * Set the "{@literal Remarks}".</span>
+<span class="source-line-no">1012</span><span id="line-1012">       *</span>
+<span class="source-line-no">1013</span><span id="line-1013">       * &lt;p&gt;</span>
+<span class="source-line-no">1014</span><span id="line-1014">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1015</span><span id="line-1015">       *</span>
+<span class="source-line-no">1016</span><span id="line-1016">       * @param value</span>
+<span class="source-line-no">1017</span><span id="line-1017">       *           the remarks value to set, or {@code null} to clear</span>
 <span class="source-line-no">1018</span><span id="line-1018">       */</span>
-<span class="source-line-no">1019</span><span id="line-1019">      @BoundFlag(</span>
-<span class="source-line-no">1020</span><span id="line-1020">          formalName = "End Date Condition",</span>
-<span class="source-line-no">1021</span><span id="line-1021">          description = "The task must occur on or before the specified date.",</span>
-<span class="source-line-no">1022</span><span id="line-1022">          name = "end",</span>
-<span class="source-line-no">1023</span><span id="line-1023">          required = true,</span>
-<span class="source-line-no">1024</span><span id="line-1024">          typeAdapter = DateTimeWithTZAdapter.class</span>
-<span class="source-line-no">1025</span><span id="line-1025">      )</span>
-<span class="source-line-no">1026</span><span id="line-1026">      private ZonedDateTime _end;</span>
-<span class="source-line-no">1027</span><span id="line-1027"></span>
-<span class="source-line-no">1028</span><span id="line-1028">      /**</span>
-<span class="source-line-no">1029</span><span id="line-1029">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.WithinDateRange} instance with no metadata.</span>
-<span class="source-line-no">1030</span><span id="line-1030">       */</span>
-<span class="source-line-no">1031</span><span id="line-1031">      public WithinDateRange() {</span>
-<span class="source-line-no">1032</span><span id="line-1032">        this(null);</span>
-<span class="source-line-no">1033</span><span id="line-1033">      }</span>
-<span class="source-line-no">1034</span><span id="line-1034"></span>
-<span class="source-line-no">1035</span><span id="line-1035">      /**</span>
-<span class="source-line-no">1036</span><span id="line-1036">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.WithinDateRange} instance with the specified metadata.</span>
-<span class="source-line-no">1037</span><span id="line-1037">       *</span>
-<span class="source-line-no">1038</span><span id="line-1038">       * @param data</span>
-<span class="source-line-no">1039</span><span id="line-1039">       *           the metaschema data, or {@code null} if none</span>
-<span class="source-line-no">1040</span><span id="line-1040">       */</span>
-<span class="source-line-no">1041</span><span id="line-1041">      public WithinDateRange(IMetaschemaData data) {</span>
-<span class="source-line-no">1042</span><span id="line-1042">        this.__metaschemaData = data;</span>
-<span class="source-line-no">1043</span><span id="line-1043">      }</span>
-<span class="source-line-no">1044</span><span id="line-1044"></span>
-<span class="source-line-no">1045</span><span id="line-1045">      @Override</span>
-<span class="source-line-no">1046</span><span id="line-1046">      public IMetaschemaData getMetaschemaData() {</span>
-<span class="source-line-no">1047</span><span id="line-1047">        return __metaschemaData;</span>
-<span class="source-line-no">1048</span><span id="line-1048">      }</span>
-<span class="source-line-no">1049</span><span id="line-1049"></span>
-<span class="source-line-no">1050</span><span id="line-1050">      /**</span>
-<span class="source-line-no">1051</span><span id="line-1051">       * Get the "{@literal Start Date Condition}".</span>
-<span class="source-line-no">1052</span><span id="line-1052">       *</span>
-<span class="source-line-no">1053</span><span id="line-1053">       * &lt;p&gt;</span>
-<span class="source-line-no">1054</span><span id="line-1054">       * The task must occur on or after the specified date.</span>
-<span class="source-line-no">1055</span><span id="line-1055">       *</span>
-<span class="source-line-no">1056</span><span id="line-1056">       * @return the start value</span>
-<span class="source-line-no">1057</span><span id="line-1057">       */</span>
-<span class="source-line-no">1058</span><span id="line-1058">      @NonNull</span>
-<span class="source-line-no">1059</span><span id="line-1059">      public ZonedDateTime getStart() {</span>
-<span class="source-line-no">1060</span><span id="line-1060">        return _start;</span>
-<span class="source-line-no">1061</span><span id="line-1061">      }</span>
-<span class="source-line-no">1062</span><span id="line-1062"></span>
-<span class="source-line-no">1063</span><span id="line-1063">      /**</span>
-<span class="source-line-no">1064</span><span id="line-1064">       * Set the "{@literal Start Date Condition}".</span>
-<span class="source-line-no">1065</span><span id="line-1065">       *</span>
-<span class="source-line-no">1066</span><span id="line-1066">       * &lt;p&gt;</span>
-<span class="source-line-no">1067</span><span id="line-1067">       * The task must occur on or after the specified date.</span>
-<span class="source-line-no">1068</span><span id="line-1068">       *</span>
-<span class="source-line-no">1069</span><span id="line-1069">       * @param value</span>
-<span class="source-line-no">1070</span><span id="line-1070">       *           the start value to set</span>
-<span class="source-line-no">1071</span><span id="line-1071">       */</span>
-<span class="source-line-no">1072</span><span id="line-1072">      public void setStart(@NonNull ZonedDateTime value) {</span>
-<span class="source-line-no">1073</span><span id="line-1073">        _start = value;</span>
-<span class="source-line-no">1074</span><span id="line-1074">      }</span>
+<span class="source-line-no">1019</span><span id="line-1019">      public void setRemarks(@Nullable MarkupMultiline value) {</span>
+<span class="source-line-no">1020</span><span id="line-1020">        _remarks = value;</span>
+<span class="source-line-no">1021</span><span id="line-1021">      }</span>
+<span class="source-line-no">1022</span><span id="line-1022"></span>
+<span class="source-line-no">1023</span><span id="line-1023">      @Override</span>
+<span class="source-line-no">1024</span><span id="line-1024">      public String toString() {</span>
+<span class="source-line-no">1025</span><span id="line-1025">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
+<span class="source-line-no">1026</span><span id="line-1026">      }</span>
+<span class="source-line-no">1027</span><span id="line-1027">    }</span>
+<span class="source-line-no">1028</span><span id="line-1028"></span>
+<span class="source-line-no">1029</span><span id="line-1029">    /**</span>
+<span class="source-line-no">1030</span><span id="line-1030">     * The task is intended to occur within the specified date range.</span>
+<span class="source-line-no">1031</span><span id="line-1031">     */</span>
+<span class="source-line-no">1032</span><span id="line-1032">    @MetaschemaAssembly(</span>
+<span class="source-line-no">1033</span><span id="line-1033">        formalName = "On Date Range Condition",</span>
+<span class="source-line-no">1034</span><span id="line-1034">        description = "The task is intended to occur within the specified date range.",</span>
+<span class="source-line-no">1035</span><span id="line-1035">        name = "within-date-range",</span>
+<span class="source-line-no">1036</span><span id="line-1036">        moduleClass = OscalAssessmentCommonModule.class</span>
+<span class="source-line-no">1037</span><span id="line-1037">    )</span>
+<span class="source-line-no">1038</span><span id="line-1038">    public static class WithinDateRange implements IBoundObject {</span>
+<span class="source-line-no">1039</span><span id="line-1039">      private final IMetaschemaData __metaschemaData;</span>
+<span class="source-line-no">1040</span><span id="line-1040"></span>
+<span class="source-line-no">1041</span><span id="line-1041">      /**</span>
+<span class="source-line-no">1042</span><span id="line-1042">       * The task must occur on or after the specified date.</span>
+<span class="source-line-no">1043</span><span id="line-1043">       */</span>
+<span class="source-line-no">1044</span><span id="line-1044">      @BoundFlag(</span>
+<span class="source-line-no">1045</span><span id="line-1045">          formalName = "Start Date Condition",</span>
+<span class="source-line-no">1046</span><span id="line-1046">          description = "The task must occur on or after the specified date.",</span>
+<span class="source-line-no">1047</span><span id="line-1047">          name = "start",</span>
+<span class="source-line-no">1048</span><span id="line-1048">          required = true,</span>
+<span class="source-line-no">1049</span><span id="line-1049">          typeAdapter = DateTimeWithTZAdapter.class</span>
+<span class="source-line-no">1050</span><span id="line-1050">      )</span>
+<span class="source-line-no">1051</span><span id="line-1051">      private ZonedDateTime _start;</span>
+<span class="source-line-no">1052</span><span id="line-1052"></span>
+<span class="source-line-no">1053</span><span id="line-1053">      /**</span>
+<span class="source-line-no">1054</span><span id="line-1054">       * The task must occur on or before the specified date.</span>
+<span class="source-line-no">1055</span><span id="line-1055">       */</span>
+<span class="source-line-no">1056</span><span id="line-1056">      @BoundFlag(</span>
+<span class="source-line-no">1057</span><span id="line-1057">          formalName = "End Date Condition",</span>
+<span class="source-line-no">1058</span><span id="line-1058">          description = "The task must occur on or before the specified date.",</span>
+<span class="source-line-no">1059</span><span id="line-1059">          name = "end",</span>
+<span class="source-line-no">1060</span><span id="line-1060">          required = true,</span>
+<span class="source-line-no">1061</span><span id="line-1061">          typeAdapter = DateTimeWithTZAdapter.class</span>
+<span class="source-line-no">1062</span><span id="line-1062">      )</span>
+<span class="source-line-no">1063</span><span id="line-1063">      private ZonedDateTime _end;</span>
+<span class="source-line-no">1064</span><span id="line-1064"></span>
+<span class="source-line-no">1065</span><span id="line-1065">      /**</span>
+<span class="source-line-no">1066</span><span id="line-1066">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1067</span><span id="line-1067">       */</span>
+<span class="source-line-no">1068</span><span id="line-1068">      @BoundField(</span>
+<span class="source-line-no">1069</span><span id="line-1069">          formalName = "Remarks",</span>
+<span class="source-line-no">1070</span><span id="line-1070">          description = "Additional commentary about the containing object.",</span>
+<span class="source-line-no">1071</span><span id="line-1071">          useName = "remarks",</span>
+<span class="source-line-no">1072</span><span id="line-1072">          typeAdapter = MarkupMultilineAdapter.class</span>
+<span class="source-line-no">1073</span><span id="line-1073">      )</span>
+<span class="source-line-no">1074</span><span id="line-1074">      private MarkupMultiline _remarks;</span>
 <span class="source-line-no">1075</span><span id="line-1075"></span>
 <span class="source-line-no">1076</span><span id="line-1076">      /**</span>
-<span class="source-line-no">1077</span><span id="line-1077">       * Get the "{@literal End Date Condition}".</span>
-<span class="source-line-no">1078</span><span id="line-1078">       *</span>
-<span class="source-line-no">1079</span><span id="line-1079">       * &lt;p&gt;</span>
-<span class="source-line-no">1080</span><span id="line-1080">       * The task must occur on or before the specified date.</span>
-<span class="source-line-no">1081</span><span id="line-1081">       *</span>
-<span class="source-line-no">1082</span><span id="line-1082">       * @return the end value</span>
-<span class="source-line-no">1083</span><span id="line-1083">       */</span>
-<span class="source-line-no">1084</span><span id="line-1084">      @NonNull</span>
-<span class="source-line-no">1085</span><span id="line-1085">      public ZonedDateTime getEnd() {</span>
-<span class="source-line-no">1086</span><span id="line-1086">        return _end;</span>
-<span class="source-line-no">1087</span><span id="line-1087">      }</span>
-<span class="source-line-no">1088</span><span id="line-1088"></span>
-<span class="source-line-no">1089</span><span id="line-1089">      /**</span>
-<span class="source-line-no">1090</span><span id="line-1090">       * Set the "{@literal End Date Condition}".</span>
-<span class="source-line-no">1091</span><span id="line-1091">       *</span>
-<span class="source-line-no">1092</span><span id="line-1092">       * &lt;p&gt;</span>
-<span class="source-line-no">1093</span><span id="line-1093">       * The task must occur on or before the specified date.</span>
-<span class="source-line-no">1094</span><span id="line-1094">       *</span>
-<span class="source-line-no">1095</span><span id="line-1095">       * @param value</span>
-<span class="source-line-no">1096</span><span id="line-1096">       *           the end value to set</span>
-<span class="source-line-no">1097</span><span id="line-1097">       */</span>
-<span class="source-line-no">1098</span><span id="line-1098">      public void setEnd(@NonNull ZonedDateTime value) {</span>
-<span class="source-line-no">1099</span><span id="line-1099">        _end = value;</span>
-<span class="source-line-no">1100</span><span id="line-1100">      }</span>
-<span class="source-line-no">1101</span><span id="line-1101"></span>
-<span class="source-line-no">1102</span><span id="line-1102">      @Override</span>
-<span class="source-line-no">1103</span><span id="line-1103">      public String toString() {</span>
-<span class="source-line-no">1104</span><span id="line-1104">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
-<span class="source-line-no">1105</span><span id="line-1105">      }</span>
-<span class="source-line-no">1106</span><span id="line-1106">    }</span>
-<span class="source-line-no">1107</span><span id="line-1107"></span>
-<span class="source-line-no">1108</span><span id="line-1108">    /**</span>
-<span class="source-line-no">1109</span><span id="line-1109">     * The task is intended to occur at the specified frequency.</span>
-<span class="source-line-no">1110</span><span id="line-1110">     */</span>
-<span class="source-line-no">1111</span><span id="line-1111">    @MetaschemaAssembly(</span>
-<span class="source-line-no">1112</span><span id="line-1112">        formalName = "Frequency Condition",</span>
-<span class="source-line-no">1113</span><span id="line-1113">        description = "The task is intended to occur at the specified frequency.",</span>
-<span class="source-line-no">1114</span><span id="line-1114">        name = "at-frequency",</span>
-<span class="source-line-no">1115</span><span id="line-1115">        moduleClass = OscalAssessmentCommonModule.class</span>
-<span class="source-line-no">1116</span><span id="line-1116">    )</span>
-<span class="source-line-no">1117</span><span id="line-1117">    public static class AtFrequency implements IBoundObject {</span>
-<span class="source-line-no">1118</span><span id="line-1118">      private final IMetaschemaData __metaschemaData;</span>
-<span class="source-line-no">1119</span><span id="line-1119"></span>
-<span class="source-line-no">1120</span><span id="line-1120">      /**</span>
-<span class="source-line-no">1121</span><span id="line-1121">       * The task must occur after the specified period has elapsed.</span>
-<span class="source-line-no">1122</span><span id="line-1122">       */</span>
-<span class="source-line-no">1123</span><span id="line-1123">      @BoundFlag(</span>
-<span class="source-line-no">1124</span><span id="line-1124">          formalName = "Period",</span>
-<span class="source-line-no">1125</span><span id="line-1125">          description = "The task must occur after the specified period has elapsed.",</span>
-<span class="source-line-no">1126</span><span id="line-1126">          name = "period",</span>
-<span class="source-line-no">1127</span><span id="line-1127">          required = true,</span>
-<span class="source-line-no">1128</span><span id="line-1128">          typeAdapter = PositiveIntegerAdapter.class</span>
-<span class="source-line-no">1129</span><span id="line-1129">      )</span>
-<span class="source-line-no">1130</span><span id="line-1130">      private BigInteger _period;</span>
-<span class="source-line-no">1131</span><span id="line-1131"></span>
-<span class="source-line-no">1132</span><span id="line-1132">      /**</span>
-<span class="source-line-no">1133</span><span id="line-1133">       * The unit of time for the period.</span>
-<span class="source-line-no">1134</span><span id="line-1134">       */</span>
-<span class="source-line-no">1135</span><span id="line-1135">      @BoundFlag(</span>
-<span class="source-line-no">1136</span><span id="line-1136">          formalName = "Time Unit",</span>
-<span class="source-line-no">1137</span><span id="line-1137">          description = "The unit of time for the period.",</span>
-<span class="source-line-no">1138</span><span id="line-1138">          name = "unit",</span>
-<span class="source-line-no">1139</span><span id="line-1139">          required = true,</span>
-<span class="source-line-no">1140</span><span id="line-1140">          typeAdapter = StringAdapter.class,</span>
-<span class="source-line-no">1141</span><span id="line-1141">          valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-timing-unit-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "seconds", description = "The period is specified in seconds."), @AllowedValue(value = "minutes", description = "The period is specified in minutes."), @AllowedValue(value = "hours", description = "The period is specified in hours."), @AllowedValue(value = "days", description = "The period is specified in days."), @AllowedValue(value = "months", description = "The period is specified in calendar months."), @AllowedValue(value = "years", description = "The period is specified in calendar years.")}))</span>
-<span class="source-line-no">1142</span><span id="line-1142">      )</span>
-<span class="source-line-no">1143</span><span id="line-1143">      private String _unit;</span>
-<span class="source-line-no">1144</span><span id="line-1144"></span>
-<span class="source-line-no">1145</span><span id="line-1145">      /**</span>
-<span class="source-line-no">1146</span><span id="line-1146">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.AtFrequency} instance with no metadata.</span>
-<span class="source-line-no">1147</span><span id="line-1147">       */</span>
-<span class="source-line-no">1148</span><span id="line-1148">      public AtFrequency() {</span>
-<span class="source-line-no">1149</span><span id="line-1149">        this(null);</span>
-<span class="source-line-no">1150</span><span id="line-1150">      }</span>
-<span class="source-line-no">1151</span><span id="line-1151"></span>
-<span class="source-line-no">1152</span><span id="line-1152">      /**</span>
-<span class="source-line-no">1153</span><span id="line-1153">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.AtFrequency} instance with the specified metadata.</span>
-<span class="source-line-no">1154</span><span id="line-1154">       *</span>
-<span class="source-line-no">1155</span><span id="line-1155">       * @param data</span>
-<span class="source-line-no">1156</span><span id="line-1156">       *           the metaschema data, or {@code null} if none</span>
+<span class="source-line-no">1077</span><span id="line-1077">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.WithinDateRange} instance with no metadata.</span>
+<span class="source-line-no">1078</span><span id="line-1078">       */</span>
+<span class="source-line-no">1079</span><span id="line-1079">      public WithinDateRange() {</span>
+<span class="source-line-no">1080</span><span id="line-1080">        this(null);</span>
+<span class="source-line-no">1081</span><span id="line-1081">      }</span>
+<span class="source-line-no">1082</span><span id="line-1082"></span>
+<span class="source-line-no">1083</span><span id="line-1083">      /**</span>
+<span class="source-line-no">1084</span><span id="line-1084">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.WithinDateRange} instance with the specified metadata.</span>
+<span class="source-line-no">1085</span><span id="line-1085">       *</span>
+<span class="source-line-no">1086</span><span id="line-1086">       * @param data</span>
+<span class="source-line-no">1087</span><span id="line-1087">       *           the metaschema data, or {@code null} if none</span>
+<span class="source-line-no">1088</span><span id="line-1088">       */</span>
+<span class="source-line-no">1089</span><span id="line-1089">      public WithinDateRange(IMetaschemaData data) {</span>
+<span class="source-line-no">1090</span><span id="line-1090">        this.__metaschemaData = data;</span>
+<span class="source-line-no">1091</span><span id="line-1091">      }</span>
+<span class="source-line-no">1092</span><span id="line-1092"></span>
+<span class="source-line-no">1093</span><span id="line-1093">      @Override</span>
+<span class="source-line-no">1094</span><span id="line-1094">      public IMetaschemaData getMetaschemaData() {</span>
+<span class="source-line-no">1095</span><span id="line-1095">        return __metaschemaData;</span>
+<span class="source-line-no">1096</span><span id="line-1096">      }</span>
+<span class="source-line-no">1097</span><span id="line-1097"></span>
+<span class="source-line-no">1098</span><span id="line-1098">      /**</span>
+<span class="source-line-no">1099</span><span id="line-1099">       * Get the "{@literal Start Date Condition}".</span>
+<span class="source-line-no">1100</span><span id="line-1100">       *</span>
+<span class="source-line-no">1101</span><span id="line-1101">       * &lt;p&gt;</span>
+<span class="source-line-no">1102</span><span id="line-1102">       * The task must occur on or after the specified date.</span>
+<span class="source-line-no">1103</span><span id="line-1103">       *</span>
+<span class="source-line-no">1104</span><span id="line-1104">       * @return the start value</span>
+<span class="source-line-no">1105</span><span id="line-1105">       */</span>
+<span class="source-line-no">1106</span><span id="line-1106">      @NonNull</span>
+<span class="source-line-no">1107</span><span id="line-1107">      public ZonedDateTime getStart() {</span>
+<span class="source-line-no">1108</span><span id="line-1108">        return _start;</span>
+<span class="source-line-no">1109</span><span id="line-1109">      }</span>
+<span class="source-line-no">1110</span><span id="line-1110"></span>
+<span class="source-line-no">1111</span><span id="line-1111">      /**</span>
+<span class="source-line-no">1112</span><span id="line-1112">       * Set the "{@literal Start Date Condition}".</span>
+<span class="source-line-no">1113</span><span id="line-1113">       *</span>
+<span class="source-line-no">1114</span><span id="line-1114">       * &lt;p&gt;</span>
+<span class="source-line-no">1115</span><span id="line-1115">       * The task must occur on or after the specified date.</span>
+<span class="source-line-no">1116</span><span id="line-1116">       *</span>
+<span class="source-line-no">1117</span><span id="line-1117">       * @param value</span>
+<span class="source-line-no">1118</span><span id="line-1118">       *           the start value to set</span>
+<span class="source-line-no">1119</span><span id="line-1119">       */</span>
+<span class="source-line-no">1120</span><span id="line-1120">      public void setStart(@NonNull ZonedDateTime value) {</span>
+<span class="source-line-no">1121</span><span id="line-1121">        _start = value;</span>
+<span class="source-line-no">1122</span><span id="line-1122">      }</span>
+<span class="source-line-no">1123</span><span id="line-1123"></span>
+<span class="source-line-no">1124</span><span id="line-1124">      /**</span>
+<span class="source-line-no">1125</span><span id="line-1125">       * Get the "{@literal End Date Condition}".</span>
+<span class="source-line-no">1126</span><span id="line-1126">       *</span>
+<span class="source-line-no">1127</span><span id="line-1127">       * &lt;p&gt;</span>
+<span class="source-line-no">1128</span><span id="line-1128">       * The task must occur on or before the specified date.</span>
+<span class="source-line-no">1129</span><span id="line-1129">       *</span>
+<span class="source-line-no">1130</span><span id="line-1130">       * @return the end value</span>
+<span class="source-line-no">1131</span><span id="line-1131">       */</span>
+<span class="source-line-no">1132</span><span id="line-1132">      @NonNull</span>
+<span class="source-line-no">1133</span><span id="line-1133">      public ZonedDateTime getEnd() {</span>
+<span class="source-line-no">1134</span><span id="line-1134">        return _end;</span>
+<span class="source-line-no">1135</span><span id="line-1135">      }</span>
+<span class="source-line-no">1136</span><span id="line-1136"></span>
+<span class="source-line-no">1137</span><span id="line-1137">      /**</span>
+<span class="source-line-no">1138</span><span id="line-1138">       * Set the "{@literal End Date Condition}".</span>
+<span class="source-line-no">1139</span><span id="line-1139">       *</span>
+<span class="source-line-no">1140</span><span id="line-1140">       * &lt;p&gt;</span>
+<span class="source-line-no">1141</span><span id="line-1141">       * The task must occur on or before the specified date.</span>
+<span class="source-line-no">1142</span><span id="line-1142">       *</span>
+<span class="source-line-no">1143</span><span id="line-1143">       * @param value</span>
+<span class="source-line-no">1144</span><span id="line-1144">       *           the end value to set</span>
+<span class="source-line-no">1145</span><span id="line-1145">       */</span>
+<span class="source-line-no">1146</span><span id="line-1146">      public void setEnd(@NonNull ZonedDateTime value) {</span>
+<span class="source-line-no">1147</span><span id="line-1147">        _end = value;</span>
+<span class="source-line-no">1148</span><span id="line-1148">      }</span>
+<span class="source-line-no">1149</span><span id="line-1149"></span>
+<span class="source-line-no">1150</span><span id="line-1150">      /**</span>
+<span class="source-line-no">1151</span><span id="line-1151">       * Get the "{@literal Remarks}".</span>
+<span class="source-line-no">1152</span><span id="line-1152">       *</span>
+<span class="source-line-no">1153</span><span id="line-1153">       * &lt;p&gt;</span>
+<span class="source-line-no">1154</span><span id="line-1154">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1155</span><span id="line-1155">       *</span>
+<span class="source-line-no">1156</span><span id="line-1156">       * @return the remarks value, or {@code null} if not set</span>
 <span class="source-line-no">1157</span><span id="line-1157">       */</span>
-<span class="source-line-no">1158</span><span id="line-1158">      public AtFrequency(IMetaschemaData data) {</span>
-<span class="source-line-no">1159</span><span id="line-1159">        this.__metaschemaData = data;</span>
-<span class="source-line-no">1160</span><span id="line-1160">      }</span>
-<span class="source-line-no">1161</span><span id="line-1161"></span>
-<span class="source-line-no">1162</span><span id="line-1162">      @Override</span>
-<span class="source-line-no">1163</span><span id="line-1163">      public IMetaschemaData getMetaschemaData() {</span>
-<span class="source-line-no">1164</span><span id="line-1164">        return __metaschemaData;</span>
-<span class="source-line-no">1165</span><span id="line-1165">      }</span>
-<span class="source-line-no">1166</span><span id="line-1166"></span>
-<span class="source-line-no">1167</span><span id="line-1167">      /**</span>
-<span class="source-line-no">1168</span><span id="line-1168">       * Get the "{@literal Period}".</span>
-<span class="source-line-no">1169</span><span id="line-1169">       *</span>
-<span class="source-line-no">1170</span><span id="line-1170">       * &lt;p&gt;</span>
-<span class="source-line-no">1171</span><span id="line-1171">       * The task must occur after the specified period has elapsed.</span>
-<span class="source-line-no">1172</span><span id="line-1172">       *</span>
-<span class="source-line-no">1173</span><span id="line-1173">       * @return the period value</span>
-<span class="source-line-no">1174</span><span id="line-1174">       */</span>
-<span class="source-line-no">1175</span><span id="line-1175">      @NonNull</span>
-<span class="source-line-no">1176</span><span id="line-1176">      public BigInteger getPeriod() {</span>
-<span class="source-line-no">1177</span><span id="line-1177">        return _period;</span>
-<span class="source-line-no">1178</span><span id="line-1178">      }</span>
-<span class="source-line-no">1179</span><span id="line-1179"></span>
-<span class="source-line-no">1180</span><span id="line-1180">      /**</span>
-<span class="source-line-no">1181</span><span id="line-1181">       * Set the "{@literal Period}".</span>
-<span class="source-line-no">1182</span><span id="line-1182">       *</span>
-<span class="source-line-no">1183</span><span id="line-1183">       * &lt;p&gt;</span>
-<span class="source-line-no">1184</span><span id="line-1184">       * The task must occur after the specified period has elapsed.</span>
-<span class="source-line-no">1185</span><span id="line-1185">       *</span>
-<span class="source-line-no">1186</span><span id="line-1186">       * @param value</span>
-<span class="source-line-no">1187</span><span id="line-1187">       *           the period value to set</span>
-<span class="source-line-no">1188</span><span id="line-1188">       */</span>
-<span class="source-line-no">1189</span><span id="line-1189">      public void setPeriod(@NonNull BigInteger value) {</span>
-<span class="source-line-no">1190</span><span id="line-1190">        _period = value;</span>
-<span class="source-line-no">1191</span><span id="line-1191">      }</span>
-<span class="source-line-no">1192</span><span id="line-1192"></span>
-<span class="source-line-no">1193</span><span id="line-1193">      /**</span>
-<span class="source-line-no">1194</span><span id="line-1194">       * Get the "{@literal Time Unit}".</span>
-<span class="source-line-no">1195</span><span id="line-1195">       *</span>
-<span class="source-line-no">1196</span><span id="line-1196">       * &lt;p&gt;</span>
-<span class="source-line-no">1197</span><span id="line-1197">       * The unit of time for the period.</span>
-<span class="source-line-no">1198</span><span id="line-1198">       *</span>
-<span class="source-line-no">1199</span><span id="line-1199">       * @return the unit value</span>
-<span class="source-line-no">1200</span><span id="line-1200">       */</span>
-<span class="source-line-no">1201</span><span id="line-1201">      @NonNull</span>
-<span class="source-line-no">1202</span><span id="line-1202">      public String getUnit() {</span>
-<span class="source-line-no">1203</span><span id="line-1203">        return _unit;</span>
-<span class="source-line-no">1204</span><span id="line-1204">      }</span>
+<span class="source-line-no">1158</span><span id="line-1158">      @Nullable</span>
+<span class="source-line-no">1159</span><span id="line-1159">      public MarkupMultiline getRemarks() {</span>
+<span class="source-line-no">1160</span><span id="line-1160">        return _remarks;</span>
+<span class="source-line-no">1161</span><span id="line-1161">      }</span>
+<span class="source-line-no">1162</span><span id="line-1162"></span>
+<span class="source-line-no">1163</span><span id="line-1163">      /**</span>
+<span class="source-line-no">1164</span><span id="line-1164">       * Set the "{@literal Remarks}".</span>
+<span class="source-line-no">1165</span><span id="line-1165">       *</span>
+<span class="source-line-no">1166</span><span id="line-1166">       * &lt;p&gt;</span>
+<span class="source-line-no">1167</span><span id="line-1167">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1168</span><span id="line-1168">       *</span>
+<span class="source-line-no">1169</span><span id="line-1169">       * @param value</span>
+<span class="source-line-no">1170</span><span id="line-1170">       *           the remarks value to set, or {@code null} to clear</span>
+<span class="source-line-no">1171</span><span id="line-1171">       */</span>
+<span class="source-line-no">1172</span><span id="line-1172">      public void setRemarks(@Nullable MarkupMultiline value) {</span>
+<span class="source-line-no">1173</span><span id="line-1173">        _remarks = value;</span>
+<span class="source-line-no">1174</span><span id="line-1174">      }</span>
+<span class="source-line-no">1175</span><span id="line-1175"></span>
+<span class="source-line-no">1176</span><span id="line-1176">      @Override</span>
+<span class="source-line-no">1177</span><span id="line-1177">      public String toString() {</span>
+<span class="source-line-no">1178</span><span id="line-1178">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
+<span class="source-line-no">1179</span><span id="line-1179">      }</span>
+<span class="source-line-no">1180</span><span id="line-1180">    }</span>
+<span class="source-line-no">1181</span><span id="line-1181"></span>
+<span class="source-line-no">1182</span><span id="line-1182">    /**</span>
+<span class="source-line-no">1183</span><span id="line-1183">     * The task is intended to occur at the specified frequency.</span>
+<span class="source-line-no">1184</span><span id="line-1184">     */</span>
+<span class="source-line-no">1185</span><span id="line-1185">    @MetaschemaAssembly(</span>
+<span class="source-line-no">1186</span><span id="line-1186">        formalName = "Frequency Condition",</span>
+<span class="source-line-no">1187</span><span id="line-1187">        description = "The task is intended to occur at the specified frequency.",</span>
+<span class="source-line-no">1188</span><span id="line-1188">        name = "at-frequency",</span>
+<span class="source-line-no">1189</span><span id="line-1189">        moduleClass = OscalAssessmentCommonModule.class</span>
+<span class="source-line-no">1190</span><span id="line-1190">    )</span>
+<span class="source-line-no">1191</span><span id="line-1191">    public static class AtFrequency implements IBoundObject {</span>
+<span class="source-line-no">1192</span><span id="line-1192">      private final IMetaschemaData __metaschemaData;</span>
+<span class="source-line-no">1193</span><span id="line-1193"></span>
+<span class="source-line-no">1194</span><span id="line-1194">      /**</span>
+<span class="source-line-no">1195</span><span id="line-1195">       * The task must occur after the specified period has elapsed.</span>
+<span class="source-line-no">1196</span><span id="line-1196">       */</span>
+<span class="source-line-no">1197</span><span id="line-1197">      @BoundFlag(</span>
+<span class="source-line-no">1198</span><span id="line-1198">          formalName = "Period",</span>
+<span class="source-line-no">1199</span><span id="line-1199">          description = "The task must occur after the specified period has elapsed.",</span>
+<span class="source-line-no">1200</span><span id="line-1200">          name = "period",</span>
+<span class="source-line-no">1201</span><span id="line-1201">          required = true,</span>
+<span class="source-line-no">1202</span><span id="line-1202">          typeAdapter = PositiveIntegerAdapter.class</span>
+<span class="source-line-no">1203</span><span id="line-1203">      )</span>
+<span class="source-line-no">1204</span><span id="line-1204">      private BigInteger _period;</span>
 <span class="source-line-no">1205</span><span id="line-1205"></span>
 <span class="source-line-no">1206</span><span id="line-1206">      /**</span>
-<span class="source-line-no">1207</span><span id="line-1207">       * Set the "{@literal Time Unit}".</span>
-<span class="source-line-no">1208</span><span id="line-1208">       *</span>
-<span class="source-line-no">1209</span><span id="line-1209">       * &lt;p&gt;</span>
-<span class="source-line-no">1210</span><span id="line-1210">       * The unit of time for the period.</span>
-<span class="source-line-no">1211</span><span id="line-1211">       *</span>
-<span class="source-line-no">1212</span><span id="line-1212">       * @param value</span>
-<span class="source-line-no">1213</span><span id="line-1213">       *           the unit value to set</span>
-<span class="source-line-no">1214</span><span id="line-1214">       */</span>
-<span class="source-line-no">1215</span><span id="line-1215">      public void setUnit(@NonNull String value) {</span>
-<span class="source-line-no">1216</span><span id="line-1216">        _unit = value;</span>
-<span class="source-line-no">1217</span><span id="line-1217">      }</span>
+<span class="source-line-no">1207</span><span id="line-1207">       * The unit of time for the period.</span>
+<span class="source-line-no">1208</span><span id="line-1208">       */</span>
+<span class="source-line-no">1209</span><span id="line-1209">      @BoundFlag(</span>
+<span class="source-line-no">1210</span><span id="line-1210">          formalName = "Time Unit",</span>
+<span class="source-line-no">1211</span><span id="line-1211">          description = "The unit of time for the period.",</span>
+<span class="source-line-no">1212</span><span id="line-1212">          name = "unit",</span>
+<span class="source-line-no">1213</span><span id="line-1213">          required = true,</span>
+<span class="source-line-no">1214</span><span id="line-1214">          typeAdapter = StringAdapter.class,</span>
+<span class="source-line-no">1215</span><span id="line-1215">          valueConstraints = @ValueConstraints(allowedValues = @AllowedValues(id = "oscal-timing-unit-values", level = IConstraint.Level.ERROR, values = {@AllowedValue(value = "seconds", description = "The period is specified in seconds."), @AllowedValue(value = "minutes", description = "The period is specified in minutes."), @AllowedValue(value = "hours", description = "The period is specified in hours."), @AllowedValue(value = "days", description = "The period is specified in days."), @AllowedValue(value = "months", description = "The period is specified in calendar months."), @AllowedValue(value = "years", description = "The period is specified in calendar years.")}))</span>
+<span class="source-line-no">1216</span><span id="line-1216">      )</span>
+<span class="source-line-no">1217</span><span id="line-1217">      private String _unit;</span>
 <span class="source-line-no">1218</span><span id="line-1218"></span>
-<span class="source-line-no">1219</span><span id="line-1219">      @Override</span>
-<span class="source-line-no">1220</span><span id="line-1220">      public String toString() {</span>
-<span class="source-line-no">1221</span><span id="line-1221">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
-<span class="source-line-no">1222</span><span id="line-1222">      }</span>
-<span class="source-line-no">1223</span><span id="line-1223">    }</span>
-<span class="source-line-no">1224</span><span id="line-1224">  }</span>
-<span class="source-line-no">1225</span><span id="line-1225"></span>
-<span class="source-line-no">1226</span><span id="line-1226">  /**</span>
-<span class="source-line-no">1227</span><span id="line-1227">   * Used to indicate that a task is dependent on another task.</span>
-<span class="source-line-no">1228</span><span id="line-1228">   */</span>
-<span class="source-line-no">1229</span><span id="line-1229">  @MetaschemaAssembly(</span>
-<span class="source-line-no">1230</span><span id="line-1230">      formalName = "Task Dependency",</span>
-<span class="source-line-no">1231</span><span id="line-1231">      description = "Used to indicate that a task is dependent on another task.",</span>
-<span class="source-line-no">1232</span><span id="line-1232">      name = "dependency",</span>
-<span class="source-line-no">1233</span><span id="line-1233">      moduleClass = OscalAssessmentCommonModule.class</span>
-<span class="source-line-no">1234</span><span id="line-1234">  )</span>
-<span class="source-line-no">1235</span><span id="line-1235">  public static class Dependency implements IBoundObject {</span>
-<span class="source-line-no">1236</span><span id="line-1236">    private final IMetaschemaData __metaschemaData;</span>
-<span class="source-line-no">1237</span><span id="line-1237"></span>
-<span class="source-line-no">1238</span><span id="line-1238">    /**</span>
-<span class="source-line-no">1239</span><span id="line-1239">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to a unique task.</span>
-<span class="source-line-no">1240</span><span id="line-1240">     */</span>
-<span class="source-line-no">1241</span><span id="line-1241">    @BoundFlag(</span>
-<span class="source-line-no">1242</span><span id="line-1242">        formalName = "Task Universally Unique Identifier Reference",</span>
-<span class="source-line-no">1243</span><span id="line-1243">        description = "A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented) identifier reference to a unique task.",</span>
-<span class="source-line-no">1244</span><span id="line-1244">        name = "task-uuid",</span>
-<span class="source-line-no">1245</span><span id="line-1245">        required = true,</span>
-<span class="source-line-no">1246</span><span id="line-1246">        typeAdapter = UuidAdapter.class</span>
-<span class="source-line-no">1247</span><span id="line-1247">    )</span>
-<span class="source-line-no">1248</span><span id="line-1248">    private UUID _taskUuid;</span>
-<span class="source-line-no">1249</span><span id="line-1249"></span>
-<span class="source-line-no">1250</span><span id="line-1250">    /**</span>
-<span class="source-line-no">1251</span><span id="line-1251">     * Additional commentary about the containing object.</span>
-<span class="source-line-no">1252</span><span id="line-1252">     */</span>
-<span class="source-line-no">1253</span><span id="line-1253">    @BoundField(</span>
-<span class="source-line-no">1254</span><span id="line-1254">        formalName = "Remarks",</span>
-<span class="source-line-no">1255</span><span id="line-1255">        description = "Additional commentary about the containing object.",</span>
-<span class="source-line-no">1256</span><span id="line-1256">        useName = "remarks",</span>
-<span class="source-line-no">1257</span><span id="line-1257">        typeAdapter = MarkupMultilineAdapter.class</span>
-<span class="source-line-no">1258</span><span id="line-1258">    )</span>
-<span class="source-line-no">1259</span><span id="line-1259">    private MarkupMultiline _remarks;</span>
-<span class="source-line-no">1260</span><span id="line-1260"></span>
-<span class="source-line-no">1261</span><span id="line-1261">    /**</span>
-<span class="source-line-no">1262</span><span id="line-1262">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Dependency} instance with no metadata.</span>
-<span class="source-line-no">1263</span><span id="line-1263">     */</span>
-<span class="source-line-no">1264</span><span id="line-1264">    public Dependency() {</span>
-<span class="source-line-no">1265</span><span id="line-1265">      this(null);</span>
-<span class="source-line-no">1266</span><span id="line-1266">    }</span>
-<span class="source-line-no">1267</span><span id="line-1267"></span>
-<span class="source-line-no">1268</span><span id="line-1268">    /**</span>
-<span class="source-line-no">1269</span><span id="line-1269">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Dependency} instance with the specified metadata.</span>
-<span class="source-line-no">1270</span><span id="line-1270">     *</span>
-<span class="source-line-no">1271</span><span id="line-1271">     * @param data</span>
-<span class="source-line-no">1272</span><span id="line-1272">     *           the metaschema data, or {@code null} if none</span>
-<span class="source-line-no">1273</span><span id="line-1273">     */</span>
-<span class="source-line-no">1274</span><span id="line-1274">    public Dependency(IMetaschemaData data) {</span>
-<span class="source-line-no">1275</span><span id="line-1275">      this.__metaschemaData = data;</span>
-<span class="source-line-no">1276</span><span id="line-1276">    }</span>
+<span class="source-line-no">1219</span><span id="line-1219">      /**</span>
+<span class="source-line-no">1220</span><span id="line-1220">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1221</span><span id="line-1221">       */</span>
+<span class="source-line-no">1222</span><span id="line-1222">      @BoundField(</span>
+<span class="source-line-no">1223</span><span id="line-1223">          formalName = "Remarks",</span>
+<span class="source-line-no">1224</span><span id="line-1224">          description = "Additional commentary about the containing object.",</span>
+<span class="source-line-no">1225</span><span id="line-1225">          useName = "remarks",</span>
+<span class="source-line-no">1226</span><span id="line-1226">          typeAdapter = MarkupMultilineAdapter.class</span>
+<span class="source-line-no">1227</span><span id="line-1227">      )</span>
+<span class="source-line-no">1228</span><span id="line-1228">      private MarkupMultiline _remarks;</span>
+<span class="source-line-no">1229</span><span id="line-1229"></span>
+<span class="source-line-no">1230</span><span id="line-1230">      /**</span>
+<span class="source-line-no">1231</span><span id="line-1231">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.AtFrequency} instance with no metadata.</span>
+<span class="source-line-no">1232</span><span id="line-1232">       */</span>
+<span class="source-line-no">1233</span><span id="line-1233">      public AtFrequency() {</span>
+<span class="source-line-no">1234</span><span id="line-1234">        this(null);</span>
+<span class="source-line-no">1235</span><span id="line-1235">      }</span>
+<span class="source-line-no">1236</span><span id="line-1236"></span>
+<span class="source-line-no">1237</span><span id="line-1237">      /**</span>
+<span class="source-line-no">1238</span><span id="line-1238">       * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Timing.AtFrequency} instance with the specified metadata.</span>
+<span class="source-line-no">1239</span><span id="line-1239">       *</span>
+<span class="source-line-no">1240</span><span id="line-1240">       * @param data</span>
+<span class="source-line-no">1241</span><span id="line-1241">       *           the metaschema data, or {@code null} if none</span>
+<span class="source-line-no">1242</span><span id="line-1242">       */</span>
+<span class="source-line-no">1243</span><span id="line-1243">      public AtFrequency(IMetaschemaData data) {</span>
+<span class="source-line-no">1244</span><span id="line-1244">        this.__metaschemaData = data;</span>
+<span class="source-line-no">1245</span><span id="line-1245">      }</span>
+<span class="source-line-no">1246</span><span id="line-1246"></span>
+<span class="source-line-no">1247</span><span id="line-1247">      @Override</span>
+<span class="source-line-no">1248</span><span id="line-1248">      public IMetaschemaData getMetaschemaData() {</span>
+<span class="source-line-no">1249</span><span id="line-1249">        return __metaschemaData;</span>
+<span class="source-line-no">1250</span><span id="line-1250">      }</span>
+<span class="source-line-no">1251</span><span id="line-1251"></span>
+<span class="source-line-no">1252</span><span id="line-1252">      /**</span>
+<span class="source-line-no">1253</span><span id="line-1253">       * Get the "{@literal Period}".</span>
+<span class="source-line-no">1254</span><span id="line-1254">       *</span>
+<span class="source-line-no">1255</span><span id="line-1255">       * &lt;p&gt;</span>
+<span class="source-line-no">1256</span><span id="line-1256">       * The task must occur after the specified period has elapsed.</span>
+<span class="source-line-no">1257</span><span id="line-1257">       *</span>
+<span class="source-line-no">1258</span><span id="line-1258">       * @return the period value</span>
+<span class="source-line-no">1259</span><span id="line-1259">       */</span>
+<span class="source-line-no">1260</span><span id="line-1260">      @NonNull</span>
+<span class="source-line-no">1261</span><span id="line-1261">      public BigInteger getPeriod() {</span>
+<span class="source-line-no">1262</span><span id="line-1262">        return _period;</span>
+<span class="source-line-no">1263</span><span id="line-1263">      }</span>
+<span class="source-line-no">1264</span><span id="line-1264"></span>
+<span class="source-line-no">1265</span><span id="line-1265">      /**</span>
+<span class="source-line-no">1266</span><span id="line-1266">       * Set the "{@literal Period}".</span>
+<span class="source-line-no">1267</span><span id="line-1267">       *</span>
+<span class="source-line-no">1268</span><span id="line-1268">       * &lt;p&gt;</span>
+<span class="source-line-no">1269</span><span id="line-1269">       * The task must occur after the specified period has elapsed.</span>
+<span class="source-line-no">1270</span><span id="line-1270">       *</span>
+<span class="source-line-no">1271</span><span id="line-1271">       * @param value</span>
+<span class="source-line-no">1272</span><span id="line-1272">       *           the period value to set</span>
+<span class="source-line-no">1273</span><span id="line-1273">       */</span>
+<span class="source-line-no">1274</span><span id="line-1274">      public void setPeriod(@NonNull BigInteger value) {</span>
+<span class="source-line-no">1275</span><span id="line-1275">        _period = value;</span>
+<span class="source-line-no">1276</span><span id="line-1276">      }</span>
 <span class="source-line-no">1277</span><span id="line-1277"></span>
-<span class="source-line-no">1278</span><span id="line-1278">    @Override</span>
-<span class="source-line-no">1279</span><span id="line-1279">    public IMetaschemaData getMetaschemaData() {</span>
-<span class="source-line-no">1280</span><span id="line-1280">      return __metaschemaData;</span>
-<span class="source-line-no">1281</span><span id="line-1281">    }</span>
-<span class="source-line-no">1282</span><span id="line-1282"></span>
-<span class="source-line-no">1283</span><span id="line-1283">    /**</span>
-<span class="source-line-no">1284</span><span id="line-1284">     * Get the "{@literal Task Universally Unique Identifier Reference}".</span>
-<span class="source-line-no">1285</span><span id="line-1285">     *</span>
-<span class="source-line-no">1286</span><span id="line-1286">     * &lt;p&gt;</span>
-<span class="source-line-no">1287</span><span id="line-1287">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to a unique task.</span>
-<span class="source-line-no">1288</span><span id="line-1288">     *</span>
-<span class="source-line-no">1289</span><span id="line-1289">     * @return the task-uuid value</span>
-<span class="source-line-no">1290</span><span id="line-1290">     */</span>
-<span class="source-line-no">1291</span><span id="line-1291">    @NonNull</span>
-<span class="source-line-no">1292</span><span id="line-1292">    public UUID getTaskUuid() {</span>
-<span class="source-line-no">1293</span><span id="line-1293">      return _taskUuid;</span>
-<span class="source-line-no">1294</span><span id="line-1294">    }</span>
-<span class="source-line-no">1295</span><span id="line-1295"></span>
-<span class="source-line-no">1296</span><span id="line-1296">    /**</span>
-<span class="source-line-no">1297</span><span id="line-1297">     * Set the "{@literal Task Universally Unique Identifier Reference}".</span>
-<span class="source-line-no">1298</span><span id="line-1298">     *</span>
-<span class="source-line-no">1299</span><span id="line-1299">     * &lt;p&gt;</span>
-<span class="source-line-no">1300</span><span id="line-1300">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to a unique task.</span>
-<span class="source-line-no">1301</span><span id="line-1301">     *</span>
-<span class="source-line-no">1302</span><span id="line-1302">     * @param value</span>
-<span class="source-line-no">1303</span><span id="line-1303">     *           the task-uuid value to set</span>
-<span class="source-line-no">1304</span><span id="line-1304">     */</span>
-<span class="source-line-no">1305</span><span id="line-1305">    public void setTaskUuid(@NonNull UUID value) {</span>
-<span class="source-line-no">1306</span><span id="line-1306">      _taskUuid = value;</span>
-<span class="source-line-no">1307</span><span id="line-1307">    }</span>
-<span class="source-line-no">1308</span><span id="line-1308"></span>
-<span class="source-line-no">1309</span><span id="line-1309">    /**</span>
-<span class="source-line-no">1310</span><span id="line-1310">     * Get the "{@literal Remarks}".</span>
-<span class="source-line-no">1311</span><span id="line-1311">     *</span>
-<span class="source-line-no">1312</span><span id="line-1312">     * &lt;p&gt;</span>
-<span class="source-line-no">1313</span><span id="line-1313">     * Additional commentary about the containing object.</span>
-<span class="source-line-no">1314</span><span id="line-1314">     *</span>
-<span class="source-line-no">1315</span><span id="line-1315">     * @return the remarks value, or {@code null} if not set</span>
-<span class="source-line-no">1316</span><span id="line-1316">     */</span>
-<span class="source-line-no">1317</span><span id="line-1317">    @Nullable</span>
-<span class="source-line-no">1318</span><span id="line-1318">    public MarkupMultiline getRemarks() {</span>
-<span class="source-line-no">1319</span><span id="line-1319">      return _remarks;</span>
-<span class="source-line-no">1320</span><span id="line-1320">    }</span>
-<span class="source-line-no">1321</span><span id="line-1321"></span>
-<span class="source-line-no">1322</span><span id="line-1322">    /**</span>
-<span class="source-line-no">1323</span><span id="line-1323">     * Set the "{@literal Remarks}".</span>
-<span class="source-line-no">1324</span><span id="line-1324">     *</span>
-<span class="source-line-no">1325</span><span id="line-1325">     * &lt;p&gt;</span>
-<span class="source-line-no">1326</span><span id="line-1326">     * Additional commentary about the containing object.</span>
-<span class="source-line-no">1327</span><span id="line-1327">     *</span>
-<span class="source-line-no">1328</span><span id="line-1328">     * @param value</span>
-<span class="source-line-no">1329</span><span id="line-1329">     *           the remarks value to set, or {@code null} to clear</span>
-<span class="source-line-no">1330</span><span id="line-1330">     */</span>
-<span class="source-line-no">1331</span><span id="line-1331">    public void setRemarks(@Nullable MarkupMultiline value) {</span>
-<span class="source-line-no">1332</span><span id="line-1332">      _remarks = value;</span>
-<span class="source-line-no">1333</span><span id="line-1333">    }</span>
-<span class="source-line-no">1334</span><span id="line-1334"></span>
-<span class="source-line-no">1335</span><span id="line-1335">    @Override</span>
-<span class="source-line-no">1336</span><span id="line-1336">    public String toString() {</span>
-<span class="source-line-no">1337</span><span id="line-1337">      return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
-<span class="source-line-no">1338</span><span id="line-1338">    }</span>
-<span class="source-line-no">1339</span><span id="line-1339">  }</span>
-<span class="source-line-no">1340</span><span id="line-1340"></span>
-<span class="source-line-no">1341</span><span id="line-1341">  /**</span>
-<span class="source-line-no">1342</span><span id="line-1342">   * Identifies an individual activity to be performed as part of a task.</span>
-<span class="source-line-no">1343</span><span id="line-1343">   */</span>
-<span class="source-line-no">1344</span><span id="line-1344">  @MetaschemaAssembly(</span>
-<span class="source-line-no">1345</span><span id="line-1345">      formalName = "Associated Activity",</span>
-<span class="source-line-no">1346</span><span id="line-1346">      description = "Identifies an individual activity to be performed as part of a task.",</span>
-<span class="source-line-no">1347</span><span id="line-1347">      name = "associated-activity",</span>
-<span class="source-line-no">1348</span><span id="line-1348">      moduleClass = OscalAssessmentCommonModule.class,</span>
-<span class="source-line-no">1349</span><span id="line-1349">      modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-associated-activity-responsible-role", level = IConstraint.Level.ERROR, target = "responsible-role", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-role` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
-<span class="source-line-no">1350</span><span id="line-1350">  )</span>
-<span class="source-line-no">1351</span><span id="line-1351">  public static class AssociatedActivity implements IBoundObject {</span>
-<span class="source-line-no">1352</span><span id="line-1352">    private final IMetaschemaData __metaschemaData;</span>
-<span class="source-line-no">1353</span><span id="line-1353"></span>
-<span class="source-line-no">1354</span><span id="line-1354">    /**</span>
-<span class="source-line-no">1355</span><span id="line-1355">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to an activity defined in the list of activities.</span>
-<span class="source-line-no">1356</span><span id="line-1356">     */</span>
-<span class="source-line-no">1357</span><span id="line-1357">    @BoundFlag(</span>
-<span class="source-line-no">1358</span><span id="line-1358">        formalName = "Activity Universally Unique Identifier Reference",</span>
-<span class="source-line-no">1359</span><span id="line-1359">        description = "A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented) identifier reference to an activity defined in the list of activities.",</span>
-<span class="source-line-no">1360</span><span id="line-1360">        name = "activity-uuid",</span>
-<span class="source-line-no">1361</span><span id="line-1361">        required = true,</span>
-<span class="source-line-no">1362</span><span id="line-1362">        typeAdapter = UuidAdapter.class</span>
-<span class="source-line-no">1363</span><span id="line-1363">    )</span>
-<span class="source-line-no">1364</span><span id="line-1364">    private UUID _activityUuid;</span>
-<span class="source-line-no">1365</span><span id="line-1365"></span>
-<span class="source-line-no">1366</span><span id="line-1366">    /**</span>
-<span class="source-line-no">1367</span><span id="line-1367">     * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
-<span class="source-line-no">1368</span><span id="line-1368">     */</span>
-<span class="source-line-no">1369</span><span id="line-1369">    @BoundAssembly(</span>
-<span class="source-line-no">1370</span><span id="line-1370">        formalName = "Property",</span>
-<span class="source-line-no">1371</span><span id="line-1371">        description = "An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.",</span>
-<span class="source-line-no">1372</span><span id="line-1372">        useName = "prop",</span>
-<span class="source-line-no">1373</span><span id="line-1373">        maxOccurs = -1,</span>
-<span class="source-line-no">1374</span><span id="line-1374">        groupAs = @GroupAs(name = "props", inJson = JsonGroupAsBehavior.LIST)</span>
-<span class="source-line-no">1375</span><span id="line-1375">    )</span>
-<span class="source-line-no">1376</span><span id="line-1376">    private List&lt;Property&gt; _props;</span>
-<span class="source-line-no">1377</span><span id="line-1377"></span>
-<span class="source-line-no">1378</span><span id="line-1378">    /**</span>
-<span class="source-line-no">1379</span><span id="line-1379">     * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
-<span class="source-line-no">1380</span><span id="line-1380">     */</span>
-<span class="source-line-no">1381</span><span id="line-1381">    @BoundAssembly(</span>
-<span class="source-line-no">1382</span><span id="line-1382">        formalName = "Link",</span>
-<span class="source-line-no">1383</span><span id="line-1383">        description = "A reference to a local or remote resource, that has a specific relation to the containing object.",</span>
-<span class="source-line-no">1384</span><span id="line-1384">        useName = "link",</span>
-<span class="source-line-no">1385</span><span id="line-1385">        maxOccurs = -1,</span>
-<span class="source-line-no">1386</span><span id="line-1386">        groupAs = @GroupAs(name = "links", inJson = JsonGroupAsBehavior.LIST)</span>
-<span class="source-line-no">1387</span><span id="line-1387">    )</span>
-<span class="source-line-no">1388</span><span id="line-1388">    private List&lt;Link&gt; _links;</span>
-<span class="source-line-no">1389</span><span id="line-1389"></span>
-<span class="source-line-no">1390</span><span id="line-1390">    /**</span>
-<span class="source-line-no">1391</span><span id="line-1391">     * A reference to a role with responsibility for performing a function relative to the containing object, optionally associated with a set of persons and/or organizations that perform that role.</span>
-<span class="source-line-no">1392</span><span id="line-1392">     */</span>
-<span class="source-line-no">1393</span><span id="line-1393">    @BoundAssembly(</span>
-<span class="source-line-no">1394</span><span id="line-1394">        formalName = "Responsible Role",</span>
-<span class="source-line-no">1395</span><span id="line-1395">        description = "A reference to a role with responsibility for performing a function relative to the containing object, optionally associated with a set of persons and/or organizations that perform that role.",</span>
-<span class="source-line-no">1396</span><span id="line-1396">        useName = "responsible-role",</span>
-<span class="source-line-no">1397</span><span id="line-1397">        remarks = "Identifies the person or organization responsible for performing a specific role defined by the activity.",</span>
-<span class="source-line-no">1398</span><span id="line-1398">        maxOccurs = -1,</span>
-<span class="source-line-no">1399</span><span id="line-1399">        groupAs = @GroupAs(name = "responsible-roles", inJson = JsonGroupAsBehavior.LIST)</span>
-<span class="source-line-no">1400</span><span id="line-1400">    )</span>
-<span class="source-line-no">1401</span><span id="line-1401">    private List&lt;ResponsibleRole&gt; _responsibleRoles;</span>
-<span class="source-line-no">1402</span><span id="line-1402"></span>
-<span class="source-line-no">1403</span><span id="line-1403">    /**</span>
-<span class="source-line-no">1404</span><span id="line-1404">     * Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies a planned assessment subject. In the assessment results this is an actual assessment subject, and reflects any changes from the plan. exactly what will be the focus of this assessment. Any subjects not identified in this way are out-of-scope.</span>
-<span class="source-line-no">1405</span><span id="line-1405">     */</span>
-<span class="source-line-no">1406</span><span id="line-1406">    @BoundAssembly(</span>
-<span class="source-line-no">1407</span><span id="line-1407">        formalName = "Subject of Assessment",</span>
-<span class="source-line-no">1408</span><span id="line-1408">        description = "Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies a planned assessment subject. In the assessment results this is an actual assessment subject, and reflects any changes from the plan. exactly what will be the focus of this assessment. Any subjects not identified in this way are out-of-scope.",</span>
-<span class="source-line-no">1409</span><span id="line-1409">        useName = "subject",</span>
-<span class="source-line-no">1410</span><span id="line-1410">        minOccurs = 1,</span>
-<span class="source-line-no">1411</span><span id="line-1411">        maxOccurs = -1,</span>
-<span class="source-line-no">1412</span><span id="line-1412">        groupAs = @GroupAs(name = "subjects", inJson = JsonGroupAsBehavior.LIST)</span>
-<span class="source-line-no">1413</span><span id="line-1413">    )</span>
-<span class="source-line-no">1414</span><span id="line-1414">    private List&lt;AssessmentSubject&gt; _subjects;</span>
-<span class="source-line-no">1415</span><span id="line-1415"></span>
-<span class="source-line-no">1416</span><span id="line-1416">    /**</span>
-<span class="source-line-no">1417</span><span id="line-1417">     * Additional commentary about the containing object.</span>
-<span class="source-line-no">1418</span><span id="line-1418">     */</span>
-<span class="source-line-no">1419</span><span id="line-1419">    @BoundField(</span>
-<span class="source-line-no">1420</span><span id="line-1420">        formalName = "Remarks",</span>
-<span class="source-line-no">1421</span><span id="line-1421">        description = "Additional commentary about the containing object.",</span>
-<span class="source-line-no">1422</span><span id="line-1422">        useName = "remarks",</span>
-<span class="source-line-no">1423</span><span id="line-1423">        typeAdapter = MarkupMultilineAdapter.class</span>
-<span class="source-line-no">1424</span><span id="line-1424">    )</span>
-<span class="source-line-no">1425</span><span id="line-1425">    private MarkupMultiline _remarks;</span>
-<span class="source-line-no">1426</span><span id="line-1426"></span>
-<span class="source-line-no">1427</span><span id="line-1427">    /**</span>
-<span class="source-line-no">1428</span><span id="line-1428">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.AssociatedActivity} instance with no metadata.</span>
-<span class="source-line-no">1429</span><span id="line-1429">     */</span>
-<span class="source-line-no">1430</span><span id="line-1430">    public AssociatedActivity() {</span>
-<span class="source-line-no">1431</span><span id="line-1431">      this(null);</span>
-<span class="source-line-no">1432</span><span id="line-1432">    }</span>
-<span class="source-line-no">1433</span><span id="line-1433"></span>
-<span class="source-line-no">1434</span><span id="line-1434">    /**</span>
-<span class="source-line-no">1435</span><span id="line-1435">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.AssociatedActivity} instance with the specified metadata.</span>
-<span class="source-line-no">1436</span><span id="line-1436">     *</span>
-<span class="source-line-no">1437</span><span id="line-1437">     * @param data</span>
-<span class="source-line-no">1438</span><span id="line-1438">     *           the metaschema data, or {@code null} if none</span>
-<span class="source-line-no">1439</span><span id="line-1439">     */</span>
-<span class="source-line-no">1440</span><span id="line-1440">    public AssociatedActivity(IMetaschemaData data) {</span>
-<span class="source-line-no">1441</span><span id="line-1441">      this.__metaschemaData = data;</span>
-<span class="source-line-no">1442</span><span id="line-1442">    }</span>
-<span class="source-line-no">1443</span><span id="line-1443"></span>
-<span class="source-line-no">1444</span><span id="line-1444">    @Override</span>
-<span class="source-line-no">1445</span><span id="line-1445">    public IMetaschemaData getMetaschemaData() {</span>
-<span class="source-line-no">1446</span><span id="line-1446">      return __metaschemaData;</span>
-<span class="source-line-no">1447</span><span id="line-1447">    }</span>
-<span class="source-line-no">1448</span><span id="line-1448"></span>
-<span class="source-line-no">1449</span><span id="line-1449">    /**</span>
-<span class="source-line-no">1450</span><span id="line-1450">     * Get the "{@literal Activity Universally Unique Identifier Reference}".</span>
-<span class="source-line-no">1451</span><span id="line-1451">     *</span>
-<span class="source-line-no">1452</span><span id="line-1452">     * &lt;p&gt;</span>
-<span class="source-line-no">1453</span><span id="line-1453">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to an activity defined in the list of activities.</span>
-<span class="source-line-no">1454</span><span id="line-1454">     *</span>
-<span class="source-line-no">1455</span><span id="line-1455">     * @return the activity-uuid value</span>
-<span class="source-line-no">1456</span><span id="line-1456">     */</span>
-<span class="source-line-no">1457</span><span id="line-1457">    @NonNull</span>
-<span class="source-line-no">1458</span><span id="line-1458">    public UUID getActivityUuid() {</span>
-<span class="source-line-no">1459</span><span id="line-1459">      return _activityUuid;</span>
-<span class="source-line-no">1460</span><span id="line-1460">    }</span>
-<span class="source-line-no">1461</span><span id="line-1461"></span>
-<span class="source-line-no">1462</span><span id="line-1462">    /**</span>
-<span class="source-line-no">1463</span><span id="line-1463">     * Set the "{@literal Activity Universally Unique Identifier Reference}".</span>
-<span class="source-line-no">1464</span><span id="line-1464">     *</span>
-<span class="source-line-no">1465</span><span id="line-1465">     * &lt;p&gt;</span>
+<span class="source-line-no">1278</span><span id="line-1278">      /**</span>
+<span class="source-line-no">1279</span><span id="line-1279">       * Get the "{@literal Time Unit}".</span>
+<span class="source-line-no">1280</span><span id="line-1280">       *</span>
+<span class="source-line-no">1281</span><span id="line-1281">       * &lt;p&gt;</span>
+<span class="source-line-no">1282</span><span id="line-1282">       * The unit of time for the period.</span>
+<span class="source-line-no">1283</span><span id="line-1283">       *</span>
+<span class="source-line-no">1284</span><span id="line-1284">       * @return the unit value</span>
+<span class="source-line-no">1285</span><span id="line-1285">       */</span>
+<span class="source-line-no">1286</span><span id="line-1286">      @NonNull</span>
+<span class="source-line-no">1287</span><span id="line-1287">      public String getUnit() {</span>
+<span class="source-line-no">1288</span><span id="line-1288">        return _unit;</span>
+<span class="source-line-no">1289</span><span id="line-1289">      }</span>
+<span class="source-line-no">1290</span><span id="line-1290"></span>
+<span class="source-line-no">1291</span><span id="line-1291">      /**</span>
+<span class="source-line-no">1292</span><span id="line-1292">       * Set the "{@literal Time Unit}".</span>
+<span class="source-line-no">1293</span><span id="line-1293">       *</span>
+<span class="source-line-no">1294</span><span id="line-1294">       * &lt;p&gt;</span>
+<span class="source-line-no">1295</span><span id="line-1295">       * The unit of time for the period.</span>
+<span class="source-line-no">1296</span><span id="line-1296">       *</span>
+<span class="source-line-no">1297</span><span id="line-1297">       * @param value</span>
+<span class="source-line-no">1298</span><span id="line-1298">       *           the unit value to set</span>
+<span class="source-line-no">1299</span><span id="line-1299">       */</span>
+<span class="source-line-no">1300</span><span id="line-1300">      public void setUnit(@NonNull String value) {</span>
+<span class="source-line-no">1301</span><span id="line-1301">        _unit = value;</span>
+<span class="source-line-no">1302</span><span id="line-1302">      }</span>
+<span class="source-line-no">1303</span><span id="line-1303"></span>
+<span class="source-line-no">1304</span><span id="line-1304">      /**</span>
+<span class="source-line-no">1305</span><span id="line-1305">       * Get the "{@literal Remarks}".</span>
+<span class="source-line-no">1306</span><span id="line-1306">       *</span>
+<span class="source-line-no">1307</span><span id="line-1307">       * &lt;p&gt;</span>
+<span class="source-line-no">1308</span><span id="line-1308">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1309</span><span id="line-1309">       *</span>
+<span class="source-line-no">1310</span><span id="line-1310">       * @return the remarks value, or {@code null} if not set</span>
+<span class="source-line-no">1311</span><span id="line-1311">       */</span>
+<span class="source-line-no">1312</span><span id="line-1312">      @Nullable</span>
+<span class="source-line-no">1313</span><span id="line-1313">      public MarkupMultiline getRemarks() {</span>
+<span class="source-line-no">1314</span><span id="line-1314">        return _remarks;</span>
+<span class="source-line-no">1315</span><span id="line-1315">      }</span>
+<span class="source-line-no">1316</span><span id="line-1316"></span>
+<span class="source-line-no">1317</span><span id="line-1317">      /**</span>
+<span class="source-line-no">1318</span><span id="line-1318">       * Set the "{@literal Remarks}".</span>
+<span class="source-line-no">1319</span><span id="line-1319">       *</span>
+<span class="source-line-no">1320</span><span id="line-1320">       * &lt;p&gt;</span>
+<span class="source-line-no">1321</span><span id="line-1321">       * Additional commentary about the containing object.</span>
+<span class="source-line-no">1322</span><span id="line-1322">       *</span>
+<span class="source-line-no">1323</span><span id="line-1323">       * @param value</span>
+<span class="source-line-no">1324</span><span id="line-1324">       *           the remarks value to set, or {@code null} to clear</span>
+<span class="source-line-no">1325</span><span id="line-1325">       */</span>
+<span class="source-line-no">1326</span><span id="line-1326">      public void setRemarks(@Nullable MarkupMultiline value) {</span>
+<span class="source-line-no">1327</span><span id="line-1327">        _remarks = value;</span>
+<span class="source-line-no">1328</span><span id="line-1328">      }</span>
+<span class="source-line-no">1329</span><span id="line-1329"></span>
+<span class="source-line-no">1330</span><span id="line-1330">      @Override</span>
+<span class="source-line-no">1331</span><span id="line-1331">      public String toString() {</span>
+<span class="source-line-no">1332</span><span id="line-1332">        return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
+<span class="source-line-no">1333</span><span id="line-1333">      }</span>
+<span class="source-line-no">1334</span><span id="line-1334">    }</span>
+<span class="source-line-no">1335</span><span id="line-1335">  }</span>
+<span class="source-line-no">1336</span><span id="line-1336"></span>
+<span class="source-line-no">1337</span><span id="line-1337">  /**</span>
+<span class="source-line-no">1338</span><span id="line-1338">   * Used to indicate that a task is dependent on another task.</span>
+<span class="source-line-no">1339</span><span id="line-1339">   */</span>
+<span class="source-line-no">1340</span><span id="line-1340">  @MetaschemaAssembly(</span>
+<span class="source-line-no">1341</span><span id="line-1341">      formalName = "Task Dependency",</span>
+<span class="source-line-no">1342</span><span id="line-1342">      description = "Used to indicate that a task is dependent on another task.",</span>
+<span class="source-line-no">1343</span><span id="line-1343">      name = "dependency",</span>
+<span class="source-line-no">1344</span><span id="line-1344">      moduleClass = OscalAssessmentCommonModule.class</span>
+<span class="source-line-no">1345</span><span id="line-1345">  )</span>
+<span class="source-line-no">1346</span><span id="line-1346">  public static class Dependency implements IBoundObject {</span>
+<span class="source-line-no">1347</span><span id="line-1347">    private final IMetaschemaData __metaschemaData;</span>
+<span class="source-line-no">1348</span><span id="line-1348"></span>
+<span class="source-line-no">1349</span><span id="line-1349">    /**</span>
+<span class="source-line-no">1350</span><span id="line-1350">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to a unique task.</span>
+<span class="source-line-no">1351</span><span id="line-1351">     */</span>
+<span class="source-line-no">1352</span><span id="line-1352">    @BoundFlag(</span>
+<span class="source-line-no">1353</span><span id="line-1353">        formalName = "Task Universally Unique Identifier Reference",</span>
+<span class="source-line-no">1354</span><span id="line-1354">        description = "A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented) identifier reference to a unique task.",</span>
+<span class="source-line-no">1355</span><span id="line-1355">        name = "task-uuid",</span>
+<span class="source-line-no">1356</span><span id="line-1356">        required = true,</span>
+<span class="source-line-no">1357</span><span id="line-1357">        typeAdapter = UuidAdapter.class</span>
+<span class="source-line-no">1358</span><span id="line-1358">    )</span>
+<span class="source-line-no">1359</span><span id="line-1359">    private UUID _taskUuid;</span>
+<span class="source-line-no">1360</span><span id="line-1360"></span>
+<span class="source-line-no">1361</span><span id="line-1361">    /**</span>
+<span class="source-line-no">1362</span><span id="line-1362">     * Additional commentary about the containing object.</span>
+<span class="source-line-no">1363</span><span id="line-1363">     */</span>
+<span class="source-line-no">1364</span><span id="line-1364">    @BoundField(</span>
+<span class="source-line-no">1365</span><span id="line-1365">        formalName = "Remarks",</span>
+<span class="source-line-no">1366</span><span id="line-1366">        description = "Additional commentary about the containing object.",</span>
+<span class="source-line-no">1367</span><span id="line-1367">        useName = "remarks",</span>
+<span class="source-line-no">1368</span><span id="line-1368">        typeAdapter = MarkupMultilineAdapter.class</span>
+<span class="source-line-no">1369</span><span id="line-1369">    )</span>
+<span class="source-line-no">1370</span><span id="line-1370">    private MarkupMultiline _remarks;</span>
+<span class="source-line-no">1371</span><span id="line-1371"></span>
+<span class="source-line-no">1372</span><span id="line-1372">    /**</span>
+<span class="source-line-no">1373</span><span id="line-1373">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Dependency} instance with no metadata.</span>
+<span class="source-line-no">1374</span><span id="line-1374">     */</span>
+<span class="source-line-no">1375</span><span id="line-1375">    public Dependency() {</span>
+<span class="source-line-no">1376</span><span id="line-1376">      this(null);</span>
+<span class="source-line-no">1377</span><span id="line-1377">    }</span>
+<span class="source-line-no">1378</span><span id="line-1378"></span>
+<span class="source-line-no">1379</span><span id="line-1379">    /**</span>
+<span class="source-line-no">1380</span><span id="line-1380">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.Dependency} instance with the specified metadata.</span>
+<span class="source-line-no">1381</span><span id="line-1381">     *</span>
+<span class="source-line-no">1382</span><span id="line-1382">     * @param data</span>
+<span class="source-line-no">1383</span><span id="line-1383">     *           the metaschema data, or {@code null} if none</span>
+<span class="source-line-no">1384</span><span id="line-1384">     */</span>
+<span class="source-line-no">1385</span><span id="line-1385">    public Dependency(IMetaschemaData data) {</span>
+<span class="source-line-no">1386</span><span id="line-1386">      this.__metaschemaData = data;</span>
+<span class="source-line-no">1387</span><span id="line-1387">    }</span>
+<span class="source-line-no">1388</span><span id="line-1388"></span>
+<span class="source-line-no">1389</span><span id="line-1389">    @Override</span>
+<span class="source-line-no">1390</span><span id="line-1390">    public IMetaschemaData getMetaschemaData() {</span>
+<span class="source-line-no">1391</span><span id="line-1391">      return __metaschemaData;</span>
+<span class="source-line-no">1392</span><span id="line-1392">    }</span>
+<span class="source-line-no">1393</span><span id="line-1393"></span>
+<span class="source-line-no">1394</span><span id="line-1394">    /**</span>
+<span class="source-line-no">1395</span><span id="line-1395">     * Get the "{@literal Task Universally Unique Identifier Reference}".</span>
+<span class="source-line-no">1396</span><span id="line-1396">     *</span>
+<span class="source-line-no">1397</span><span id="line-1397">     * &lt;p&gt;</span>
+<span class="source-line-no">1398</span><span id="line-1398">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to a unique task.</span>
+<span class="source-line-no">1399</span><span id="line-1399">     *</span>
+<span class="source-line-no">1400</span><span id="line-1400">     * @return the task-uuid value</span>
+<span class="source-line-no">1401</span><span id="line-1401">     */</span>
+<span class="source-line-no">1402</span><span id="line-1402">    @NonNull</span>
+<span class="source-line-no">1403</span><span id="line-1403">    public UUID getTaskUuid() {</span>
+<span class="source-line-no">1404</span><span id="line-1404">      return _taskUuid;</span>
+<span class="source-line-no">1405</span><span id="line-1405">    }</span>
+<span class="source-line-no">1406</span><span id="line-1406"></span>
+<span class="source-line-no">1407</span><span id="line-1407">    /**</span>
+<span class="source-line-no">1408</span><span id="line-1408">     * Set the "{@literal Task Universally Unique Identifier Reference}".</span>
+<span class="source-line-no">1409</span><span id="line-1409">     *</span>
+<span class="source-line-no">1410</span><span id="line-1410">     * &lt;p&gt;</span>
+<span class="source-line-no">1411</span><span id="line-1411">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to a unique task.</span>
+<span class="source-line-no">1412</span><span id="line-1412">     *</span>
+<span class="source-line-no">1413</span><span id="line-1413">     * @param value</span>
+<span class="source-line-no">1414</span><span id="line-1414">     *           the task-uuid value to set</span>
+<span class="source-line-no">1415</span><span id="line-1415">     */</span>
+<span class="source-line-no">1416</span><span id="line-1416">    public void setTaskUuid(@NonNull UUID value) {</span>
+<span class="source-line-no">1417</span><span id="line-1417">      _taskUuid = value;</span>
+<span class="source-line-no">1418</span><span id="line-1418">    }</span>
+<span class="source-line-no">1419</span><span id="line-1419"></span>
+<span class="source-line-no">1420</span><span id="line-1420">    /**</span>
+<span class="source-line-no">1421</span><span id="line-1421">     * Get the "{@literal Remarks}".</span>
+<span class="source-line-no">1422</span><span id="line-1422">     *</span>
+<span class="source-line-no">1423</span><span id="line-1423">     * &lt;p&gt;</span>
+<span class="source-line-no">1424</span><span id="line-1424">     * Additional commentary about the containing object.</span>
+<span class="source-line-no">1425</span><span id="line-1425">     *</span>
+<span class="source-line-no">1426</span><span id="line-1426">     * @return the remarks value, or {@code null} if not set</span>
+<span class="source-line-no">1427</span><span id="line-1427">     */</span>
+<span class="source-line-no">1428</span><span id="line-1428">    @Nullable</span>
+<span class="source-line-no">1429</span><span id="line-1429">    public MarkupMultiline getRemarks() {</span>
+<span class="source-line-no">1430</span><span id="line-1430">      return _remarks;</span>
+<span class="source-line-no">1431</span><span id="line-1431">    }</span>
+<span class="source-line-no">1432</span><span id="line-1432"></span>
+<span class="source-line-no">1433</span><span id="line-1433">    /**</span>
+<span class="source-line-no">1434</span><span id="line-1434">     * Set the "{@literal Remarks}".</span>
+<span class="source-line-no">1435</span><span id="line-1435">     *</span>
+<span class="source-line-no">1436</span><span id="line-1436">     * &lt;p&gt;</span>
+<span class="source-line-no">1437</span><span id="line-1437">     * Additional commentary about the containing object.</span>
+<span class="source-line-no">1438</span><span id="line-1438">     *</span>
+<span class="source-line-no">1439</span><span id="line-1439">     * @param value</span>
+<span class="source-line-no">1440</span><span id="line-1440">     *           the remarks value to set, or {@code null} to clear</span>
+<span class="source-line-no">1441</span><span id="line-1441">     */</span>
+<span class="source-line-no">1442</span><span id="line-1442">    public void setRemarks(@Nullable MarkupMultiline value) {</span>
+<span class="source-line-no">1443</span><span id="line-1443">      _remarks = value;</span>
+<span class="source-line-no">1444</span><span id="line-1444">    }</span>
+<span class="source-line-no">1445</span><span id="line-1445"></span>
+<span class="source-line-no">1446</span><span id="line-1446">    @Override</span>
+<span class="source-line-no">1447</span><span id="line-1447">    public String toString() {</span>
+<span class="source-line-no">1448</span><span id="line-1448">      return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
+<span class="source-line-no">1449</span><span id="line-1449">    }</span>
+<span class="source-line-no">1450</span><span id="line-1450">  }</span>
+<span class="source-line-no">1451</span><span id="line-1451"></span>
+<span class="source-line-no">1452</span><span id="line-1452">  /**</span>
+<span class="source-line-no">1453</span><span id="line-1453">   * Identifies an individual activity to be performed as part of a task.</span>
+<span class="source-line-no">1454</span><span id="line-1454">   */</span>
+<span class="source-line-no">1455</span><span id="line-1455">  @MetaschemaAssembly(</span>
+<span class="source-line-no">1456</span><span id="line-1456">      formalName = "Associated Activity",</span>
+<span class="source-line-no">1457</span><span id="line-1457">      description = "Identifies an individual activity to be performed as part of a task.",</span>
+<span class="source-line-no">1458</span><span id="line-1458">      name = "associated-activity",</span>
+<span class="source-line-no">1459</span><span id="line-1459">      moduleClass = OscalAssessmentCommonModule.class,</span>
+<span class="source-line-no">1460</span><span id="line-1460">      modelConstraints = @AssemblyConstraints(unique = @IsUnique(id = "oscal-unique-associated-activity-responsible-role", level = IConstraint.Level.ERROR, target = "responsible-role", keyFields = @KeyField(target = "@role-id"), remarks = "Since `responsible-role` associates multiple `party-uuid` entries with a single `role-id`, each role-id must be referenced only once."))</span>
+<span class="source-line-no">1461</span><span id="line-1461">  )</span>
+<span class="source-line-no">1462</span><span id="line-1462">  public static class AssociatedActivity implements IBoundObject {</span>
+<span class="source-line-no">1463</span><span id="line-1463">    private final IMetaschemaData __metaschemaData;</span>
+<span class="source-line-no">1464</span><span id="line-1464"></span>
+<span class="source-line-no">1465</span><span id="line-1465">    /**</span>
 <span class="source-line-no">1466</span><span id="line-1466">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to an activity defined in the list of activities.</span>
-<span class="source-line-no">1467</span><span id="line-1467">     *</span>
-<span class="source-line-no">1468</span><span id="line-1468">     * @param value</span>
-<span class="source-line-no">1469</span><span id="line-1469">     *           the activity-uuid value to set</span>
-<span class="source-line-no">1470</span><span id="line-1470">     */</span>
-<span class="source-line-no">1471</span><span id="line-1471">    public void setActivityUuid(@NonNull UUID value) {</span>
-<span class="source-line-no">1472</span><span id="line-1472">      _activityUuid = value;</span>
-<span class="source-line-no">1473</span><span id="line-1473">    }</span>
-<span class="source-line-no">1474</span><span id="line-1474"></span>
-<span class="source-line-no">1475</span><span id="line-1475">    /**</span>
-<span class="source-line-no">1476</span><span id="line-1476">     * Get the "{@literal Property}".</span>
-<span class="source-line-no">1477</span><span id="line-1477">     *</span>
-<span class="source-line-no">1478</span><span id="line-1478">     * &lt;p&gt;</span>
-<span class="source-line-no">1479</span><span id="line-1479">     * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
-<span class="source-line-no">1480</span><span id="line-1480">     *</span>
-<span class="source-line-no">1481</span><span id="line-1481">     * @return the prop value</span>
-<span class="source-line-no">1482</span><span id="line-1482">     */</span>
-<span class="source-line-no">1483</span><span id="line-1483">    @NonNull</span>
-<span class="source-line-no">1484</span><span id="line-1484">    public List&lt;Property&gt; getProps() {</span>
-<span class="source-line-no">1485</span><span id="line-1485">      if (_props == null) {</span>
-<span class="source-line-no">1486</span><span id="line-1486">        _props = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1487</span><span id="line-1487">      }</span>
-<span class="source-line-no">1488</span><span id="line-1488">      return ObjectUtils.notNull(_props);</span>
-<span class="source-line-no">1489</span><span id="line-1489">    }</span>
-<span class="source-line-no">1490</span><span id="line-1490"></span>
-<span class="source-line-no">1491</span><span id="line-1491">    /**</span>
-<span class="source-line-no">1492</span><span id="line-1492">     * Set the "{@literal Property}".</span>
-<span class="source-line-no">1493</span><span id="line-1493">     *</span>
-<span class="source-line-no">1494</span><span id="line-1494">     * &lt;p&gt;</span>
-<span class="source-line-no">1495</span><span id="line-1495">     * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
-<span class="source-line-no">1496</span><span id="line-1496">     *</span>
-<span class="source-line-no">1497</span><span id="line-1497">     * @param value</span>
-<span class="source-line-no">1498</span><span id="line-1498">     *           the prop value to set</span>
-<span class="source-line-no">1499</span><span id="line-1499">     */</span>
-<span class="source-line-no">1500</span><span id="line-1500">    public void setProps(@NonNull List&lt;Property&gt; value) {</span>
-<span class="source-line-no">1501</span><span id="line-1501">      _props = value;</span>
-<span class="source-line-no">1502</span><span id="line-1502">    }</span>
-<span class="source-line-no">1503</span><span id="line-1503"></span>
-<span class="source-line-no">1504</span><span id="line-1504">    /**</span>
-<span class="source-line-no">1505</span><span id="line-1505">     * Add a new {@link Property} item to the underlying collection.</span>
-<span class="source-line-no">1506</span><span id="line-1506">     * @param item the item to add</span>
-<span class="source-line-no">1507</span><span id="line-1507">     * @return {@code true}</span>
-<span class="source-line-no">1508</span><span id="line-1508">     */</span>
-<span class="source-line-no">1509</span><span id="line-1509">    public boolean addProp(Property item) {</span>
-<span class="source-line-no">1510</span><span id="line-1510">      Property value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1511</span><span id="line-1511">      if (_props == null) {</span>
-<span class="source-line-no">1512</span><span id="line-1512">        _props = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1513</span><span id="line-1513">      }</span>
-<span class="source-line-no">1514</span><span id="line-1514">      return _props.add(value);</span>
-<span class="source-line-no">1515</span><span id="line-1515">    }</span>
-<span class="source-line-no">1516</span><span id="line-1516"></span>
-<span class="source-line-no">1517</span><span id="line-1517">    /**</span>
-<span class="source-line-no">1518</span><span id="line-1518">     * Remove the first matching {@link Property} item from the underlying collection.</span>
-<span class="source-line-no">1519</span><span id="line-1519">     * @param item the item to remove</span>
-<span class="source-line-no">1520</span><span id="line-1520">     * @return {@code true} if the item was removed or {@code false} otherwise</span>
-<span class="source-line-no">1521</span><span id="line-1521">     */</span>
-<span class="source-line-no">1522</span><span id="line-1522">    public boolean removeProp(Property item) {</span>
-<span class="source-line-no">1523</span><span id="line-1523">      Property value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1524</span><span id="line-1524">      return _props != null &amp;&amp; _props.remove(value);</span>
-<span class="source-line-no">1525</span><span id="line-1525">    }</span>
+<span class="source-line-no">1467</span><span id="line-1467">     */</span>
+<span class="source-line-no">1468</span><span id="line-1468">    @BoundFlag(</span>
+<span class="source-line-no">1469</span><span id="line-1469">        formalName = "Activity Universally Unique Identifier Reference",</span>
+<span class="source-line-no">1470</span><span id="line-1470">        description = "A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented) identifier reference to an activity defined in the list of activities.",</span>
+<span class="source-line-no">1471</span><span id="line-1471">        name = "activity-uuid",</span>
+<span class="source-line-no">1472</span><span id="line-1472">        required = true,</span>
+<span class="source-line-no">1473</span><span id="line-1473">        typeAdapter = UuidAdapter.class</span>
+<span class="source-line-no">1474</span><span id="line-1474">    )</span>
+<span class="source-line-no">1475</span><span id="line-1475">    private UUID _activityUuid;</span>
+<span class="source-line-no">1476</span><span id="line-1476"></span>
+<span class="source-line-no">1477</span><span id="line-1477">    /**</span>
+<span class="source-line-no">1478</span><span id="line-1478">     * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
+<span class="source-line-no">1479</span><span id="line-1479">     */</span>
+<span class="source-line-no">1480</span><span id="line-1480">    @BoundAssembly(</span>
+<span class="source-line-no">1481</span><span id="line-1481">        formalName = "Property",</span>
+<span class="source-line-no">1482</span><span id="line-1482">        description = "An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.",</span>
+<span class="source-line-no">1483</span><span id="line-1483">        useName = "prop",</span>
+<span class="source-line-no">1484</span><span id="line-1484">        maxOccurs = -1,</span>
+<span class="source-line-no">1485</span><span id="line-1485">        groupAs = @GroupAs(name = "props", inJson = JsonGroupAsBehavior.LIST)</span>
+<span class="source-line-no">1486</span><span id="line-1486">    )</span>
+<span class="source-line-no">1487</span><span id="line-1487">    private List&lt;Property&gt; _props;</span>
+<span class="source-line-no">1488</span><span id="line-1488"></span>
+<span class="source-line-no">1489</span><span id="line-1489">    /**</span>
+<span class="source-line-no">1490</span><span id="line-1490">     * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
+<span class="source-line-no">1491</span><span id="line-1491">     */</span>
+<span class="source-line-no">1492</span><span id="line-1492">    @BoundAssembly(</span>
+<span class="source-line-no">1493</span><span id="line-1493">        formalName = "Link",</span>
+<span class="source-line-no">1494</span><span id="line-1494">        description = "A reference to a local or remote resource, that has a specific relation to the containing object.",</span>
+<span class="source-line-no">1495</span><span id="line-1495">        useName = "link",</span>
+<span class="source-line-no">1496</span><span id="line-1496">        maxOccurs = -1,</span>
+<span class="source-line-no">1497</span><span id="line-1497">        groupAs = @GroupAs(name = "links", inJson = JsonGroupAsBehavior.LIST)</span>
+<span class="source-line-no">1498</span><span id="line-1498">    )</span>
+<span class="source-line-no">1499</span><span id="line-1499">    private List&lt;Link&gt; _links;</span>
+<span class="source-line-no">1500</span><span id="line-1500"></span>
+<span class="source-line-no">1501</span><span id="line-1501">    /**</span>
+<span class="source-line-no">1502</span><span id="line-1502">     * A reference to a role with responsibility for performing a function relative to the containing object, optionally associated with a set of persons and/or organizations that perform that role.</span>
+<span class="source-line-no">1503</span><span id="line-1503">     */</span>
+<span class="source-line-no">1504</span><span id="line-1504">    @BoundAssembly(</span>
+<span class="source-line-no">1505</span><span id="line-1505">        formalName = "Responsible Role",</span>
+<span class="source-line-no">1506</span><span id="line-1506">        description = "A reference to a role with responsibility for performing a function relative to the containing object, optionally associated with a set of persons and/or organizations that perform that role.",</span>
+<span class="source-line-no">1507</span><span id="line-1507">        useName = "responsible-role",</span>
+<span class="source-line-no">1508</span><span id="line-1508">        remarks = "Identifies the person or organization responsible for performing a specific role defined by the activity.",</span>
+<span class="source-line-no">1509</span><span id="line-1509">        maxOccurs = -1,</span>
+<span class="source-line-no">1510</span><span id="line-1510">        groupAs = @GroupAs(name = "responsible-roles", inJson = JsonGroupAsBehavior.LIST)</span>
+<span class="source-line-no">1511</span><span id="line-1511">    )</span>
+<span class="source-line-no">1512</span><span id="line-1512">    private List&lt;ResponsibleRole&gt; _responsibleRoles;</span>
+<span class="source-line-no">1513</span><span id="line-1513"></span>
+<span class="source-line-no">1514</span><span id="line-1514">    /**</span>
+<span class="source-line-no">1515</span><span id="line-1515">     * Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies a planned assessment subject. In the assessment results this is an actual assessment subject, and reflects any changes from the plan. exactly what will be the focus of this assessment. Any subjects not identified in this way are out-of-scope.</span>
+<span class="source-line-no">1516</span><span id="line-1516">     */</span>
+<span class="source-line-no">1517</span><span id="line-1517">    @BoundAssembly(</span>
+<span class="source-line-no">1518</span><span id="line-1518">        formalName = "Subject of Assessment",</span>
+<span class="source-line-no">1519</span><span id="line-1519">        description = "Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies a planned assessment subject. In the assessment results this is an actual assessment subject, and reflects any changes from the plan. exactly what will be the focus of this assessment. Any subjects not identified in this way are out-of-scope.",</span>
+<span class="source-line-no">1520</span><span id="line-1520">        useName = "subject",</span>
+<span class="source-line-no">1521</span><span id="line-1521">        minOccurs = 1,</span>
+<span class="source-line-no">1522</span><span id="line-1522">        maxOccurs = -1,</span>
+<span class="source-line-no">1523</span><span id="line-1523">        groupAs = @GroupAs(name = "subjects", inJson = JsonGroupAsBehavior.LIST)</span>
+<span class="source-line-no">1524</span><span id="line-1524">    )</span>
+<span class="source-line-no">1525</span><span id="line-1525">    private List&lt;AssessmentSubject&gt; _subjects;</span>
 <span class="source-line-no">1526</span><span id="line-1526"></span>
 <span class="source-line-no">1527</span><span id="line-1527">    /**</span>
-<span class="source-line-no">1528</span><span id="line-1528">     * Get the "{@literal Link}".</span>
-<span class="source-line-no">1529</span><span id="line-1529">     *</span>
-<span class="source-line-no">1530</span><span id="line-1530">     * &lt;p&gt;</span>
-<span class="source-line-no">1531</span><span id="line-1531">     * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
-<span class="source-line-no">1532</span><span id="line-1532">     *</span>
-<span class="source-line-no">1533</span><span id="line-1533">     * @return the link value</span>
-<span class="source-line-no">1534</span><span id="line-1534">     */</span>
-<span class="source-line-no">1535</span><span id="line-1535">    @NonNull</span>
-<span class="source-line-no">1536</span><span id="line-1536">    public List&lt;Link&gt; getLinks() {</span>
-<span class="source-line-no">1537</span><span id="line-1537">      if (_links == null) {</span>
-<span class="source-line-no">1538</span><span id="line-1538">        _links = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1539</span><span id="line-1539">      }</span>
-<span class="source-line-no">1540</span><span id="line-1540">      return ObjectUtils.notNull(_links);</span>
-<span class="source-line-no">1541</span><span id="line-1541">    }</span>
-<span class="source-line-no">1542</span><span id="line-1542"></span>
-<span class="source-line-no">1543</span><span id="line-1543">    /**</span>
-<span class="source-line-no">1544</span><span id="line-1544">     * Set the "{@literal Link}".</span>
-<span class="source-line-no">1545</span><span id="line-1545">     *</span>
-<span class="source-line-no">1546</span><span id="line-1546">     * &lt;p&gt;</span>
-<span class="source-line-no">1547</span><span id="line-1547">     * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
-<span class="source-line-no">1548</span><span id="line-1548">     *</span>
-<span class="source-line-no">1549</span><span id="line-1549">     * @param value</span>
-<span class="source-line-no">1550</span><span id="line-1550">     *           the link value to set</span>
-<span class="source-line-no">1551</span><span id="line-1551">     */</span>
-<span class="source-line-no">1552</span><span id="line-1552">    public void setLinks(@NonNull List&lt;Link&gt; value) {</span>
-<span class="source-line-no">1553</span><span id="line-1553">      _links = value;</span>
-<span class="source-line-no">1554</span><span id="line-1554">    }</span>
-<span class="source-line-no">1555</span><span id="line-1555"></span>
-<span class="source-line-no">1556</span><span id="line-1556">    /**</span>
-<span class="source-line-no">1557</span><span id="line-1557">     * Add a new {@link Link} item to the underlying collection.</span>
-<span class="source-line-no">1558</span><span id="line-1558">     * @param item the item to add</span>
-<span class="source-line-no">1559</span><span id="line-1559">     * @return {@code true}</span>
-<span class="source-line-no">1560</span><span id="line-1560">     */</span>
-<span class="source-line-no">1561</span><span id="line-1561">    public boolean addLink(Link item) {</span>
-<span class="source-line-no">1562</span><span id="line-1562">      Link value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1563</span><span id="line-1563">      if (_links == null) {</span>
-<span class="source-line-no">1564</span><span id="line-1564">        _links = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1565</span><span id="line-1565">      }</span>
-<span class="source-line-no">1566</span><span id="line-1566">      return _links.add(value);</span>
-<span class="source-line-no">1567</span><span id="line-1567">    }</span>
-<span class="source-line-no">1568</span><span id="line-1568"></span>
-<span class="source-line-no">1569</span><span id="line-1569">    /**</span>
-<span class="source-line-no">1570</span><span id="line-1570">     * Remove the first matching {@link Link} item from the underlying collection.</span>
-<span class="source-line-no">1571</span><span id="line-1571">     * @param item the item to remove</span>
-<span class="source-line-no">1572</span><span id="line-1572">     * @return {@code true} if the item was removed or {@code false} otherwise</span>
-<span class="source-line-no">1573</span><span id="line-1573">     */</span>
-<span class="source-line-no">1574</span><span id="line-1574">    public boolean removeLink(Link item) {</span>
-<span class="source-line-no">1575</span><span id="line-1575">      Link value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1576</span><span id="line-1576">      return _links != null &amp;&amp; _links.remove(value);</span>
-<span class="source-line-no">1577</span><span id="line-1577">    }</span>
-<span class="source-line-no">1578</span><span id="line-1578"></span>
-<span class="source-line-no">1579</span><span id="line-1579">    /**</span>
-<span class="source-line-no">1580</span><span id="line-1580">     * Get the "{@literal Responsible Role}".</span>
-<span class="source-line-no">1581</span><span id="line-1581">     *</span>
-<span class="source-line-no">1582</span><span id="line-1582">     * &lt;p&gt;</span>
-<span class="source-line-no">1583</span><span id="line-1583">     * A reference to a role with responsibility for performing a function relative to the containing object, optionally associated with a set of persons and/or organizations that perform that role.</span>
-<span class="source-line-no">1584</span><span id="line-1584">     *</span>
-<span class="source-line-no">1585</span><span id="line-1585">     * @return the responsible-role value</span>
-<span class="source-line-no">1586</span><span id="line-1586">     */</span>
-<span class="source-line-no">1587</span><span id="line-1587">    @NonNull</span>
-<span class="source-line-no">1588</span><span id="line-1588">    public List&lt;ResponsibleRole&gt; getResponsibleRoles() {</span>
-<span class="source-line-no">1589</span><span id="line-1589">      if (_responsibleRoles == null) {</span>
-<span class="source-line-no">1590</span><span id="line-1590">        _responsibleRoles = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1591</span><span id="line-1591">      }</span>
-<span class="source-line-no">1592</span><span id="line-1592">      return ObjectUtils.notNull(_responsibleRoles);</span>
-<span class="source-line-no">1593</span><span id="line-1593">    }</span>
-<span class="source-line-no">1594</span><span id="line-1594"></span>
-<span class="source-line-no">1595</span><span id="line-1595">    /**</span>
-<span class="source-line-no">1596</span><span id="line-1596">     * Set the "{@literal Responsible Role}".</span>
-<span class="source-line-no">1597</span><span id="line-1597">     *</span>
-<span class="source-line-no">1598</span><span id="line-1598">     * &lt;p&gt;</span>
-<span class="source-line-no">1599</span><span id="line-1599">     * A reference to a role with responsibility for performing a function relative to the containing object, optionally associated with a set of persons and/or organizations that perform that role.</span>
-<span class="source-line-no">1600</span><span id="line-1600">     *</span>
-<span class="source-line-no">1601</span><span id="line-1601">     * @param value</span>
-<span class="source-line-no">1602</span><span id="line-1602">     *           the responsible-role value to set</span>
-<span class="source-line-no">1603</span><span id="line-1603">     */</span>
-<span class="source-line-no">1604</span><span id="line-1604">    public void setResponsibleRoles(@NonNull List&lt;ResponsibleRole&gt; value) {</span>
-<span class="source-line-no">1605</span><span id="line-1605">      _responsibleRoles = value;</span>
-<span class="source-line-no">1606</span><span id="line-1606">    }</span>
-<span class="source-line-no">1607</span><span id="line-1607"></span>
-<span class="source-line-no">1608</span><span id="line-1608">    /**</span>
-<span class="source-line-no">1609</span><span id="line-1609">     * Add a new {@link ResponsibleRole} item to the underlying collection.</span>
-<span class="source-line-no">1610</span><span id="line-1610">     * @param item the item to add</span>
-<span class="source-line-no">1611</span><span id="line-1611">     * @return {@code true}</span>
-<span class="source-line-no">1612</span><span id="line-1612">     */</span>
-<span class="source-line-no">1613</span><span id="line-1613">    public boolean addResponsibleRole(ResponsibleRole item) {</span>
-<span class="source-line-no">1614</span><span id="line-1614">      ResponsibleRole value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1615</span><span id="line-1615">      if (_responsibleRoles == null) {</span>
-<span class="source-line-no">1616</span><span id="line-1616">        _responsibleRoles = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1617</span><span id="line-1617">      }</span>
-<span class="source-line-no">1618</span><span id="line-1618">      return _responsibleRoles.add(value);</span>
-<span class="source-line-no">1619</span><span id="line-1619">    }</span>
-<span class="source-line-no">1620</span><span id="line-1620"></span>
-<span class="source-line-no">1621</span><span id="line-1621">    /**</span>
-<span class="source-line-no">1622</span><span id="line-1622">     * Remove the first matching {@link ResponsibleRole} item from the underlying collection.</span>
-<span class="source-line-no">1623</span><span id="line-1623">     * @param item the item to remove</span>
-<span class="source-line-no">1624</span><span id="line-1624">     * @return {@code true} if the item was removed or {@code false} otherwise</span>
-<span class="source-line-no">1625</span><span id="line-1625">     */</span>
-<span class="source-line-no">1626</span><span id="line-1626">    public boolean removeResponsibleRole(ResponsibleRole item) {</span>
-<span class="source-line-no">1627</span><span id="line-1627">      ResponsibleRole value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1628</span><span id="line-1628">      return _responsibleRoles != null &amp;&amp; _responsibleRoles.remove(value);</span>
-<span class="source-line-no">1629</span><span id="line-1629">    }</span>
-<span class="source-line-no">1630</span><span id="line-1630"></span>
-<span class="source-line-no">1631</span><span id="line-1631">    /**</span>
-<span class="source-line-no">1632</span><span id="line-1632">     * Get the "{@literal Subject of Assessment}".</span>
-<span class="source-line-no">1633</span><span id="line-1633">     *</span>
-<span class="source-line-no">1634</span><span id="line-1634">     * &lt;p&gt;</span>
-<span class="source-line-no">1635</span><span id="line-1635">     * Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies a planned assessment subject. In the assessment results this is an actual assessment subject, and reflects any changes from the plan. exactly what will be the focus of this assessment. Any subjects not identified in this way are out-of-scope.</span>
-<span class="source-line-no">1636</span><span id="line-1636">     *</span>
-<span class="source-line-no">1637</span><span id="line-1637">     * @return the subject value</span>
-<span class="source-line-no">1638</span><span id="line-1638">     */</span>
-<span class="source-line-no">1639</span><span id="line-1639">    @NonNull</span>
-<span class="source-line-no">1640</span><span id="line-1640">    public List&lt;AssessmentSubject&gt; getSubjects() {</span>
-<span class="source-line-no">1641</span><span id="line-1641">      if (_subjects == null) {</span>
-<span class="source-line-no">1642</span><span id="line-1642">        _subjects = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1643</span><span id="line-1643">      }</span>
-<span class="source-line-no">1644</span><span id="line-1644">      return ObjectUtils.notNull(_subjects);</span>
-<span class="source-line-no">1645</span><span id="line-1645">    }</span>
-<span class="source-line-no">1646</span><span id="line-1646"></span>
-<span class="source-line-no">1647</span><span id="line-1647">    /**</span>
-<span class="source-line-no">1648</span><span id="line-1648">     * Set the "{@literal Subject of Assessment}".</span>
-<span class="source-line-no">1649</span><span id="line-1649">     *</span>
-<span class="source-line-no">1650</span><span id="line-1650">     * &lt;p&gt;</span>
-<span class="source-line-no">1651</span><span id="line-1651">     * Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies a planned assessment subject. In the assessment results this is an actual assessment subject, and reflects any changes from the plan. exactly what will be the focus of this assessment. Any subjects not identified in this way are out-of-scope.</span>
-<span class="source-line-no">1652</span><span id="line-1652">     *</span>
-<span class="source-line-no">1653</span><span id="line-1653">     * @param value</span>
-<span class="source-line-no">1654</span><span id="line-1654">     *           the subject value to set</span>
-<span class="source-line-no">1655</span><span id="line-1655">     */</span>
-<span class="source-line-no">1656</span><span id="line-1656">    public void setSubjects(@NonNull List&lt;AssessmentSubject&gt; value) {</span>
-<span class="source-line-no">1657</span><span id="line-1657">      _subjects = value;</span>
-<span class="source-line-no">1658</span><span id="line-1658">    }</span>
-<span class="source-line-no">1659</span><span id="line-1659"></span>
-<span class="source-line-no">1660</span><span id="line-1660">    /**</span>
-<span class="source-line-no">1661</span><span id="line-1661">     * Add a new {@link AssessmentSubject} item to the underlying collection.</span>
-<span class="source-line-no">1662</span><span id="line-1662">     * @param item the item to add</span>
-<span class="source-line-no">1663</span><span id="line-1663">     * @return {@code true}</span>
-<span class="source-line-no">1664</span><span id="line-1664">     */</span>
-<span class="source-line-no">1665</span><span id="line-1665">    public boolean addSubject(AssessmentSubject item) {</span>
-<span class="source-line-no">1666</span><span id="line-1666">      AssessmentSubject value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1667</span><span id="line-1667">      if (_subjects == null) {</span>
-<span class="source-line-no">1668</span><span id="line-1668">        _subjects = new LinkedList&lt;&gt;();</span>
-<span class="source-line-no">1669</span><span id="line-1669">      }</span>
-<span class="source-line-no">1670</span><span id="line-1670">      return _subjects.add(value);</span>
-<span class="source-line-no">1671</span><span id="line-1671">    }</span>
-<span class="source-line-no">1672</span><span id="line-1672"></span>
-<span class="source-line-no">1673</span><span id="line-1673">    /**</span>
-<span class="source-line-no">1674</span><span id="line-1674">     * Remove the first matching {@link AssessmentSubject} item from the underlying collection.</span>
-<span class="source-line-no">1675</span><span id="line-1675">     * @param item the item to remove</span>
-<span class="source-line-no">1676</span><span id="line-1676">     * @return {@code true} if the item was removed or {@code false} otherwise</span>
-<span class="source-line-no">1677</span><span id="line-1677">     */</span>
-<span class="source-line-no">1678</span><span id="line-1678">    public boolean removeSubject(AssessmentSubject item) {</span>
-<span class="source-line-no">1679</span><span id="line-1679">      AssessmentSubject value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
-<span class="source-line-no">1680</span><span id="line-1680">      return _subjects != null &amp;&amp; _subjects.remove(value);</span>
-<span class="source-line-no">1681</span><span id="line-1681">    }</span>
-<span class="source-line-no">1682</span><span id="line-1682"></span>
-<span class="source-line-no">1683</span><span id="line-1683">    /**</span>
-<span class="source-line-no">1684</span><span id="line-1684">     * Get the "{@literal Remarks}".</span>
-<span class="source-line-no">1685</span><span id="line-1685">     *</span>
-<span class="source-line-no">1686</span><span id="line-1686">     * &lt;p&gt;</span>
-<span class="source-line-no">1687</span><span id="line-1687">     * Additional commentary about the containing object.</span>
-<span class="source-line-no">1688</span><span id="line-1688">     *</span>
-<span class="source-line-no">1689</span><span id="line-1689">     * @return the remarks value, or {@code null} if not set</span>
-<span class="source-line-no">1690</span><span id="line-1690">     */</span>
-<span class="source-line-no">1691</span><span id="line-1691">    @Nullable</span>
-<span class="source-line-no">1692</span><span id="line-1692">    public MarkupMultiline getRemarks() {</span>
-<span class="source-line-no">1693</span><span id="line-1693">      return _remarks;</span>
-<span class="source-line-no">1694</span><span id="line-1694">    }</span>
-<span class="source-line-no">1695</span><span id="line-1695"></span>
-<span class="source-line-no">1696</span><span id="line-1696">    /**</span>
-<span class="source-line-no">1697</span><span id="line-1697">     * Set the "{@literal Remarks}".</span>
-<span class="source-line-no">1698</span><span id="line-1698">     *</span>
-<span class="source-line-no">1699</span><span id="line-1699">     * &lt;p&gt;</span>
-<span class="source-line-no">1700</span><span id="line-1700">     * Additional commentary about the containing object.</span>
-<span class="source-line-no">1701</span><span id="line-1701">     *</span>
-<span class="source-line-no">1702</span><span id="line-1702">     * @param value</span>
-<span class="source-line-no">1703</span><span id="line-1703">     *           the remarks value to set, or {@code null} to clear</span>
-<span class="source-line-no">1704</span><span id="line-1704">     */</span>
-<span class="source-line-no">1705</span><span id="line-1705">    public void setRemarks(@Nullable MarkupMultiline value) {</span>
-<span class="source-line-no">1706</span><span id="line-1706">      _remarks = value;</span>
-<span class="source-line-no">1707</span><span id="line-1707">    }</span>
-<span class="source-line-no">1708</span><span id="line-1708"></span>
-<span class="source-line-no">1709</span><span id="line-1709">    @Override</span>
-<span class="source-line-no">1710</span><span id="line-1710">    public String toString() {</span>
-<span class="source-line-no">1711</span><span id="line-1711">      return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
-<span class="source-line-no">1712</span><span id="line-1712">    }</span>
-<span class="source-line-no">1713</span><span id="line-1713">  }</span>
-<span class="source-line-no">1714</span><span id="line-1714">}</span>
+<span class="source-line-no">1528</span><span id="line-1528">     * Additional commentary about the containing object.</span>
+<span class="source-line-no">1529</span><span id="line-1529">     */</span>
+<span class="source-line-no">1530</span><span id="line-1530">    @BoundField(</span>
+<span class="source-line-no">1531</span><span id="line-1531">        formalName = "Remarks",</span>
+<span class="source-line-no">1532</span><span id="line-1532">        description = "Additional commentary about the containing object.",</span>
+<span class="source-line-no">1533</span><span id="line-1533">        useName = "remarks",</span>
+<span class="source-line-no">1534</span><span id="line-1534">        typeAdapter = MarkupMultilineAdapter.class</span>
+<span class="source-line-no">1535</span><span id="line-1535">    )</span>
+<span class="source-line-no">1536</span><span id="line-1536">    private MarkupMultiline _remarks;</span>
+<span class="source-line-no">1537</span><span id="line-1537"></span>
+<span class="source-line-no">1538</span><span id="line-1538">    /**</span>
+<span class="source-line-no">1539</span><span id="line-1539">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.AssociatedActivity} instance with no metadata.</span>
+<span class="source-line-no">1540</span><span id="line-1540">     */</span>
+<span class="source-line-no">1541</span><span id="line-1541">    public AssociatedActivity() {</span>
+<span class="source-line-no">1542</span><span id="line-1542">      this(null);</span>
+<span class="source-line-no">1543</span><span id="line-1543">    }</span>
+<span class="source-line-no">1544</span><span id="line-1544"></span>
+<span class="source-line-no">1545</span><span id="line-1545">    /**</span>
+<span class="source-line-no">1546</span><span id="line-1546">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Task.AssociatedActivity} instance with the specified metadata.</span>
+<span class="source-line-no">1547</span><span id="line-1547">     *</span>
+<span class="source-line-no">1548</span><span id="line-1548">     * @param data</span>
+<span class="source-line-no">1549</span><span id="line-1549">     *           the metaschema data, or {@code null} if none</span>
+<span class="source-line-no">1550</span><span id="line-1550">     */</span>
+<span class="source-line-no">1551</span><span id="line-1551">    public AssociatedActivity(IMetaschemaData data) {</span>
+<span class="source-line-no">1552</span><span id="line-1552">      this.__metaschemaData = data;</span>
+<span class="source-line-no">1553</span><span id="line-1553">    }</span>
+<span class="source-line-no">1554</span><span id="line-1554"></span>
+<span class="source-line-no">1555</span><span id="line-1555">    @Override</span>
+<span class="source-line-no">1556</span><span id="line-1556">    public IMetaschemaData getMetaschemaData() {</span>
+<span class="source-line-no">1557</span><span id="line-1557">      return __metaschemaData;</span>
+<span class="source-line-no">1558</span><span id="line-1558">    }</span>
+<span class="source-line-no">1559</span><span id="line-1559"></span>
+<span class="source-line-no">1560</span><span id="line-1560">    /**</span>
+<span class="source-line-no">1561</span><span id="line-1561">     * Get the "{@literal Activity Universally Unique Identifier Reference}".</span>
+<span class="source-line-no">1562</span><span id="line-1562">     *</span>
+<span class="source-line-no">1563</span><span id="line-1563">     * &lt;p&gt;</span>
+<span class="source-line-no">1564</span><span id="line-1564">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to an activity defined in the list of activities.</span>
+<span class="source-line-no">1565</span><span id="line-1565">     *</span>
+<span class="source-line-no">1566</span><span id="line-1566">     * @return the activity-uuid value</span>
+<span class="source-line-no">1567</span><span id="line-1567">     */</span>
+<span class="source-line-no">1568</span><span id="line-1568">    @NonNull</span>
+<span class="source-line-no">1569</span><span id="line-1569">    public UUID getActivityUuid() {</span>
+<span class="source-line-no">1570</span><span id="line-1570">      return _activityUuid;</span>
+<span class="source-line-no">1571</span><span id="line-1571">    }</span>
+<span class="source-line-no">1572</span><span id="line-1572"></span>
+<span class="source-line-no">1573</span><span id="line-1573">    /**</span>
+<span class="source-line-no">1574</span><span id="line-1574">     * Set the "{@literal Activity Universally Unique Identifier Reference}".</span>
+<span class="source-line-no">1575</span><span id="line-1575">     *</span>
+<span class="source-line-no">1576</span><span id="line-1576">     * &lt;p&gt;</span>
+<span class="source-line-no">1577</span><span id="line-1577">     * A &lt;a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to an activity defined in the list of activities.</span>
+<span class="source-line-no">1578</span><span id="line-1578">     *</span>
+<span class="source-line-no">1579</span><span id="line-1579">     * @param value</span>
+<span class="source-line-no">1580</span><span id="line-1580">     *           the activity-uuid value to set</span>
+<span class="source-line-no">1581</span><span id="line-1581">     */</span>
+<span class="source-line-no">1582</span><span id="line-1582">    public void setActivityUuid(@NonNull UUID value) {</span>
+<span class="source-line-no">1583</span><span id="line-1583">      _activityUuid = value;</span>
+<span class="source-line-no">1584</span><span id="line-1584">    }</span>
+<span class="source-line-no">1585</span><span id="line-1585"></span>
+<span class="source-line-no">1586</span><span id="line-1586">    /**</span>
+<span class="source-line-no">1587</span><span id="line-1587">     * Get the "{@literal Property}".</span>
+<span class="source-line-no">1588</span><span id="line-1588">     *</span>
+<span class="source-line-no">1589</span><span id="line-1589">     * &lt;p&gt;</span>
+<span class="source-line-no">1590</span><span id="line-1590">     * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
+<span class="source-line-no">1591</span><span id="line-1591">     *</span>
+<span class="source-line-no">1592</span><span id="line-1592">     * @return the prop value</span>
+<span class="source-line-no">1593</span><span id="line-1593">     */</span>
+<span class="source-line-no">1594</span><span id="line-1594">    @NonNull</span>
+<span class="source-line-no">1595</span><span id="line-1595">    public List&lt;Property&gt; getProps() {</span>
+<span class="source-line-no">1596</span><span id="line-1596">      if (_props == null) {</span>
+<span class="source-line-no">1597</span><span id="line-1597">        _props = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1598</span><span id="line-1598">      }</span>
+<span class="source-line-no">1599</span><span id="line-1599">      return ObjectUtils.notNull(_props);</span>
+<span class="source-line-no">1600</span><span id="line-1600">    }</span>
+<span class="source-line-no">1601</span><span id="line-1601"></span>
+<span class="source-line-no">1602</span><span id="line-1602">    /**</span>
+<span class="source-line-no">1603</span><span id="line-1603">     * Set the "{@literal Property}".</span>
+<span class="source-line-no">1604</span><span id="line-1604">     *</span>
+<span class="source-line-no">1605</span><span id="line-1605">     * &lt;p&gt;</span>
+<span class="source-line-no">1606</span><span id="line-1606">     * An attribute, characteristic, or quality of the containing object expressed as a namespace qualified name/value pair.</span>
+<span class="source-line-no">1607</span><span id="line-1607">     *</span>
+<span class="source-line-no">1608</span><span id="line-1608">     * @param value</span>
+<span class="source-line-no">1609</span><span id="line-1609">     *           the prop value to set</span>
+<span class="source-line-no">1610</span><span id="line-1610">     */</span>
+<span class="source-line-no">1611</span><span id="line-1611">    public void setProps(@NonNull List&lt;Property&gt; value) {</span>
+<span class="source-line-no">1612</span><span id="line-1612">      _props = value;</span>
+<span class="source-line-no">1613</span><span id="line-1613">    }</span>
+<span class="source-line-no">1614</span><span id="line-1614"></span>
+<span class="source-line-no">1615</span><span id="line-1615">    /**</span>
+<span class="source-line-no">1616</span><span id="line-1616">     * Add a new {@link Property} item to the underlying collection.</span>
+<span class="source-line-no">1617</span><span id="line-1617">     * @param item the item to add</span>
+<span class="source-line-no">1618</span><span id="line-1618">     * @return {@code true}</span>
+<span class="source-line-no">1619</span><span id="line-1619">     */</span>
+<span class="source-line-no">1620</span><span id="line-1620">    public boolean addProp(Property item) {</span>
+<span class="source-line-no">1621</span><span id="line-1621">      Property value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1622</span><span id="line-1622">      if (_props == null) {</span>
+<span class="source-line-no">1623</span><span id="line-1623">        _props = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1624</span><span id="line-1624">      }</span>
+<span class="source-line-no">1625</span><span id="line-1625">      return _props.add(value);</span>
+<span class="source-line-no">1626</span><span id="line-1626">    }</span>
+<span class="source-line-no">1627</span><span id="line-1627"></span>
+<span class="source-line-no">1628</span><span id="line-1628">    /**</span>
+<span class="source-line-no">1629</span><span id="line-1629">     * Remove the first matching {@link Property} item from the underlying collection.</span>
+<span class="source-line-no">1630</span><span id="line-1630">     * @param item the item to remove</span>
+<span class="source-line-no">1631</span><span id="line-1631">     * @return {@code true} if the item was removed or {@code false} otherwise</span>
+<span class="source-line-no">1632</span><span id="line-1632">     */</span>
+<span class="source-line-no">1633</span><span id="line-1633">    public boolean removeProp(Property item) {</span>
+<span class="source-line-no">1634</span><span id="line-1634">      Property value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1635</span><span id="line-1635">      return _props != null &amp;&amp; _props.remove(value);</span>
+<span class="source-line-no">1636</span><span id="line-1636">    }</span>
+<span class="source-line-no">1637</span><span id="line-1637"></span>
+<span class="source-line-no">1638</span><span id="line-1638">    /**</span>
+<span class="source-line-no">1639</span><span id="line-1639">     * Get the "{@literal Link}".</span>
+<span class="source-line-no">1640</span><span id="line-1640">     *</span>
+<span class="source-line-no">1641</span><span id="line-1641">     * &lt;p&gt;</span>
+<span class="source-line-no">1642</span><span id="line-1642">     * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
+<span class="source-line-no">1643</span><span id="line-1643">     *</span>
+<span class="source-line-no">1644</span><span id="line-1644">     * @return the link value</span>
+<span class="source-line-no">1645</span><span id="line-1645">     */</span>
+<span class="source-line-no">1646</span><span id="line-1646">    @NonNull</span>
+<span class="source-line-no">1647</span><span id="line-1647">    public List&lt;Link&gt; getLinks() {</span>
+<span class="source-line-no">1648</span><span id="line-1648">      if (_links == null) {</span>
+<span class="source-line-no">1649</span><span id="line-1649">        _links = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1650</span><span id="line-1650">      }</span>
+<span class="source-line-no">1651</span><span id="line-1651">      return ObjectUtils.notNull(_links);</span>
+<span class="source-line-no">1652</span><span id="line-1652">    }</span>
+<span class="source-line-no">1653</span><span id="line-1653"></span>
+<span class="source-line-no">1654</span><span id="line-1654">    /**</span>
+<span class="source-line-no">1655</span><span id="line-1655">     * Set the "{@literal Link}".</span>
+<span class="source-line-no">1656</span><span id="line-1656">     *</span>
+<span class="source-line-no">1657</span><span id="line-1657">     * &lt;p&gt;</span>
+<span class="source-line-no">1658</span><span id="line-1658">     * A reference to a local or remote resource, that has a specific relation to the containing object.</span>
+<span class="source-line-no">1659</span><span id="line-1659">     *</span>
+<span class="source-line-no">1660</span><span id="line-1660">     * @param value</span>
+<span class="source-line-no">1661</span><span id="line-1661">     *           the link value to set</span>
+<span class="source-line-no">1662</span><span id="line-1662">     */</span>
+<span class="source-line-no">1663</span><span id="line-1663">    public void setLinks(@NonNull List&lt;Link&gt; value) {</span>
+<span class="source-line-no">1664</span><span id="line-1664">      _links = value;</span>
+<span class="source-line-no">1665</span><span id="line-1665">    }</span>
+<span class="source-line-no">1666</span><span id="line-1666"></span>
+<span class="source-line-no">1667</span><span id="line-1667">    /**</span>
+<span class="source-line-no">1668</span><span id="line-1668">     * Add a new {@link Link} item to the underlying collection.</span>
+<span class="source-line-no">1669</span><span id="line-1669">     * @param item the item to add</span>
+<span class="source-line-no">1670</span><span id="line-1670">     * @return {@code true}</span>
+<span class="source-line-no">1671</span><span id="line-1671">     */</span>
+<span class="source-line-no">1672</span><span id="line-1672">    public boolean addLink(Link item) {</span>
+<span class="source-line-no">1673</span><span id="line-1673">      Link value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1674</span><span id="line-1674">      if (_links == null) {</span>
+<span class="source-line-no">1675</span><span id="line-1675">        _links = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1676</span><span id="line-1676">      }</span>
+<span class="source-line-no">1677</span><span id="line-1677">      return _links.add(value);</span>
+<span class="source-line-no">1678</span><span id="line-1678">    }</span>
+<span class="source-line-no">1679</span><span id="line-1679"></span>
+<span class="source-line-no">1680</span><span id="line-1680">    /**</span>
+<span class="source-line-no">1681</span><span id="line-1681">     * Remove the first matching {@link Link} item from the underlying collection.</span>
+<span class="source-line-no">1682</span><span id="line-1682">     * @param item the item to remove</span>
+<span class="source-line-no">1683</span><span id="line-1683">     * @return {@code true} if the item was removed or {@code false} otherwise</span>
+<span class="source-line-no">1684</span><span id="line-1684">     */</span>
+<span class="source-line-no">1685</span><span id="line-1685">    public boolean removeLink(Link item) {</span>
+<span class="source-line-no">1686</span><span id="line-1686">      Link value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1687</span><span id="line-1687">      return _links != null &amp;&amp; _links.remove(value);</span>
+<span class="source-line-no">1688</span><span id="line-1688">    }</span>
+<span class="source-line-no">1689</span><span id="line-1689"></span>
+<span class="source-line-no">1690</span><span id="line-1690">    /**</span>
+<span class="source-line-no">1691</span><span id="line-1691">     * Get the "{@literal Responsible Role}".</span>
+<span class="source-line-no">1692</span><span id="line-1692">     *</span>
+<span class="source-line-no">1693</span><span id="line-1693">     * &lt;p&gt;</span>
+<span class="source-line-no">1694</span><span id="line-1694">     * A reference to a role with responsibility for performing a function relative to the containing object, optionally associated with a set of persons and/or organizations that perform that role.</span>
+<span class="source-line-no">1695</span><span id="line-1695">     *</span>
+<span class="source-line-no">1696</span><span id="line-1696">     * @return the responsible-role value</span>
+<span class="source-line-no">1697</span><span id="line-1697">     */</span>
+<span class="source-line-no">1698</span><span id="line-1698">    @NonNull</span>
+<span class="source-line-no">1699</span><span id="line-1699">    public List&lt;ResponsibleRole&gt; getResponsibleRoles() {</span>
+<span class="source-line-no">1700</span><span id="line-1700">      if (_responsibleRoles == null) {</span>
+<span class="source-line-no">1701</span><span id="line-1701">        _responsibleRoles = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1702</span><span id="line-1702">      }</span>
+<span class="source-line-no">1703</span><span id="line-1703">      return ObjectUtils.notNull(_responsibleRoles);</span>
+<span class="source-line-no">1704</span><span id="line-1704">    }</span>
+<span class="source-line-no">1705</span><span id="line-1705"></span>
+<span class="source-line-no">1706</span><span id="line-1706">    /**</span>
+<span class="source-line-no">1707</span><span id="line-1707">     * Set the "{@literal Responsible Role}".</span>
+<span class="source-line-no">1708</span><span id="line-1708">     *</span>
+<span class="source-line-no">1709</span><span id="line-1709">     * &lt;p&gt;</span>
+<span class="source-line-no">1710</span><span id="line-1710">     * A reference to a role with responsibility for performing a function relative to the containing object, optionally associated with a set of persons and/or organizations that perform that role.</span>
+<span class="source-line-no">1711</span><span id="line-1711">     *</span>
+<span class="source-line-no">1712</span><span id="line-1712">     * @param value</span>
+<span class="source-line-no">1713</span><span id="line-1713">     *           the responsible-role value to set</span>
+<span class="source-line-no">1714</span><span id="line-1714">     */</span>
+<span class="source-line-no">1715</span><span id="line-1715">    public void setResponsibleRoles(@NonNull List&lt;ResponsibleRole&gt; value) {</span>
+<span class="source-line-no">1716</span><span id="line-1716">      _responsibleRoles = value;</span>
+<span class="source-line-no">1717</span><span id="line-1717">    }</span>
+<span class="source-line-no">1718</span><span id="line-1718"></span>
+<span class="source-line-no">1719</span><span id="line-1719">    /**</span>
+<span class="source-line-no">1720</span><span id="line-1720">     * Add a new {@link ResponsibleRole} item to the underlying collection.</span>
+<span class="source-line-no">1721</span><span id="line-1721">     * @param item the item to add</span>
+<span class="source-line-no">1722</span><span id="line-1722">     * @return {@code true}</span>
+<span class="source-line-no">1723</span><span id="line-1723">     */</span>
+<span class="source-line-no">1724</span><span id="line-1724">    public boolean addResponsibleRole(ResponsibleRole item) {</span>
+<span class="source-line-no">1725</span><span id="line-1725">      ResponsibleRole value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1726</span><span id="line-1726">      if (_responsibleRoles == null) {</span>
+<span class="source-line-no">1727</span><span id="line-1727">        _responsibleRoles = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1728</span><span id="line-1728">      }</span>
+<span class="source-line-no">1729</span><span id="line-1729">      return _responsibleRoles.add(value);</span>
+<span class="source-line-no">1730</span><span id="line-1730">    }</span>
+<span class="source-line-no">1731</span><span id="line-1731"></span>
+<span class="source-line-no">1732</span><span id="line-1732">    /**</span>
+<span class="source-line-no">1733</span><span id="line-1733">     * Remove the first matching {@link ResponsibleRole} item from the underlying collection.</span>
+<span class="source-line-no">1734</span><span id="line-1734">     * @param item the item to remove</span>
+<span class="source-line-no">1735</span><span id="line-1735">     * @return {@code true} if the item was removed or {@code false} otherwise</span>
+<span class="source-line-no">1736</span><span id="line-1736">     */</span>
+<span class="source-line-no">1737</span><span id="line-1737">    public boolean removeResponsibleRole(ResponsibleRole item) {</span>
+<span class="source-line-no">1738</span><span id="line-1738">      ResponsibleRole value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1739</span><span id="line-1739">      return _responsibleRoles != null &amp;&amp; _responsibleRoles.remove(value);</span>
+<span class="source-line-no">1740</span><span id="line-1740">    }</span>
+<span class="source-line-no">1741</span><span id="line-1741"></span>
+<span class="source-line-no">1742</span><span id="line-1742">    /**</span>
+<span class="source-line-no">1743</span><span id="line-1743">     * Get the "{@literal Subject of Assessment}".</span>
+<span class="source-line-no">1744</span><span id="line-1744">     *</span>
+<span class="source-line-no">1745</span><span id="line-1745">     * &lt;p&gt;</span>
+<span class="source-line-no">1746</span><span id="line-1746">     * Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies a planned assessment subject. In the assessment results this is an actual assessment subject, and reflects any changes from the plan. exactly what will be the focus of this assessment. Any subjects not identified in this way are out-of-scope.</span>
+<span class="source-line-no">1747</span><span id="line-1747">     *</span>
+<span class="source-line-no">1748</span><span id="line-1748">     * @return the subject value</span>
+<span class="source-line-no">1749</span><span id="line-1749">     */</span>
+<span class="source-line-no">1750</span><span id="line-1750">    @NonNull</span>
+<span class="source-line-no">1751</span><span id="line-1751">    public List&lt;AssessmentSubject&gt; getSubjects() {</span>
+<span class="source-line-no">1752</span><span id="line-1752">      if (_subjects == null) {</span>
+<span class="source-line-no">1753</span><span id="line-1753">        _subjects = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1754</span><span id="line-1754">      }</span>
+<span class="source-line-no">1755</span><span id="line-1755">      return ObjectUtils.notNull(_subjects);</span>
+<span class="source-line-no">1756</span><span id="line-1756">    }</span>
+<span class="source-line-no">1757</span><span id="line-1757"></span>
+<span class="source-line-no">1758</span><span id="line-1758">    /**</span>
+<span class="source-line-no">1759</span><span id="line-1759">     * Set the "{@literal Subject of Assessment}".</span>
+<span class="source-line-no">1760</span><span id="line-1760">     *</span>
+<span class="source-line-no">1761</span><span id="line-1761">     * &lt;p&gt;</span>
+<span class="source-line-no">1762</span><span id="line-1762">     * Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies a planned assessment subject. In the assessment results this is an actual assessment subject, and reflects any changes from the plan. exactly what will be the focus of this assessment. Any subjects not identified in this way are out-of-scope.</span>
+<span class="source-line-no">1763</span><span id="line-1763">     *</span>
+<span class="source-line-no">1764</span><span id="line-1764">     * @param value</span>
+<span class="source-line-no">1765</span><span id="line-1765">     *           the subject value to set</span>
+<span class="source-line-no">1766</span><span id="line-1766">     */</span>
+<span class="source-line-no">1767</span><span id="line-1767">    public void setSubjects(@NonNull List&lt;AssessmentSubject&gt; value) {</span>
+<span class="source-line-no">1768</span><span id="line-1768">      _subjects = value;</span>
+<span class="source-line-no">1769</span><span id="line-1769">    }</span>
+<span class="source-line-no">1770</span><span id="line-1770"></span>
+<span class="source-line-no">1771</span><span id="line-1771">    /**</span>
+<span class="source-line-no">1772</span><span id="line-1772">     * Add a new {@link AssessmentSubject} item to the underlying collection.</span>
+<span class="source-line-no">1773</span><span id="line-1773">     * @param item the item to add</span>
+<span class="source-line-no">1774</span><span id="line-1774">     * @return {@code true}</span>
+<span class="source-line-no">1775</span><span id="line-1775">     */</span>
+<span class="source-line-no">1776</span><span id="line-1776">    public boolean addSubject(AssessmentSubject item) {</span>
+<span class="source-line-no">1777</span><span id="line-1777">      AssessmentSubject value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1778</span><span id="line-1778">      if (_subjects == null) {</span>
+<span class="source-line-no">1779</span><span id="line-1779">        _subjects = new LinkedList&lt;&gt;();</span>
+<span class="source-line-no">1780</span><span id="line-1780">      }</span>
+<span class="source-line-no">1781</span><span id="line-1781">      return _subjects.add(value);</span>
+<span class="source-line-no">1782</span><span id="line-1782">    }</span>
+<span class="source-line-no">1783</span><span id="line-1783"></span>
+<span class="source-line-no">1784</span><span id="line-1784">    /**</span>
+<span class="source-line-no">1785</span><span id="line-1785">     * Remove the first matching {@link AssessmentSubject} item from the underlying collection.</span>
+<span class="source-line-no">1786</span><span id="line-1786">     * @param item the item to remove</span>
+<span class="source-line-no">1787</span><span id="line-1787">     * @return {@code true} if the item was removed or {@code false} otherwise</span>
+<span class="source-line-no">1788</span><span id="line-1788">     */</span>
+<span class="source-line-no">1789</span><span id="line-1789">    public boolean removeSubject(AssessmentSubject item) {</span>
+<span class="source-line-no">1790</span><span id="line-1790">      AssessmentSubject value = ObjectUtils.requireNonNull(item,"item cannot be null");</span>
+<span class="source-line-no">1791</span><span id="line-1791">      return _subjects != null &amp;&amp; _subjects.remove(value);</span>
+<span class="source-line-no">1792</span><span id="line-1792">    }</span>
+<span class="source-line-no">1793</span><span id="line-1793"></span>
+<span class="source-line-no">1794</span><span id="line-1794">    /**</span>
+<span class="source-line-no">1795</span><span id="line-1795">     * Get the "{@literal Remarks}".</span>
+<span class="source-line-no">1796</span><span id="line-1796">     *</span>
+<span class="source-line-no">1797</span><span id="line-1797">     * &lt;p&gt;</span>
+<span class="source-line-no">1798</span><span id="line-1798">     * Additional commentary about the containing object.</span>
+<span class="source-line-no">1799</span><span id="line-1799">     *</span>
+<span class="source-line-no">1800</span><span id="line-1800">     * @return the remarks value, or {@code null} if not set</span>
+<span class="source-line-no">1801</span><span id="line-1801">     */</span>
+<span class="source-line-no">1802</span><span id="line-1802">    @Nullable</span>
+<span class="source-line-no">1803</span><span id="line-1803">    public MarkupMultiline getRemarks() {</span>
+<span class="source-line-no">1804</span><span id="line-1804">      return _remarks;</span>
+<span class="source-line-no">1805</span><span id="line-1805">    }</span>
+<span class="source-line-no">1806</span><span id="line-1806"></span>
+<span class="source-line-no">1807</span><span id="line-1807">    /**</span>
+<span class="source-line-no">1808</span><span id="line-1808">     * Set the "{@literal Remarks}".</span>
+<span class="source-line-no">1809</span><span id="line-1809">     *</span>
+<span class="source-line-no">1810</span><span id="line-1810">     * &lt;p&gt;</span>
+<span class="source-line-no">1811</span><span id="line-1811">     * Additional commentary about the containing object.</span>
+<span class="source-line-no">1812</span><span id="line-1812">     *</span>
+<span class="source-line-no">1813</span><span id="line-1813">     * @param value</span>
+<span class="source-line-no">1814</span><span id="line-1814">     *           the remarks value to set, or {@code null} to clear</span>
+<span class="source-line-no">1815</span><span id="line-1815">     */</span>
+<span class="source-line-no">1816</span><span id="line-1816">    public void setRemarks(@Nullable MarkupMultiline value) {</span>
+<span class="source-line-no">1817</span><span id="line-1817">      _remarks = value;</span>
+<span class="source-line-no">1818</span><span id="line-1818">    }</span>
+<span class="source-line-no">1819</span><span id="line-1819"></span>
+<span class="source-line-no">1820</span><span id="line-1820">    @Override</span>
+<span class="source-line-no">1821</span><span id="line-1821">    public String toString() {</span>
+<span class="source-line-no">1822</span><span id="line-1822">      return ObjectUtils.notNull(new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString());</span>
+<span class="source-line-no">1823</span><span id="line-1823">    }</span>
+<span class="source-line-no">1824</span><span id="line-1824">  }</span>
+<span class="source-line-no">1825</span><span id="line-1825">}</span>
 
 
 

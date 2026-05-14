@@ -222,11 +222,11 @@
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>   <strong class="jxr_keyword">private</strong> RiskLog _riskLog;
 <a class="jxr_linenumber" name="L215" href="#L215">215</a> 
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">   * Relates the finding to a set of referenced observations that were used to determine the finding.</em>
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">   * Relates the identified element to a set of referenced observations that were used to support its determination.</em>
 <a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>   @BoundAssembly(
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>       formalName = <span class="jxr_string">"Related Observation"</span>,
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>       description = <span class="jxr_string">"Relates the finding to a set of referenced observations that were used to determine the finding."</span>,
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>       description = <span class="jxr_string">"Relates the identified element to a set of referenced observations that were used to support its determination."</span>,
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>       useName = <span class="jxr_string">"related-observation"</span>,
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>       maxOccurs = -1,
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>       groupAs = @GroupAs(name = <span class="jxr_string">"related-observations"</span>, inJson = JsonGroupAsBehavior.LIST)
@@ -805,7 +805,7 @@
 <a class="jxr_linenumber" name="L797" href="#L797">797</a> <em class="jxr_javadoccomment">   * Get the "{@literal Related Observation}".</em>
 <a class="jxr_linenumber" name="L798" href="#L798">798</a> <em class="jxr_javadoccomment">   *</em>
 <a class="jxr_linenumber" name="L799" href="#L799">799</a> <em class="jxr_javadoccomment">   * &lt;p&gt;</em>
-<a class="jxr_linenumber" name="L800" href="#L800">800</a> <em class="jxr_javadoccomment">   * Relates the finding to a set of referenced observations that were used to determine the finding.</em>
+<a class="jxr_linenumber" name="L800" href="#L800">800</a> <em class="jxr_javadoccomment">   * Relates the identified element to a set of referenced observations that were used to support its determination.</em>
 <a class="jxr_linenumber" name="L801" href="#L801">801</a> <em class="jxr_javadoccomment">   *</em>
 <a class="jxr_linenumber" name="L802" href="#L802">802</a> <em class="jxr_javadoccomment">   * @return the related-observation value</em>
 <a class="jxr_linenumber" name="L803" href="#L803">803</a> <em class="jxr_javadoccomment">   */</em>
@@ -821,7 +821,7 @@
 <a class="jxr_linenumber" name="L813" href="#L813">813</a> <em class="jxr_javadoccomment">   * Set the "{@literal Related Observation}".</em>
 <a class="jxr_linenumber" name="L814" href="#L814">814</a> <em class="jxr_javadoccomment">   *</em>
 <a class="jxr_linenumber" name="L815" href="#L815">815</a> <em class="jxr_javadoccomment">   * &lt;p&gt;</em>
-<a class="jxr_linenumber" name="L816" href="#L816">816</a> <em class="jxr_javadoccomment">   * Relates the finding to a set of referenced observations that were used to determine the finding.</em>
+<a class="jxr_linenumber" name="L816" href="#L816">816</a> <em class="jxr_javadoccomment">   * Relates the identified element to a set of referenced observations that were used to support its determination.</em>
 <a class="jxr_linenumber" name="L817" href="#L817">817</a> <em class="jxr_javadoccomment">   *</em>
 <a class="jxr_linenumber" name="L818" href="#L818">818</a> <em class="jxr_javadoccomment">   * @param value</em>
 <a class="jxr_linenumber" name="L819" href="#L819">819</a> <em class="jxr_javadoccomment">   *           the related-observation value to set</em>
@@ -835,8 +835,8 @@
 <a class="jxr_linenumber" name="L827" href="#L827">827</a> <em class="jxr_javadoccomment">   * @param item the item to add</em>
 <a class="jxr_linenumber" name="L828" href="#L828">828</a> <em class="jxr_javadoccomment">   * @return {@code true}</em>
 <a class="jxr_linenumber" name="L829" href="#L829">829</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L830" href="#L830">830</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addRelatedObservation(RelatedObservation item) {
-<a class="jxr_linenumber" name="L831" href="#L831">831</a>     RelatedObservation value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
+<a class="jxr_linenumber" name="L830" href="#L830">830</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addRelatedObservation(<a name="RelatedObservation" href="../../../../../dev/metaschema/oscal/lib/model/RelatedObservation.html#RelatedObservation">RelatedObservation</a> item) {
+<a class="jxr_linenumber" name="L831" href="#L831">831</a>     <a name="RelatedObservation" href="../../../../../dev/metaschema/oscal/lib/model/RelatedObservation.html#RelatedObservation">RelatedObservation</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
 <a class="jxr_linenumber" name="L832" href="#L832">832</a>     <strong class="jxr_keyword">if</strong> (_relatedObservations == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L833" href="#L833">833</a>       _relatedObservations = <strong class="jxr_keyword">new</strong> LinkedList&lt;&gt;();
 <a class="jxr_linenumber" name="L834" href="#L834">834</a>     }
@@ -848,8 +848,8 @@
 <a class="jxr_linenumber" name="L840" href="#L840">840</a> <em class="jxr_javadoccomment">   * @param item the item to remove</em>
 <a class="jxr_linenumber" name="L841" href="#L841">841</a> <em class="jxr_javadoccomment">   * @return {@code true} if the item was removed or {@code false} otherwise</em>
 <a class="jxr_linenumber" name="L842" href="#L842">842</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L843" href="#L843">843</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeRelatedObservation(RelatedObservation item) {
-<a class="jxr_linenumber" name="L844" href="#L844">844</a>     RelatedObservation value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
+<a class="jxr_linenumber" name="L843" href="#L843">843</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeRelatedObservation(<a name="RelatedObservation" href="../../../../../dev/metaschema/oscal/lib/model/RelatedObservation.html#RelatedObservation">RelatedObservation</a> item) {
+<a class="jxr_linenumber" name="L844" href="#L844">844</a>     <a name="RelatedObservation" href="../../../../../dev/metaschema/oscal/lib/model/RelatedObservation.html#RelatedObservation">RelatedObservation</a> value = ObjectUtils.requireNonNull(item,<span class="jxr_string">"item cannot be null"</span>);
 <a class="jxr_linenumber" name="L845" href="#L845">845</a>     <strong class="jxr_keyword">return</strong> _relatedObservations != <strong class="jxr_keyword">null</strong> &amp;&amp; _relatedObservations.remove(value);
 <a class="jxr_linenumber" name="L846" href="#L846">846</a>   }
 <a class="jxr_linenumber" name="L847" href="#L847">847</a> 
@@ -2176,85 +2176,7 @@
 <a class="jxr_linenumber" name="L2168" href="#L2168">2168</a>       }
 <a class="jxr_linenumber" name="L2169" href="#L2169">2169</a>     }
 <a class="jxr_linenumber" name="L2170" href="#L2170">2170</a>   }
-<a class="jxr_linenumber" name="L2171" href="#L2171">2171</a> 
-<a class="jxr_linenumber" name="L2172" href="#L2172">2172</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2173" href="#L2173">2173</a> <em class="jxr_javadoccomment">   * Relates the finding to a set of referenced observations that were used to determine the finding.</em>
-<a class="jxr_linenumber" name="L2174" href="#L2174">2174</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L2175" href="#L2175">2175</a>   @MetaschemaAssembly(
-<a class="jxr_linenumber" name="L2176" href="#L2176">2176</a>       formalName = <span class="jxr_string">"Related Observation"</span>,
-<a class="jxr_linenumber" name="L2177" href="#L2177">2177</a>       description = <span class="jxr_string">"Relates the finding to a set of referenced observations that were used to determine the finding."</span>,
-<a class="jxr_linenumber" name="L2178" href="#L2178">2178</a>       name = <span class="jxr_string">"related-observation"</span>,
-<a class="jxr_linenumber" name="L2179" href="#L2179">2179</a>       moduleClass = OscalAssessmentCommonModule.<strong class="jxr_keyword">class</strong>
-<a class="jxr_linenumber" name="L2180" href="#L2180">2180</a>   )
-<a class="jxr_linenumber" name="L2181" href="#L2181">2181</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> RelatedObservation <strong class="jxr_keyword">implements</strong> IBoundObject {
-<a class="jxr_linenumber" name="L2182" href="#L2182">2182</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> IMetaschemaData __metaschemaData;
-<a class="jxr_linenumber" name="L2183" href="#L2183">2183</a> 
-<a class="jxr_linenumber" name="L2184" href="#L2184">2184</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2185" href="#L2185">2185</a> <em class="jxr_javadoccomment">     * A &lt;a href="<a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/" target="alexandria_uri">https://pages.nist.gov/OSCAL/concepts/identifier-use/</a>#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to an observation defined in the list of observations.</em>
-<a class="jxr_linenumber" name="L2186" href="#L2186">2186</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L2187" href="#L2187">2187</a>     @BoundFlag(
-<a class="jxr_linenumber" name="L2188" href="#L2188">2188</a>         formalName = <span class="jxr_string">"Observation Universally Unique Identifier Reference"</span>,
-<a class="jxr_linenumber" name="L2189" href="#L2189">2189</a>         description = <span class="jxr_string">"A [machine-oriented](https://pages.nist.gov/OSCAL/concepts/identifier-use/#machine-oriented) identifier reference to an observation defined in the list of observations."</span>,
-<a class="jxr_linenumber" name="L2190" href="#L2190">2190</a>         name = <span class="jxr_string">"observation-uuid"</span>,
-<a class="jxr_linenumber" name="L2191" href="#L2191">2191</a>         required = <strong class="jxr_keyword">true</strong>,
-<a class="jxr_linenumber" name="L2192" href="#L2192">2192</a>         typeAdapter = UuidAdapter.<strong class="jxr_keyword">class</strong>
-<a class="jxr_linenumber" name="L2193" href="#L2193">2193</a>     )
-<a class="jxr_linenumber" name="L2194" href="#L2194">2194</a>     <strong class="jxr_keyword">private</strong> UUID _observationUuid;
-<a class="jxr_linenumber" name="L2195" href="#L2195">2195</a> 
-<a class="jxr_linenumber" name="L2196" href="#L2196">2196</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2197" href="#L2197">2197</a> <em class="jxr_javadoccomment">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Risk.RelatedObservation} instance with no metadata.</em>
-<a class="jxr_linenumber" name="L2198" href="#L2198">2198</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L2199" href="#L2199">2199</a>     <strong class="jxr_keyword">public</strong> RelatedObservation() {
-<a class="jxr_linenumber" name="L2200" href="#L2200">2200</a>       <strong class="jxr_keyword">this</strong>(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L2201" href="#L2201">2201</a>     }
-<a class="jxr_linenumber" name="L2202" href="#L2202">2202</a> 
-<a class="jxr_linenumber" name="L2203" href="#L2203">2203</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2204" href="#L2204">2204</a> <em class="jxr_javadoccomment">     * Constructs a new {@code dev.metaschema.oscal.lib.model.Risk.RelatedObservation} instance with the specified metadata.</em>
-<a class="jxr_linenumber" name="L2205" href="#L2205">2205</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L2206" href="#L2206">2206</a> <em class="jxr_javadoccomment">     * @param data</em>
-<a class="jxr_linenumber" name="L2207" href="#L2207">2207</a> <em class="jxr_javadoccomment">     *           the metaschema data, or {@code null} if none</em>
-<a class="jxr_linenumber" name="L2208" href="#L2208">2208</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L2209" href="#L2209">2209</a>     <strong class="jxr_keyword">public</strong> RelatedObservation(IMetaschemaData data) {
-<a class="jxr_linenumber" name="L2210" href="#L2210">2210</a>       <strong class="jxr_keyword">this</strong>.__metaschemaData = data;
-<a class="jxr_linenumber" name="L2211" href="#L2211">2211</a>     }
-<a class="jxr_linenumber" name="L2212" href="#L2212">2212</a> 
-<a class="jxr_linenumber" name="L2213" href="#L2213">2213</a>     @Override
-<a class="jxr_linenumber" name="L2214" href="#L2214">2214</a>     <strong class="jxr_keyword">public</strong> IMetaschemaData getMetaschemaData() {
-<a class="jxr_linenumber" name="L2215" href="#L2215">2215</a>       <strong class="jxr_keyword">return</strong> __metaschemaData;
-<a class="jxr_linenumber" name="L2216" href="#L2216">2216</a>     }
-<a class="jxr_linenumber" name="L2217" href="#L2217">2217</a> 
-<a class="jxr_linenumber" name="L2218" href="#L2218">2218</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2219" href="#L2219">2219</a> <em class="jxr_javadoccomment">     * Get the "{@literal Observation Universally Unique Identifier Reference}".</em>
-<a class="jxr_linenumber" name="L2220" href="#L2220">2220</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L2221" href="#L2221">2221</a> <em class="jxr_javadoccomment">     * &lt;p&gt;</em>
-<a class="jxr_linenumber" name="L2222" href="#L2222">2222</a> <em class="jxr_javadoccomment">     * A &lt;a href="<a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/" target="alexandria_uri">https://pages.nist.gov/OSCAL/concepts/identifier-use/</a>#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to an observation defined in the list of observations.</em>
-<a class="jxr_linenumber" name="L2223" href="#L2223">2223</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L2224" href="#L2224">2224</a> <em class="jxr_javadoccomment">     * @return the observation-uuid value</em>
-<a class="jxr_linenumber" name="L2225" href="#L2225">2225</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L2226" href="#L2226">2226</a>     @NonNull
-<a class="jxr_linenumber" name="L2227" href="#L2227">2227</a>     <strong class="jxr_keyword">public</strong> UUID getObservationUuid() {
-<a class="jxr_linenumber" name="L2228" href="#L2228">2228</a>       <strong class="jxr_keyword">return</strong> _observationUuid;
-<a class="jxr_linenumber" name="L2229" href="#L2229">2229</a>     }
-<a class="jxr_linenumber" name="L2230" href="#L2230">2230</a> 
-<a class="jxr_linenumber" name="L2231" href="#L2231">2231</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2232" href="#L2232">2232</a> <em class="jxr_javadoccomment">     * Set the "{@literal Observation Universally Unique Identifier Reference}".</em>
-<a class="jxr_linenumber" name="L2233" href="#L2233">2233</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L2234" href="#L2234">2234</a> <em class="jxr_javadoccomment">     * &lt;p&gt;</em>
-<a class="jxr_linenumber" name="L2235" href="#L2235">2235</a> <em class="jxr_javadoccomment">     * A &lt;a href="<a href="https://pages.nist.gov/OSCAL/concepts/identifier-use/" target="alexandria_uri">https://pages.nist.gov/OSCAL/concepts/identifier-use/</a>#machine-oriented"&gt;machine-oriented&lt;/a&gt; identifier reference to an observation defined in the list of observations.</em>
-<a class="jxr_linenumber" name="L2236" href="#L2236">2236</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L2237" href="#L2237">2237</a> <em class="jxr_javadoccomment">     * @param value</em>
-<a class="jxr_linenumber" name="L2238" href="#L2238">2238</a> <em class="jxr_javadoccomment">     *           the observation-uuid value to set</em>
-<a class="jxr_linenumber" name="L2239" href="#L2239">2239</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L2240" href="#L2240">2240</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setObservationUuid(@NonNull UUID value) {
-<a class="jxr_linenumber" name="L2241" href="#L2241">2241</a>       _observationUuid = value;
-<a class="jxr_linenumber" name="L2242" href="#L2242">2242</a>     }
-<a class="jxr_linenumber" name="L2243" href="#L2243">2243</a> 
-<a class="jxr_linenumber" name="L2244" href="#L2244">2244</a>     @Override
-<a class="jxr_linenumber" name="L2245" href="#L2245">2245</a>     <strong class="jxr_keyword">public</strong> String toString() {
-<a class="jxr_linenumber" name="L2246" href="#L2246">2246</a>       <strong class="jxr_keyword">return</strong> ObjectUtils.notNull(<strong class="jxr_keyword">new</strong> ReflectionToStringBuilder(<strong class="jxr_keyword">this</strong>, ToStringStyle.MULTI_LINE_STYLE).toString());
-<a class="jxr_linenumber" name="L2247" href="#L2247">2247</a>     }
-<a class="jxr_linenumber" name="L2248" href="#L2248">2248</a>   }
-<a class="jxr_linenumber" name="L2249" href="#L2249">2249</a> }
+<a class="jxr_linenumber" name="L2171" href="#L2171">2171</a> }
 </pre>
 <hr/>
 <div id="footer">© 2026</div>

@@ -3,9 +3,7 @@ dev.metaschema.oscal.lib.metapath.function.library
 dev.metaschema.oscal.lib.model
 dev.metaschema.oscal.lib.model.control
 dev.metaschema.oscal.lib.model.control.catalog
-dev.metaschema.oscal.lib.model.control.profile
 dev.metaschema.oscal.lib.model.metadata
-dev.metaschema.oscal.lib.model.util
 dev.metaschema.oscal.lib.profile.resolver
 dev.metaschema.oscal.lib.profile.resolver.alter
 dev.metaschema.oscal.lib.profile.resolver.merge
