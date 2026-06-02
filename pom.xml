@@ -100,7 +100,7 @@
 		<dependency.lazy4j.version>2.0.4</dependency.lazy4j.version>
 		<dependency.log4j2.version>2.26.0</dependency.log4j2.version>
 		<dependency.saxon.version>12.9</dependency.saxon.version>
-		<dependency.xmlunit.version>2.11.0</dependency.xmlunit.version>
+		<dependency.xmlunit.version>2.12.0</dependency.xmlunit.version>
 
 		<plugin.cyclonedx.version>2.9.1</plugin.cyclonedx.version>
 
